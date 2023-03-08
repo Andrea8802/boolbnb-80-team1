@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'surname',
+        'text',
+        'email'
+    ];
+
+    public function apartment()
+    {
+        return $this->belongsTo(Apartment::class);
+    }
 }
