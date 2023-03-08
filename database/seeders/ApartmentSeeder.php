@@ -285,16 +285,57 @@ class ApartmentSeeder extends Seeder
             136,
         ];
 
+        $apartments = [];
 
+        for ($i = 0; $i < 30; $i++) {
+            $newApartment = [
+                'title' => $apartmentTitle[$i],
+                'description' => $apartmentDescr[$i],
+                'price' => $apartmentPrice[$i],
+                'rooms_num' => $apartmentRoom_num[$i],
+                'beds_num' => $apartmentBeds_num[$i],
+                'baths_num' => $apartmentBath_num[$i],
+                'size' => $apartmentSize[$i],
+                'address' => $apartmentAddress[$i],
+                'lat' => $apartmentLat[$i],
+                'long' => $apartmentLong[$i],
+            ];
+            array_push($apartments, $newApartment);
+        }
+        ;
+        foreach ($apartments as $apartment) {
+            Apartment::make([
+                'title' => $apartment['title'],
+                'description' => $apartment['description'],
+                'price' => $apartment['price'],
+                'rooms_num' => $apartment['rooms_num'],
+                'beds_num' => $apartment['beds_num'],
+                'baths_num' => $apartment['baths_num'],
+                'size' => $apartment['size'],
+                'address' => $apartment['address'],
+                'lat' => $apartment['lat'],
+                'long' => $apartment['long'],
+                'image' => asset('storage/app/public/avatar5.png'),
+                'visibility' => 1,
+            ])->each(function ($ap) {
+                $user = User::inRandomOrder()->first();
+                $ap->user()->associate($user);
+                $ap->save();
+                $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
+                $ap->services()->attach($services);
+                $sponsor = Sponsor::inRandomOrder()->first()->get();
+                $ap->sponsors()->attach($sponsor);
+            });
+        }
 
-        Apartment::factory()->count(20)->make()->each(function ($ap) {
-            $user = User::inRandomOrder()->first();
-            $ap->user()->associate($user);
-            $ap->save();
-            $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
-            $ap->services()->attach($services);
-            $sponsor = Sponsor::inRandomOrder()->first()->get();
-            $ap->sponsors()->attach($sponsor);
-        });
+        /* Apartment::factory()->count(20)->make()->each(function ($ap) {
+        $user = User::inRandomOrder()->first();
+        $ap->user()->associate($user);
+        $ap->save();
+        $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
+        $ap->services()->attach($services);
+        $sponsor = Sponsor::inRandomOrder()->first()->get();
+        $ap->sponsors()->attach($sponsor);
+        }); */
     }
 }
