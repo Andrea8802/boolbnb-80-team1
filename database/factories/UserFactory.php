@@ -18,13 +18,13 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->firstName(),
-            'surname' => fake()->lastName(),
-            'date_of_birth' => fake()->date(),
-            'email' => fake()->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-            'remember_token' => Str::random(10),
-            'description' => fake()->text(200),
+            // 'name' => fake()->firstName(),
+            // 'surname' => fake()->lastName(),
+            // 'date_of_birth' => fake()->date(),
+            // 'email' => fake()->unique()->safeEmail(),
+            // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            // 'remember_token' => Str::random(10),
+            // 'description' => fake()->text(200),
         ];
     }
 
