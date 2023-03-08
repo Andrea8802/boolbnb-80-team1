@@ -81,6 +81,62 @@ class UserSeeder extends Seeder
                 "password" => "MyS3cr3t",
                 "descrizione" => "Amante della natura e della fotografia."
             ),
+            array(
+                "nome" => "Chiara",
+                "cognome" => "Ferragni",
+                "data_di_nascita" => "1987-05-07",
+                "email" => "chiara.ferragni@example.com",
+                "password" => "MyS3cr3t",
+                "descrizione" => "Mi piace la moda e le belle case."
+            ),
+            array(
+                "nome" => "Shakira",
+                "cognome" => "Mebarak",
+                "data_di_nascita" => "1977-02-02",
+                "email" => "shakira.mebarak@example.com",
+                "password" => "MyS3cr3t",
+                "descrizione" => "Mi piace la twingo e gli orologi casio."
+            ),
+            array(
+                "nome" => "Massimo",
+                "cognome" => "Pezzali",
+                "data_di_nascita" => "1967-11-14",
+                "email" => "massimo.pezzali@example.com",
+                "password" => "MyS3cr3t",
+                "descrizione" => "Mi piace viaggiare da nord a sud e da est a ovest."
+            ),
+            array(
+                "nome" => "Leonardo",
+                "cognome" => "Da Vinci",
+                "data_di_nascita" => "1980-04-15",
+                "email" => "leonardo.davinci@example.com",
+                "password" => "MyS3cr3t",
+                "descrizione" => "Sono semplicemente un genio molto modesto."
+            ),
+            array(
+                "nome" => "Dante",
+                "cognome" => "Alighieri",
+                "data_di_nascita" => "1985-09-14",
+                "email" => "dante.alighieri@example.com",
+                "password" => "MyS3cr3t",
+                "descrizione" => "Amo la poesia e ho scritto anche delle mie opere"
+            ),
+            array(
+                "nome" => "Renato",
+                "cognome" => "Fiacchini",
+                "data_di_nascita" => "1950-09-30",
+                "email" => "renato.zero@example.com",
+                "password" => "MyS3cr3t",
+                "descrizione" => "Sono un catautore e ho anche doppiato il personaggio di un film di Tim Burton"
+            ),
+            array(
+                "nome" => "Roberto",
+                "cognome" => "Benigni",
+                "data_di_nascita" => "1952-10-27",
+                "email" => "roberto.benigni@example.com",
+                "password" => "MyS3cr3t",
+                "descrizione" => "Sono un attore e un grande simpaticone."
+            ),
         ];
 
         User::factory()->count(50)->create();
