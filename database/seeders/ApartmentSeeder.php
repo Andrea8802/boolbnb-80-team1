@@ -2,13 +2,18 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\Apartment;
+
+
 use App\Models\User;
+use App\Models\Statistic;
 use App\Models\Service;
 use App\Models\Sponsor;
+use App\Models\Apartment;
+
 
 class ApartmentSeeder extends Seeder
 {
@@ -321,6 +326,8 @@ class ApartmentSeeder extends Seeder
                 $user = User::inRandomOrder()->first();
                 $ap->user()->associate($user);
                 $ap->save();
+                /* $statistic = Statistic::inRandomOrder()->first()->get();
+                $ap->statistics()->attach($statistic); */
                 $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
                 $ap->services()->attach($services);
                 $sponsor = Sponsor::inRandomOrder()->first()->get();
