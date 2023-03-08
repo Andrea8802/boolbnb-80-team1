@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $userArray = [
+        $arrayUsers = [
             array(
                 "name" => "Marco",
                 "surname" => "Rossi",
@@ -139,6 +139,9 @@ class UserSeeder extends Seeder
             ),
         ];
 
-        User::factory()->count(50)->create();
+        // User::factory()->count(50)->create();
+        foreach ($arrayUsers as $user) {
+            User::create($user);
+        }
     }
 }
