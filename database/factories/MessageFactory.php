@@ -18,11 +18,11 @@ class MessageFactory extends Factory
     {
         return [
 
-            'name' => fake()->firstName(),
+            /* 'name' => fake()->firstName(),
             'surname' => fake()->lastName(),
             'text' => fake()->text(200),
             'email' => fake()->unique()->email(),
-
+            */
         ];
     }
 }
