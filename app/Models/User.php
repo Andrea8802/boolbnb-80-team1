@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -19,8 +20,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
+        'date_of_birth',
         'email',
         'password',
+        'description',
+        'avatar',
     ];
 
     /**
@@ -38,7 +43,11 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
+    public function apartments()
+    {
+        return $this->hasMany(Apartment::class);
+    }
 }

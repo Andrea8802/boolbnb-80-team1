@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class AddedImage extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'image'
+    ];
+    public function apartment()
+    {
+        return $this->belongsTo(Apartment::class);
+    }
 }
