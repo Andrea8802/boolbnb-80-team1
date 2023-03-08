@@ -18,124 +18,124 @@ class UserSeeder extends Seeder
     {
         $userArray = [
             array(
-                "nome" => "Marco",
-                "cognome" => "Rossi",
-                "data_di_nascita" => "1985-07-10",
+                "name" => "Marco",
+                "surname" => "Rossi",
+                "date_of_birth" => "1985-07-10",
                 "email" => "marco.rossi@example.com",
                 "password" => "P4ssw0rd!",
-                "descrizione" => "Appassionato di calcio e viaggi."
+                "description" => "Appassionato di calcio e viaggi."
             ),
             array(
-                "nome" => "Francesca",
-                "cognome" => "Verdi",
-                "data_di_nascita" => "1990-04-23",
+                "name" => "Francesca",
+                "surname" => "Verdi",
+                "date_of_birth" => "1990-04-23",
                 "email" => "francesca.verdi@example.com",
                 "password" => "S3cr3t!",
-                "descrizione" => "Amante dell'arte e della natura."
+                "description" => "Amante dell'arte e della natura."
             ),
             array(
-                "nome" => "Giovanni",
-                "cognome" => "Bianchi",
-                "data_di_nascita" => "1978-12-01",
+                "name" => "Giovanni",
+                "surname" => "Bianchi",
+                "date_of_birth" => "1978-12-01",
                 "email" => "giovanni.bianchi@example.com",
                 "password" => "P@ssword",
-                "descrizione" => "Fervente tifoso della squadra del cuore."
+                "description" => "Fervente tifoso della squadra del cuore."
             ),
             array(
-                "nome" => "Chiara",
-                "cognome" => "Neri",
-                "data_di_nascita" => "1989-06-15",
+                "name" => "Chiara",
+                "surname" => "Neri",
+                "date_of_birth" => "1989-06-15",
                 "email" => "chiara.neri@example.com",
                 "password" => "Passw0rd!",
-                "descrizione" => "Appassionata di cinema e musica."
+                "description" => "Appassionata di cinema e musica."
             ),
             array(
-                "nome" => "Alessandro",
-                "cognome" => "Marrone",
-                "data_di_nascita" => "1983-03-28",
+                "name" => "Alessandro",
+                "surname" => "Marrone",
+                "date_of_birth" => "1983-03-28",
                 "email" => "alessandro.marrone@example.com",
                 "password" => "Secret1",
-                "descrizione" => "Viaggiatore instancabile e buongustaio."
+                "description" => "Viaggiatore instancabile e buongustaio."
             ),
             array(
-                "nome" => "Martina",
-                "cognome" => "Russo",
-                "data_di_nascita" => "1995-09-07",
+                "name" => "Martina",
+                "surname" => "Russo",
+                "date_of_birth" => "1995-09-07",
                 "email" => "martina.russo@example.com",
                 "password" => "MyPassw0rd",
-                "descrizione" => "Sportiva appassionata di trekking e yoga."
+                "description" => "Sportiva appassionata di trekking e yoga."
             ),
             array(
-                "nome" => "Paolo",
-                "cognome" => "Romano",
-                "data_di_nascita" => "1975-11-12",
+                "name" => "Paolo",
+                "surname" => "Romano",
+                "date_of_birth" => "1975-11-12",
                 "email" => "paolo.romano@example.com",
                 "password" => "Passw0rd123",
-                "descrizione" => "Esperto di finanza e investimenti."
+                "description" => "Esperto di finanza e investimenti."
             ),
             array(
-                "nome" => "Simona",
-                "cognome" => "Ferrari",
-                "data_di_nascita" => "1991-02-18",
+                "name" => "Simona",
+                "surname" => "Ferrari",
+                "date_of_birth" => "1991-02-18",
                 "email" => "simona.ferrari@example.com",
                 "password" => "MyS3cr3t",
-                "descrizione" => "Amante della natura e della fotografia."
+                "description" => "Amante della natura e della fotografia."
             ),
             array(
-                "nome" => "Chiara",
-                "cognome" => "Ferragni",
-                "data_di_nascita" => "1987-05-07",
+                "name" => "Chiara",
+                "surname" => "Ferragni",
+                "date_of_birth" => "1987-05-07",
                 "email" => "chiara.ferragni@example.com",
                 "password" => "MyS3cr3t",
-                "descrizione" => "Mi piace la moda e le belle case."
+                "description" => "Mi piace la moda e le belle case."
             ),
             array(
-                "nome" => "Shakira",
-                "cognome" => "Mebarak",
-                "data_di_nascita" => "1977-02-02",
+                "name" => "Shakira",
+                "surname" => "Mebarak",
+                "date_of_birth" => "1977-02-02",
                 "email" => "shakira.mebarak@example.com",
                 "password" => "MyS3cr3t",
-                "descrizione" => "Mi piace la twingo e gli orologi casio."
+                "description" => "Mi piace la twingo e gli orologi casio."
             ),
             array(
-                "nome" => "Massimo",
-                "cognome" => "Pezzali",
-                "data_di_nascita" => "1967-11-14",
+                "name" => "Massimo",
+                "surname" => "Pezzali",
+                "date_of_birth" => "1967-11-14",
                 "email" => "massimo.pezzali@example.com",
                 "password" => "MyS3cr3t",
-                "descrizione" => "Mi piace viaggiare da nord a sud e da est a ovest."
+                "description" => "Mi piace viaggiare da nord a sud e da est a ovest."
             ),
             array(
-                "nome" => "Leonardo",
-                "cognome" => "Da Vinci",
-                "data_di_nascita" => "1980-04-15",
+                "name" => "Leonardo",
+                "surname" => "Da Vinci",
+                "date_of_birth" => "1980-04-15",
                 "email" => "leonardo.davinci@example.com",
                 "password" => "MyS3cr3t",
-                "descrizione" => "Sono semplicemente un genio molto modesto."
+                "description" => "Sono semplicemente un genio molto modesto."
             ),
             array(
-                "nome" => "Dante",
-                "cognome" => "Alighieri",
-                "data_di_nascita" => "1985-09-14",
+                "name" => "Dante",
+                "surname" => "Alighieri",
+                "date_of_birth" => "1985-09-14",
                 "email" => "dante.alighieri@example.com",
                 "password" => "MyS3cr3t",
-                "descrizione" => "Amo la poesia e ho scritto anche delle mie opere"
+                "description" => "Amo la poesia e ho scritto anche delle mie opere"
             ),
             array(
-                "nome" => "Renato",
-                "cognome" => "Fiacchini",
-                "data_di_nascita" => "1950-09-30",
+                "name" => "Renato",
+                "surname" => "Fiacchini",
+                "date_of_birth" => "1950-09-30",
                 "email" => "renato.zero@example.com",
                 "password" => "MyS3cr3t",
-                "descrizione" => "Sono un catautore e ho anche doppiato il personaggio di un film di Tim Burton"
+                "description" => "Sono un catautore e ho anche doppiato il personaggio di un film di Tim Burton"
             ),
             array(
-                "nome" => "Roberto",
-                "cognome" => "Benigni",
-                "data_di_nascita" => "1952-10-27",
+                "name" => "Roberto",
+                "surname" => "Benigni",
+                "date_of_birth" => "1952-10-27",
                 "email" => "roberto.benigni@example.com",
                 "password" => "MyS3cr3t",
-                "descrizione" => "Sono un attore e un grande simpaticone."
+                "description" => "Sono un attore e un grande simpaticone."
             ),
         ];
 
