@@ -20,74 +20,66 @@ class UserSeeder extends Seeder
             array(
                 "nome" => "Marco",
                 "cognome" => "Rossi",
-                "data_di_nascita" => "1990-03-15",
+                "data_di_nascita" => "1985-07-10",
                 "email" => "marco.rossi@example.com",
-                "password" => "qwe123",
-                "descrizione" => "Appassionato di calcio"
+                "password" => "P4ssw0rd!",
+                "descrizione" => "Appassionato di calcio e viaggi."
             ),
             array(
                 "nome" => "Francesca",
-                "cognome" => "Bianchi",
-                "data_di_nascita" => "1985-05-23",
-                "email" => "francesca.bianchi@example.com",
-                "password" => "asd456",
-                "descrizione" => "Amante della natura"
-            ),
-            array(
-                "nome" => "Luca",
                 "cognome" => "Verdi",
-                "data_di_nascita" => "1992-07-11",
-                "email" => "luca.verdi@example.com",
-                "password" => "zxc789",
-                "descrizione" => "Appassionato di cinema"
+                "data_di_nascita" => "1990-04-23",
+                "email" => "francesca.verdi@example.com",
+                "password" => "S3cr3t!",
+                "descrizione" => "Amante dell'arte e della natura."
             ),
             array(
-                "nome" => "Giulia",
+                "nome" => "Giovanni",
+                "cognome" => "Bianchi",
+                "data_di_nascita" => "1978-12-01",
+                "email" => "giovanni.bianchi@example.com",
+                "password" => "P@ssword",
+                "descrizione" => "Fervente tifoso della squadra del cuore."
+            ),
+            array(
+                "nome" => "Chiara",
                 "cognome" => "Neri",
-                "data_di_nascita" => "1988-09-02",
-                "email" => "giulia.neri@example.com",
-                "password" => "poi098",
-                "descrizione" => "Amante dei viaggi"
+                "data_di_nascita" => "1989-06-15",
+                "email" => "chiara.neri@example.com",
+                "password" => "Passw0rd!",
+                "descrizione" => "Appassionata di cinema e musica."
             ),
             array(
                 "nome" => "Alessandro",
-                "cognome" => "Russo",
-                "data_di_nascita" => "1995-01-07",
-                "email" => "alessandro.russo@example.com",
-                "password" => "mnb654",
-                "descrizione" => "Appassionato di musica"
+                "cognome" => "Marrone",
+                "data_di_nascita" => "1983-03-28",
+                "email" => "alessandro.marrone@example.com",
+                "password" => "Secret1",
+                "descrizione" => "Viaggiatore instancabile e buongustaio."
             ),
             array(
                 "nome" => "Martina",
-                "cognome" => "Ferrari",
-                "data_di_nascita" => "1998-04-09",
-                "email" => "martina.ferrari@example.com",
-                "password" => "lkj321",
-                "descrizione" => "Amante degli animali"
+                "cognome" => "Russo",
+                "data_di_nascita" => "1995-09-07",
+                "email" => "martina.russo@example.com",
+                "password" => "MyPassw0rd",
+                "descrizione" => "Sportiva appassionata di trekking e yoga."
             ),
             array(
-                "nome" => "Gabriele",
+                "nome" => "Paolo",
                 "cognome" => "Romano",
-                "data_di_nascita" => "1991-12-03",
-                "email" => "gabriele.romano@example.com",
-                "password" => "hgf543",
-                "descrizione" => "Appassionato di tecnologia"
+                "data_di_nascita" => "1975-11-12",
+                "email" => "paolo.romano@example.com",
+                "password" => "Passw0rd123",
+                "descrizione" => "Esperto di finanza e investimenti."
             ),
             array(
-                "nome" => "Sara",
-                "cognome" => "Gallo",
-                "data_di_nascita" => "1994-06-27",
-                "email" => "sara.gallo@example.com",
-                "password" => "fds987",
-                "descrizione" => "Amante della lettura"
-            ),
-            array(
-                "nome" => "Davide",
-                "cognome" => "Conti",
-                "data_di_nascita" => "1987-02-18",
-                "email" => "davide.conti@example.com",
-                "password" => "rty456",
-                "descrizione" => "Appassionato di cucina"
+                "nome" => "Simona",
+                "cognome" => "Ferrari",
+                "data_di_nascita" => "1991-02-18",
+                "email" => "simona.ferrari@example.com",
+                "password" => "MyS3cr3t",
+                "descrizione" => "Amante della natura e della fotografia."
             ),
         ];
 
