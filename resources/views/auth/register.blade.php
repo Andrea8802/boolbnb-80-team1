@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-8 col-sm-8">
                 <div class="card border-danger">
-                    <div class="card-header text-center display-6 bg-white border-white my-3">Registrati</div>
+                    <div class="card-header text-center display-6 bg-white border-white my-3">{{__('Registrati')}}</div>
 
                     <div class="card-body text-center">
                         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -13,7 +13,7 @@
 
                             <div class="row mb-3">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end text-sm-center">Email <span class="text-danger lead" >&#42;</span> </label>
+                                    class="col-md-4 col-form-label text-md-end text-sm-center">{{__('Email')}} <span class="text-danger lead" >&#42;</span> </label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -22,7 +22,7 @@
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>Esiste gi&agrave; un utente con questa mail</strong>
+                                            <strong>{{__("Esiste gia' un utente con questa mail")}}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -30,7 +30,7 @@
 
                             <div class="row mb-3">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">Password <span class="text-danger lead" >&#42;</span></label>
+                                    class="col-md-4 col-form-label text-md-end">{{__('Password')}} <span class="text-danger lead" >&#42;</span></label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -39,7 +39,7 @@
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>La password deve contenere almeno 8 caratteri</strong>
+                                            <strong>{{__('La password deve contenere almeno 8 caratteri')}}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -47,7 +47,7 @@
 
                             <div class="row mb-3">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">Conferma la password <span class="text-danger lead" >&#42;</span></label>
+                                    class="col-md-4 col-form-label text-md-end">{{__('Conferma la password')}} <span class="text-danger lead" >&#42;</span></label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -57,7 +57,7 @@
 
                             <div class="row mb-3">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-end">Nome</label>
+                                    class="col-md-4 col-form-label text-md-end">{{__('Nome')}}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -74,7 +74,7 @@
 
                             <div class="row mb-3">
                                 <label for="surname"
-                                    class="col-md-4 col-form-label text-md-end">Cognome</label>
+                                    class="col-md-4 col-form-label text-md-end">{{__('Cognome')}}</label>
 
                                 <div class="col-md-6">
                                     <input id="surname" type="text"
@@ -91,7 +91,7 @@
 
                             <div class="row mb-3">
                                 <label for="date_of_birth"
-                                    class="col-md-4 col-form-label text-md-end">Data di nascita <span class="text-danger lead" >&#42;</span></label>
+                                    class="col-md-4 col-form-label text-md-end">{{__('Data di nascita')}} <span class="text-danger lead" >&#42;</span></label>
 
                                 <div class="col-md-6">
                                     <input id="date_of_birth" type="date"
@@ -101,7 +101,7 @@
 
                                     @error('date_of_birth')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>Per registrarti devi aver compiuto i 18 anni di et&agrave;</strong>
+                                            <strong>{{__("Per registrarti devi aver compiuto i 18 anni di eta'")}}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -109,7 +109,7 @@
 
                             <div class="row mb-3">
                                 <label for="description"
-                                    class="col-md-4 col-form-label text-md-end">Descriviti brevemente</label>
+                                    class="col-md-4 col-form-label text-md-end">{{__('Descriviti brevemente')}}</label>
 
                                 <div class="col-md-6">
                                     <input id="description" type="text"
@@ -150,7 +150,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3 my-2">
-                                <div class="col-md-12 text-center"> <span class="text-danger lead" >&#42;</span> <small class="font-weight-light font-italic">campi obbligatori</small> </div>
+                                <div class="col-md-12 text-center"> <span class="text-danger lead" >&#42;</span> <small class="font-weight-light font-italic">{{__('campi obbligatori')}}</small> </div>
                             </div>
                         </form>
                     </div>
