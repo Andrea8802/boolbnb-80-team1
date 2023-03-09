@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+                    <div class="card-header">{{ __('Registrati') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -13,7 +13,7 @@
 
                             <div class="row mb-3">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address*') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Indirizzo Mail*') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -47,7 +47,7 @@
 
                             <div class="row mb-3">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password*') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Conferma la password*') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -57,7 +57,7 @@
 
                             <div class="row mb-3">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Nome') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -74,7 +74,7 @@
 
                             <div class="row mb-3">
                                 <label for="surname"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Surname') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Cognome') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="surname" type="text"
@@ -91,7 +91,7 @@
 
                             <div class="row mb-3">
                                 <label for="date_of_birth"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Date of Birth') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Data di nascita') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="date_of_birth" type="date"
@@ -109,7 +109,7 @@
 
                             <div class="row mb-3">
                                 <label for="description"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Description') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Descriviti brevemente') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="description" type="text"
@@ -126,7 +126,7 @@
 
                             <div class="row mb-3">
                                 <label for="avatar"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Avatar') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Immagine profilo') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="avatar" type="file"
@@ -144,7 +144,7 @@
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
+                                        {{ __('Registrati') }}
                                     </button>
                                 </div>
                             </div>
