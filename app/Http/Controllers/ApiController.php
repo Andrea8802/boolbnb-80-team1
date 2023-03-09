@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
+
     public function getData()
     {
         $services = Service::all();
@@ -118,12 +119,28 @@ class ApiController extends Controller
         ]);
     }
 
-    public function geteditApartment(Apartment $apartment) {
+    // public function geteditApartment(Apartment $apartment)
+    // {
+
+    //     return response()->json([
+    //         "success" => true,
+    //         "response" => $apartment
+    //     ]);
+
+    // }
+    public function geteditApartment($id)
+    {
+
+        $apartment = Apartment::find($id);
 
         return response()->json([
             "success" => true,
             "response" => $apartment
         ]);
 
+    }
+    public function userEditApartmentsPage()
+    {
+        return view("editApartment");
     }
 }

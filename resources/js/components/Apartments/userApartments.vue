@@ -4,7 +4,7 @@
         <li v-for="apartment in apartments">
             {{ apartment.title }}
             <span @click="deleteApartment(apartment.id)">DELETE</span>
-            <span @click="editApartment(apartment.id)">EDIT</span>
+            <button> <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
         </li>
     </ul>
 </template>
@@ -41,19 +41,19 @@ export default {
                     console.log(errors);
                 });
         },
-        editApartment(apartmentId) {
-            axios.get("editApartment/" + apartmentId)
-                .then(res => {
-                    const success = res.data.success
-                    console.log(success);
-                    this.getapartment = res.data.response
+        // editApartment(apartmentId) {
+        //     axios.get("editApartment/" + apartmentId)
+        //         .then(res => {
+        //             const success = res.data.success
+        //             console.log(success);
+        //             this.getapartment = res.data.response
 
-                    
-                }).catch((errors) => {
-                    console.log(errors);
-                });
-                
-        }
+
+        //         }).catch((errors) => {
+        //             console.log(errors);
+        //         });
+
+        // }
     },
 
     mounted() {
