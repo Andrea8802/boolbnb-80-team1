@@ -17,7 +17,6 @@ class StatisticFactory extends Factory
     public function definition()
     {
         return [
-            // 'num_views' => fake()->numberBetween(10, 500),
             'ip_address' => fake()->ipv4()
         ];
     }
