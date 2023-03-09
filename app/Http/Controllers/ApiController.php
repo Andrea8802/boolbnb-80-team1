@@ -117,4 +117,13 @@ class ApiController extends Controller
             "response" => $apartment
         ]);
     }
+
+    public function geteditApartment(Apartment $apartment) {
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+        ]);
+
+    }
 }

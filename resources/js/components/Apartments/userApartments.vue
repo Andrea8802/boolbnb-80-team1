@@ -4,6 +4,7 @@
         <li v-for="apartment in apartments">
             {{ apartment.title }}
             <span @click="deleteApartment(apartment.id)">DELETE</span>
+            <span @click="editApartment(apartment.id)">EDIT</span>
         </li>
     </ul>
 </template>
@@ -13,8 +14,8 @@ export default {
     data() {
         return {
 
-            apartments: []
-
+            apartments: [],
+            getapartment: []
         }
     },
     methods: {
@@ -40,6 +41,19 @@ export default {
                     console.log(errors);
                 });
         },
+        editApartment(apartmentId) {
+            axios.get("editApartment/" + apartmentId)
+                .then(res => {
+                    const success = res.data.success
+                    console.log(success);
+                    this.getapartment = res.data.response
+
+                    
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+                
+        }
     },
 
     mounted() {
