@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Registrati') }}</div>
+                    <div class="card-header">Registrati</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
@@ -13,7 +13,7 @@
 
                             <div class="row mb-3">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Indirizzo Mail*') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">Indirizzo Mail <span class="text-danger lead" >&#42;</span> </label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -22,7 +22,7 @@
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>Esiste gi&agrave; un utente con questa mail</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -30,7 +30,7 @@
 
                             <div class="row mb-3">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password*') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">Password <span class="text-danger lead" >&#42;</span></label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -39,7 +39,7 @@
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>La password deve contenere almeno 8 caratteri</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -47,7 +47,7 @@
 
                             <div class="row mb-3">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Conferma la password*') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">Conferma la password <span class="text-danger lead" >&#42;</span></label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -57,7 +57,7 @@
 
                             <div class="row mb-3">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Nome') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">Nome</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -74,7 +74,7 @@
 
                             <div class="row mb-3">
                                 <label for="surname"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Cognome') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">Cognome</label>
 
                                 <div class="col-md-6">
                                     <input id="surname" type="text"
@@ -91,17 +91,17 @@
 
                             <div class="row mb-3">
                                 <label for="date_of_birth"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Data di nascita') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">Data di nascita <span class="text-danger lead" >&#42;</span></label>
 
                                 <div class="col-md-6">
                                     <input id="date_of_birth" type="date"
                                         class="form-control @error('date_of_birth') is-invalid @enderror"
                                         name="date_of_birth" value="{{ old('date_of_birth') }}"
-                                        autocomplete="date_of_birth" autofocus>
+                                        required autocomplete="date_of_birth" autofocus>
 
                                     @error('date_of_birth')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>Per registrarti devi aver compiuto i 18 anni di et&agrave;</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -109,7 +109,7 @@
 
                             <div class="row mb-3">
                                 <label for="description"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Descriviti brevemente') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">Descriviti brevemente</label>
 
                                 <div class="col-md-6">
                                     <input id="description" type="text"
@@ -126,7 +126,7 @@
 
                             <div class="row mb-3">
                                 <label for="avatar"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Immagine profilo') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">Immagine profilo</label>
 
                                 <div class="col-md-6">
                                     <input id="avatar" type="file"
@@ -140,13 +140,17 @@
                                     @enderror
                                 </div>
                             </div>
+                            
 
                             <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                <div class="col-md-6 offset-md-5 my-4">
+                                    <button type="submit" class="btn btn-primary bg-danger text-white">
                                         {{ __('Registrati') }}
                                     </button>
                                 </div>
+                            </div>
+                            <div class="row mb-0 my-2">
+                                <div class="col-md-6 text-center"> <span class="text-danger lead" >&#42;</span> <small class="font-weight-light font-italic">campi obbligatori</small> </div>
                             </div>
                         </form>
                     </div>
