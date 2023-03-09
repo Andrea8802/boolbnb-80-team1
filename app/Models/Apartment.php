@@ -20,7 +20,7 @@ class Apartment extends Model
         'address',
         'lat',
         'long',
-        'image',
+        'imageApartment',
         'visibility',
     ];
     public function user()

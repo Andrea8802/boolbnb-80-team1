@@ -24,3 +24,4 @@ Route::get('createApartment', [ApiController::class, 'createApartmentPage'])->mi
 Route::post('apartments', [ApiController::class, 'createApartment']);
 Route::get('apartment', [ApiController::class, 'userApartmentsPage'])->middleware('auth')->name('apartment');
 Route::get('userApartments', [ApiController::class, 'userApartments']);
+Route::get('getData', [ApiController::class, 'getData']);

@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->string('address')->nullable();
             $table->decimal('lat', 10, 8)->nullable();
             $table->decimal('long', 11, 8)->nullable();
-            $table->string('image')->nullable();
+            $table->string('imageApartment')->nullable();
             $table->boolean('visibility')->default(true);
 
             $table->timestamps();

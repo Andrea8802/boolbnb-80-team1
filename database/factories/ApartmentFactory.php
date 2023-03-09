@@ -27,7 +27,7 @@ class ApartmentFactory extends Factory
             'address' => fake()->address(),
             'lat' => fake()->randomFloat(8, 0, 90),
             'long' => fake()->randomFloat(8, 0, 180),
-            'image' => fake()->image(null, 360, 360, 'animals', true),
+            'imageApartment' => fake()->image(null, 360, 360, 'animals', true),
             'visibility' => fake()->boolean(),
         ];
     }
