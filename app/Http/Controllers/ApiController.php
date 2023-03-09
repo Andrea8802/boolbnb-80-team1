@@ -118,4 +118,16 @@ class ApiController extends Controller
             "response" => $services
         ]);
     }
+    public function deleteApartment(Apartment $apartment)
+    {
+
+        $apartment->sponsors()->sync([]);
+        $apartment->services()->sync([]);
+        $apartment->added_images()->delete();
+        $apartment->delete();
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+        ]);
+    }
 }
