@@ -8,49 +8,27 @@
     <h1>Create a New Apartment</h1> <br>
     <form action="">
         <label for="title">Title : </label>
-        <input type="text"
-            name="title"
-            v-model="modelTitle"> <br> <br>
+        <input type="text" name="title" v-model="modelTitle"> <br> <br>
         <label for="description">Description : </label>
-        <input type="text"
-            name="description"
-            v-model="modelDescription"> <br> <br>
+        <input type="text" name="description" v-model="modelDescription"> <br> <br>
         <label for="price">Price : </label>
-        <input type="number"
-            name="price"
-            v-model="modelPrice"> <br> <br>
+        <input type="number" name="price" v-model="modelPrice"> <br> <br>
         <label for="beds_num">Beds Number : </label>
-        <input type="number"
-            name="beds_num"
-            v-model="modelBedsNum"> <br> <br>
+        <input type="number" name="beds_num" v-model="modelBedsNum"> <br> <br>
         <label for="rooms_num">Rooms Number : </label>
-        <input type="number"
-            name="rooms_num"
-            v-model="modelRoomsNum"> <br> <br>
+        <input type="number" name="rooms_num" v-model="modelRoomsNum"> <br> <br>
         <label for="baths_num">Baths Number : </label>
-        <input type="number"
-            name="baths_num"
-            v-model="modelBathsNum"> <br> <br>
+        <input type="number" name="baths_num" v-model="modelBathsNum"> <br> <br>
         <label for="size">Size : </label>
-        <input type="number"
-            name="size"
-            v-model="modelSize"> <br> <br>
+        <input type="number" name="size" v-model="modelSize"> <br> <br>
         <label for="address">Address : </label>
-        <input type="text"
-            name="address"
-            v-model="modelAddress"> <br> <br>
+        <input type="text" name="address" v-model="modelAddress"> <br> <br>
         <label for="lat">Lat : </label>
-        <input type="number"
-            name="lat"
-            v-model="modelLat"> <br> <br>
+        <input type="number" name="lat" v-model="modelLat"> <br> <br>
         <label for="long">Long : </label>
-        <input type="number"
-            name="long"
-            v-model="modelLong"> <br> <br>
+        <input type="number" name="long" v-model="modelLong"> <br> <br>
 
-        <input type="submit"
-            @click="createApartment"
-            value="create">
+        <input type="submit" @click="createApartment" value="create">
     </form>
 </template>
 
@@ -93,6 +71,7 @@ export default {
             axios.post("apartments", apartment)
                 .then(res => {
                     const success = res.data.success;
+                    console.log(res);
                 }).catch((errors) => {
                     console.log(errors);
                 });

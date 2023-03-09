@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\User;
 use App\Models\Service;
+use App\Models\Sponsor;
+use App\Models\Statistic;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
@@ -23,9 +26,22 @@ class ApiController extends Controller
             "address" => ["nullable", "string"],
             "lat" => ["nullable", "integer"],
             "long" => ["nullable", "integer"],
-            // "image" => ["nullable", "image"],
+            "image" => ["nullable", "image", " mimes:jpg,png,jpeg,gif,svg", "max:2048"],
+            "services" => ["nullable", "array"],
+            "sponsor" => ["nullable"],
 
         ]);
+
+        if (array_key_exists("image", $data)) {
+
+            $img_path = Storage::put('uploads', $data['image']);
+            $data['image'] = $img_path;
+        } else {
+            $data['image'] = 'avatar5.png';
+        }
+        // $ap = Apartment::create($data);
+
+
         $ap = new Apartment();
         $ap->title = $data["title"];
         $ap->description = $data["description"];
@@ -37,14 +53,20 @@ class ApiController extends Controller
         $ap->address = $data["address"];
         $ap->lat = $data["lat"];
         $ap->long = $data["long"];
-        // $ap->image = $data["image"];
+
         $id = auth()->user()->id;
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);
         $ap->save();
-        // $tags = Tag::find([$data["tag"]]);
-        // $movie->tags()->attach($tags);
-        // Mail::to('dda@gmail.com')->send(new NewMovie($movie));
+
+        $services = Service::find([$data["services"]]);
+        $ap->services()->attach($services);
+        $sponsors = Sponsor::find([$data["sponsors"]]);
+        $ap->sponsors()->attach($sponsors);
+
+        $statistics = new Statistic();
+        $statistics->ip_address = request()->ip();
+
         return response()->json([
             "success" => true,
             "response" => $ap
