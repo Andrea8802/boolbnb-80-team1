@@ -3,7 +3,8 @@
  <div class="card-body">        
                 <button>
                   <a href="{{route('createApartment')}}">Create a new Apartment</a>
-                  </button>
+                  </button> <br>
+                  <component-userapartments> </component-userapartments>
            
  </div>           
 @endsection  

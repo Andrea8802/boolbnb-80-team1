@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\User;
 use App\Models\Service;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
@@ -53,6 +54,18 @@ class ApiController extends Controller
     {
         return view('createApartment');
 
+    }
+    public function userApartments()
+    {
+        // $apartments = Apartment::all()->where('user_id', 'like', auth()->user()->id);
+        $apartments = DB::table('apartments')
+            ->where('user_id', 'like', auth()->user()->id)
+            ->get();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments
+        ]);
     }
     public function userApartmentsPage()
     {

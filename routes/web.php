@@ -21,5 +21,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('createApartment', [ApiController::class, 'createApartmentPage'])->middleware('auth')->name('createApartment');
-Route::get('apartment', [ApiController::class, 'userApartmentsPage'])->middleware('auth')->name('apartment');
 Route::post('apartments', [ApiController::class, 'createApartment']);
+Route::get('apartment', [ApiController::class, 'userApartmentsPage'])->middleware('auth')->name('apartment');
+Route::get('userApartments', [ApiController::class, 'userApartments']);
