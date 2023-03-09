@@ -3,17 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Registrati</div>
+            <div class="col-md-8 col-lg-8 col-sm-8">
+                <div class="card border-danger">
+                    <div class="card-header text-center display-6 bg-white border-white my-3">Registrati</div>
 
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="row mb-3">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">Indirizzo Mail <span class="text-danger lead" >&#42;</span> </label>
+                                    class="col-md-4 col-form-label text-md-end text-sm-center">Email <span class="text-danger lead" >&#42;</span> </label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -142,15 +142,15 @@
                             </div>
                             
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-5 my-4">
-                                    <button type="submit" class="btn btn-primary bg-danger text-white">
+                            <div class="row mb-3">
+                                <div class="col-md-12 my-4">
+                                    <button type="submit" class="btn btn-outline-danger btn-lg">
                                         {{ __('Registrati') }}
                                     </button>
                                 </div>
                             </div>
-                            <div class="row mb-0 my-2">
-                                <div class="col-md-6 text-center"> <span class="text-danger lead" >&#42;</span> <small class="font-weight-light font-italic">campi obbligatori</small> </div>
+                            <div class="row mb-3 my-2">
+                                <div class="col-md-12 text-center"> <span class="text-danger lead" >&#42;</span> <small class="font-weight-light font-italic">campi obbligatori</small> </div>
                             </div>
                         </form>
                     </div>
