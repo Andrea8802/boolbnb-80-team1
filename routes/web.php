@@ -21,8 +21,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('createApartment', [ApiController::class, 'createApartmentPage'])->middleware('auth')->name('createApartment');
+// Route::get('editApartment', [ApiController::class, 'editApartmentPage'])->middleware('auth')->name('editApartment');
+
 Route::post('apartments', [ApiController::class, 'createApartment']);
 Route::get('apartment', [ApiController::class, 'userApartmentsPage'])->middleware('auth')->name('apartment');
 Route::get('userApartments', [ApiController::class, 'userApartments']);
 Route::get('getData', [ApiController::class, 'getData']);
 Route::get('delete/{apartment}', [ApiController::class, 'deleteApartment']);
+Route::get('editApartment/{apartment}', [ApiController::class, 'geteditApartment']);
