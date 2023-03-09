@@ -19,7 +19,7 @@
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{__('Nessun utente registrato con questa e-mail')}}</strong>
+                                        <strong>{{__('Password e e-mail non corrispondono')}}</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -33,7 +33,7 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{__('Password errata. Riprova')}}</strong>
+                                        <strong>{{__('Password e e-mail non corrispondono')}}</strong>
                                     </span>
                                 @enderror
                             </div>
