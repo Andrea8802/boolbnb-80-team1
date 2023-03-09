@@ -9,11 +9,11 @@ use Illuminate\Database\Seeder;
 
 
 use App\Models\User;
+use App\Models\Apartment;
 use App\Models\Statistic;
 use App\Models\Message;
 use App\Models\Service;
 use App\Models\Sponsor;
-use App\Models\Apartment;
 
 
 class ApartmentSeeder extends Seeder
@@ -308,33 +308,52 @@ class ApartmentSeeder extends Seeder
             array_push($apartments, $newApartment);
         }
         ;
-        foreach ($apartments as $apartment) {
-            Apartment::make([$apartment])->each(function ($ap) {
-                $user = User::inRandomOrder()->first();
-                $ap->user()->associate($user);
-                $ap->save();
-                $statistic = Statistic::inRandomOrder()->limit(rand(1, 5))->get();
-                $ap->statistics()->attach($statistic);
-                $message = Message::inRandomOrder()->first()->get();
-                $ap->messages()->attach($message);
-                $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
-                $ap->services()->attach($services);
-                $sponsor = Sponsor::inRandomOrder()->first()->get();
-                $ap->sponsors()->attach($sponsor);
-            });
-        }
-        ;
-
-        /* Apartment::factory()->make()->each(function ($ap) {
+        /* foreach ($apartments as $apartment) {
+        Apartment::make($apartment)->each(function ($ap) {
         $user = User::inRandomOrder()->first();
         $ap->user()->associate($user);
         $ap->save();
+        $statistic = Statistic::inRandomOrder()->limit(rand(1, 5))->get();
+        $ap->statistics()->attach($statistic);
+        $message = Message::inRandomOrder()->first()->get();
+        $ap->messages()->attach($message);
         $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
         $ap->services()->attach($services);
         $sponsor = Sponsor::inRandomOrder()->first()->get();
         $ap->sponsors()->attach($sponsor);
         });
-        */
+        }
+        ; */
+
+
+        Apartment::make([
+            'title' => $apartmentTitle,
+            'description' => $apartmentDescr,
+            'price' => $apartmentPrice,
+            'rooms_num' => $apartmentRoom_num,
+            'beds_num' => $apartmentBeds_num,
+            'baths_num' => $apartmentBath_num,
+            'size' => $apartmentSize,
+            'address' => $apartmentAddress,
+            'lat' => $apartmentLat,
+            'long' => $apartmentLong,
+            'image' => asset('storage/app/public/avatar5.png'),
+            'visibility' => true,
+        ])->each(function ($ap) {
+            $user = User::inRandomOrder()->first();
+            $ap->user()->associate($user);
+            $ap->save();
+            $statistic = Statistic::inRandomOrder()->limit(rand(1, 5))->get();
+            $ap->statistics()->attach($statistic);
+            $message = Message::inRandomOrder()->first()->get();
+            $ap->messages()->attach($message);
+            $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
+            $ap->services()->attach($services);
+            $sponsor = Sponsor::inRandomOrder()->first()->get();
+            $ap->sponsors()->attach($sponsor);
+
+        });
+
 
         /* Apartment::factory()->count(20)->make()->each(function ($ap) {
         $user = User::inRandomOrder()->first();

@@ -20,12 +20,6 @@ class ApartmentFactory extends Factory
 
 
         return [
-        ]
-
-            /* return [
-            foreach($apartments as $apartment){
-            }
-            ]  *//* [
             'title' => fake()->words(3, true),
             'description' => fake()->text(50),
             'price' => fake()->randomFloat(2, 10, 10000),
@@ -37,7 +31,10 @@ class ApartmentFactory extends Factory
             'lat' => fake()->randomFloat(8, 0, 90),
             'long' => fake()->randomFloat(8, 0, 180),
             'image' => fake()->image(null, 360, 360, 'animals', true),
-            'visibility' => fake()->boolean(), 
-            ] */;
+            'visibility' => fake()->boolean(),
+        ];
+
+
+
     }
 }
