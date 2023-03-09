@@ -55,21 +55,8 @@ class ApiController extends Controller
         } else {
             $data['imageApartment'] = 'avatar5.png';
         }
-        // $ap = Apartment::create($data);
 
-
-        $ap = new Apartment();
-        $ap->title = $data["title"];
-        $ap->description = $data["description"];
-        $ap->price = $data["price"];
-        $ap->rooms_num = $data["rooms_num"];
-        $ap->beds_num = $data["beds_num"];
-        $ap->baths_num = $data["baths_num"];
-        $ap->size = $data["size"];
-        $ap->address = $data["address"];
-        $ap->lat = $data["lat"];
-        $ap->long = $data["long"];
-        $ap->imageApartment = $data["imageApartment"];
+        $ap = Apartment::make($data);
 
         $id = auth()->user()->id;
         $currentuser = User::find($id);

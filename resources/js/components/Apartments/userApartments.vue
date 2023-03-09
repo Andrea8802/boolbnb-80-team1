@@ -29,9 +29,12 @@ export default {
                 });
         },
         deleteApartment(apartmentId) {
+
             axios.get("delete/" + apartmentId)
                 .then(res => {
+                    this.getUserApartments();
                     const success = res.data.success
+                    console.log(success);
 
                 }).catch((errors) => {
                     console.log(errors);
