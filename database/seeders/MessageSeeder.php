@@ -23,5 +23,8 @@ class MessageSeeder extends Seeder
             $m->apartment()->associate($apartment);
             $m->save();
         });
+
+
+
     }
 }

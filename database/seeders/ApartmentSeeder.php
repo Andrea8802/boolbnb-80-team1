@@ -289,9 +289,10 @@ class ApartmentSeeder extends Seeder
             130,
             136,
         ];
-        $apartments = [];
-        for ($i = 0; $i < 30; $i++) {
-            $newApartment = [
+
+
+        for ($i = 0; $i < count($apartmentTitle); $i++) {
+            Apartment::make([
                 'title' => $apartmentTitle[$i],
                 'description' => $apartmentDescr[$i],
                 'price' => $apartmentPrice[$i],
@@ -304,10 +305,51 @@ class ApartmentSeeder extends Seeder
                 'long' => $apartmentLong[$i],
                 'image' => asset('storage/app/public/avatar5.png'),
                 'visibility' => true,
-            ];
-            array_push($apartments, $newApartment);
+            ])->each(function ($ap) {
+
+                $user = User::inRandomOrder()->first();
+                $ap->user()->associate($user);
+                $ap->save();
+
+                $message = Message::inRandomOrder()->first()->get();
+                $ap->messages()->attach($message);
+
+                $statistic = Statistic::inRandomOrder()->limit(rand(1, 5))->get();
+                $ap->statistics()->attach($statistic);
+
+                $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
+                $ap->services()->attach($services);
+
+                $sponsor = Sponsor::inRandomOrder()->first()->get();
+                $ap->sponsors()->attach($sponsor);
+
+            });
+
         }
         ;
+
+        /* PROVA UNO */
+
+
+        /* $apartments = [];
+        for ($i = 0; $i < 30; $i++) {
+        $newApartment = [
+        'title' => $apartmentTitle[$i],
+        'description' => $apartmentDescr[$i],
+        'price' => $apartmentPrice[$i],
+        'rooms_num' => $apartmentRoom_num[$i],
+        'beds_num' => $apartmentBeds_num[$i],
+        'baths_num' => $apartmentBath_num[$i],
+        'size' => $apartmentSize[$i],
+        'address' => $apartmentAddress[$i],
+        'lat' => $apartmentLat[$i],
+        'long' => $apartmentLong[$i],
+        'image' => asset('storage/app/public/avatar5.png'),
+        'visibility' => true,
+        ];
+        array_push($apartments, $newApartment);
+        }
+        ; */
         /* foreach ($apartments as $apartment) {
         Apartment::make($apartment)->each(function ($ap) {
         $user = User::inRandomOrder()->first();
@@ -326,34 +368,7 @@ class ApartmentSeeder extends Seeder
         ; */
 
 
-        Apartment::make([
-            'title' => $apartmentTitle,
-            'description' => $apartmentDescr,
-            'price' => $apartmentPrice,
-            'rooms_num' => $apartmentRoom_num,
-            'beds_num' => $apartmentBeds_num,
-            'baths_num' => $apartmentBath_num,
-            'size' => $apartmentSize,
-            'address' => $apartmentAddress,
-            'lat' => $apartmentLat,
-            'long' => $apartmentLong,
-            'image' => asset('storage/app/public/avatar5.png'),
-            'visibility' => true,
-        ])->each(function ($ap) {
-            $user = User::inRandomOrder()->first();
-            $ap->user()->associate($user);
-            $ap->save();
-            $statistic = Statistic::inRandomOrder()->limit(rand(1, 5))->get();
-            $ap->statistics()->attach($statistic);
-            $message = Message::inRandomOrder()->first()->get();
-            $ap->messages()->attach($message);
-            $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
-            $ap->services()->attach($services);
-            $sponsor = Sponsor::inRandomOrder()->first()->get();
-            $ap->sponsors()->attach($sponsor);
-
-        });
-
+        /* VECCHIO FACTORY */
 
         /* Apartment::factory()->count(20)->make()->each(function ($ap) {
         $user = User::inRandomOrder()->first();
