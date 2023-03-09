@@ -17,10 +17,10 @@ const app = createApp({});
 
 // import ExampleComponent from './components/ExampleComponent.vue';
 // import prova from './components/prova.vue';
-import apartment from './components/apartments.vue';
+import createApartment from './components/createApartment.vue';
 // app.component('example-component', ExampleComponent);
 // app.component('esempio-prova', prova);
-app.component('component-apartment', apartment);
+app.component('component-apartment', createApartment);
 
 /**
  * The following block of code may be used to automatically register your

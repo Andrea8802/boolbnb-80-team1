@@ -49,10 +49,14 @@ class ApiController extends Controller
             "response" => $ap
         ]);
     }
-    public function index()
+    public function createApartmentPage()
+    {
+        return view('createApartment');
+
+    }
+    public function userApartmentsPage()
     {
         return view('apartment');
-
     }
     public function getApartments()
     {

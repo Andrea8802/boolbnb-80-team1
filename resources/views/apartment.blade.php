@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
  <div class="card-body">        
-                
-   <component-apartment></component-apartment>
-                  
+                <button>
+                  <a href="{{route('createApartment')}}">Create a new Apartment</a>
+                  </button>
+           
  </div>           
 @endsection  
