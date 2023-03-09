@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
+    public function getData()
+    {
+        $services = Service::all();
+        $sponsors = Sponsor::all();
+
+        return response()->json([
+            "success" => true,
+            "response" => [
+                "services" => $services,
+                "sponsors" => $sponsors,
+
+            ]
+        ]);
+
+    }
     public function createApartment(Request $request)
     {
         $data = $request->validate([
@@ -27,17 +42,18 @@ class ApiController extends Controller
             "lat" => ["nullable", "integer"],
             "long" => ["nullable", "integer"],
             "image" => ["nullable", "image", " mimes:jpg,png,jpeg,gif,svg", "max:2048"],
-            "services" => ["nullable", "array"],
-            "sponsor" => ["nullable"],
+            "services" => ["nullable"],
+            "sponsors" => ["nullable"],
+            'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
 
         ]);
 
-        if (array_key_exists("image", $data)) {
+        if (array_key_exists("imageApartment", $data)) {
 
-            $img_path = Storage::put('uploads', $data['image']);
-            $data['image'] = $img_path;
+            $img_path = Storage::put('uploads', $data['imageApartment']);
+            $data['imageApartment'] = $img_path;
         } else {
-            $data['image'] = 'avatar5.png';
+            $data['imageApartment'] = 'avatar5.png';
         }
         // $ap = Apartment::create($data);
 
@@ -53,6 +69,7 @@ class ApiController extends Controller
         $ap->address = $data["address"];
         $ap->lat = $data["lat"];
         $ap->long = $data["long"];
+        $ap->imageApartment = $data["imageApartment"];
 
         $id = auth()->user()->id;
         $currentuser = User::find($id);
@@ -61,7 +78,7 @@ class ApiController extends Controller
 
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
-        $sponsors = Sponsor::find([$data["sponsors"]]);
+        $sponsors = Sponsor::find($data["sponsors"]);
         $ap->sponsors()->attach($sponsors);
 
         $statistics = new Statistic();
@@ -99,6 +116,18 @@ class ApiController extends Controller
         return response()->json([
             "success" => true,
             "response" => $services
+        ]);
+    }
+    public function deleteApartment(Apartment $apartment)
+    {
+
+        $apartment->sponsors()->sync([]);
+        $apartment->services()->sync([]);
+        $apartment->added_images()->delete();
+        $apartment->delete();
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
         ]);
     }
 }

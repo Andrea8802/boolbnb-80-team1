@@ -18,6 +18,11 @@ class SponsorSeeder extends Seeder
     {
         $arraySponsors = [
             [
+                "name" => "No Sponsor",
+                "price" => 0,
+                "time" => 0,
+            ],
+            [
                 "name" => "1 day",
                 "price" => 2.99,
                 "time" => 24,
