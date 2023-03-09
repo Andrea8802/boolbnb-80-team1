@@ -2,8 +2,27 @@
     <h1>Apartments List</h1> <br>
     <ul>
         <li v-for="apartment in apartments">
-            {{ apartment.title }}
-            <span @click="deleteApartment(apartment.id)">DELETE</span>
+            <div>Titolo: {{ apartment.title }}</div><br>
+            <div>Descrizione: {{ apartment.description }}</div><br>
+            <div>Prezzo: {{ apartment.price }}$</div><br>
+            <div>Stanze: {{ apartment.rooms_num }}</div><br>
+            <div>Letti: {{ apartment.beds_num }}</div><br>
+            <div>Bagni: {{ apartment.baths_num }}</div><br>
+            <div>Dimensioni: {{ apartment.size }}mq.</div><br>
+            <div>Indirizzo: {{ apartment.address }}</div><br>
+            <div>Servizi: {{ apartment.services }}</div><br>
+            <div>Immagine: {{ apartment.Image }}</div><br>
+            
+
+
+
+            {{ apartment.description }} <br>
+            {{ apartment.title }} <br>
+            {{ apartment.title }} <br>
+            {{ apartment.title }} <br>
+            {{ apartment.title }} <br>
+
+            <span @click="deleteApartment(apartment.id)">DELETE</span> -
             <span @click="editApartment(apartment.id)">EDIT</span>
         </li>
     </ul>
