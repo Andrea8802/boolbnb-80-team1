@@ -14,7 +14,7 @@
 }
 
 .ms_ctn_input {
-    width: 400px;
+    width: 600px;
     margin: 0 auto;
 }
 
@@ -52,28 +52,60 @@
                         placeholder="Inserisci un prezzo..." aria-label="Username" aria-describedby="basic-addon1">
                 </div>
 
-                <div>
-
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="beds_num">Numero di letti : </label>
+                    <input type="number" name="beds_num" v-model="modelBedsNum" class="form-control ms_input_focus_color"
+                        placeholder="Inserisci il numero dei letti..." aria-label="Username"
+                        aria-describedby="basic-addon1">
                 </div>
 
-                <label for="beds_num">Numero di letti : </label>
-                <input type="number" name="beds_num" v-model="modelBedsNum"> <br> <br>
-                <label for="rooms_num">Numero di Stanze : </label>
-                <input type="number" name="rooms_num" v-model="modelRoomsNum"> <br> <br>
-                <label for="baths_num">Numero di bagni : </label>
-                <input type="number" name="baths_num" v-model="modelBathsNum"> <br> <br>
-                <label for="size">Grandezza(mq) : </label>
-                <input type="number" name="size" v-model="modelSize"> <br> <br>
-                <label for="address">Indirizzo : </label>
-                <input type="text" name="address" v-model="modelAddress"> <br> <br>
-                <label for="lat">Latitudine : </label>
-                <input type="number" name="lat" v-model="modelLat"> <br> <br>
-                <label for="long">Longitudine : </label>
-                <input type="number" name="long" v-model="modelLong"> <br> <br>
-                <label for="long">Immagine di Copertina : </label>
-                <input type="file" name="long" v-on:change="onImageChange"> <br> <br>
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="rooms_num">Numero di Stanze :
+                    </label>
+                    <input type="number" name="rooms_num" v-model="modelRoomsNum" class="form-control ms_input_focus_color"
+                        placeholder="Inserisci il numero dei letti..." aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="baths_num">Numero di bagni : </label>
+                    <input type="number" name="baths_num" v-model="modelBathsNum" class="form-control ms_input_focus_color"
+                        placeholder="Inserisci il numero dei bagni..." aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="size">Grandezza(mq) : </label>
+                    <input type="number" name="size" v-model="modelSize" class="form-control ms_input_focus_color"
+                        placeholder="Inserisci il numero dei letti..." aria-label="Username"
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="address">Indirizzo : </label>
+                    <input type="text" name="address" v-model="modelAddress" class="form-control ms_input_focus_color"
+                        placeholder="Inserisci l'indirizzo..." aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="lat">Latitudine : </label>
+                    <input type="number" name="lat" v-model="modelLat" class="form-control ms_input_focus_color"
+                        placeholder="Inserisci la latitudine..." aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="long">Longitudine : </label>
+                    <input type="number" name="long" v-model="modelLong" class="form-control ms_input_focus_color"
+                        placeholder="Inserisci la longitudine..." aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="ms_ctn_input input-group mb-3">
+                    <label for="imageApartment">Immagine di Copertina : </label>
+                    <input type="file" name="imageApartment" v-on:change="onImageChange">
+                </div>
+
                 <label for="sponsors">Seleziona il tipo di Sponsor : </label>
-                <select name="imageApartment" v-model="modelSponsor">
+                <select name="sponsors" v-model="modelSponsor">
                     <option v-for="sponsor in sponsors" :value="sponsor.id" :key="sponsor.id">
                         {{ sponsor.name }}
                     </option>
