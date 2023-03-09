@@ -12,15 +12,6 @@
             <div>Indirizzo: {{ apartment.address }}</div><br>
             <div>Servizi: {{ apartment.services }}</div><br>
             <div>Immagine: {{ apartment.Image }}</div><br>
-            
-
-
-
-            {{ apartment.description }} <br>
-            {{ apartment.title }} <br>
-            {{ apartment.title }} <br>
-            {{ apartment.title }} <br>
-            {{ apartment.title }} <br>
 
             <span @click="deleteApartment(apartment.id)">DELETE</span> -
             <span @click="editApartment(apartment.id)">EDIT</span>
