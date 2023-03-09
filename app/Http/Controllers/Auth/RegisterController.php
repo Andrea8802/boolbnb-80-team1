@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+
 
 class RegisterController extends Controller
 {
@@ -68,6 +70,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (array_key_exists("avatar", $data)) {
+
+            $img_path = Storage::put('uploads', $data['avatar']);
+            $data['avatar'] = $img_path;
+        } else {
+            $data['avatar'] = 'avatar5.png';
+        }
         return User::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
