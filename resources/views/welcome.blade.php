@@ -12,7 +12,7 @@
     </head>
     <body>
         {{-- conatiner principale della pagina --}}
-        <div class="container-fluid">
+        <div class="container-fluid" id="app">
             {{-- header --}}
             <header>
                 <div class="container-fluid ms_nav_welcome">
@@ -51,7 +51,7 @@
             </header>
 
             {{-- main --}}
-            {{-- <welcome-main> </welcome-main> --}}
+            <welcome-main> </welcome-main>
 
             {{-- footer --}}
             <welcome-footer> </welcome-footer>
