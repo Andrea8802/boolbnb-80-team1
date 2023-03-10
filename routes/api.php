@@ -31,7 +31,8 @@ Route::get('editApartment/{apartment}', [ApiController::class, 'geteditApartment
 Route::post('apartments', [ApiController::class, 'createApartment']);
 Route::get('delete/{apartment}', [ApiController::class, 'deleteApartment']);
 Route::get('getData', [ApiController::class, 'getData']);
+Route::get('getUserLogged', [ApiController::class, 'getUserLogged']);
 Route::get('allApartments', [ApiController::class, 'allApartments']);
 Route::post('updateApartment/{apartment}', [ApiController::class, 'updateApartment']);
 // Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
-Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout');
+Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name("logout");

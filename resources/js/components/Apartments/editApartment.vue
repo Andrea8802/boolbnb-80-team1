@@ -2,7 +2,8 @@
     <h1>EDIT </h1> <br>
     <form action=""
         enctype="multipart/form-data"
-        method="post">
+        method="post"
+        @submit.prevent="updateApartment">
         <label for="title">Title : </label>
         <input type="text"
             name="title"
@@ -35,38 +36,22 @@
         <input type="text"
             name="address"
             v-model="getApartment.address"> <br> <br>
-        <label for="lat">Lat : </label>
-        <input type="number"
-            name="lat"
-            v-model="getApartment.lat"> <br> <br>
-        <label for="long">Long : </label>
-        <input type="number"
-            name="long"
-            v-model="getApartment.long"> <br> <br>
+
         <label for="long">Apartment Image : </label>
         <input type="file"
             name="long"
             v-on:change="onImageChange"> <br> <br>
-        <label for="sponsors">Select a Sponsor : </label>
-        <select name="imageApartment"
-            v-model="modelSponsor">
-            <option v-for="sponsor in sponsors"
-                :value="sponsor.id"
-                :key="sponsor.id">
-                {{ sponsor.name }}
-            </option>
 
-
-        </select> <br> <br>
-        <div class="services-cont">
-            <!-- v-if="getApartment.services != undefined && getApartment.services.length > 0"> -->
+        <div class="services-cont"
+            v-if="getApartment.services != undefined && getApartment.services.length > 0">
             <label for="">Services : </label> <br>
 
             <div v-for="service in services">
                 <input type="checkbox"
                     :value="service.id"
                     name=services
-                    class="input">
+                    class="input"
+                    :checked="apServices(service)">
                 <label for="services">{{ service.name }}</label>
             </div> <br>
         </div>
@@ -89,12 +74,8 @@ export default {
             modelBedsNum: "",
             modelSize: "",
             modelAddress: "",
-            modelLat: "",
-            modelLong: "",
             modelServices: [],
-            modelSponsor: [],
             services: [],
-            sponsors: [],
             imageApartment: '',
             imageBool: false,
             getApartment: "",
@@ -103,6 +84,7 @@ export default {
         }
     },
     methods: {
+
         apServices(service) {
             for (let index = 0; index < this.getApartment.services.length; index++) {
                 const element = this.getApartment.services[index];
@@ -164,19 +146,35 @@ export default {
             formData.append("beds_num", this.getApartment.beds_num);
             formData.append("size", this.getApartment.size);
             formData.append("address", this.getApartment.address);
-            formData.append("lat", this.getApartment.lat);
-            formData.append("long", this.getApartment.long);
-            formData.append("sponsors", this.getApartment.sponsors);
-            formData.append("services", this.getApartment.services);
+            // let check = document.getElementsByClassName("input");
+            // for (let index = 0; index < check.length; index++) {
+            //     const element = check[index];
+            //     for (let index = 0; index < this.getApartment.services.length; index++) {
+            //         const el = this.getApartment.tags[index];
+            //         if (el.id !== element.value && element.checked) {
+            //             console.log(this.getApartment.tags);
+            //             this.selectedCheck.push(element.value);
+            //             formData.append("services[]", element.value)
+
+            //         }
+            //     }
+
+
+            // }
+            this.getApartment.services.forEach(function (value) {
+                console.log(value);
+                formData.append("services[]", value)
+            })
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);
             }
             console.log(this.modelServices);
 
-            axios.post("/api/updateApartment" + this.$route.params.id, formData, config)
+            axios.post("/api/updateApartment/" + this.$route.params.id, formData, config)
                 .then(res => {
                     const success = res.data.success;
                     console.log(res);
+                    this.$router.push({ name: 'userApartments' })
                 }).catch((errors) => {
                     console.log(errors);
                 });

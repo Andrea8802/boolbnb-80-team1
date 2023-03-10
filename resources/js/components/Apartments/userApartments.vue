@@ -1,5 +1,4 @@
 <template>
-    <button @click.prevent="logout">Logout</button>
     <h1>Apartments List</h1> <br>
     <button> <router-link :to="{ name: 'createApartment' }">Create apartment</router-link></button>
     <ul>
@@ -24,12 +23,17 @@ export default {
         }
     },
     methods: {
-        logout() {
-            axios.post('/api/logout').then(() => {
-                this.$router.push({ name: "Home" })
-            }).catch((errors) => {
-                console.log(errors);
-            });
+        reloadPage() {
+            var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
+            // Current Time //
+            var now = Date.now();
+            // Total Process Lenght as Minutes //
+            var tenSec = 10 * 1000;
+            // End Time of Process //
+            var plusTenSec = currentDocumentTimestamp + tenSec;
+            if (now > plusTenSec) {
+                location.reload();
+            }
         },
 
         getUserApartments() {
@@ -69,6 +73,7 @@ export default {
     },
 
     mounted() {
+        this.reloadPage()
         this.getUserApartments()
     }
 }

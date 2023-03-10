@@ -42,31 +42,13 @@
         <input type="text"
             name="address"
             v-model="modelAddress"> <br> <br>
-        <label for="lat">Lat : </label>
-        <input type="number"
-            name="lat"
-            v-model="modelLat"> <br> <br>
-        <label for="long">Long : </label>
-        <input type="number"
-            name="long"
-            v-model="modelLong"> <br> <br>
+
         <label for="long">Apartment Image : </label>
         <input type="file"
             name="long"
             v-on:change="onImageChange"> <br> <br>
-        <label for="sponsors">Select a Sponsor : </label>
-        <select name="imageApartment"
-            v-model="modelSponsor">
-            <option v-for="sponsor in sponsors"
-                :value="sponsor.id"
-                :key="sponsor.id">
-                {{ sponsor.name }}
-            </option>
 
-
-        </select> <br> <br>
-
-        <label for="">Tags : </label> <br>
+        <label for="">Services : </label> <br>
 
         <div v-for="service in services">
             <input type="checkbox"
@@ -94,12 +76,8 @@ export default {
             modelBedsNum: "",
             modelSize: "",
             modelAddress: "",
-            modelLat: "",
-            modelLong: "",
             modelServices: [],
-            modelSponsor: [],
             services: [],
-            sponsors: [],
             imageApartment: '',
             imageBool: false,
 
@@ -107,6 +85,11 @@ export default {
         }
     },
     methods: {
+        sponsormethod() {
+            this.sponsorArray.push(this.modelSponsor);
+            return this.sponsorArray;
+        },
+
         onImageChange(e) {
             this.imageBool = true
             console.log(e)
@@ -138,10 +121,11 @@ export default {
             formData.append("beds_num", this.modelBedsNum);
             formData.append("size", this.modelSize);
             formData.append("address", this.modelAddress);
-            formData.append("lat", this.modelLat);
-            formData.append("long", this.modelLong);
-            formData.append("sponsors", this.modelSponsor.id);
-            formData.append("services", this.modelServices.id);
+            this.modelServices.forEach(function (value) {
+                console.log(value);
+                formData.append("services[]", value) // you have to add array symbol after the key name
+            })
+
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);
             }
@@ -151,6 +135,8 @@ export default {
                 .then(res => {
                     const success = res.data.success;
                     console.log(res);
+                    console.log(formData);
+                    this.$router.push({ name: "userApartments" })
                 }).catch((errors) => {
                     console.log(errors);
                 });

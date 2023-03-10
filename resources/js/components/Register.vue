@@ -72,7 +72,7 @@
                     name="password_confirmation">
             </div>
             <div class="p-2 w-full mt-4">
-                <button @click.prevent="saveForm"
+                <button @click="saveForm"
                     type="submit"
                     class="flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Register</button>
             </div>
@@ -100,7 +100,9 @@ export default {
     methods: {
         saveForm() {
             axios.post('/api/register', this.form).then(() => {
-                console.log('saved');
+
+                this.$router.push({ name: "Home" });
+
             }).catch((errors) => {
                 console.log(errors);
             });

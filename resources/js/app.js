@@ -41,11 +41,15 @@
 // Vue.use(VueRouter);
 
 
-import { createApp } from 'vue'
+import Dashboard from './components/Dashboard.vue';
 
+import { createApp } from 'vue'
 import router from './router' // <---
 const app = ({
     el: '#app',
-    router: router
+    router: router,
+    components: {
+        "component-dashboard": Dashboard,
+    }
 });
 createApp(app).use(router).mount('#app')

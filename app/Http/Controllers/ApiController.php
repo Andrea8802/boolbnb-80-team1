@@ -34,17 +34,13 @@ class ApiController extends Controller
         $data = $request->validate([
             "title" => ["string", "nullable"],
             "description" => ["string", "nullable"],
-            "price" => ["integer", "nullable"],
+            "price" => ["decimal:0,5", "nullable"],
             "rooms_num" => ["nullable", "integer"],
             "beds_num" => ["nullable", "integer"],
             "baths_num" => ["nullable", "integer"],
             "size" => ["nullable", "integer"],
             "address" => ["nullable", "string"],
-            "lat" => ["nullable", "integer"],
-            "long" => ["nullable", "integer"],
-            "image" => ["nullable", "image", " mimes:jpg,png,jpeg,gif,svg", "max:2048"],
-            "services" => ["nullable"],
-            "sponsors" => ["nullable"],
+            "services" => ["nullable", "array"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
 
         ]);
@@ -57,8 +53,16 @@ class ApiController extends Controller
             $data['imageApartment'] = 'avatar5.png';
         }
 
-        $ap = Apartment::make($data);
-
+        // $ap = Apartment::make($data);
+        $ap = new Apartment();
+        $ap->title = $data["title"];
+        $ap->description = $data["description"];
+        $ap->price = $data["price"];
+        $ap->rooms_num = $data["rooms_num"];
+        $ap->beds_num = $data["beds_num"];
+        $ap->baths_num = $data["baths_num"];
+        $ap->size = $data["size"];
+        $ap->address = $data["address"];
         $id = auth()->user()->id;
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);
@@ -66,8 +70,6 @@ class ApiController extends Controller
 
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
-        $sponsors = Sponsor::find($data["sponsors"]);
-        $ap->sponsors()->attach($sponsors);
 
         $statistics = new Statistic();
         $statistics->ip_address = request()->ip();
@@ -132,6 +134,7 @@ class ApiController extends Controller
     {
 
         $apartment = Apartment::find($id);
+        $apartment["services"] = $apartment->services;
 
         return response()->json([
             "success" => true,
@@ -148,17 +151,13 @@ class ApiController extends Controller
         $data = $request->validate([
             "title" => ["string", "nullable"],
             "description" => ["string", "nullable"],
-            "price" => ["integer", "nullable"],
+            "price" => ["decimal:0,5", "nullable"],
             "rooms_num" => ["nullable", "integer"],
             "beds_num" => ["nullable", "integer"],
             "baths_num" => ["nullable", "integer"],
             "size" => ["nullable", "integer"],
             "address" => ["nullable", "string"],
-            "lat" => ["nullable", "integer"],
-            "long" => ["nullable", "integer"],
-            "image" => ["nullable", "image", " mimes:jpg,png,jpeg,gif,svg", "max:2048"],
-            "services" => ["nullable"],
-            "sponsors" => ["nullable"],
+            "services" => ["nullable", "array"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
 
         ]);
@@ -179,10 +178,7 @@ class ApiController extends Controller
         $apartment->baths_num = $data["baths_num"];
         $apartment->size = $data["size"];
         $apartment->address = $data["address"];
-        $apartment->lat = $data["lat"];
-        $apartment->long = $data["long"];
         $apartment->imageApartment = $data["imageApartment"];
-        $apartment->description = $data["description"];
 
         $id = auth()->user()->id;
         $currentuser = User::find($id);
@@ -191,8 +187,6 @@ class ApiController extends Controller
 
         $services = Service::find([$data["services"]]);
         $apartment->services()->attach($services);
-        $sponsors = Sponsor::find($data["sponsors"]);
-        $apartment->sponsors()->attach($sponsors);
 
         // $statistics = new Statistic();
         // $statistics->ip_address = request()->ip();
@@ -208,6 +202,14 @@ class ApiController extends Controller
         return response()->json([
             "success" => true,
             "response" => $apartments
+        ]);
+    }
+    public function getUserLogged()
+    {
+        $user = auth()->user();
+        return response()->json([
+            "success" => true,
+            "response" => $user
         ]);
     }
 }

@@ -139,12 +139,23 @@
                 <router-link to='/about'>About</router-link>
             </div>
             <div class="flex">
+                @guest
                 <router-link class="mr-4" to='/login' exact>Login</router-link>
                 <router-link to='/register'>Register</router-link>
+               
+@endguest
+@auth
+<router-link to='/userApartments'>Your Apartments</router-link>
+@endauth
+               
             </div>
         </div>
     </div>
     <div class="container mx-auto py-2">
+        @auth
+        <component-dashboard></component-dashboard>
+        @endauth
+        
         <router-view></router-view>
     </div>
     
