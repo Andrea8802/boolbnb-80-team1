@@ -16,19 +16,32 @@
             {{-- header --}}
             <header>
                 <div>
-                    @if (Route::has('login'))
-                        <div>
-                            @auth
-                                <a href="{{ url('/home') }}" class="text-danger">Dashboard</a>
-                            @else
-                                <a href="{{ route('login') }}">Log in</a>
-        
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}">Register</a>
-                                @endif
-                            @endauth
-                        </div>
-                    @endif
+                    {{-- logo pagina --}}
+                    <div>
+
+                    </div>
+
+                    {{-- serach bar --}}
+                    <div>
+                        
+                    </div>
+
+                    {{-- link login e dashboard --}}
+                    <div>
+                        @if (Route::has('login'))
+                            <div>
+                                @auth
+                                    <a href="{{ url('/home') }}">Dashboard</a>
+                                @else
+                                    <a href="{{ route('login') }}">Log in</a>
+            
+                                    @if (Route::has('register'))
+                                        <a href="{{ route('register') }}">Register</a>
+                                    @endif
+                                @endauth
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </header>
 
