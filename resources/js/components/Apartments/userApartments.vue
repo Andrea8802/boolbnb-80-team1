@@ -12,7 +12,7 @@
             <div>Indirizzo: {{ apartment.address }}</div><br>
             <div>Servizi: {{ apartment.services }}</div><br>
             <div>Immagine:
-                <img v-bind:src="'/public/storage/' + apartment.imageApartment" alt="">
+                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title">
             </div><br>
 
             <span @click="deleteApartment(apartment.id)">DELETE</span> -
