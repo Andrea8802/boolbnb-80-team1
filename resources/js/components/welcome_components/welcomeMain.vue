@@ -27,16 +27,19 @@ export default {
 
 <template>
     <div class="container-fluid ms_ctn_main p-3">
-        <div class="row">
-            <div v-for="apartment in apartments" class="col-sm-4 mb-4 mb-sm-0">
-                <div class="card mb-3" style="width: 18rem;">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <div class="col" v-for="apartment in apartments">
+                <div class="card rounded">
+                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="rounded fluid">
                     <div class="card-body">
-                        <div class="card-title">
-                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="ms_aps_img">
-                            <h5>{{ apartment.title }}</h5>
+                        <h5 class="card-title text-center">{{ apartment.title }}</h5>
+                        <div class="card-text text-center">
+                            <p>{{ apartment.description }}</p>
+                            <strong>{{ apartment.price }}€</strong>/notte
                         </div>
-                        <p class="card-text">{{ apartment.description }}</p>
-                        <button>Manda un messaggio al proprietario</button>
+                    </div>
+                    <div class="d-grid gap-2 d-md-block mx-auto my-2">
+                        <button class="btn btn-danger rounded">Scrivi al proprietario</button>
                     </div>
                 </div>
             </div>
