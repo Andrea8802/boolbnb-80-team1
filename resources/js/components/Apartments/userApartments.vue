@@ -11,7 +11,9 @@
             <div>Dimensioni: {{ apartment.size }}mq.</div><br>
             <div>Indirizzo: {{ apartment.address }}</div><br>
             <div>Servizi: {{ apartment.services }}</div><br>
-            <div>Immagine: {{ apartment.Image }}</div><br>
+            <div>Immagine:
+                <img v-bind:src="'/public/storage/' + apartment.imageApartment" alt="">
+            </div><br>
 
             <span @click="deleteApartment(apartment.id)">DELETE</span> -
             <button> <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
