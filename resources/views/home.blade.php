@@ -20,6 +20,5 @@
             </div>
         </div>
     </div>
-    <welcome-main> </welcome-main>
 </div>
 @endsection

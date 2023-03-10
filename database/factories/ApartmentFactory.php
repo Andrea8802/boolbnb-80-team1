@@ -182,7 +182,7 @@ class ApartmentFactory extends Factory
             'address' => $fullAddress[$randAddress]["address"],
             'lat' => $fullAddress[$randAddress]["latitude"],
             'long' => $fullAddress[$randAddress]["longitude"],
-            'imageApartment' => fake()->image(null, 360, 360, 'house', true),
+            'imageApartment' => 'avatar5.png',
             'visibility' => true,
         ];
     }
