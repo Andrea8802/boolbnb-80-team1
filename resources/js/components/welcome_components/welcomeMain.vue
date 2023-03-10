@@ -6,7 +6,7 @@ export default {
         }
     },
     methods: {
-        getAllApartments() {
+        getApartments() {
             axios.get('getApartments')
                 .then(res => {
 
@@ -20,7 +20,7 @@ export default {
         }
     },
     mounted() {
-        this.getAllApartments();
+        this.getApartments();
     }
 }
 </script>
