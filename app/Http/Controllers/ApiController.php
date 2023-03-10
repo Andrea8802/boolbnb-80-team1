@@ -40,11 +40,10 @@ class ApiController extends Controller
             "baths_num" => ["nullable", "integer"],
             "size" => ["nullable", "integer"],
             "address" => ["nullable", "string"],
-            "lat" => ["nullable", "integer"],
-            "long" => ["nullable", "integer"],
+            "lat" => ["nullable", "decimal:5"],
+            "long" => ["nullable", "decimal:5"],
             "image" => ["nullable", "image", " mimes:jpg,png,jpeg,gif,svg", "max:2048"],
             "services" => ["nullable"],
-            "sponsors" => ["nullable"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
 
         ]);
@@ -66,9 +65,8 @@ class ApiController extends Controller
 
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
-        $sponsors = Sponsor::find($data["sponsors"]);
-        $ap->sponsors()->attach($sponsors);
 
+        
         $statistics = new Statistic();
         $statistics->ip_address = request()->ip();
 

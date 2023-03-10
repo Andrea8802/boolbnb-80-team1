@@ -71,7 +71,7 @@
 
         <!-- container del form per creare un appartamento -->
         <div>
-            <form action="" enctype="multipart/form-data" @submit.prevent="createApartment" method="post">
+            <form action="" enctype="multipart/form-data" @submit.prevent="getCoordinates" method="post">
 
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="title">Titolo : </label>
@@ -124,35 +124,11 @@
                 </div>
 
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="lat">Latitudine : </label>
-                    <input type="number" name="lat" v-model="modelLat" class="form-control ms_input_focus_color"
-                        placeholder="Inserisci la latitudine..." aria-describedby="basic-addon1">
-                </div>
-
-                <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="long">Longitudine : </label>
-                    <input type="number" name="long" v-model="modelLong" class="form-control ms_input_focus_color"
-                        placeholder="Inserisci la longitudine..." aria-describedby="basic-addon1">
-                </div>
-
-                <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="imageApartment">
                         Immagine di Copertina :
                     </label>
                     <input type="file" name="imageApartment" v-on:change="onImageChange"
                         class="form-control ms_input_focus_color" aria-describedby="basic-addon1">
-                </div>
-
-                <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="sponsors">
-                        Seleziona il tipo di Sponsor :
-                    </label>
-                    <select name="sponsors" v-model="modelSponsor" class="form-select form-select-sm ms_input_focus_color"
-                        aria-label=".form-select-sm example">
-                        <option v-for="sponsor in sponsors" :value="sponsor.id" :key="sponsor.id">
-                            {{ sponsor.name }}
-                        </option>
-                    </select>
                 </div>
 
                 <div class="ms_ctn_service p-3 my-3">
@@ -186,7 +162,6 @@ export default {
             modelLat: "",
             modelLong: "",
             modelServices: [],
-            modelSponsor: [],
             services: [],
             sponsors: [],
             imageApartment: '',
@@ -211,7 +186,7 @@ export default {
                     console.log(errors);
                 });
         },
-        createApartment(e) {
+        createApartment() {
             const config = {
                 headers: {
                     "content-type": "multipart/form-data"
@@ -228,7 +203,6 @@ export default {
             formData.append("address", this.modelAddress);
             formData.append("lat", this.modelLat);
             formData.append("long", this.modelLong);
-            formData.append("sponsors", this.modelSponsor.id);
             formData.append("services", this.modelServices.id);
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);
@@ -243,15 +217,30 @@ export default {
                     console.log(errors);
                 });
 
-            e.preventDefault()
-
 
         },
 
+        getCoordinates(e) {
+            e.preventDefault()
+
+            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.modelAddress}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false);
+            xmlHttp.send(null);
+            var json = JSON.parse(xmlHttp.responseText);
+
+            this.modelLat = parseFloat(json.results[0].position.lat);
+            this.modelLong = parseFloat(json.results[0].position.lon);
+            this.createApartment();
+        }
+
 
     },
+
+
     mounted() {
         this.getData()
     }
 }
+
 </script>
