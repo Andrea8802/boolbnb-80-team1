@@ -33,11 +33,12 @@ export default {
                     <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                         class="rounded fluid card-img-top h-50">
                     <div class="card-body h-35">
-                        <h5 class="card-title text-center">{{ apartment.title }}</h5>
-                        <div class="card-text text-center ms_aps_descr">
+                        <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                        <div class="card-text text-center ms_aps_text">
                             <p>{{ apartment.description }}</p>
                         </div>
-                        <div class="text-center"><strong>{{ apartment.price }}€</strong>/notte</div>
+                        <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                        <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
                     </div>
                     <div class="d-grid gap-2 d-md-block mx-auto my-2 h-15">
                         <button class="btn btn-danger rounded">Scrivi al proprietario</button>
@@ -69,10 +70,17 @@ export default {
     color: #ff385c;
 }
 
-.ms_aps_descr {
+.ms_aps_text {
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.ms_aps_sm_text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 </style>
