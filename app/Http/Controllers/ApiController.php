@@ -163,7 +163,6 @@ class ApiController extends Controller
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->orderby("distance", "desc")
-            ->limit(5)
             ->get();
 
         return response()->json([

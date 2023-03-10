@@ -3,7 +3,7 @@
     <label for="apartmentSearch">
         Destinazione
     </label>
-    <input type="search" name="apartmentSearch" v-model="apartmentSearch">
+    <input type="search" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates">
     <button @click="getCoordinates">Cerca</button>
 </template>
 
