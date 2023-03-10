@@ -18,6 +18,6 @@ section {
 }
 
 .ms_ctn_footer {
-    height: 60px;
+    height: 40px;
 }
 </style>
