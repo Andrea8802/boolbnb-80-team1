@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 @section('content')
  <div class="card-body">        
                 <button>
@@ -7,4 +7,4 @@
                   <component-userapartments> </component-userapartments>
            
  </div>           
-@endsection  
+@endsection   --}}

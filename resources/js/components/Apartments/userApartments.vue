@@ -1,27 +1,39 @@
 <template>
+    <button @click.prevent="logout">Logout</button>
     <h1>Apartments List</h1> <br>
+    <button> <router-link :to="{ name: 'createApartment' }">Create apartment</router-link></button>
     <ul>
         <li v-for="apartment in apartments">
             {{ apartment.title }}
             <span @click="deleteApartment(apartment.id)">DELETE</span>
             <button> <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
+
         </li>
     </ul>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
 
             apartments: [],
-            getapartment: []
+            getapartment: [],
+
         }
     },
     methods: {
+        logout() {
+            axios.post('/api/logout').then(() => {
+                this.$router.push({ name: "Home" })
+            }).catch((errors) => {
+                console.log(errors);
+            });
+        },
 
         getUserApartments() {
-            axios.get("userApartments")
+            axios.get("/api/userApartments")
                 .then(res => {
                     this.apartments = res.data.response;
                     console.log(this.apartments);
@@ -31,7 +43,7 @@ export default {
         },
         deleteApartment(apartmentId) {
 
-            axios.get("delete/" + apartmentId)
+            axios.get("/api/delete/" + apartmentId)
                 .then(res => {
                     this.getUserApartments();
                     const success = res.data.success

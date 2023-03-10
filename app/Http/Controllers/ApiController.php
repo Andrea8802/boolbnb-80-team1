@@ -143,4 +143,71 @@ class ApiController extends Controller
     {
         return view("editApartment");
     }
+    public function updateApartment(Request $request, Apartment $apartment)
+    {
+        $data = $request->validate([
+            "title" => ["string", "nullable"],
+            "description" => ["string", "nullable"],
+            "price" => ["integer", "nullable"],
+            "rooms_num" => ["nullable", "integer"],
+            "beds_num" => ["nullable", "integer"],
+            "baths_num" => ["nullable", "integer"],
+            "size" => ["nullable", "integer"],
+            "address" => ["nullable", "string"],
+            "lat" => ["nullable", "integer"],
+            "long" => ["nullable", "integer"],
+            "image" => ["nullable", "image", " mimes:jpg,png,jpeg,gif,svg", "max:2048"],
+            "services" => ["nullable"],
+            "sponsors" => ["nullable"],
+            'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
+
+        ]);
+
+        if (array_key_exists("imageApartment", $data)) {
+
+            $img_path = Storage::put('uploads', $data['imageApartment']);
+            $data['imageApartment'] = $img_path;
+        } else {
+            $data['imageApartment'] = 'avatar5.png';
+        }
+
+        $apartment->title = $data["title"];
+        $apartment->description = $data["description"];
+        $apartment->price = $data["price"];
+        $apartment->rooms_num = $data["rooms_num"];
+        $apartment->beds_num = $data["beds_num"];
+        $apartment->baths_num = $data["baths_num"];
+        $apartment->size = $data["size"];
+        $apartment->address = $data["address"];
+        $apartment->lat = $data["lat"];
+        $apartment->long = $data["long"];
+        $apartment->imageApartment = $data["imageApartment"];
+        $apartment->description = $data["description"];
+
+        $id = auth()->user()->id;
+        $currentuser = User::find($id);
+        $apartment->user()->associate($currentuser);
+        $apartment->save();
+
+        $services = Service::find([$data["services"]]);
+        $apartment->services()->attach($services);
+        $sponsors = Sponsor::find($data["sponsors"]);
+        $apartment->sponsors()->attach($sponsors);
+
+        // $statistics = new Statistic();
+        // $statistics->ip_address = request()->ip();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+        ]);
+    }
+    public function allApartments()
+    {
+        $apartments = Apartment::all();
+        return response()->json([
+            "success" => true,
+            "response" => $apartments
+        ]);
+    }
 }

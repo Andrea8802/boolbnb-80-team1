@@ -1,6 +1,6 @@
 <template>
     <h1>EDIT </h1> <br>
-    <!-- <form action=""
+    <form action=""
         enctype="multipart/form-data"
         method="post">
         <label for="title">Title : </label>
@@ -14,35 +14,35 @@
         <label for="price">Price : </label>
         <input type="number"
             name="price"
-            v-model="modelPrice"> <br> <br>
+            v-model="getApartment.price"> <br> <br>
         <label for="beds_num">Beds Number : </label>
         <input type="number"
             name="beds_num"
-            v-model="modelBedsNum"> <br> <br>
+            v-model="getApartment.beds_num"> <br> <br>
         <label for="rooms_num">Rooms Number : </label>
         <input type="number"
             name="rooms_num"
-            v-model="modelRoomsNum"> <br> <br>
+            v-model="getApartment.rooms_num"> <br> <br>
         <label for="baths_num">Baths Number : </label>
         <input type="number"
             name="baths_num"
-            v-model="modelBathsNum"> <br> <br>
+            v-model="getApartment.baths_num"> <br> <br>
         <label for="size">Size : </label>
         <input type="number"
             name="size"
-            v-model="modelSize"> <br> <br>
+            v-model="getApartment.size"> <br> <br>
         <label for="address">Address : </label>
         <input type="text"
             name="address"
-            v-model="modelAddress"> <br> <br>
+            v-model="getApartment.address"> <br> <br>
         <label for="lat">Lat : </label>
         <input type="number"
             name="lat"
-            v-model="modelLat"> <br> <br>
+            v-model="getApartment.lat"> <br> <br>
         <label for="long">Long : </label>
         <input type="number"
             name="long"
-            v-model="modelLong"> <br> <br>
+            v-model="getApartment.long"> <br> <br>
         <label for="long">Apartment Image : </label>
         <input type="file"
             name="long"
@@ -58,23 +58,26 @@
 
 
         </select> <br> <br>
+        <div class="services-cont">
+            <!-- v-if="getApartment.services != undefined && getApartment.services.length > 0"> -->
+            <label for="">Services : </label> <br>
 
-        <label for="">Tags : </label> <br>
-
-        <div v-for="service in services">
-            <input type="checkbox"
-                :value="service.id"
-                name=services
-                v-model="modelServices">
-            <label for="services">{{ service.name }}</label>
-        </div> <br>
+            <div v-for="service in services">
+                <input type="checkbox"
+                    :value="service.id"
+                    name=services
+                    class="input">
+                <label for="services">{{ service.name }}</label>
+            </div> <br>
+        </div>
 
         <input type="submit"
             value="create">
-    </form> -->
+    </form>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -96,64 +99,95 @@ export default {
             imageBool: false,
             getApartment: "",
 
+
         }
     },
     methods: {
-        // onImageChange(e) {
-        //     this.imageBool = true
-        //     console.log(e)
-        //     this.imageApartment = e.target.files[0];
+        apServices(service) {
+            for (let index = 0; index < this.getApartment.services.length; index++) {
+                const element = this.getApartment.services[index];
+                if (element.id == service.id) {
 
-        // },
-        // getData() {
-        //     axios.get("getData")
-        //         .then(res => {
-        //             this.services = res.data.response.services;
-        //             this.sponsors = res.data.response.sponsors;
-        //             console.log(this.services);
-        //         }).catch((errors) => {
-        //             console.log(errors);
-        //         });
-        // },
-        // createApartment(e) {
-        //     const config = {
-        //         headers: {
-        //             "content-type": "multipart/form-data"
-        //         }
-        //     }
-        //     let formData = new FormData();
-        //     formData.append("title", this.modelTitle);
-        //     formData.append("description", this.modelDescription);
-        //     formData.append("price", this.modelPrice);
-        //     formData.append("rooms_num", this.modelRoomsNum);
-        //     formData.append("baths_num", this.modelBathsNum);
-        //     formData.append("beds_num", this.modelBedsNum);
-        //     formData.append("size", this.modelSize);
-        //     formData.append("address", this.modelAddress);
-        //     formData.append("lat", this.modelLat);
-        //     formData.append("long", this.modelLong);
-        //     formData.append("sponsors", this.modelSponsor.id);
-        //     formData.append("services", this.modelServices.id);
-        //     if (this.imageBool) {
-        //         formData.append('imageApartment', this.imageApartment);
-        //     }
-        //     console.log(this.modelServices);
+                    return true;
 
-        //     axios.post("apartments", formData, config)
-        //         .then(res => {
-        //             const success = res.data.success;
-        //             console.log(res);
-        //         }).catch((errors) => {
-        //             console.log(errors);
-        //         });
+                }
 
-        //     e.preventDefault()
+            }
+            return false;
+        },
+        checkboxs() {
+            let check = document.getElementsByClassName("input");
+            for (let index = 0; index < check.length; index++) {
+                const element = check[index];
+                for (let index = 0; index < this.getApartment.services.length; index++) {
+                    const el = this.getApartment.tags[index];
+                    if (el.id !== element.value && element.checked) {
+                        console.log(this.getApartment.tags);
+                        this.selectedCheck.push(element.value);
+
+                    }
+                }
 
 
-        // },
+            }
+            console.log(this.selectedCheck);
+            return this.selectedCheck;
+        },
+        onImageChange(e) {
+            this.imageBool = true
+            console.log(e)
+            this.imageApartment = e.target.files[0];
+
+        },
+        getData() {
+            axios.get("/api/getData")
+                .then(res => {
+                    this.services = res.data.response.services;
+                    this.sponsors = res.data.response.sponsors;
+                    console.log(this.services);
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+        },
+        updateApartment(e) {
+            const config = {
+                headers: {
+                    "content-type": "multipart/form-data"
+                }
+            }
+            let formData = new FormData();
+            formData.append("title", this.getApartment.title);
+            formData.append("description", this.getApartment.description);
+            formData.append("price", this.getApartment.price);
+            formData.append("rooms_num", this.getApartment.rooms_num);
+            formData.append("baths_num", this.getApartment.baths_num);
+            formData.append("beds_num", this.getApartment.beds_num);
+            formData.append("size", this.getApartment.size);
+            formData.append("address", this.getApartment.address);
+            formData.append("lat", this.getApartment.lat);
+            formData.append("long", this.getApartment.long);
+            formData.append("sponsors", this.getApartment.sponsors);
+            formData.append("services", this.getApartment.services);
+            if (this.imageBool) {
+                formData.append('imageApartment', this.imageApartment);
+            }
+            console.log(this.modelServices);
+
+            axios.post("/api/updateApartment" + this.$route.params.id, formData, config)
+                .then(res => {
+                    const success = res.data.success;
+                    console.log(res);
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+
+            e.preventDefault()
+
+
+        },
         geteditApartment() {
 
-            axios.get("editApartment/" + this.$route.params.id)
+            axios.get("/api/editApartment/" + this.$route.params.id)
                 .then(res => {
                     this.getApartment = res.data.response;
                     console.log(this.getApartment);
@@ -170,7 +204,7 @@ export default {
 
     },
     mounted() {
-        // this.getData()
+        this.getData()
         this.geteditApartment()
         this.log()
 
