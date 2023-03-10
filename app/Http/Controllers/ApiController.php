@@ -66,7 +66,7 @@ class ApiController extends Controller
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
 
-        
+
         $statistics = new Statistic();
         $statistics->ip_address = request()->ip();
 
@@ -141,5 +141,34 @@ class ApiController extends Controller
     public function userEditApartmentsPage()
     {
         return view("editApartment");
+    }
+    public function searchApartment(Request $request)
+    {
+        $data = $request->validate([
+            "latitude" => ["decimal:5"],
+            "longitude" => ["decimal:5"],
+            "radius" => ["integer"],
+        ]);
+
+        $latitude = $data["latitude"];
+        $longitude = $data["longitude"];
+        $radius = $data["radius"];
+        $apartments = Apartment::selectRaw("id, name, address, latitude, longitude, rating, zone ,
+                         ( 6371000 * acos( cos( radians(?) ) *
+                           cos( radians( latitude ) )
+                           * cos( radians( longitude ) - radians(?)
+                           ) + sin( radians(?) ) *
+                           sin( radians( latitude ) ) )
+                         ) AS distance", [$latitude, $longitude, $latitude])
+            ->where('active', '=', 1)
+            ->having("distance", "<", $radius)
+            ->orderBy("distance", 'asc')
+            ->get();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments
+        ]);
+
     }
 }

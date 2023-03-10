@@ -35,3 +35,5 @@ Route::get('getData', [ApiController::class, 'getData']);
 Route::get('delete/{apartment}', [ApiController::class, 'deleteApartment']);
 Route::get('editApartment/editApartment/{apartment}', [ApiController::class, 'geteditApartment']);
 Route::get('editApartment/{apartment}', [ApiController::class, 'userEditApartmentsPage'])->middleware('auth')->name('apartmentEdit');
+
+Route::post('searchApartment', [ApiController::class, 'searchApartment']);
