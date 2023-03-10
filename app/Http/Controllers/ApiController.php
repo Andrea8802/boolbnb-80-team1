@@ -144,25 +144,26 @@ class ApiController extends Controller
     }
     public function searchApartment(Request $request)
     {
-        $data = $request->validate([
-            "latitude" => ["decimal:5"],
-            "longitude" => ["decimal:5"],
-            "radius" => ["integer"],
-        ]);
 
-        $latitude = $data["latitude"];
-        $longitude = $data["longitude"];
-        $radius = $data["radius"];
-        $apartments = Apartment::selectRaw("id, name, address, latitude, longitude, rating, zone ,
-                         ( 6371000 * acos( cos( radians(?) ) *
-                           cos( radians( latitude ) )
-                           * cos( radians( longitude ) - radians(?)
-                           ) + sin( radians(?) ) *
-                           sin( radians( latitude ) ) )
-                         ) AS distance", [$latitude, $longitude, $latitude])
-            ->where('active', '=', 1)
-            ->having("distance", "<", $radius)
-            ->orderBy("distance", 'asc')
+        $latitude = $request["latitude"];
+        $longitude = $request["longitude"];
+        $radius = $request["radius"];
+
+
+        $haversine = "(
+            6371 * acos(
+                cos(radians(" . $latitude . "))
+                * cos(radians(`lat`))
+                * cos(radians(`long`) - radians(" . $longitude . "))
+                + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
+            )
+        )";
+
+        $apartments = Apartment::select("*")
+            ->selectRaw("$haversine AS distance")
+            ->having("distance", "<=", $radius)
+            ->orderby("distance", "desc")
+            ->limit(5)
             ->get();
 
         return response()->json([
