@@ -30,15 +30,16 @@ export default {
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <div class="col" v-for="apartment in apartments">
                 <div class="card rounded">
-                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="rounded fluid">
-                    <div class="card-body">
+                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                        class="rounded fluid card-img-top h-50">
+                    <div class="card-body h-35">
                         <h5 class="card-title text-center">{{ apartment.title }}</h5>
-                        <div class="card-text text-center">
+                        <div class="card-text text-center ms_aps_descr">
                             <p>{{ apartment.description }}</p>
-                            <strong>{{ apartment.price }}€</strong>/notte
                         </div>
+                        <div class="text-center"><strong>{{ apartment.price }}€</strong>/notte</div>
                     </div>
-                    <div class="d-grid gap-2 d-md-block mx-auto my-2">
+                    <div class="d-grid gap-2 d-md-block mx-auto my-2 h-15">
                         <button class="btn btn-danger rounded">Scrivi al proprietario</button>
                     </div>
                 </div>
@@ -51,10 +52,27 @@ export default {
 .ms_ctn_main {
     overflow-y: auto;
     height: calc(100vh - 110px);
+
 }
 
-.ms_aps_img {
-    width: 100%;
-    height: auto;
+.ms_ctn_main::-webkit-scrollbar-thumb {
+    background-color: #ff385c;
+    outline: 1px solid #ff385c;
+}
+
+.ms_ctn_main::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.ms_ctn_main::-webkit-scrollbar {
+    width: 0.5em;
+    color: #ff385c;
+}
+
+.ms_aps_descr {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 </style>
