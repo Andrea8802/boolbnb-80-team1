@@ -15,6 +15,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    
 </head>
 <body>
     <div id="app">
@@ -77,6 +78,7 @@
         </nav>
 
         <main class="py-4">
+            <welcome-main></welcome-main>
             @yield('content')
         </main>
     </div>

@@ -46,10 +46,10 @@
             </header>
 
             {{-- main --}}
-            <welcome-main></welcome-main>
+            <welcome-main> </welcome-main>
 
             {{-- footer --}}
-            <welcome-footer></welcome-footer>
+            <welcome-footer> </welcome-footer>
         </div>
     </body>
 </html>
