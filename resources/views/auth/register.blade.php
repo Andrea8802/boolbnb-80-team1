@@ -39,7 +39,7 @@
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{__('La password deve contenere almeno 8 caratteri')}}</strong>
+                                            <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -50,8 +50,15 @@
                                     class="col-md-4 col-form-label text-md-end">{{__('Conferma la password')}} <span class="text-danger lead" >&#42;</span></label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
+                                    <input id="password-confirm" type="password" class="form-control @error('password') is-invalid @enderror"
                                         name="password_confirmation" required autocomplete="new-password">
+
+                                        @error('password-confirm')
+                                            <span id="alert" class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
                                 </div>
                             </div>
 
