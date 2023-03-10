@@ -100,10 +100,11 @@ class ApiController extends Controller
     }
     public function getApartments()
     {
-        $services = Service::all();
+        $apartments = Apartment::all();
+
         return response()->json([
             "success" => true,
-            "response" => $services
+            "response" => $apartments
         ]);
     }
     public function deleteApartment(Apartment $apartment)
