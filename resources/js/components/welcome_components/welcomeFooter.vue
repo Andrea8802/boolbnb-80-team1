@@ -23,7 +23,7 @@
 
                 <!-- slot dei link lingua, tipo moneta, supporto e risorse -->
                 <div class="ms_slot_link_footer_right">
-                    <a href="#">&wor Italiano</a>
+                    <a href="#">Italiano</a>
                     <span class="mx-2">&#8226;</span>
                     <a href="#">&euro; EUR</a>
                     <span class="mx-2">&#8226;</span>
