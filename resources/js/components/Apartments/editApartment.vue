@@ -57,7 +57,7 @@
         </div>
 
         <input type="submit"
-            value="create">
+            value="update">
     </form>
 </template>
 
@@ -79,6 +79,7 @@ export default {
             imageApartment: '',
             imageBool: false,
             getApartment: "",
+            selectedCheck: [],
 
 
         }
@@ -146,22 +147,20 @@ export default {
             formData.append("beds_num", this.getApartment.beds_num);
             formData.append("size", this.getApartment.size);
             formData.append("address", this.getApartment.address);
-            // let check = document.getElementsByClassName("input");
-            // for (let index = 0; index < check.length; index++) {
-            //     const element = check[index];
-            //     for (let index = 0; index < this.getApartment.services.length; index++) {
-            //         const el = this.getApartment.tags[index];
-            //         if (el.id !== element.value && element.checked) {
-            //             console.log(this.getApartment.tags);
-            //             this.selectedCheck.push(element.value);
-            //             formData.append("services[]", element.value)
+            let check = document.getElementsByClassName("input");
+            for (let index = 0; index < check.length; index++) {
+                const element = check[index];
+                for (let index = 0; index < this.getApartment.services.length; index++) {
+                    const el = this.getApartment.services[index];
+                    if (el.id !== element.value && element.checked) {
+                        this.selectedCheck.push(element.value);
 
-            //         }
-            //     }
+                    }
+                }
 
 
-            // }
-            this.getApartment.services.forEach(function (value) {
+            }
+            this.selectedCheck.forEach(function (value) {
                 console.log(value);
                 formData.append("services[]", value)
             })

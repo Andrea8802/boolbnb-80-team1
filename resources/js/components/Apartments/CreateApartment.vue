@@ -85,10 +85,6 @@ export default {
         }
     },
     methods: {
-        sponsormethod() {
-            this.sponsorArray.push(this.modelSponsor);
-            return this.sponsorArray;
-        },
 
         onImageChange(e) {
             this.imageBool = true

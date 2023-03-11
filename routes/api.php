@@ -35,4 +35,4 @@ Route::get('getUserLogged', [ApiController::class, 'getUserLogged']);
 Route::get('allApartments', [ApiController::class, 'allApartments']);
 Route::post('updateApartment/{apartment}', [ApiController::class, 'updateApartment']);
 // Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
-Route::post('logout', 'App\Http\Controllers\Auth\LoginController@logout')->name("logout");
+Route::get('logout', [ApiController::class, 'logout'])->name("logout");

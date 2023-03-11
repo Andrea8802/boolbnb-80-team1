@@ -28,8 +28,9 @@ export default {
             document.getElementById("myDropdown").classList.toggle("show");
         },
         logout() {
-            axios.post('/api/logout').then(() => {
+            axios.get('/api/logout').then(() => {
                 this.$router.push({ name: "Home" })
+                // location.reload()
 
             })
         },

@@ -10,6 +10,8 @@ use App\Models\Sponsor;
 use App\Models\Statistic;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ApiController extends Controller
 {
@@ -162,14 +164,17 @@ class ApiController extends Controller
 
         ]);
 
-        if (array_key_exists("imageApartment", $data)) {
+        // if (array_key_exists("imageApartment", $data)) {
 
+        //     $img_path = Storage::put('uploads', $data['imageApartment']);
+        //     $data['imageApartment'] = $img_path;
+        // } else {
+        //     $data['imageApartment'] = 'avatar5.png';
+        // }
+        if (array_key_exists("imageApartment", $data)) {
             $img_path = Storage::put('uploads', $data['imageApartment']);
             $data['imageApartment'] = $img_path;
-        } else {
-            $data['imageApartment'] = 'avatar5.png';
         }
-
         $apartment->title = $data["title"];
         $apartment->description = $data["description"];
         $apartment->price = $data["price"];
@@ -178,7 +183,10 @@ class ApiController extends Controller
         $apartment->baths_num = $data["baths_num"];
         $apartment->size = $data["size"];
         $apartment->address = $data["address"];
-        $apartment->imageApartment = $data["imageApartment"];
+        if (array_key_exists("imageApartment", $data)) {
+            $apartment->imageApartment = $data["imageApartment"];
+        }
+        // $apartment->imageApartment = $data["imageApartment"];
 
         $id = auth()->user()->id;
         $currentuser = User::find($id);
@@ -211,5 +219,10 @@ class ApiController extends Controller
             "success" => true,
             "response" => $user
         ]);
+    }
+    public function logout()
+    {
+        Session::flush();
+        Auth::logout();
     }
 }

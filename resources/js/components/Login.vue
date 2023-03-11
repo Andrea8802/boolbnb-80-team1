@@ -4,6 +4,7 @@
             <div class="p-2 text-2xl text-gray-800 font-semibold">
                 <h1>Login to your account</h1>
             </div>
+            <h5>{{ error }}</h5>
             <div class="p-2 w-full">
                 <label for="email">Your e-mail</label>
                 <input
@@ -35,11 +36,12 @@ export default {
 
     data() {
         return {
+            error: "",
             form: {
                 email: '',
                 password: ''
             },
-            errors: []
+
         }
     },
     methods: {
@@ -49,8 +51,14 @@ export default {
 
             }).catch((errors) => {
                 console.log(errors);
+                this.error = 'invalid email or password! Try again';
             });
         }
     }
 }
 </script>
+<style scoped>
+h5 {
+    color: red;
+}
+</style>
