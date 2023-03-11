@@ -10,7 +10,7 @@
     <button @click="getCoordinates">Cerca</button>
     <h1>Apartments</h1> <br>
     <ul>
-
+        <div>{{ error }}</div>
         <li v-for="apartment in apartments">
             {{ apartment.title }}
         </li>
@@ -27,6 +27,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            error: "",
             apartmentSearch: "",
             modelLat: "",
             modelLong: "",
@@ -39,7 +40,7 @@ export default {
     },
     methods: {
         getCoordinates() {
-
+            this.apartments.length = 0;
             var theUrl = `https://api.tomtom.com/search/2/geocode/${this.apartmentSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", theUrl, false);
@@ -50,6 +51,7 @@ export default {
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
             this.getApartment();
+
 
         },
         getApartment() {
@@ -62,6 +64,12 @@ export default {
                 .then(res => {
                     console.log(res);
                     this.apartmentsGeo = res.data.response;
+                    if (this.apartmentsGeo.length == 0) {
+                        this.error = "nessun appartamento trovato";
+                    }
+                    else {
+                        this.error = null
+                    }
                 })
         },
 
