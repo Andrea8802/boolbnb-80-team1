@@ -28,7 +28,7 @@ export default {
 <template>
     <div class="container-fluid ms_ctn_main p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-            <div class="col" v-for="apartment in apartments">
+            <div class="col align-items-stretch" v-for="apartment in apartments">
                 <div class="card rounded ms_card_efct">
                     <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                         class="rounded fluid card-img-top h-50">
@@ -82,6 +82,10 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+
+.ms_card_efct {
+    border: none;
 }
 
 .ms_card_efct:hover {
