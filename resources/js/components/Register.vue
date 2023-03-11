@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap w-full justify-center items-center pt-56">
+    <!-- <div class="flex flex-wrap w-full justify-center items-center pt-56">
         <div class="flex flex-wrap max-w-xl">
             <div class="p-2 text-2xl text-gray-800 font-semibold">
                 <h1>Register an account</h1>
@@ -89,6 +89,164 @@
                 </div>
             </form>
         </div>
+    </div> -->
+    <div class="container top-mrg">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-8 col-sm-8">
+                <div class="card border-danger">
+                    <div class="card-header text-center display-6 bg-white border-white my-3">Register</div>
+
+                    <div class="card-body text-center">
+                        <form action=""
+                            @submit.prevent="saveForm"
+                            enctype="multipart/form-data">
+
+                            <div class="row mb-3">
+                                <label for="email"
+                                    class="col-md-4 col-form-label text-md-end text-sm-center">Email <span
+                                        class="text-danger lead">&#42;</span> </label>
+
+                                <div class="col-md-6">
+                                    <input id="email"
+                                        type="email"
+                                        class="form-control @error('email') is-invalid @enderror"
+                                        name="email"
+                                        v-model="modelEmail"
+                                        required
+                                        autocomplete="email">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="password"
+                                    class="col-md-4 col-form-label text-md-end">Password <span
+                                        class="text-danger lead">&#42;</span></label>
+
+                                <div class="col-md-6">
+                                    <input id="password"
+                                        type="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        name="password"
+                                        v-model="modelPassword"
+                                        required
+                                        autocomplete="new-password">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="password-confirm"
+                                    class="col-md-4 col-form-label text-md-end">Confirm Password <span
+                                        class="text-danger lead">&#42;</span></label>
+
+                                <div class="col-md-6">
+                                    <input id="password-confirm"
+                                        type="password"
+                                        class="form-control @error('password') is-invalid @enderror"
+                                        name="password_confirmation"
+                                        v-model="modelPasswordConf"
+                                        required
+                                        autocomplete="new-password">
+
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="name"
+                                    class="col-md-4 col-form-label text-md-end">Name <span
+                                        class="text-danger lead">&#42;</span></label>
+
+                                <div class="col-md-6">
+                                    <input id="name"
+                                        type="text"
+                                        class="form-control @error('name') is-invalid @enderror"
+                                        name="name"
+                                        v-model="modelName"
+                                        required
+                                        autocomplete="name"
+                                        autofocus>
+
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="surname"
+                                    class="col-md-4 col-form-label text-md-end">Surname</label>
+
+                                <div class="col-md-6">
+                                    <input id="surname"
+                                        type="text"
+                                        class="form-control @error('surname') is-invalid @enderror"
+                                        name="surname"
+                                        v-model="modelSurname"
+                                        autocomplete="surname"
+                                        autofocus>
+
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="date_of_birth"
+                                    class="col-md-4 col-form-label text-md-end">Date of birth <span
+                                        class="text-danger lead">&#42;</span></label>
+
+                                <div class="col-md-6">
+                                    <input id="date_of_birth"
+                                        type="date"
+                                        class="form-control @error('date_of_birth') is-invalid @enderror"
+                                        name="date_of_birth"
+                                        v-model="modelDate"
+                                        required
+                                        autocomplete="date_of_birth"
+                                        autofocus>
+
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="description"
+                                    class="col-md-4 col-form-label text-md-end">Description</label>
+
+                                <div class="col-md-6">
+                                    <input id="description"
+                                        type="text"
+                                        class="form-control @error('description') is-invalid @enderror"
+                                        name="description"
+                                        v-model="modelDescription"
+                                        autocomplete="description"
+                                        autofocus>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="avatar"
+                                    class="col-md-4 col-form-label text-md-end">Avatar image</label>
+
+                                <div class="col-md-6">
+                                    <input id="avatar"
+                                        type="file"
+                                        class="form-control @error('avatar') is-invalid @enderror"
+                                        name="avatar"
+                                        v-on:change="onImageChange"
+                                        autocomplete="avatar"
+                                        autofocus>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <div class="col-md-12 my-4">
+                                    <button type="submit"
+                                        class="btn btn-outline-danger btn-lg">
+                                        Register
+                                    </button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -153,3 +311,8 @@ export default {
     }
 }
 </script>
+<style scoped>
+.top-mrg {
+    padding-top: 80px;
+}
+</style>
