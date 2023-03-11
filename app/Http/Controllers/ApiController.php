@@ -225,4 +225,33 @@ class ApiController extends Controller
         Session::flush();
         Auth::logout();
     }
+    public function searchApartment(Request $request)
+    {
+
+        $latitude = $request["latitude"];
+        $longitude = $request["longitude"];
+        $radius = $request["radius"];
+
+
+        $haversine = "(
+            6371 * acos(
+                cos(radians(" . $latitude . "))
+                * cos(radians(`lat`))
+                * cos(radians(`long`) - radians(" . $longitude . "))
+                + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
+            )
+        )";
+
+        $apartments = Apartment::select("*")
+            ->selectRaw("$haversine AS distance")
+            ->having("distance", "<=", $radius)
+            ->orderby("distance", "desc")
+            ->get();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments
+        ]);
+
+    }
 }
