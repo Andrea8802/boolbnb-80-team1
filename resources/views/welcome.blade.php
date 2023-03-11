@@ -132,31 +132,31 @@
 </html> --}}
 @extends('layouts.app')
 @section('content')
-    <div class="flex bg-gray-100 border-b border-gray-300 py-4">
-        <div class="container mx-auto flex justify-between">
-            <div class="flex">
+    <div class="header">
+        <div class="cont-header">
+            <div class="cont-home">
                 <router-link class="mr-4" to='/' exact>Home</router-link>
-                <router-link to='/about'>About</router-link>
             </div>
-            <div class="flex">
+            <div class="cont-user">
                 @guest
-                <router-link class="mr-4" to='/login' exact>Login</router-link>
-                <router-link to='/register'>Register</router-link>
+              <a>  <router-link class="mr-4" to='/login' exact>Login</router-link> </a> 
+             <a> <router-link to='/register'>Register</router-link> </a> 
                
 @endguest
 @auth
 <router-link to='/userApartments'>Your Apartments</router-link>
+<component-dashboard></component-dashboard>
 @endauth
                
             </div>
         </div>
     </div>
-    <div class="container mx-auto py-2">
-        @auth
-        <component-dashboard></component-dashboard>
-        @endauth
-        
+    <div class="main">
+     
         <router-view></router-view>
+    </div>
+    <div class="footer">
+
     </div>
     
 @endsection

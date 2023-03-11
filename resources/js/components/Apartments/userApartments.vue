@@ -1,14 +1,39 @@
 <template>
-    <h1>Apartments List</h1> <br>
+    <h1>Your Apartments</h1> <br>
     <button> <router-link :to="{ name: 'createApartment' }">Create apartment</router-link></button>
-    <ul>
+    <div class="container-fluid p-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
+            <div class="col"
+                v-for="apartment in apartments">
+                <div class="card rounded ms_card_efct">
+                    <img :src="'/storage/' + apartment.imageApartment"
+                        :alt="apartment.title"
+                        class="rounded fluid card-img-top h-50">
+                    <div class="card-body h-35">
+                        <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                        <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                        <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                    </div>
+                    <div class="card-body h-35">
+                        <button @click="deleteApartment(apartment.id)">DELETE</button>
+                        <button> <router-link
+                                :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
+                        <button>Sponsor</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- <ul>
         <li v-for="apartment in apartments">
             {{ apartment.title }}
             <span @click="deleteApartment(apartment.id)">DELETE</span>
             <button> <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
 
         </li>
-    </ul>
+    </ul> -->
 </template>
 
 <script>

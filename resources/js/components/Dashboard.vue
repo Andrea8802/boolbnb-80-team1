@@ -1,19 +1,19 @@
 <template>
     <div>
         <div class="dropdown">
-            <button @click="myFunction()">{{ user.name }}</button>
+            <img :src="'/storage/' + user.avatar"
+                @click="myFunction()"
+                class="img" />
             <div id="myDropdown"
                 class="dropdown-content">
                 <a href=""
                     @click.prevent="logout">Logout</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
+
             </div>
         </div>
         <br>
 
     </div>
-    ciao
 </template>
 <script>
 import axios from "axios"
@@ -51,6 +51,14 @@ export default {
 }
 </script>
 <style scoped>
+.img {
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
 /* Dropdown Button */
 .dropbtn {
     background-color: #3498DB;

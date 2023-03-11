@@ -6,3 +6,62 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+.header {
+    z-index: 50;
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    // background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+
+    .cont-header {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .cont-home {
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        .cont-user {
+            height: 100%;
+            width: 30%;
+            // background-color: blue;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
+}
+
+.main {
+    margin-top: 70px;
+    height: calc(100% - 120px);
+    width: 100%;
+    margin-bottom: 50px;
+
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: blue;
+}
