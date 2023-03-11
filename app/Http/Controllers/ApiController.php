@@ -132,7 +132,7 @@ class ApiController extends Controller
     //     ]);
 
     // }
-    public function geteditApartment($id)
+    public function getApartment($id)
     {
 
         $apartment = Apartment::find($id);

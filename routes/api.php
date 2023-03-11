@@ -27,7 +27,7 @@ Route::post('register', 'App\Http\Controllers\Auth\RegisterController@register')
 
 Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
 Route::get('userApartments', [ApiController::class, 'userApartments']);
-Route::get('editApartment/{apartment}', [ApiController::class, 'geteditApartment']);
+Route::get('Apartment/{apartment}', [ApiController::class, 'getApartment']); //
 Route::post('apartments', [ApiController::class, 'createApartment']);
 Route::get('delete/{apartment}', [ApiController::class, 'deleteApartment']);
 Route::get('getData', [ApiController::class, 'getData']);

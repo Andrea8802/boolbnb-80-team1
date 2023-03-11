@@ -184,7 +184,7 @@ export default {
         },
         geteditApartment() {
 
-            axios.get("/api/editApartment/" + this.$route.params.id)
+            axios.get("/api/Apartment/" + this.$route.params.id)
                 .then(res => {
                     this.getApartment = res.data.response;
                     console.log(this.getApartment);
