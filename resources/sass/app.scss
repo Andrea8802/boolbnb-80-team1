@@ -16,16 +16,14 @@ body {
 }
 
 // grafica pagina welcome.blade.php
-.ms_nav_welcome {
+.ms_section_welcome_header {
     border-bottom: solid 2px $principalColor;
+}
+
+.ms_nav_welcome {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    height: 70px;
-    top: 0;
-    right: 0;
-    left: 0;
 
     .ms_slot_logo {
 

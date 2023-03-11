@@ -5,4 +5,5 @@
         <component-home> </component-home>
         <welcome-main> </welcome-main>
     </div>
+</div>
 @endsection
