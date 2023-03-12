@@ -10,6 +10,7 @@ import Home from './components/Home.vue';
 import Register from './components/Register.vue';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
+import Sponsor from './components/Sponsor.vue';
 
 const routes = [
     {
@@ -43,6 +44,18 @@ const routes = [
         path: '/create',
         component: createApartment,
         name: 'createApartment',
+        beforeEnter: (to, form, next) => {
+            axios.get('/api/athenticated').then(() => {
+                next()
+            }).catch(() => {
+                return next({ name: 'Login' })
+            })
+        }
+    },
+    {
+        path: '/sponsor',
+        component: Sponsor,
+        name: 'sponsor',
         beforeEnter: (to, form, next) => {
             axios.get('/api/athenticated').then(() => {
                 next()
