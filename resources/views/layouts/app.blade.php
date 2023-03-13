@@ -8,12 +8,15 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- favicon --}}
+    <link rel="shortcut icon" href="/storage/logo-boolbnb.png" type="image/png">
 
- 
-     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-   
-   
+    <title>BoolBnB</title>
+
+
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+
 </head>
 <body>
     <div id="app">

@@ -8,13 +8,8 @@
 @import 'bootstrap/scss/bootstrap';
 
 .header {
-    z-index: 50;
     height: 70px;
     width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    // background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,7 +32,6 @@
         .cont-user {
             height: 100%;
             width: 30%;
-            // background-color: blue;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -51,16 +45,12 @@
 }
 
 .main {
-    margin-top: 70px;
-    height: calc(100% - 120px);
+    height: calc(100vh - 120px);
     width: 100%;
-    margin-bottom: 50px;
-
+    overflow-y: auto;
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
     height: 50px;
     width: 100%;
     background-color: blue;

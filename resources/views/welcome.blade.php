@@ -88,20 +88,17 @@
             </div>
             <div class="cont-user">
                 @guest
-              <a>  <router-link class="mr-4" to='/login' exact>Login</router-link> </a> 
-             <a> <router-link to='/register'>Register</router-link> </a> 
-               
-@endguest
-@auth
-<router-link to='/userApartments'>Your Apartments</router-link>
-<component-dashboard></component-dashboard>
-@endauth
-               
+                    <a>  <router-link class="mr-4" to='/login' exact>Login</router-link> </a> 
+                    <a> <router-link to='/register'>Register</router-link> </a> 
+                @endguest
+                @auth
+                    <router-link to='/userApartments'>Your Apartments</router-link>
+                    <component-dashboard></component-dashboard>
+                @endauth
             </div>
         </div>
     </div>
     <div class="main">
-     
         <router-view></router-view>
     </div>
     <div class="footer">
