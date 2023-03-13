@@ -3,14 +3,30 @@
     <label for="apartmentSearch">
         Destinazione
     </label>
-    <input type="search" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates">
+    <input type="text" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates"
+        @keyup.delete="checkSearchBar">
     <button @click="getCoordinates">Cerca</button>
+    <button @click="deleteText">Cancella</button>
     <h1>Apartments</h1> <br>
     <div>{{ error }}</div>
     <div class="container-fluid p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
 
-            <div class="col" v-for="apartment in apartments">
+            <div class="col" v-for="apartment in apartments" v-if="!onSearch">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                    <div class="card rounded ms_card_efct">
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                            class="rounded fluid card-img-top h-50">
+                        <div class="card-body h-35">
+                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                        </div>
+
+                    </div>
+                </router-link>
+            </div>
+            <div class="col" v-for="apartment in apartmentsGeo" v-else>
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct">
                         <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
@@ -26,18 +42,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <ul>
-        <div>{{ error }}</div>
-        <li v-for="apartment in apartments">
-            {{ apartment.title }}
-        </li>
-    </ul>
-    <ul>
-        <li v-for="ap in apartmentsGeo">
-            {{ ap.title }}
-        </li>
-    </ul> -->
 </template>
 
 <script>
@@ -51,14 +55,18 @@ export default {
             modelLong: "",
             radius: 20,
             apartments: [],
-            searchApartment: ""
+            apartmentsGeo: [],
+            onSearch: false
 
 
         }
     },
     methods: {
         getCoordinates() {
-            this.apartments.length = 0;
+            this.onSearch = false;
+            if (!this.apartmentSearch) return;
+            this.onSearch = true;
+
             var theUrl = `https://api.tomtom.com/search/2/geocode/${this.apartmentSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", theUrl, false);
@@ -68,9 +76,6 @@ export default {
             console.log("json", json);
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
-
-            this
-
             this.getApartment();
 
 
@@ -83,9 +88,8 @@ export default {
 
             axios.post("/api/searchApartment", formData)
                 .then(res => {
-
                     console.log("apSear", res);
-                    this.apartments = res.data.response;
+                    this.apartmentsGeo = res.data.response;
                     if (this.apartmentsGeo.length == 0) {
                         this.error = "nessun appartamento trovato";
                     }
@@ -115,6 +119,15 @@ export default {
                 }).catch((errors) => {
                     console.log(errors);
                 });
+        },
+        checkSearchBar() {
+            if (!this.apartmentSearch) {
+                this.onSearch = false;
+            }
+        },
+        deleteText() {
+            this.apartmentSearch = "";
+            this.onSearch = false;
         }
     },
 
