@@ -96,7 +96,7 @@ export default {
             console.log("json", json);
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
-            this.getApartment();
+           
             this.getRoomNumber();
 
 
@@ -157,7 +157,7 @@ export default {
             formData.append("roomNumber", this.roomNumber);
             console.log(this.roomNumber);
 
-            axios.post("/api/searchApartment", formData)
+            axios.post("/api/advancedSearch", formData)
                 .then(res => {
                     const success = res.data.success;
                     console.log(res);
@@ -166,6 +166,8 @@ export default {
                 }).catch((errors) => {
                     console.log(errors);
                 });
+            
+            this.getApartment();    
         }
     },
 

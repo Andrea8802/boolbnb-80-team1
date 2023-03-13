@@ -228,7 +228,7 @@ class ApiController extends Controller
         $longitude = $request["longitude"];
         $radius = $request["radius"];
 
-        $roomNumber = $request["roomNumber"];
+        // $roomNumber = $request["roomNumber"];
 
 
         $haversine = "(
@@ -243,13 +243,27 @@ class ApiController extends Controller
         $apartments = Apartment::select("*")
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
-            ->having("rooms_num", "=",$roomNumber)
+            // ->where("rooms_num", "=",$roomNumber)
             ->orderby("distance", "desc")
             ->get();
 
         return response()->json([
             "success" => true,
             "response" => $apartments
+        ]);
+
+    }
+    public function advancedSearch(Request $request){
+
+        $roomNumber = $request["roomNumber"];
+
+        $apartments = Apartment::select("*")
+        ->where("rooms_num", "=", $roomNumber)
+        ->get();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments 
         ]);
 
     }
