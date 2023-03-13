@@ -42,9 +42,9 @@ class ApiController extends Controller
             "baths_num" => ["integer", "required", "max:50"],
             "size" => ["integer", "required"],
             "address" => ["string", "required", "max:255"],
-            "lat" => ["decimal:5", "required"],
-            "long" => ["decimal:5", "required"],
-            "services" => ["array", "nullable"],
+            "lat" => ["nullable"],
+            "long" => ["nullable"],
+            "services" => ["array", "required"],
             'imageApartment' => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],
 
         ]);
@@ -64,9 +64,12 @@ class ApiController extends Controller
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);
         $ap->save();
-
-        $services = Service::find([$data["services"]]);
-        $ap->services()->attach($services);
+        if (array_key_exists("services", $data)) {
+            $services = Service::find([$data["services"]]);
+            $ap->services()->attach($services);
+        }
+        // $services = Service::find([$data["services"]]);
+        // $ap->services()->attach($services);
 
         $statistics = new Statistic();
         $statistics->ip_address = request()->ip();
@@ -190,7 +193,7 @@ class ApiController extends Controller
         $apartment->save();
 
         $services = Service::find([$data["services"]]);
-        $apartment->services()->attach($services);
+        $apartment->services()->sync($services);
 
         // $statistics = new Statistic();
         // $statistics->ip_address = request()->ip();
