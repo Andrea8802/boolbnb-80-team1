@@ -190,7 +190,7 @@ class ApiController extends Controller
         $apartment->save();
 
         $services = Service::find([$data["services"]]);
-        $apartment->services()->attach($services);
+        $apartment->services()->sync($services);
 
         // $statistics = new Statistic();
         // $statistics->ip_address = request()->ip();
