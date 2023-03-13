@@ -104,7 +104,7 @@
                     <router-link to='/register'>Register</router-link>
                 @endguest
                 @auth
-                    <router-link to='/userApartments' class="me-3">Your Apartments</router-link>
+                    <router-link to='/userApartments' class="border-0 me-3">{{ Auth::user()->name }}</router-link>
                     <component-dashboard></component-dashboard>
                 @endauth
             </div>
