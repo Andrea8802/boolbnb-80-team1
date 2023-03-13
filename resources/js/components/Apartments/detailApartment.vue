@@ -1,7 +1,8 @@
 <template>
     <div class="container-fluid">
         <h1>DETAILS APARTMENT </h1>
-        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title">
+        <img :src="'/storage/' + apartment.imageApartment"
+            :alt="apartment.title">
 
         <!-- carousel added images -->
         <div>
@@ -38,7 +39,8 @@
 
         <button>Write to {{ user.name }}</button>
 
-        <Map :lat=parseInt(apartment.lat) :long=parseInt(apartment.long) />
+        <Map :lat=parseInt(apartment.lat)
+            :long=parseInt(apartment.long) />
 
     </div>
 </template>
@@ -101,7 +103,7 @@ export default {
 
         getApartment() {
 
-            axios.get("/api/Apartment/" + this.$route.params.id)
+            axios.get("/api/getApartmentDetail/" + this.$route.params.id)
                 .then(res => {
                     this.apartment = res.data.response[0];
                     this.user = res.data.response[1];

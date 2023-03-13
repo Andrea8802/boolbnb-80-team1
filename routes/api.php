@@ -38,6 +38,7 @@ Route::post('updateApartment/{apartment}', [ApiController::class, 'updateApartme
 Route::get('logout', [ApiController::class, 'logout'])->name("logout");
 Route::post('searchApartment', [ApiController::class, 'searchApartment']);
 Route::get('sponsors', [ApiController::class, 'getSponsors']);
+Route::get('getApartmentDetail/{apartment}', [ApiController::class, 'getApartmentDetail']);
 
 
 /* Route::get('getUser', [ApiController::class, 'getUser']); */

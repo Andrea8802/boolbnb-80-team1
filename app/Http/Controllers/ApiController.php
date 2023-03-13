@@ -135,6 +135,18 @@ class ApiController extends Controller
     {
 
         $apartment = Apartment::find($id);
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+
+        ]);
+
+    }
+    public function getApartmentDetail($id)
+    {
+
+        $apartment = Apartment::find($id);
         $apartment["services"] = $apartment->services;
         $apartment["added_images"] = $apartment->added_images;
         $apartment["user_id"] = $apartment->user_id;
