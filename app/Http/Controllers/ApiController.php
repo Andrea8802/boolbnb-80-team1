@@ -253,4 +253,12 @@ class ApiController extends Controller
         ]);
 
     }
+    public function getSponsors()
+    {
+        $sponsors = Sponsor::all();
+        return response()->json([
+            "success" => true,
+            "response" => $sponsors
+        ]);
+    }
 }
