@@ -1,39 +1,61 @@
 <template>
-    <h1>Apartments List</h1> <br>
-    <ul>
-        <li v-for="apartment in apartments">
-            <div>Titolo: {{ apartment.title }}</div><br>
-            <div>Descrizione: {{ apartment.description }}</div><br>
-            <div>Prezzo: {{ apartment.price }}$</div><br>
-            <div>Stanze: {{ apartment.rooms_num }}</div><br>
-            <div>Letti: {{ apartment.beds_num }}</div><br>
-            <div>Bagni: {{ apartment.baths_num }}</div><br>
-            <div>Dimensioni: {{ apartment.size }}mq.</div><br>
-            <div>Indirizzo: {{ apartment.address }}</div><br>
-            <div>Servizi: {{ apartment.services }}</div><br>
-            <div>Immagine:
-                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title">
-            </div><br>
+    <h1>Your Apartments</h1> <br>
+    <button> <router-link :to="{ name: 'createApartment' }">Create apartment</router-link></button>
+    <div class="container-fluid p-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
+            <div class="col"
+                v-for="apartment in apartments">
+                <div class="card rounded ms_card_efct">
+                    <img :src="'/storage/' + apartment.imageApartment"
+                        :alt="apartment.title"
+                        class="rounded fluid card-img-top h-50">
+                    <div class="card-body h-35">
+                        <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                        <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                        <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                    </div>
+                    <div class="card-body h-35">
+                        <button @click="deleteApartment(apartment.id)">DELETE</button>
+                        <button> <router-link
+                                :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
+                        <button><router-link
+                                :to="{ name: 'sponsor', params: { id: apartment.id } }">Sponsor</router-link></button>
+                    </div>
 
-            <span @click="deleteApartment(apartment.id)">DELETE</span> -
-            <button> <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
-        </li>
-    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
 
             apartments: [],
-            getapartment: []
+            getapartment: [],
+
         }
     },
     methods: {
+        // reloadPage() {
+        //     var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
+        //     // Current Time //
+        //     var now = Date.now();
+        //     // Total Process Lenght as Minutes //
+        //     var tenSec = 10 * 1000;
+        //     // End Time of Process //
+        //     var plusTenSec = currentDocumentTimestamp + tenSec;
+        //     if (now > plusTenSec) {
+        //         location.reload();
+        //     }
+        // },
 
         getUserApartments() {
-            axios.get("userApartments")
+            axios.get("/api/userApartments")
                 .then(res => {
                     this.apartments = res.data.response;
                     console.log(this.apartments);
@@ -43,7 +65,7 @@ export default {
         },
         deleteApartment(apartmentId) {
 
-            axios.get("delete/" + apartmentId)
+            axios.get("/api/delete/" + apartmentId)
                 .then(res => {
                     this.getUserApartments();
                     const success = res.data.success
@@ -53,22 +75,11 @@ export default {
                     console.log(errors);
                 });
         },
-        // editApartment(apartmentId) {
-        //     axios.get("editApartment/" + apartmentId)
-        //         .then(res => {
-        //             const success = res.data.success
-        //             console.log(success);
-        //             this.getapartment = res.data.response
 
-
-        //         }).catch((errors) => {
-        //             console.log(errors);
-        //         });
-
-        // }
     },
 
     mounted() {
+        // this.reloadPage()
         this.getUserApartments()
     }
 }

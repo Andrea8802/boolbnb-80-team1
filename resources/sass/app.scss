@@ -7,47 +7,61 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
-a {
-    text-decoration: none;
-}
-
-body {
-    font-family: 'Sono', sans-serif;
-}
-
-// grafica pagina welcome.blade.php
-.ms_section_welcome_header {
-    border-bottom: solid 2px $principalColor;
-}
-
-.ms_nav_welcome {
+.header {
+    z-index: 50;
+    height: 70px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    // background-color: red;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    background-color: white;
 
-    .ms_slot_logo {
+    .cont-header {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        img {
-            width: 50px;
-            height: auto;
+        .cont-home {
+            a {
+                text-decoration: none;
+                color: black;
+            }
         }
-    }
 
-    .ms_slot_boolbnb_title {
-        h1 {
-            color: $principalColor;
-            font-size: 24px;
-            font-weight: 600;
+        .cont-user {
+            height: 100%;
+            width: 30%;
+            // background-color: blue;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
         }
-    }
-
-    .ms_link_nav_welcome {
-        color: $principalColor;
-        font-weight: 500;
-        padding: 5px 10px;
-        border: solid 1px $principalColor;
-        border-radius: 30px;
     }
 }
 
-// ======================
+.main {
+    margin-top: 70px;
+    height: calc(100% - 120px);
+    width: 100%;
+    margin-bottom: 50px;
+
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: blue;
+}
