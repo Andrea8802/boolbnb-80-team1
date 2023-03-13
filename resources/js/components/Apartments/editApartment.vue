@@ -142,7 +142,8 @@
                         aria-describedby="basic-addon1">
                 </div>
 
-                <div class="services-cont ms_ctn_service p-3 my-3">
+                <div class="services-cont ms_ctn_service p-3 my-3"
+                    v-if="getApartment.services != undefined && getApartment.services.length > 0">
                     <h4>Select services:</h4>
 
                     <div class="ms_ctn_check">
