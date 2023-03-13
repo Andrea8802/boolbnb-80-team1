@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Service;
 use App\Models\Sponsor;
 use App\Models\Statistic;
+use App\Models\Message;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -252,5 +253,24 @@ class ApiController extends Controller
             "response" => $apartments
         ]);
 
+    }
+
+    public function sendMessage(Request $request, Apartment $apartment)
+    {
+        $data = $request->validate([
+            "name" => ["string", "required"],
+            "surname" => ["string", "required"],
+            "text" => ["string", "required"],
+            "email" => ["string", "required"]
+        ]);
+
+        $m = Message::make($data);
+        $m->apartment()->associate($apartment);
+        $m->save();
+
+        return response()->json([
+            "success" => true,
+            "response" => $m,
+        ]);
     }
 }
