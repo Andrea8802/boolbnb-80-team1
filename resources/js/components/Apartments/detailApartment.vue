@@ -38,9 +38,10 @@
         </div>
 
         <button>Write to {{ user.name }}</button>
+        <div id="map"></div>
 
-        <Map :lat=parseInt(apartment.lat)
-            :long=parseInt(apartment.long) />
+        <!-- <Map :lat=parseInt(apartment.lat)
+            :long=parseInt(apartment.long) /> -->
 
     </div>
 </template>
@@ -100,13 +101,24 @@ export default {
                     console.log(errors);
                 });
         },
-
+        getMap() {
+            let center = [this.apartment.long, this.apartment.lat];
+            let map = tt.map({
+                key: "HrIT0rDPsDPsPzHGmbsIRCwnxIakKjwM",
+                container: "map",
+                center: center,
+                zoom: 15,
+            });
+            new tt.Marker({ color: "#ff385c" }).setLngLat(center).addTo(map);
+        },
         getApartment() {
 
             axios.get("/api/getApartmentDetail/" + this.$route.params.id)
                 .then(res => {
                     this.apartment = res.data.response[0];
                     this.user = res.data.response[1];
+                    this.getMap()
+                    console.log(this.apartment.long);
                     console.log(this.apartment);
 
 
@@ -114,7 +126,6 @@ export default {
                     console.log(errors);
                 });
         },
-
 
     },
     mounted() {
@@ -126,4 +137,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#map {
+    height: 400px;
+    width: 700px;
+}
+</style>
