@@ -71,7 +71,7 @@
         <h1 class="ms_title_page mb-5 pt-3">Create Your Space</h1>
 
         <!-- container del form per creare un appartemento -->
-        <div>
+        <div class="mb-3">
             <form action="" enctype="multipart/form-data" @submit.prevent="getCoordinates" method="post">
 
                 <!-- input titolo -->
@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="ms_ctn_service p-3 my-3">
-                    <h4>Seleziona dei servizi:</h4>
+                    <h4>Select services:</h4>
                     <div class="ms_ctn_check">
                         <div v-for="service in services">
                             <input type="checkbox" :value="service.id" name=services v-model="modelServices">
