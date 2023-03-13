@@ -83,16 +83,28 @@
 
     <div class="header">
         <div class="cont-header">
+
+            {{-- link per riportare l'utente alla home page cliccando sul logo del sito --}}
             <div class="cont-home">
-                <router-link class="mr-4" to='/' exact>Home</router-link>
+                <router-link class="mr-4" to='/' exact>
+                    {{-- logo pagina --}}
+                    <div class="ms_ctn_logo d-flex justify-content-start align-items-center">
+                        <div class="ms_slot_logo me-1">
+                            <img src="/storage/logo-boolbnb.png" alt="logo_boolbnb">
+                        </div>
+                        <div class="ms_slot_boolbnb_title d-none d-md-block">
+                            <h1>bollbnb</h1>
+                        </div>
+                    </div>
+                </router-link>
             </div>
             <div class="cont-user">
                 @guest
-                    <a>  <router-link class="mr-4" to='/login' exact>Login</router-link> </a> 
-                    <a> <router-link to='/register'>Register</router-link> </a> 
+                    <router-link class="me-3" to='/login' exact>Login</router-link> 
+                    <router-link to='/register'>Register</router-link>
                 @endguest
                 @auth
-                    <router-link to='/userApartments'>Your Apartments</router-link>
+                    <router-link to='/userApartments' class="me-3">Your Apartments</router-link>
                     <component-dashboard></component-dashboard>
                 @endauth
             </div>
