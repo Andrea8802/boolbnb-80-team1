@@ -53,12 +53,12 @@
                 </section>
             </header>
 
-        {{-- main --}}
-        <welcome-main> </welcome-main>
+            {{-- main --}}
+            <welcome-main> </welcome-main>
 
-        {{-- footer --}}
-        <welcome-footer> </welcome-footer>
-    </div>
-</body>
+            {{-- footer --}}
+            <welcome-footer> </welcome-footer>
+        </div>
+    </body>
 
 </html>
