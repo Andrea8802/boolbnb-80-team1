@@ -11,7 +11,7 @@
     <form action="" method="post">
         <div>
             <label for="">Rooms Number</label>
-            <select name="roomNumber" v-model="roomNumber" id="">
+            <select name="rooms_num" v-model="rooms_num" id="">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -75,7 +75,7 @@ export default {
             apartmentsGeo: [],
             onSearch: false,
 
-            roomNumber: "",
+            rooms_num: "",
             
 
 
@@ -154,8 +154,8 @@ export default {
         getRoomNumber() {
 
             let formData = new FormData();
-            formData.append("roomNumber", this.roomNumber);
-            console.log(this.roomNumber);
+            formData.append("rooms_num", this.rooms_num);
+            console.log(this.rooms_num);
 
             axios.post("/api/advancedSearch", formData)
                 .then(res => {

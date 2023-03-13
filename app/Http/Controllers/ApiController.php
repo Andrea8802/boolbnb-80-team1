@@ -255,7 +255,7 @@ class ApiController extends Controller
     }
     public function advancedSearch(Request $request){
 
-        $roomNumber = $request["roomNumber"];
+        $roomNumber = $request["rooms_num"];
 
         $apartments = Apartment::select("*")
         ->where("rooms_num", "=", $roomNumber)
