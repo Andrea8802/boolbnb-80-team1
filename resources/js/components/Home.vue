@@ -94,7 +94,7 @@ export default {
 
             axios.post("/api/searchApartment", formData)
                 .then(res => {
-                    console.log(res);
+                    console.log("apSear", res);
                     this.apartmentsGeo = res.data.response;
                     if (this.apartmentsGeo.length == 0) {
                         this.error = "nessun appartamento trovato";

@@ -42,6 +42,8 @@ class ApiController extends Controller
             "baths_num" => ["nullable", "integer"],
             "size" => ["nullable", "integer"],
             "address" => ["nullable", "string"],
+            "lat" => ["nullable", "decimal:5"],
+            "long" => ["nullable", "decimal:5"],
             "services" => ["nullable", "array"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
 
@@ -55,16 +57,7 @@ class ApiController extends Controller
             $data['imageApartment'] = 'avatar5.png';
         }
 
-        // $ap = Apartment::make($data);
-        $ap = new Apartment();
-        $ap->title = $data["title"];
-        $ap->description = $data["description"];
-        $ap->price = $data["price"];
-        $ap->rooms_num = $data["rooms_num"];
-        $ap->beds_num = $data["beds_num"];
-        $ap->baths_num = $data["baths_num"];
-        $ap->size = $data["size"];
-        $ap->address = $data["address"];
+        $ap = Apartment::make($data);
 
 
         $id = auth()->user()->id;

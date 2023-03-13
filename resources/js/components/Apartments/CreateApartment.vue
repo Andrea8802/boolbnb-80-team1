@@ -6,7 +6,7 @@
         </li>
     </ul> -->
     <h1>Create a New Apartment</h1> <br>
-    <form action="" enctype="multipart/form-data" @submit.prevent="createApartment" method="post">
+    <form action="" enctype="multipart/form-data" @submit.prevent="getCoordinates" method="post">
         <label for="title">Title : </label>
         <input type="text" name="title" v-model="modelTitle"> <br> <br>
         <label for="description">Description : </label>
@@ -79,7 +79,7 @@ export default {
                     console.log(errors);
                 });
         },
-        createApartment(e) {
+        createApartment() {
             const config = {
                 headers: {
                     "content-type": "multipart/form-data"
@@ -116,7 +116,6 @@ export default {
                     console.log(errors);
                 });
 
-            e.preventDefault()
 
 
         },
