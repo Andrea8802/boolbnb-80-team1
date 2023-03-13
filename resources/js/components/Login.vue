@@ -6,7 +6,9 @@
                     <div class="card-header text-center display-6 bg-white border-white my-3">Login to your account</div>
 
                     <div class="card-body">
-                        <form action="">
+                        <form action=""
+                            novalidation
+                            @submit.prevent="loginUser">
                             <p class="center">
                             <div class="red">{{ error }}</div>
 
@@ -19,10 +21,9 @@
                                 <div class="col-md-6">
                                     <input id="email"
                                         type="email"
-                                        class="form-control @error('email') is-invalid @enderror"
+                                        class="form-control"
                                         name="email"
                                         v-model="form.email"
-                                        required
                                         autocomplete="email"
                                         autofocus>
                                 </div>
@@ -35,23 +36,21 @@
                                 <div class="col-md-6">
                                     <input id="password"
                                         type="password"
-                                        class="form-control @error('password') is-invalid @enderror"
+                                        class="form-control"
                                         name="password"
-                                        required
                                         v-model="form.password"
                                         autocomplete="current-password">
 
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-12 my-4 text-center">
-                                    <button type="submit"
-                                        class="btn btn-outline-danger btn-lg"
-                                        @click.prevent="loginUser">
-                                        Login
-                                    </button>
-                                </div>
+                            <div class="log-cont">
+                                <!-- <div class="col-md-12 my-4"> -->
+                                <button type="submit"
+                                    class="btn btn-outline-danger btn-lg">
+                                    Login
+                                </button>
+                                <!-- </div> -->
                             </div>
                         </form>
                     </div>
@@ -77,8 +76,12 @@ export default {
     },
     methods: {
         loginUser() {
-            axios.post('/api/login', this.form).then(() => {
+            let formData = new FormData();
+            formData.append("password", this.form.password);
+            formData.append("email", this.form.email);
+            axios.post('/api/login', formData).then(() => {
                 this.$router.push({ name: "userApartments" });
+
 
             }).catch((errors) => {
                 console.log(errors);
@@ -93,7 +96,15 @@ export default {
     padding-top: 50px;
 }
 
-
+.log-cont {
+    width: 100%;
+    // height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: blue;
+    margin: 50px 0px;
+}
 
 .center {
     width: 100%;

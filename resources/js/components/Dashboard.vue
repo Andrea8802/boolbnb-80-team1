@@ -29,8 +29,8 @@ export default {
         },
         logout() {
             axios.get('/api/logout').then(() => {
-                this.$router.push({ name: "Home" })
-                // location.reload()
+                this.$router.push({ name: "Login" })
+                location.reload()
 
             })
         },
