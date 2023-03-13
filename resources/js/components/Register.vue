@@ -8,7 +8,15 @@
                     <div class="card-body text-center">
                         <form action=""
                             @submit.prevent="saveForm"
-                            enctype="multipart/form-data">
+                            enctype="multipart/form-data"
+                            novalidate>
+                            <p v-if="errors.length">
+                                <b class="red">Please correct the following error(s):</b>
+
+                            <div class="red"
+                                v-for="error in errors">{{ error }}</div>
+
+                            </p>
 
                             <div class="row mb-3">
                                 <label for="email"
@@ -18,10 +26,9 @@
                                 <div class="col-md-6">
                                     <input id="email"
                                         type="email"
-                                        class="form-control @error('email') is-invalid @enderror"
+                                        class="form-control "
                                         name="email"
                                         v-model="modelEmail"
-                                        required
                                         autocomplete="email">
                                 </div>
                             </div>
@@ -34,10 +41,9 @@
                                 <div class="col-md-6">
                                     <input id="password"
                                         type="password"
-                                        class="form-control @error('password') is-invalid @enderror"
+                                        class="form-control"
                                         name="password"
                                         v-model="modelPassword"
-                                        required
                                         autocomplete="new-password">
                                 </div>
                             </div>
@@ -50,10 +56,9 @@
                                 <div class="col-md-6">
                                     <input id="password-confirm"
                                         type="password"
-                                        class="form-control @error('password') is-invalid @enderror"
+                                        class="form-control"
                                         name="password_confirmation"
                                         v-model="modelPasswordConf"
-                                        required
                                         autocomplete="new-password">
 
                                 </div>
@@ -67,10 +72,9 @@
                                 <div class="col-md-6">
                                     <input id="name"
                                         type="text"
-                                        class="form-control @error('name') is-invalid @enderror"
+                                        class="form-control"
                                         name="name"
                                         v-model="modelName"
-                                        required
                                         autocomplete="name"
                                         autofocus>
 
@@ -84,7 +88,7 @@
                                 <div class="col-md-6">
                                     <input id="surname"
                                         type="text"
-                                        class="form-control @error('surname') is-invalid @enderror"
+                                        class="form-control"
                                         name="surname"
                                         v-model="modelSurname"
                                         autocomplete="surname"
@@ -101,10 +105,9 @@
                                 <div class="col-md-6">
                                     <input id="date_of_birth"
                                         type="date"
-                                        class="form-control @error('date_of_birth') is-invalid @enderror"
+                                        class="form-control"
                                         name="date_of_birth"
                                         v-model="modelDate"
-                                        required
                                         autocomplete="date_of_birth"
                                         autofocus>
 
@@ -118,7 +121,7 @@
                                 <div class="col-md-6">
                                     <input id="description"
                                         type="text"
-                                        class="form-control @error('description') is-invalid @enderror"
+                                        class="form-control"
                                         name="description"
                                         v-model="modelDescription"
                                         autocomplete="description"
@@ -133,7 +136,7 @@
                                 <div class="col-md-6">
                                     <input id="avatar"
                                         type="file"
-                                        class="form-control @error('avatar') is-invalid @enderror"
+                                        class="form-control"
                                         name="avatar"
                                         v-on:change="onImageChange"
                                         autocomplete="avatar"
@@ -164,6 +167,7 @@ export default {
 
     data() {
         return {
+            errors: [],
             modelName: '',
             modelSurname: '',
             modelEmail: '',
@@ -193,6 +197,7 @@ export default {
 
         },
         saveForm() {
+            this.errors.length = 0
             const config = {
                 headers: {
                     "content-type": "multipart/form-data"
@@ -214,6 +219,28 @@ export default {
                 this.$router.push({ name: "Home" });
 
             }).catch((errors) => {
+
+                if (this.modelPassword.length < 8) {
+                    this.errors.push("The password must be at least 8 characters")
+                }
+                if (this.modelPassword !== this.modelPasswordConf) {
+                    this.errors.push("The confirmed password does not match with the password")
+                }
+                if (!this.modelEmail) {
+                    this.errors.push("Email required")
+                }
+                if (!this.modelPassword) {
+                    this.errors.push("Password required")
+                }
+                if (!this.modelPasswordConf) {
+                    this.errors.push("Password confirmed required")
+                }
+                if (!this.modelName) {
+                    this.errors.push("Name required")
+                }
+                if (!this.modelDate) {
+                    this.errors.push("Date of birth required")
+                }
                 console.log(errors);
             });
         }
@@ -222,6 +249,14 @@ export default {
 </script>
 <style scoped>
 .top-mrg {
-    padding-top: 80px;
+    padding-top: 50px;
+}
+
+.req {
+    color: red;
+}
+
+.red {
+    color: red;
 }
 </style>

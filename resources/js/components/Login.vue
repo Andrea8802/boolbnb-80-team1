@@ -1,35 +1,4 @@
 <template>
-    <!-- <div class="flex flex-wrap w-full justify-center items-center pt-56">
-        <div class="flex flex-wrap max-w-xl">
-            <div class="p-2 text-2xl text-gray-800 font-semibold">
-                <h1>Login to your account</h1>
-            </div>
-            <h5>{{ error }}</h5>
-            <div class="p-2 w-full">
-                <label for="email">Your e-mail</label>
-                <input
-                    class="w-full bg-gray-100 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2"
-                    placeholder="Email"
-                    type="email"
-                    v-model="form.email">
-            </div>
-            <div class="p-2 w-full">
-                <label for="password">Password</label>
-                <input
-                    class="w-full bg-gray-100 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2"
-                    placeholder="Password"
-                    type="password"
-                    v-model="form.password"
-                    name="password">
-            </div>
-            <div class="p-2 w-full mt-4">
-                <button @click.prevent="loginUser"
-                    type="submit"
-                    class="flex text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Login</button>
-            </div>
-        </div>
-    </div> -->
-
     <div class="container top-mrg">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -38,7 +7,10 @@
 
                     <div class="card-body">
                         <form action="">
+                            <p class="center">
+                            <div class="red">{{ error }}</div>
 
+                            </p>
 
                             <div class="row mb-3">
                                 <label for="email"
@@ -100,6 +72,7 @@ export default {
                 password: ''
             },
 
+
         }
     },
     methods: {
@@ -109,14 +82,29 @@ export default {
 
             }).catch((errors) => {
                 console.log(errors);
-                this.error = 'invalid email or password! Try again';
+                this.error = 'Invalid Email or Password! Try Again';
             });
         }
     }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .top-mrg {
-    padding-top: 80px;
+    padding-top: 50px;
+}
+
+
+
+.center {
+    width: 100%;
+    // height: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-color: blue;
+
+    .red {
+        color: red;
+    }
 }
 </style>
