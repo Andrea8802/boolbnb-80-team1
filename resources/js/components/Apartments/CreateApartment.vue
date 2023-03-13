@@ -148,7 +148,7 @@
                     </div>
                 </div>
 
-                <input type="submit" value="Crea" class="ms_input_submit">
+                <input type="submit" value="Create" class="ms_input_submit">
             </form>
         </div>
     </div>
