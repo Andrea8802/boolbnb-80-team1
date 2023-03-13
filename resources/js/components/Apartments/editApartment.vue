@@ -63,6 +63,10 @@
     border-color: $principalColor;
     border-radius: 30px;
 }
+
+.red {
+    color: red;
+}
 </style>
 
 <template>
@@ -72,73 +76,131 @@
 
         <!-- container del form per modificare un appartamento -->
         <div class="mb-3">
-            <form action="" enctype="multipart/form-data" method="post" @submit.prevent="updateApartment">
+            <form action=""
+                enctype="multipart/form-data"
+                method="post"
+                @submit.prevent="updateApartment">
+                <p v-if="errors.length">
+                    <b class="red">Please correct the following error(s):</b>
+
+                <div class="red"
+                    v-for="error in errors">{{ error }}</div>
+
+                </p>
 
                 <!-- input del titolo -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="title">Title : </label>
-                    <input type="text" name="title" v-model="getApartment.title" class="form-control ms_input_focus_color"
-                        placeholder="Enter a title..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="title">Title : </label>
+                    <input type="text"
+                        name="title"
+                        v-model="getApartment.title"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a title..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input descrizione -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="description">Description : </label>
-                    <input type="text" name="description" v-model="getApartment.description"
-                        class="form-control ms_input_focus_color" placeholder="Enter a description..."
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="description">Description : </label>
+                    <input type="text"
+                        name="description"
+                        v-model="getApartment.description"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a description..."
                         aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input prezzo -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="price">Price : </label>
-                    <input type="number" name="price" v-model="getApartment.price" class="form-control ms_input_focus_color"
-                        placeholder="Enter a price..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="price">Price : </label>
+                    <input type="number"
+                        name="price"
+                        v-model="getApartment.price"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a price..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di letti -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="beds_num">Beds Number : </label>
-                    <input type="number" name="beds_num" v-model="getApartment.beds_num"
-                        class="form-control ms_input_focus_color" placeholder="Enter a beds number..."
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="beds_num">Beds Number : </label>
+                    <input type="number"
+                        name="beds_num"
+                        v-model="getApartment.beds_num"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a beds number..."
                         aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di stanze -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="rooms_num">Rooms Number : </label>
-                    <input type="number" name="rooms_num" v-model="getApartment.rooms_num"
-                        class="form-control ms_input_focus_color" placeholder="Enter a rooms number..."
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="rooms_num">Rooms Number : </label>
+                    <input type="number"
+                        name="rooms_num"
+                        v-model="getApartment.rooms_num"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a rooms number..."
                         aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di bagni -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="baths_num">Baths Number : </label>
-                    <input type="number" name="baths_num" v-model="getApartment.baths_num"
-                        class="form-control ms_input_focus_color" placeholder="Enter a baths number..."
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="baths_num">Baths Number : </label>
+                    <input type="number"
+                        name="baths_num"
+                        v-model="getApartment.baths_num"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a baths number..."
                         aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input grandezza appartamento -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="size">Size : </label>
-                    <input type="number" name="size" v-model="getApartment.size" class="form-control ms_input_focus_color"
-                        placeholder="Enter a size..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="size">Size : </label>
+                    <input type="number"
+                        name="size"
+                        v-model="getApartment.size"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a size..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire l'indirizzo dell'appartamento -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="address">Address : </label>
-                    <input type="text" name="address" v-model="getApartment.address"
-                        class="form-control ms_input_focus_color" placeholder="Enter a address..."
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="address">Address : </label>
+                    <input type="text"
+                        name="address"
+                        v-model="getApartment.address"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a address..."
                         aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire l'immagine di copertina dell'appartamento -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="long">Apartment Image : </label>
-                    <input type="file" name="long" v-on:change="onImageChange" class="form-control ms_input_focus_color"
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="long">Apartment Image : </label>
+                    <input type="file"
+                        name="long"
+                        v-on:change="onImageChange"
+                        class="form-control ms_input_focus_color"
                         aria-describedby="basic-addon1">
                 </div>
 
@@ -148,14 +210,19 @@
 
                     <div class="ms_ctn_check">
                         <div v-for="service in services">
-                            <input type="checkbox" :value="service.id" name=services class="input"
+                            <input type="checkbox"
+                                :value="service.id"
+                                name=services
+                                class="input"
                                 :checked="apServices(service)">
                             <label for="services">{{ service.name }}</label>
                         </div>
                     </div>
                 </div>
 
-                <input type="submit" value="update" class="ms_input_submit">
+                <input type="submit"
+                    value="update"
+                    class="ms_input_submit">
             </form>
         </div>
     </div>
@@ -180,6 +247,7 @@ export default {
             imageBool: false,
             getApartment: "",
             selectedCheck: [],
+            errors: [],
 
 
         }
@@ -233,6 +301,7 @@ export default {
                 });
         },
         updateApartment(e) {
+            this.errors.length = 0;
             const config = {
                 headers: {
                     "content-type": "multipart/form-data"
@@ -275,6 +344,42 @@ export default {
                     console.log(res);
                     this.$router.push({ name: 'userApartments' })
                 }).catch((errors) => {
+                    if (!this.getApartment.title) {
+                        this.errors.push("Title required")
+                    }
+                    if (this.getApartment.title.length < 10) {
+                        this.errors.push("The title must be at least 10 characters")
+                    }
+                    if (!this.getApartment.description) {
+                        this.errors.push("Description required")
+                    }
+                    if (this.getApartment.description.length < 20) {
+                        this.errors.push("The description must be at least 20 characters")
+                    }
+                    if (!this.getApartment.price) {
+                        this.errors.push("Price required")
+                    }
+                    if (!this.getApartment.rooms_num) {
+                        this.errors.push("Rooms number required")
+                    }
+                    if (!this.getApartment.beds_num) {
+                        this.errors.push("Beds number required")
+                    }
+                    if (!this.getApartment.baths_num) {
+                        this.errors.push("Baths number required")
+                    }
+                    if (!this.getApartment.size) {
+                        this.errors.push("Size required")
+                    }
+                    if (!this.getApartment.address) {
+                        this.errors.push("Address required")
+                    }
+                    if (!this.getApartment.imageApartment) {
+                        this.errors.push("Apartment image required")
+                    }
+                    if (this.selectedCheck.length === 0) {
+                        this.errors.push("Insert at least 1 service")
+                    }
                     console.log(errors);
                 });
 

@@ -63,6 +63,10 @@
     border-color: $principalColor;
     border-radius: 30px;
 }
+
+.red {
+    color: red;
+}
 </style>
 
 <template>
@@ -72,69 +76,132 @@
 
         <!-- container del form per creare un appartemento -->
         <div class="mb-3">
-            <form action="" enctype="multipart/form-data" @submit.prevent="getCoordinates" method="post">
+            <form action=""
+                enctype="multipart/form-data"
+                @submit.prevent="getCoordinates"
+                method="post"
+                novalidate>
+                <p v-if="errors.length">
+                    <b class="red">Please correct the following error(s):</b>
+
+                <div class="red"
+                    v-for="error in errors">{{ error }}</div>
+
+                </p>
 
                 <!-- input titolo -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="title">Title : </label>
-                    <input type="text" name="title" v-model="modelTitle" class="form-control ms_input_focus_color"
-                        placeholder="Enter a title..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="title">Title : </label>
+                    <input type="text"
+                        name="title"
+                        v-model="modelTitle"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a title..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input descrizione -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="description">Description : </label>
-                    <input type="text" name="description" v-model="modelDescription"
-                        class="form-control ms_input_focus_color" placeholder="Enter a description..."
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="description">Description : </label>
+                    <input type="text"
+                        name="description"
+                        v-model="modelDescription"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a description..."
                         aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input prezzo -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="price">Price : </label>
-                    <input type="number" name="price" v-model="modelPrice" class="form-control ms_input_focus_color"
-                        placeholder="Enter a price..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="price">Price : </label>
+                    <input type="number"
+                        name="price"
+                        v-model="modelPrice"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a price..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di letti -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="beds_num">Beds Number : </label>
-                    <input type="number" name="beds_num" v-model="modelBedsNum" class="form-control ms_input_focus_color"
-                        placeholder="Enter a beds number..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="beds_num">Beds Number : </label>
+                    <input type="number"
+                        name="beds_num"
+                        v-model="modelBedsNum"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a beds number..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di stanze -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="rooms_num">Rooms Number : </label>
-                    <input type="number" name="rooms_num" v-model="modelRoomsNum" class="form-control ms_input_focus_color"
-                        placeholder="Enter a rooms number..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="rooms_num">Rooms Number : </label>
+                    <input type="number"
+                        name="rooms_num"
+                        v-model="modelRoomsNum"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a rooms number..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di bagni  -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="baths_num">Baths Number : </label>
-                    <input type="number" name="baths_num" v-model="modelBathsNum" class="form-control ms_input_focus_color"
-                        placeholder="Enter a baths number..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="baths_num">Baths Number : </label>
+                    <input type="number"
+                        name="baths_num"
+                        v-model="modelBathsNum"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a baths number..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input grandezza appartamento -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="size">Size : </label>
-                    <input type="number" name="size" v-model="modelSize" class="form-control ms_input_focus_color"
-                        placeholder="Enter a size..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="size">Size : </label>
+                    <input type="number"
+                        name="size"
+                        v-model="modelSize"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a size..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire l'indirizzo dell'appartamento -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="address">Address : </label>
-                    <input type="text" name="address" v-model="modelAddress" class="form-control ms_input_focus_color"
-                        placeholder="Enter a address..." aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="address">Address : </label>
+                    <input type="text"
+                        name="address"
+                        v-model="modelAddress"
+                        class="form-control ms_input_focus_color"
+                        placeholder="Enter a address..."
+                        aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire l'immagine di copertina dell'appartamento -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="long">Apartment Image : </label>
-                    <input type="file" name="long" v-on:change="onImageChange" class="form-control ms_input_focus_color"
+                    <label class="ms_label_bg input-group-text"
+                        id="basic-addon1"
+                        for="long">Apartment Image : </label>
+                    <input type="file"
+                        name="long"
+                        v-on:change="onImageChange"
+                        class="form-control ms_input_focus_color"
                         aria-describedby="basic-addon1">
                 </div>
 
@@ -142,13 +209,18 @@
                     <h4>Select services:</h4>
                     <div class="ms_ctn_check">
                         <div v-for="service in services">
-                            <input type="checkbox" :value="service.id" name=services v-model="modelServices">
+                            <input type="checkbox"
+                                :value="service.id"
+                                name=services
+                                v-model="modelServices">
                             <label for="services">{{ service.name }}</label>
                         </div>
                     </div>
                 </div>
 
-                <input type="submit" value="Create" class="ms_input_submit">
+                <input type="submit"
+                    value="Create"
+                    class="ms_input_submit">
             </form>
         </div>
     </div>
@@ -173,6 +245,7 @@ export default {
             services: [],
             imageApartment: '',
             imageBool: false,
+            errors: [],
 
 
         }
@@ -196,6 +269,7 @@ export default {
                 });
         },
         createApartment() {
+            this.errors.length = 0;
             const config = {
                 headers: {
                     "content-type": "multipart/form-data"
@@ -229,6 +303,42 @@ export default {
                     console.log(formData);
                     this.$router.push({ name: "userApartments" })
                 }).catch((errors) => {
+                    if (!this.modelTitle) {
+                        this.errors.push("Title required")
+                    }
+                    if (this.modelTitle.length < 10) {
+                        this.errors.push("The title must be at least 10 characters")
+                    }
+                    if (!this.modelDescription) {
+                        this.errors.push("Description required")
+                    }
+                    if (this.modelDescription.length < 20) {
+                        this.errors.push("The description must be at least 20 characters")
+                    }
+                    if (!this.modelPrice) {
+                        this.errors.push("Price required")
+                    }
+                    if (!this.modelRoomsNum) {
+                        this.errors.push("Rooms number required")
+                    }
+                    if (!this.modelBedsNum) {
+                        this.errors.push("Beds number required")
+                    }
+                    if (!this.modelBathsNum) {
+                        this.errors.push("Baths number required")
+                    }
+                    if (!this.modelSize) {
+                        this.errors.push("Size required")
+                    }
+                    if (!this.modelAddress) {
+                        this.errors.push("Address required")
+                    }
+                    if (!this.imageApartment) {
+                        this.errors.push("Apartment image required")
+                    }
+                    if (this.modelServices.length === 0) {
+                        this.errors.push("Insert at least 1 service")
+                    }
                     console.log(errors);
                 });
         },

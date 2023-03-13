@@ -241,6 +241,9 @@ export default {
                 if (!this.modelDate) {
                     this.errors.push("Date of birth required")
                 }
+                if (!this.modelDate) {
+                    this.errors.push("Date of birth required")
+                }
                 console.log(errors);
             });
         }
