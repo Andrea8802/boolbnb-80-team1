@@ -65,6 +65,8 @@ class ApiController extends Controller
         $ap->baths_num = $data["baths_num"];
         $ap->size = $data["size"];
         $ap->address = $data["address"];
+
+
         $id = auth()->user()->id;
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);

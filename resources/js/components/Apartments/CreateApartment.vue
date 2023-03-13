@@ -6,60 +6,35 @@
         </li>
     </ul> -->
     <h1>Create a New Apartment</h1> <br>
-    <form action=""
-        enctype="multipart/form-data"
-        @submit.prevent="createApartment"
-        method="post">
+    <form action="" enctype="multipart/form-data" @submit.prevent="createApartment" method="post">
         <label for="title">Title : </label>
-        <input type="text"
-            name="title"
-            v-model="modelTitle"> <br> <br>
+        <input type="text" name="title" v-model="modelTitle"> <br> <br>
         <label for="description">Description : </label>
-        <input type="text"
-            name="description"
-            v-model="modelDescription"> <br> <br>
+        <input type="text" name="description" v-model="modelDescription"> <br> <br>
         <label for="price">Price : </label>
-        <input type="number"
-            name="price"
-            v-model="modelPrice"> <br> <br>
+        <input type="number" name="price" v-model="modelPrice"> <br> <br>
         <label for="beds_num">Beds Number : </label>
-        <input type="number"
-            name="beds_num"
-            v-model="modelBedsNum"> <br> <br>
+        <input type="number" name="beds_num" v-model="modelBedsNum"> <br> <br>
         <label for="rooms_num">Rooms Number : </label>
-        <input type="number"
-            name="rooms_num"
-            v-model="modelRoomsNum"> <br> <br>
+        <input type="number" name="rooms_num" v-model="modelRoomsNum"> <br> <br>
         <label for="baths_num">Baths Number : </label>
-        <input type="number"
-            name="baths_num"
-            v-model="modelBathsNum"> <br> <br>
+        <input type="number" name="baths_num" v-model="modelBathsNum"> <br> <br>
         <label for="size">Size : </label>
-        <input type="number"
-            name="size"
-            v-model="modelSize"> <br> <br>
+        <input type="number" name="size" v-model="modelSize"> <br> <br>
         <label for="address">Address : </label>
-        <input type="text"
-            name="address"
-            v-model="modelAddress"> <br> <br>
+        <input type="text" name="address" v-model="modelAddress"> <br> <br>
 
         <label for="long">Apartment Image : </label>
-        <input type="file"
-            name="long"
-            v-on:change="onImageChange"> <br> <br>
+        <input type="file" name="long" v-on:change="onImageChange"> <br> <br>
 
         <label for="">Services : </label> <br>
 
         <div v-for="service in services">
-            <input type="checkbox"
-                :value="service.id"
-                name=services
-                v-model="modelServices">
+            <input type="checkbox" :value="service.id" name=services v-model="modelServices">
             <label for="services">{{ service.name }}</label>
         </div> <br>
 
-        <input type="submit"
-            value="create">
+        <input type="submit" value="create">
     </form>
 </template>
 
@@ -76,6 +51,8 @@ export default {
             modelBedsNum: "",
             modelSize: "",
             modelAddress: "",
+            modelLat: "",
+            modelLong: "",
             modelServices: [],
             services: [],
             imageApartment: '',
@@ -117,6 +94,8 @@ export default {
             formData.append("beds_num", this.modelBedsNum);
             formData.append("size", this.modelSize);
             formData.append("address", this.modelAddress);
+            formData.append("lat", this.modelLat);
+            formData.append("long", this.modelLong);
             this.modelServices.forEach(function (value) {
                 console.log(value);
                 formData.append("services[]", value) // you have to add array symbol after the key name
@@ -141,6 +120,19 @@ export default {
 
 
         },
+        getCoordinates(e) {
+            e.preventDefault()
+
+            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.modelAddress}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false);
+            xmlHttp.send(null);
+            var json = JSON.parse(xmlHttp.responseText);
+
+            this.modelLat = parseFloat(json.results[0].position.lat);
+            this.modelLong = parseFloat(json.results[0].position.lon);
+            this.createApartment();
+        }
 
 
     },
