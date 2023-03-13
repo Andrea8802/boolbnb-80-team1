@@ -42,8 +42,8 @@ class ApiController extends Controller
             "baths_num" => ["integer", "required", "max:50"],
             "size" => ["integer", "required"],
             "address" => ["string", "required", "max:255"],
-            "lat" => ["decimal:5", "required"],
-            "long" => ["decimal:5", "required"],
+            "lat" => ["required"],
+            "long" => ["required"],
             "services" => ["array", "nullable"],
             'imageApartment' => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],
 
