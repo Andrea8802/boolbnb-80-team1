@@ -239,7 +239,7 @@ class ApiController extends Controller
         }
 
         // Fetch places from the database
-        $places = Apartment::select('*' . $sql_distance)
+        $apartments = Apartment::select('*' . $sql_distance)
             ->havingRaw($having)
             ->orderByRaw($order_by)
             ->get();
