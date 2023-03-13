@@ -136,10 +136,17 @@ class ApiController extends Controller
 
         $apartment = Apartment::find($id);
         $apartment["services"] = $apartment->services;
+        $apartment["added_images"] = $apartment->added_images;
+        $apartment["user_id"] = $apartment->user_id;
+
+        $user = User::find($apartment->user_id);
 
         return response()->json([
             "success" => true,
-            "response" => $apartment
+            "response" => [
+                $apartment,
+                $user
+            ]
         ]);
 
     }
@@ -261,4 +268,5 @@ class ApiController extends Controller
             "response" => $sponsors
         ]);
     }
+
 }
