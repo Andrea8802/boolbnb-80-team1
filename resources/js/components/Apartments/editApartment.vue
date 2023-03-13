@@ -142,14 +142,17 @@
                         aria-describedby="basic-addon1">
                 </div>
 
-                <div class="services-cont" v-if="getApartment.services != undefined && getApartment.services.length > 0">
-                    <label for="">Services : </label> <br>
+                <div class="services-cont ms_ctn_service p-3 my-3"
+                    v-if="getApartment.services != undefined && getApartment.services.length > 0">
+                    <h4>Select services:</h4>
 
-                    <div v-for="service in services">
-                        <input type="checkbox" :value="service.id" name=services class="input"
-                            :checked="apServices(service)">
-                        <label for="services">{{ service.name }}</label>
-                    </div> <br>
+                    <div class="ms_ctn_check">
+                        <div v-for="service in services">
+                            <input type="checkbox" :value="service.id" name=services class="input"
+                                :checked="apServices(service)">
+                            <label for="services">{{ service.name }}</label>
+                        </div>
+                    </div>
                 </div>
 
                 <input type="submit" value="update" class="ms_input_submit">
