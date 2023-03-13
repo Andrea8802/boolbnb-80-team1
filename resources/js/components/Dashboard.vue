@@ -1,13 +1,26 @@
+<style lang="scss" scoped>
+@use '../../sass/variables.scss' as *;
+
+.dropdown-content {
+    a {
+        color: $principalColor !important;
+        border: none !important;
+        border-radius: 0px !important;
+
+        &:hover {
+            background-color: $principalColor !important;
+            color: $secondColor !important;
+        }
+    }
+}
+</style>
+
 <template>
     <div>
         <div class="dropdown">
-            <img :src="'/storage/' + user.avatar"
-                @click="myFunction()"
-                class="img" />
-            <div id="myDropdown"
-                class="dropdown-content">
-                <a href=""
-                    @click.prevent="logout">Logout</a>
+            <img :src="'/storage/' + user.avatar" @click="myFunction()" class="img" />
+            <div id="myDropdown" class="dropdown-content">
+                <a href="" @click.prevent="logout">Logout</a>
 
             </div>
         </div>

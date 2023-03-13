@@ -7,61 +7,83 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+// general rules
+body {
+    font-family: 'Sono', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+// grafica del logo nella nav bar della pagina
+.ms_slot_logo {
+
+    img {
+        width: 50px;
+        height: auto;
+    }
+}
+
+.ms_slot_boolbnb_title {
+    h1 {
+        color: $secondColor;
+        font-size: 24px;
+        font-weight: 600;
+    }
+}
+
+// =============================
+
+// grafica dell'header della pagina
 .header {
-    z-index: 50;
     height: 70px;
     width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    // background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: $principalColor;
 
     .cont-header {
-        width: 40%;
+        width: 80%;
+        max-width: 1140px;
         height: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
         .cont-home {
-            a {
-                text-decoration: none;
-                color: black;
-            }
+            width: 10%;
         }
 
         .cont-user {
             height: 100%;
-            width: 30%;
-            // background-color: blue;
+            width: 15%;
             display: flex;
-            justify-content: space-between;
+            justify-content: end;
             align-items: center;
 
             a {
-                text-decoration: none;
-                color: black;
+                font-weight: 600;
+                color: $secondColor;
+                padding: 5px 10px;
+                border: solid 2px $secondColor;
+                border-radius: 30px;
             }
         }
     }
 }
 
-.main {
-    margin-top: 70px;
-    height: calc(100% - 120px);
-    width: 100%;
-    margin-bottom: 50px;
+// ===========================================
 
+.main {
+    height: calc(100vh - 120px);
+    width: 100%;
+    overflow-y: auto;
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
     height: 50px;
     width: 100%;
-    background-color: blue;
+    background-color: $principalColor;
 }
