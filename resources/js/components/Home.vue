@@ -7,6 +7,23 @@
         @keyup.delete="checkSearchBar">
     <button @click="getCoordinates">Cerca</button>
     <button @click="deleteText">Cancella</button>
+    
+    <form action="" method="post">
+        <div>
+            <label for="">Rooms Number</label>
+            <select name="roomNumber" v-model="roomNumber" id="">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+
+            </select>
+        </div>
+    </form>
+
+
     <h1>Apartments</h1> <br>
     <div>{{ error }}</div>
     <div class="container-fluid p-3">
@@ -56,7 +73,10 @@ export default {
             radius: 20,
             apartments: [],
             apartmentsGeo: [],
-            onSearch: false
+            onSearch: false,
+
+            roomNumber: "",
+            
 
 
         }
@@ -77,6 +97,7 @@ export default {
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
             this.getApartment();
+            this.getRoomNumber();
 
 
         },
@@ -128,6 +149,23 @@ export default {
         deleteText() {
             this.apartmentSearch = "";
             this.onSearch = false;
+        },
+
+        getRoomNumber() {
+
+            let formData = new FormData();
+            formData.append("roomNumber", this.roomNumber);
+            console.log(this.roomNumber);
+
+            axios.post("/api/searchApartment", formData)
+                .then(res => {
+                    const success = res.data.success;
+                    console.log(res);
+                    console.log(formData);
+                    
+                }).catch((errors) => {
+                    console.log(errors);
+                });
         }
     },
 

@@ -228,6 +228,8 @@ class ApiController extends Controller
         $longitude = $request["longitude"];
         $radius = $request["radius"];
 
+        $roomNumber = $request["roomNumber"];
+
 
         $haversine = "(
             6371 * acos(
@@ -241,6 +243,7 @@ class ApiController extends Controller
         $apartments = Apartment::select("*")
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
+            ->having("rooms_num", "=",$roomNumber)
             ->orderby("distance", "desc")
             ->get();
 
