@@ -38,12 +38,22 @@
 
         <button>Write to {{ user.name }}</button>
 
+        <Map :lat=parseInt(apartment.lat) :long=parseInt(apartment.long) />
+
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Map from './Map.vue'
+
 export default {
+
+    components: {
+        Map
+    },
+
+
     data() {
         return {
 
