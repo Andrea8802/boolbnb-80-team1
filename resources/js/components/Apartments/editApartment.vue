@@ -1,64 +1,161 @@
+<style lang="scss" scoped>
+@use '/resources/sass/variables.scss' as *;
+
+.ms_title_page {
+    font-weight: 900;
+    color: $principalColor;
+}
+
+.ms_label_bg {
+    background-color: $principalColor;
+    color: #ffffff;
+    border-color: $principalColor;
+    font-weight: 600;
+}
+
+.ms_ctn_input,
+.ms_ctn_service {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.ms_input_focus_color:focus {
+    color: $principalColor;
+    border-color: $principalColor;
+    box-shadow: 0 0 10px $principalColor;
+}
+
+.ms_ctn_service {
+    border: solid 2px $principalColor;
+    border-radius: 30px;
+
+    h4 {
+        color: $principalColor;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .ms_ctn_check {
+        height: 200px;
+        text-align: start;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        label {
+            color: $principalColor;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        input[type="checkbox"] {
+            accent-color: $principalColor;
+        }
+    }
+}
+
+.ms_input_submit {
+    background-color: $principalColor;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 40px;
+    border-color: $principalColor;
+    border-radius: 30px;
+}
+</style>
+
 <template>
-    <h1>EDIT </h1> <br>
-    <form action=""
-        enctype="multipart/form-data"
-        method="post"
-        @submit.prevent="updateApartment">
-        <label for="title">Title : </label>
-        <input type="text"
-            name="title"
-            v-model="getApartment.title"> <br> <br>
-        <label for="description">Description : </label>
-        <input type="text"
-            name="description"
-            v-model="getApartment.description"> <br> <br>
-        <label for="price">Price : </label>
-        <input type="number"
-            name="price"
-            v-model="getApartment.price"> <br> <br>
-        <label for="beds_num">Beds Number : </label>
-        <input type="number"
-            name="beds_num"
-            v-model="getApartment.beds_num"> <br> <br>
-        <label for="rooms_num">Rooms Number : </label>
-        <input type="number"
-            name="rooms_num"
-            v-model="getApartment.rooms_num"> <br> <br>
-        <label for="baths_num">Baths Number : </label>
-        <input type="number"
-            name="baths_num"
-            v-model="getApartment.baths_num"> <br> <br>
-        <label for="size">Size : </label>
-        <input type="number"
-            name="size"
-            v-model="getApartment.size"> <br> <br>
-        <label for="address">Address : </label>
-        <input type="text"
-            name="address"
-            v-model="getApartment.address"> <br> <br>
+    <!-- container principale della pagina -->
+    <div class="container text-center">
+        <h1 class="ms_title_page mb-5 pt-3">Edit Your Space</h1>
 
-        <label for="long">Apartment Image : </label>
-        <input type="file"
-            name="long"
-            v-on:change="onImageChange"> <br> <br>
+        <!-- container del form per modificare un appartamento -->
+        <div class="mb-3">
+            <form action="" enctype="multipart/form-data" method="post" @submit.prevent="updateApartment">
 
-        <div class="services-cont"
-            v-if="getApartment.services != undefined && getApartment.services.length > 0">
-            <label for="">Services : </label> <br>
+                <!-- input del titolo -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="title">Title : </label>
+                    <input type="text" name="title" v-model="getApartment.title" class="form-control ms_input_focus_color"
+                        placeholder="Enter a title..." aria-describedby="basic-addon1">
+                </div>
 
-            <div v-for="service in services">
-                <input type="checkbox"
-                    :value="service.id"
-                    name=services
-                    class="input"
-                    :checked="apServices(service)">
-                <label for="services">{{ service.name }}</label>
-            </div> <br>
+                <!-- input descrizione -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="description">Description : </label>
+                    <input type="text" name="description" v-model="getApartment.description"
+                        class="form-control ms_input_focus_color" placeholder="Enter a description..."
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <!-- input prezzo -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="price">Price : </label>
+                    <input type="number" name="price" v-model="getApartment.price" class="form-control ms_input_focus_color"
+                        placeholder="Enter a price..." aria-describedby="basic-addon1">
+                </div>
+
+                <!-- input numero di letti -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="beds_num">Beds Number : </label>
+                    <input type="number" name="beds_num" v-model="getApartment.beds_num"
+                        class="form-control ms_input_focus_color" placeholder="Enter a beds number..."
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <!-- input numero di stanze -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="rooms_num">Rooms Number : </label>
+                    <input type="number" name="rooms_num" v-model="getApartment.rooms_num"
+                        class="form-control ms_input_focus_color" placeholder="Enter a rooms number..."
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <!-- input numero di bagni -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="baths_num">Baths Number : </label>
+                    <input type="number" name="baths_num" v-model="getApartment.baths_num"
+                        class="form-control ms_input_focus_color" placeholder="Enter a baths number..."
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <!-- input grandezza appartamento -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="size">Size : </label>
+                    <input type="number" name="size" v-model="getApartment.size" class="form-control ms_input_focus_color"
+                        placeholder="Enter a size..." aria-describedby="basic-addon1">
+                </div>
+
+                <!-- input per inserire l'indirizzo dell'appartamento -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="address">Address : </label>
+                    <input type="text" name="address" v-model="getApartment.address"
+                        class="form-control ms_input_focus_color" placeholder="Enter a address..."
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <!-- input per inserire l'immagine di copertina dell'appartamento -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="long">Apartment Image : </label>
+                    <input type="file" name="long" v-on:change="onImageChange" class="form-control ms_input_focus_color"
+                        aria-describedby="basic-addon1">
+                </div>
+
+                <div class="services-cont" v-if="getApartment.services != undefined && getApartment.services.length > 0">
+                    <label for="">Services : </label> <br>
+
+                    <div v-for="service in services">
+                        <input type="checkbox" :value="service.id" name=services class="input"
+                            :checked="apServices(service)">
+                        <label for="services">{{ service.name }}</label>
+                    </div> <br>
+                </div>
+
+                <input type="submit" value="update" class="ms_input_submit">
+            </form>
         </div>
-
-        <input type="submit"
-            value="update">
-    </form>
+    </div>
 </template>
 
 <script>
