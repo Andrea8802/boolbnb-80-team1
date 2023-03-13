@@ -34,18 +34,18 @@ class ApiController extends Controller
     public function createApartment(Request $request)
     {
         $data = $request->validate([
-            "title" => ["string|required|min:10|max:64"],
-            "description" => ["string|required|min:20|max:255"],
-            "price" => ["decimal:0,5|required"],
-            "rooms_num" => ["integer|required|max:100"],
-            "beds_num" => ["integer|required|max:200"],
-            "baths_num" => ["integer|required|max:50"],
-            "size" => ["integer|required"],
-            "address" => ["string|required|max:255"],
-            "lat" => ["decimal:5|required"],
-            "long" => ["decimal:5|required"],
-            "services" => ["array|nullable"],
-            'imageApartment' => ["image|required|mimes:jpg,png,jpeg,gif,svg|max:2048"], 
+            "title" => ["string", "required", "min:10", "max:64"],
+            "description" => ["string", "required", "min:20", "max:255"],
+            "price" => ["decimal:0,5", "required"],
+            "rooms_num" => ["integer", "required", "max:100"],
+            "beds_num" => ["integer", "required", "max:200"],
+            "baths_num" => ["integer", "required", "max:50"],
+            "size" => ["integer", "required"],
+            "address" => ["string", "required", "max:255"],
+            "lat" => ["decimal:5", "required"],
+            "long" => ["decimal:5", "required"],
+            "services" => ["array", "nullable"],
+            'imageApartment' => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],
 
         ]);
 
@@ -147,14 +147,14 @@ class ApiController extends Controller
     public function updateApartment(Request $request, Apartment $apartment)
     {
         $data = $request->validate([
-            "title" => ["string", "nullable"],
-            "description" => ["string", "nullable"],
-            "price" => ["decimal:0,5", "nullable"],
-            "rooms_num" => ["nullable", "integer"],
-            "beds_num" => ["nullable", "integer"],
-            "baths_num" => ["nullable", "integer"],
-            "size" => ["nullable", "integer"],
-            "address" => ["nullable", "string"],
+            "title" => ["string", "required", "min:10", "max:64"],
+            "description" => ["string", "required", "min:20", "max:255"],
+            "price" => ["decimal:0,5", "required"],
+            "rooms_num" => ["required", "integer", "max:100"],
+            "beds_num" => ["required", "integer", "max:200"],
+            "baths_num" => ["required", "integer", "max:50"],
+            "size" => ["required", "integer"],
+            "address" => ["required", "string", "max:255"],
             "services" => ["nullable", "array"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
 

@@ -20,6 +20,7 @@
                                 :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
                         <button><router-link
                                 :to="{ name: 'sponsor', params: { id: apartment.id } }">Sponsor</router-link></button>
+                        <button>Messages</button>
                     </div>
 
                 </div>
