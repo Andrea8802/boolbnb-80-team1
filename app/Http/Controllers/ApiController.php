@@ -227,20 +227,21 @@ class ApiController extends Controller
         $longitude = $request["longitude"];
         $radius = $request["radius"];
 
+        // Calculate distance and filter records by radius
+        $sql_distance = $having = '';
+        if (!empty($radius) && !empty($latitude) && !empty($longitude)) {
+            $radius_km = $radius;
+            $sql_distance = ", (((acos(sin((" . $latitude . "*pi()/180)) * sin((`p`.`lat`*pi()/180))+cos((" . $latitude . "*pi()/180)) * cos((`p`.`lat`*pi()/180)) * cos(((" . $longitude . "-`p`.`long`)*pi()/180))))*180/pi())*60*1.1515*1.609344) as distance ";
+            $having = " HAVING (distance <= $radius_km) ";
+            $order_by = ' distance ASC ';
+        } else {
+            $order_by = ' id DESC ';
+        }
 
-        $haversine = "(
-            6371 * acos(
-                cos(radians(" . $latitude . "))
-                * cos(radians(`lat`))
-                * cos(radians(`long`) - radians(" . $longitude . "))
-                + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
-            )
-        )";
-
-        $apartments = Apartment::select("*")
-            ->selectRaw("$haversine AS distance")
-            ->having("distance", "<=", $radius)
-            ->orderby("distance", "desc")
+        // Fetch places from the database
+        $places = Apartment::select('*' . $sql_distance)
+            ->havingRaw($having)
+            ->orderByRaw($order_by)
             ->get();
 
         return response()->json([
