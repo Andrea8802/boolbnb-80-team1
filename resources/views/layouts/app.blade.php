@@ -18,8 +18,9 @@
 </head>
 <body>
     <div id="app">
-        
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+
+        {{-- navbar della pagina --}}
+        <nav class="navbar navbar-expand-md navbar-light bg-white ms_border_navbar">
             <div class="container">
                 <a class="ms_ctn_logo d-flex justify-content-start align-items-center" href="{{ url('/') }}">
                     <div class="ms_slot_logo me-1">
@@ -40,7 +41,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto ms_menu">
+                    <ul class="navbar-nav ms-auto ms_menu_nav_dashboard">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

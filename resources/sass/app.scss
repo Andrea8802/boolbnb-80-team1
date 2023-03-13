@@ -78,4 +78,15 @@ body {
     border-radius: 30px;
 }
 
+.ms_menu_nav_dashboard {
+    a {
+        color: $principalColor;
+        font-weight: 500;
+    }
+}
+
+.ms_border_navbar {
+    border-bottom: solid 2px $principalColor;
+}
+
 // ======================
