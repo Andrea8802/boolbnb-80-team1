@@ -3,23 +3,17 @@
     <label for="apartmentSearch">
         Destinazione
     </label>
-    <input type="search"
-        name="apartmentSearch"
-        v-model="apartmentSearch"
-        @keydown.enter="getCoordinates">
+    <input type="search" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates">
     <button @click="getCoordinates">Cerca</button>
     <h1>Apartments</h1> <br>
     <div>{{ error }}</div>
     <div class="container-fluid p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
 
-            <div class="col"
-                v-for="apartment in apartments">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                    class="router">
+            <div class="col" v-for="apartment in apartments">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment"
-                            :alt="apartment.title"
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
                         <div class="card-body h-35">
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -30,13 +24,10 @@
                     </div>
                 </router-link>
             </div>
-            <div class="col"
-                v-for="apartment in apartmentsGeo">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                    class="router">
+            <div class="col" v-for="apartment in apartmentsGeo">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment"
-                            :alt="apartment.title"
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
                         <div class="card-body h-35">
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -88,7 +79,7 @@ export default {
             xmlHttp.send(null);
             var json = JSON.parse(xmlHttp.responseText);
 
-            console.log(json);
+            console.log("json", json);
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
             this.getApartment();
