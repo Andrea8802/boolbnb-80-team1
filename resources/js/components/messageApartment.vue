@@ -80,7 +80,7 @@
                 <div class="ms_ctn_input form-floating mb-3">
                     <textarea type="text" class="form-control ms_input_focus_color" placeholder="Leave a comment here"
                         id="floatingTextarea2" style="height: 150px" name="text" v-model="modelText">
-                                        </textarea>
+                                                                        </textarea>
                     <label for="floatingTextarea2 text" class="ms_label_text_area">Enter your message...</label>
                 </div>
 
@@ -103,6 +103,21 @@ export default {
         }
     },
     methods: {
+        getSendMessage() {
+            axios.get("/api/message/" + this.$route.params.id)
+                .then(res => {
+                    this.getSendMessage = res.data.response;
+                    console.log(this.getSendMessage);
+
+
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+        },
+        log() {
+            console.log(this.$route.params.id);
+        },
+
         sendMessage() {
             const config = {
                 headers: {
@@ -116,15 +131,21 @@ export default {
             formData.append("email", this.modelEmail);
             formData.append("text", this.modelText);
 
-            axios.post("/api/sendMessage", formData, config)
+            axios.post("/api/sendMessage" + this.$route.params.id, formData, config)
                 .then(res => {
                     const success = res.data.succes;
                     console.log(res);
                     console.log(formData);
+                    this.$router.push({ name: 'apartments_id' })
                 }).catch((errors) => {
                     console.log(errors);
                 });
         }
+    },
+    mounted() {
+        this.getSendMessage()
+        this.log()
+
     }
 }
 </script>
