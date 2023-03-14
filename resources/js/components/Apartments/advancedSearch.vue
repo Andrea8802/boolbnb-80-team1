@@ -4,7 +4,7 @@
         <div>
             <label for="">Rooms Number</label>
             <select name="rooms_num" v-model="roomsNum">
-                <option value="">-</option>
+                <option value="0">-</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -17,7 +17,7 @@
         <div>
             <label for="">Beds Number</label>
             <select name="rooms_num" v-model="bedsNum">
-                <option value="">-</option>
+                <option value="0">-</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -66,8 +66,8 @@ export default {
 
     data() {
         return {
-            roomsNum: "",
-            bedsNum: "",
+            roomsNum: 0,
+            bedsNum: 0,
             error: "",
             apartmentSearch: "",
             modelLat: "",
@@ -102,6 +102,7 @@ export default {
             formData.append("radius", this.radius);
             formData.append("rooms_num", this.roomsNum);
             formData.append("beds_num", this.bedsNum);
+            console.log(this.modelServices);
             this.modelServices.forEach((value) => formData.append("services[]", value))
 
             axios.post("/api/advancedSearch", formData)
