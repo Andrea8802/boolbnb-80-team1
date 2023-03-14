@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+/* Policy */
+use App\Models\Apartment;
+use App\Policies\ApartmentPolicy;
+
+
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -13,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+        Apartment::class => ApartmentPolicy::class,
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 

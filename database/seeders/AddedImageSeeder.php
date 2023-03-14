@@ -17,7 +17,7 @@ class AddedImageSeeder extends Seeder
      */
     public function run()
     {
-        AddedImage::factory()->count(15)->make()->each(function ($img) {
+        AddedImage::factory()->count(35)->make()->each(function ($img) {
             $apartment = Apartment::inRandomOrder()->first();
             $img->apartment()->associate($apartment);
             $img->save();
