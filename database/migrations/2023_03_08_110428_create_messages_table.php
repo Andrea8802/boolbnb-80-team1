@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('name', 32);
             $table->string('surname', 32);
             $table->text('text');
-            $table->string('email', 64)->unique();
+            $table->string('email', 64);
 
             $table->timestamps();
         });

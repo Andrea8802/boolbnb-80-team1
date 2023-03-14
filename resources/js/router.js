@@ -11,6 +11,7 @@ import Register from './components/Register.vue';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
 import Sponsor from './components/Sponsor.vue';
+import Message from './components/messageApartment.vue';
 
 const routes = [
     {
@@ -63,6 +64,11 @@ const routes = [
                 return next({ name: 'Login' })
             })
         }
+    },
+    {
+        path: '/message/:id',
+        name: 'message',
+        component: Message,
     },
     {
         path: '/editApartment/:id',
