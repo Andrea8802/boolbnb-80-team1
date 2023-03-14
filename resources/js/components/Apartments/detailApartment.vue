@@ -40,6 +40,7 @@
 
                 <!-- carousel -->
 
+                <h3 class="text-center">More about us:</h3>
 
                 <div id="carouselExampleIndicators" class="carousel slide">
                     <ol class="carousel-indicators">
@@ -66,8 +67,11 @@
                 </div>
 
 
+                <div class="d-grid gap-2 col-6 mx-auto my-5">
+                    <h3 class="text-center">Want to know more?</h3>
+                    <button class="btn btn-danger">Write to {{ user.name }}</button>
+                </div>
 
-                <button>Write to {{ user.name }}</button>
 
                 <!-- <div v-for="image in apartment.added_images" class="carousel-item active">
                     <img :src=image.image :alt="image.name" class="d-block w-100">
