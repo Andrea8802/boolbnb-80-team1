@@ -1,8 +1,7 @@
 <template>
     <div class="container-fluid">
         <h1>DETAILS APARTMENT </h1>
-        <img :src="'/storage/' + apartment.imageApartment"
-            :alt="apartment.title">
+        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title">
 
         <!-- carousel added images -->
         <div>
@@ -40,21 +39,14 @@
         <button>Write to {{ user.name }}</button>
         <div id="map"></div>
 
-        <!-- <Map :lat=parseInt(apartment.lat)
-            :long=parseInt(apartment.long) /> -->
-
     </div>
 </template>
 
 <script>
 import axios from 'axios'
-import Map from './Map.vue'
 
 export default {
 
-    components: {
-        Map
-    },
 
 
     data() {
@@ -109,7 +101,7 @@ export default {
                 center: center,
                 zoom: 15,
             });
-            new tt.Marker({ color: "#ff385c" }).setLngLat(center).addTo(map);
+            new tt.Marker({ color: "#ff385c", height: "40px", width: "30px" }).setLngLat(center).addTo(map);
         },
         getApartment() {
 
