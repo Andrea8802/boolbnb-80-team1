@@ -37,5 +37,5 @@ Route::post('updateApartment/{apartment}', [ApiController::class, 'updateApartme
 // Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
 Route::get('logout', [ApiController::class, 'logout'])->name("logout");
 Route::post('searchApartment', [ApiController::class, 'searchApartment']);
-Route::get('message/{apartment}', [ApiController::class, 'message']);
+Route::get('message/{apartment}', [ApiController::class, 'getApartment']);
 Route::post('sendMessage/{apartment}', [ApiController::class, 'sendMessage']);

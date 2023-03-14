@@ -66,7 +66,7 @@ const routes = [
         }
     },
     {
-        path: '/message',
+        path: '/message/:id',
         component: Message,
         name: 'message',
     },
