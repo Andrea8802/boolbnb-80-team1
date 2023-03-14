@@ -123,7 +123,6 @@ export default {
                     const success = res.data.success;
                     console.log(res);
                     console.log(formData);
-                    this.$router.push({ name: 'apartments_id' })
                 }).catch((errors) => {
                     console.log(errors);
                 });
