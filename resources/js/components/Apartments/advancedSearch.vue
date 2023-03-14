@@ -3,7 +3,20 @@
         <input type="text" v-model="apartmentSearch">
         <div>
             <label for="">Rooms Number</label>
-            <select name="rooms_num" v-model="roomsNum" id="" @change="getCoordinates">
+            <select name="rooms_num" v-model="roomsNum">
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="">Beds Number</label>
+            <select name="rooms_num" v-model="bedsNum">
                 <option value="">-</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -15,10 +28,15 @@
         </div>
 
         <div class="slidecontainer">
-            <input type="range" min="1" max="50" class="slider" v-model="radius" @change="getCoordinates">
+            <input type="range" min="1" max="50" class="slider" v-model="radius">
         </div>
         <div>
             {{ radius }}
+        </div>
+
+        <div v-for="service in services">
+            <input type="checkbox" :value="service.id" name=services v-model="modelServices">
+            <label for="services">{{ service.name }}</label>
         </div>
         <button @click="getCoordinates">Cerca</button>
     </form>
@@ -56,10 +74,13 @@ export default {
             modelLong: "",
             radius: 1,
             apartments: [],
+            services: [],
+            modelServices: []
         }
     },
     methods: {
-        getCoordinates() {
+        getCoordinates(e) {
+            e.preventDefault();
             if (!this.apartmentSearch) return;
 
             var theUrl = `https://api.tomtom.com/search/2/geocode/${this.apartmentSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
@@ -81,13 +102,14 @@ export default {
             formData.append("radius", this.radius);
             formData.append("rooms_num", this.roomsNum);
             formData.append("beds_num", this.bedsNum);
+            this.modelServices.forEach((value) => formData.append("services[]", value))
 
-            axios.post("/advancedSearch", formData)
+            axios.post("/api/advancedSearch", formData)
                 .then(res => {
                     console.log("apSear", res);
 
                     this.apartments = res.data.response;
-                    if (this.apartmentsGeo.length == 0) {
+                    if (this.apartments.length == 0) {
                         this.error = "nessun appartamento trovato";
                     }
                     else {
@@ -106,12 +128,25 @@ export default {
             if (now > plusTenSec) {
                 location.reload();
             }
-        }
+        },
+        getData() {
+            console.log("prova");
+            axios.get("/api/getData")
+                .then(res => {
+                    this.services = res.data.response.services;
+                    console.log(this.services);
+
+
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+        },
 
 
     },
     mounted() {
-        this.reloadPage;
+        this.reloadPage();
+        this.getData();
 
     }
 }
