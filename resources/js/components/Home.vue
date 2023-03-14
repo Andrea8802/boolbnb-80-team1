@@ -22,7 +22,7 @@
             </select>
 
             <div class="slidecontainer">
-                <input type="range" min="1" max="50" class="slider" v-model="radius">
+                <input type="range" min="1" max="50" class="slider" v-model="radius" @change="getCoordinates">
             </div>
             <div>
                 {{ radius }}
@@ -78,14 +78,11 @@ export default {
             apartmentSearch: "",
             modelLat: "",
             modelLong: "",
-            radius: 20,
+            radius: 1,
             apartments: [],
             apartmentsGeo: [],
             onSearch: false,
             rooms_num: "",
-
-
-
         }
     },
     methods: {

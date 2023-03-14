@@ -268,13 +268,13 @@ class ApiController extends Controller
                 ->selectRaw("$haversine AS distance")
                 ->having("distance", "<=", $radius)
                 ->where("rooms_num", "=", $roomNumber)
-                ->orderby("distance", "desc")
+                ->orderby("distance", "asc")
                 ->get();
         } else {
             $apartments = Apartment::select("*")
                 ->selectRaw("$haversine AS distance")
                 ->having("distance", "<=", $radius)
-                ->orderby("distance", "desc")
+                ->orderby("distance", "asc")
                 ->get();
         }
 
