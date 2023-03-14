@@ -84,7 +84,8 @@
                 <use xlink:href="#exclamation-triangle-fill" />
             </svg>
             <div class="col-6 mx-auto">
-                <h1 class="text-center my-6">Non hai i permessi per accedere a questa pagina</h1>
+                <h1 class="text-center">VOLEVIIIII!!!</h1>
+                <h2 class="text-center my-6">Non hai i permessi per accedere a questa pagina</h2>
             </div>
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button class="btn btn-lg btn-danger my-6"> <router-link :to="{ name: 'userApartments' }"> Torna ai tuoi

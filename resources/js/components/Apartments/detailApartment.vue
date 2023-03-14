@@ -1,17 +1,17 @@
 <template>
     <div class="container-fluid">
+        <h1 class="text-center text-uppercase">apartment details</h1>
         <div class="row d-flex">
             <div class="col">
-                <h1>DETAILS APARTMENT </h1>
-                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title">
+
+                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="img-thumbnail">
 
 
 
-                <h3>{{ apartment.title }}</h3>
-                <div>{{ apartment.description }}</div>
-                <div>{{ apartment.address }}</div>
+                <h3 class="text-center">{{ apartment.title }}</h3>
+                <div class="text-center">{{ apartment.description }}</div>
                 <div>
-                    <h1>{{ apartment.price }}&euro;/night</h1>
+                    <h3>{{ apartment.price }}&euro;/night</h3>
                 </div>
                 <div>
                     <h3>Our services:</h3>
@@ -34,22 +34,55 @@
 
             </div>
             <div class="col">
-                <!-- carousel added images -->
-                <div id="added_images">
-                    <ul v-for="image in apartment.addedImage">
-                        <li>
-                            <div>
-                                <img :src="image.image" :alt="image.name">
-                            </div>
-
-                        </li>
-                    </ul>
-                </div>
-                <button>
-                    Write to {{ user.name }}
-                </button>
+                <h3 class="text-center">Where are we?</h3>
+                <div class="text-center">{{ apartment.address }}</div>
                 <div id="map"></div>
+
+                <!-- carousel -->
+
+                <h3 class="text-center">More about us:</h3>
+
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
+                            :class="index === activeItem ? 'active' : ''">
+                            <img :src=image.image :alt="image.name" class="d-block w-100">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
+                        data-slide="prev" @click="this.prevImg()">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
+                        data-slide="next" @click="this.nextImg()">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </button>
+                </div>
+
+
+                <div class="d-grid gap-2 col-6 mx-auto my-5">
+                    <h3 class="text-center">Want to know more?</h3>
+                    <button class="btn btn-danger">Write to {{ user.name }}</button>
+                </div>
+
+
+                <!-- <div v-for="image in apartment.added_images" class="carousel-item active">
+                    <img :src=image.image :alt="image.name" class="d-block w-100">
+                </div> -->
+
+
+
+
             </div>
+
+
         </div>
 
 
@@ -65,6 +98,7 @@ export default {
 
 
     data() {
+
         return {
 
             apartment: "",
@@ -93,6 +127,8 @@ export default {
             },
 
             user: "",
+            activeItem: 0,
+            meter: '',
 
         }
     },
@@ -125,19 +161,38 @@ export default {
                     this.apartment = res.data.response[0];
                     this.user = res.data.response[1];
                     this.getMap()
+                    this.meter = this.apartment.added_images.length
                     console.log(this.apartment.long);
                     console.log(this.apartment);
+                    console.log(this.apartment.added_images)
+                    console.log(this.meter)
 
 
                 }).catch((errors) => {
                     console.log(errors);
                 });
         },
+        nextImg() {
+            this.activeItem++;
+            if (this.activeItem > this.meter - 1) {
+                return this.activeItem = 0;
+            }
+            return this.activeItem;
+        },
+        prevImg() {
+            this.activeItem--;
+            if (this.activeItem === -1) {
+                return this.activeItem = this.meter - 1;
+            }
+            return this.activeItem;
+        }
+
 
     },
     mounted() {
         this.getData()
         this.getApartment()
+
 
 
     }
@@ -148,9 +203,5 @@ export default {
 #map {
     height: 400px;
     width: 700px;
-}
-
-.added_images {
-    height: 200px;
 }
 </style>
