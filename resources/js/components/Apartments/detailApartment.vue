@@ -36,10 +36,10 @@
             <div class="col">
                 <!-- carousel added images -->
                 <div id="added_images">
-                    <ul v-for="image in apartment.addedImage">
+                    <ul v-for="element in apartment.addedImages">
                         <li>
                             <div>
-                                <img :src="image.image" :alt="image.name">
+                                <img :src="element.image" :alt="element.name">
                             </div>
 
                         </li>
@@ -129,7 +129,6 @@ export default {
                     console.log(this.apartment.long);
                     console.log(this.apartment);
 
-
                 }).catch((errors) => {
                     console.log(errors);
                 });
@@ -151,7 +150,7 @@ export default {
     width: 700px;
 }
 
-.added_images {
+#added_images {
     height: 200px;
 }
 </style>

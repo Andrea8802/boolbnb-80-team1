@@ -71,7 +71,7 @@ const routes = [
         component: Message,
     },
     {
-        path: '/editApartment/:id',
+        path: '/edit-apartment/:id',
         name: 'editApartment',
         component: editApartment,
         beforeEnter: (to, form, next) => {
@@ -81,14 +81,11 @@ const routes = [
                 return next({ name: 'Login' })
             })
         }
-
     },
     {
         path: '/detailApartment/:id',
         name: 'detailApartment',
         component: detailApartment,
-
-
     },
     {
         path: "/dashboard",
