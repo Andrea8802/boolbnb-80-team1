@@ -36,18 +36,17 @@
             <div class="col">
                 <!-- carousel added images -->
                 <div id="added_images">
-                    <ul v-for="element in apartment.addedImages">
+                    <ul v-for="image in apartment.addedImage">
                         <li>
                             <div>
-                                <img :src="element.image" :alt="element.name">
+                                <img :src="image.image" :alt="image.name">
                             </div>
 
                         </li>
                     </ul>
                 </div>
                 <button>
-                    <router-link :to="{ name: 'message', params: { id: apartment.id } }">Write to {{ user.name
-                    }}</router-link>
+                    Write to {{ user.name }}
                 </button>
                 <div id="map"></div>
             </div>
@@ -129,6 +128,7 @@ export default {
                     console.log(this.apartment.long);
                     console.log(this.apartment);
 
+
                 }).catch((errors) => {
                     console.log(errors);
                 });
@@ -150,7 +150,7 @@ export default {
     width: 700px;
 }
 
-#added_images {
+.added_images {
     height: 200px;
 }
 </style>
