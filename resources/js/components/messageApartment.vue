@@ -48,6 +48,12 @@
 .ms_message_sent {
     color: $confirmedColor;
 }
+
+.ms_ctn_errors {
+    width: 600px;
+    margin: 0 auto;
+    text-align: start;
+}
 </style>
 
 <template>
@@ -57,6 +63,14 @@
 
         <!-- messaggio di conferma d'invio -->
         <h3 class="mb-3 ms_message_sent" v-if="messageConfirm">Message sent</h3>
+
+        <!-- messaggi di errore per l'utente -->
+        <div class="text-danger ms_ctn_errors" v-if="errors.length">
+            <b>Please correct the following error(s):</b>
+            <ul>
+                <li v-for="error in errors">{{ error }};</li>
+            </ul>
+        </div>
 
         <!-- container del form per creare un appartemento -->
         <div class="mb-3">
@@ -79,7 +93,7 @@
                 <!-- input email -->
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="email">Email : </label>
-                    <input type="text" name="email" v-model="modelEmail" class="form-control ms_input_focus_color"
+                    <input type="email" name="email" v-model="modelEmail" class="form-control ms_input_focus_color"
                         placeholder="Enter a email..." aria-describedby="basic-addon1">
                 </div>
 
@@ -130,7 +144,10 @@ export default {
                     const success = res.data.success;
                     console.log(res);
                     console.log(formData);
+                    this.clearMessage();
+                    this.errors = [];
                 }).catch((errors) => {
+                    this.messageConfirm = false;
                     if (!this.modelName) {
                         this.errors.push("Name required")
                     }
@@ -145,8 +162,6 @@ export default {
                     }
                     console.log(errors);
                 });
-
-            this.clearMessage();
         },
 
         // creata la funzione per pulire il form dopo l'invio di un messaggio e in più fa apparire un messaggio di conferma di invio
