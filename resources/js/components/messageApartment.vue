@@ -44,6 +44,10 @@
     color: $principalColor;
     font-weight: 500;
 }
+
+.ms_message_sent {
+    color: $confirmedColor;
+}
 </style>
 
 <template>
@@ -52,7 +56,7 @@
         <h1 class="ms_title_page_message mb-3">Create a message</h1>
 
         <!-- messaggio di conferma d'invio -->
-        <h3 class="mb-3" v-if="messageConfirm">Message sent</h3>
+        <h3 class="mb-3 ms_message_sent" v-if="messageConfirm">Message sent</h3>
 
         <!-- container del form per creare un appartemento -->
         <div class="mb-3">
