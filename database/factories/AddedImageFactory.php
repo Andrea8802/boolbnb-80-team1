@@ -18,7 +18,7 @@ class AddedImageFactory extends Factory
     {
         return [
             "name" => fake()->word(),
-            "image" => fake()->imageUrl(640, 480, 'animals', true)
+            "image" => 'https://picsum.photos/800/600?random=' . fake()->randomNumber(5, true),
         ];
     }
 }

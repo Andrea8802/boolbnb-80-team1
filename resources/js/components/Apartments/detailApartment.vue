@@ -1,43 +1,56 @@
 <template>
     <div class="container-fluid">
-        <h1>DETAILS APARTMENT </h1>
-        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title">
+        <div class="row d-flex">
+            <div class="col">
+                <h1>DETAILS APARTMENT </h1>
+                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title">
 
-        <!-- carousel added images -->
-        <div>
-            <ul v-for="image in apartment.addedImage">
-                <li><img :src="'/storage/' + image"></li>
-            </ul>
+
+
+                <h3>{{ apartment.title }}</h3>
+                <div>{{ apartment.description }}</div>
+                <div>{{ apartment.address }}</div>
+                <div>
+                    <h1>{{ apartment.price }}&euro;/night</h1>
+                </div>
+                <div>
+                    <h3>Our services:</h3>
+                    <ul v-for="service in apartment.services">
+                        <li>
+                            {{ service.name }}
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div>
+                    <h3>Our {{ apartment.rooms_num }} rooms ({{ apartment.size }} sq m):</h3>
+                    <ul>
+                        <li>Beds: {{ apartment.beds_num }}</li>
+                        <li>Bathrooms: {{ apartment.baths_num }}</li>
+                    </ul>
+                </div>
+
+
+            </div>
+            <div class="col">
+                <!-- carousel added images -->
+                <div id="added_images">
+                    <ul v-for="image in apartment.addedImage">
+                        <li>
+                            <div>
+                                <img :src="image.image" :alt="image.name">
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+                <button>Write to {{ user.name }}</button>
+                <div id="map"></div>
+            </div>
         </div>
 
 
-
-        <h3>{{ apartment.title }}</h3>
-        <div>{{ apartment.description }}</div>
-        <div>{{ apartment.address }}</div>
-        <div>
-            <h1>{{ apartment.price }}&euro;/night</h1>
-        </div>
-        <div>
-            <h3>Our services:</h3>
-            <ul v-for="service in apartment.services">
-                <li>
-                    {{ service.name }}
-                </li>
-            </ul>
-        </div>
-
-
-        <div>
-            <h3>Our {{ apartment.rooms_num }} rooms ({{ apartment.size }} sq m):</h3>
-            <ul>
-                <li>Beds: {{ apartment.beds_num }}</li>
-                <li>Bathrooms: {{ apartment.baths_num }}</li>
-            </ul>
-        </div>
-
-        <button>Write to {{ user.name }}</button>
-        <div id="map"></div>
 
     </div>
 </template>
@@ -133,5 +146,9 @@ export default {
 #map {
     height: 400px;
     width: 700px;
+}
+
+.added_images {
+    height: 200px;
 }
 </style>

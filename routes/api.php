@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('athenticated', function () {
     return true;
 });
+
 Route::post('register', 'App\Http\Controllers\Auth\RegisterController@register');
 
 Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
@@ -42,3 +43,5 @@ Route::get('getApartmentDetail/{apartment}', [ApiController::class, 'getApartmen
 
 
 /* Route::get('getUser', [ApiController::class, 'getUser']); */
+
+Route::get('apartment-edit/{apartment}', [ApiController::class, 'getApartmentEdit']);

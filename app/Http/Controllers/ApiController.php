@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\User;
@@ -162,12 +163,19 @@ class ApiController extends Controller
         ]);
 
     }
-    public function userEditApartmentsPage()
+    public function userEditApartmentsPage(Apartment $apartment)
     {
-        return view("editApartment");
+        if ($this->authorize('update', $apartment)) {
+            return view("editApartment", compact('apartment'));
+        } else {
+            return view('/');
+        }
+
+
     }
     public function updateApartment(Request $request, Apartment $apartment)
     {
+        $this->authorize('update', $apartment);
         $data = $request->validate([
             "title" => ["string", "required", "min:10", "max:64"],
             "description" => ["string", "required", "min:20", "max:255"],
@@ -208,6 +216,8 @@ class ApiController extends Controller
 
         $id = auth()->user()->id;
         $currentuser = User::find($id);
+
+
         $apartment->user()->associate($currentuser);
         $apartment->save();
 
@@ -294,4 +304,27 @@ class ApiController extends Controller
         ]);
     }
 
+    public function getApartmentEdit(Request $request, $id)
+    {
+        $apartment = Apartment::find($id);
+        $this->authorize('update', $apartment);
+        $apartment["services"] = $apartment->services;
+        $apartment["added_images"] = $apartment->added_images;
+        $apartment["user_id"] = $apartment->user_id;
+
+        $id = auth()->user()->id;
+        $currentuser = User::find($id);
+
+
+        return response()->json([
+            "success" => true,
+            "response" => [
+                $apartment,
+                $currentuser
+            ]
+        ]);
+
+
+
+    }
 }
