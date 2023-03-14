@@ -65,7 +65,7 @@ const routes = [
         }
     },
     {
-        path: '/editApartment/:id',
+        path: '/edit-apartment/:id',
         name: 'editApartment',
         component: editApartment,
         beforeEnter: (to, form, next) => {
