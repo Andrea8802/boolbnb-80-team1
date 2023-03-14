@@ -11,6 +11,7 @@ import Register from './components/Register.vue';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
 import Sponsor from './components/Sponsor.vue';
+import Message from './components/messageApartment.vue';
 
 const routes = [
     {
@@ -65,6 +66,11 @@ const routes = [
         }
     },
     {
+        path: '/message/:id',
+        name: 'message',
+        component: Message,
+    },
+    {
         path: '/edit-apartment/:id',
         name: 'editApartment',
         component: editApartment,
@@ -75,14 +81,11 @@ const routes = [
                 return next({ name: 'Login' })
             })
         }
-
     },
     {
         path: '/detailApartment/:id',
         name: 'detailApartment',
         component: detailApartment,
-
-
     },
     {
         path: "/dashboard",
