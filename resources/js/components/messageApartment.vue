@@ -106,6 +106,7 @@ export default {
             modelEmail: '',
             modelText: '',
             messageConfirm: false,
+            errors: [],
         }
     },
     methods: {
@@ -130,6 +131,18 @@ export default {
                     console.log(res);
                     console.log(formData);
                 }).catch((errors) => {
+                    if (!this.modelName) {
+                        this.errors.push("Name required")
+                    }
+                    if (!this.modelSurname) {
+                        this.errors.push("Surname")
+                    }
+                    if (!this.modelEmail) {
+                        this.errors.push("Email required")
+                    }
+                    if (!this.modelText) {
+                        this.errors.push("Text message required")
+                    }
                     console.log(errors);
                 });
 
