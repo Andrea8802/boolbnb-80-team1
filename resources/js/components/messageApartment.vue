@@ -51,6 +51,9 @@
     <div class="container text-center py-3">
         <h1 class="ms_title_page_message mb-3">Create a message</h1>
 
+        <!-- messaggio di conferma d'invio -->
+        <h3 class="mb-3" v-if="messageConfirm">Message sent</h3>
+
         <!-- container del form per creare un appartemento -->
         <div class="mb-3">
             <form action="" enctype="multipart/form-data" @submit.prevent="sendMessage" method="post">
@@ -79,15 +82,13 @@
                 <!-- input per inserire il messaggio del testo -->
                 <div class="ms_ctn_input form-floating mb-3">
                     <textarea type="text" class="form-control ms_input_focus_color" placeholder="Leave a comment here"
-                        id="floatingTextarea2" style="height: 150px" name="text" v-model="modelText">
-                                                                                            </textarea>
+                        id="floatingTextarea2" style="height: 150px" name="text" v-model="modelText"></textarea>
                     <label for="floatingTextarea2 text" class="ms_label_text_area">Enter your message...</label>
                 </div>
 
                 <input type="submit" value="Send" class="ms_input_submit">
             </form>
         </div>
-
     </div>
 </template>
 
@@ -100,24 +101,10 @@ export default {
             modelSurname: '',
             modelEmail: '',
             modelText: '',
+            messageConfirm: false,
         }
     },
     methods: {
-        getSendMessage() {
-            axios.get("/api/message/" + this.$route.params.id)
-                .then(res => {
-                    this.getSendMessage = res.data.response;
-                    console.log(this.getSendMessage);
-
-
-                }).catch((errors) => {
-                    console.log(errors);
-                });
-        },
-        log() {
-            console.log(this.$route.params.id);
-        },
-
         sendMessage() {
             const config = {
                 headers: {
@@ -133,7 +120,7 @@ export default {
 
             axios.post("/api/sendMessage/" + this.$route.params.id, formData, config)
                 .then(res => {
-                    const success = res.data.succes;
+                    const success = res.data.success;
                     console.log(res);
                     console.log(formData);
                     this.$router.push({ name: 'apartments_id' })
@@ -149,12 +136,8 @@ export default {
             this.modelSurname = '';
             this.modelEmail = '';
             this.modelText = '';
+            this.messageConfirm = true;
         }
-    },
-    mounted() {
-        this.getSendMessage()
-        this.log()
-
     }
 }
 </script>
