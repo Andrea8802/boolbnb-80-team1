@@ -7,6 +7,7 @@
         @keyup.delete="checkSearchBar">
     <button @click="getCoordinates">Cerca</button>
     <button @click="deleteText">Cancella</button>
+    <button><router-link :to="{ name: 'advancedSearch'}">Advanced Search</router-link></button>
 
     <form action="" method="post">
         <div>

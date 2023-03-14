@@ -5,6 +5,7 @@ import createApartment from './components/Apartments/CreateApartment.vue';
 import userApartments from './components/Apartments/userApartments.vue';
 import editApartment from './components/Apartments/editApartment.vue';
 import detailApartment from './components/Apartments/detailApartment.vue';
+import advancedSearch from './components/Apartments/advancedSearch.vue';
 import Home from './components/Home.vue';
 // import About from './components/About';
 import Register from './components/Register.vue';
@@ -83,6 +84,11 @@ const routes = [
         component: detailApartment,
 
 
+    },
+    {
+        path: '/advancedSearch',
+        name: 'advancedSearch',
+        component: advancedSearch,
     },
     {
         path: "/dashboard",
