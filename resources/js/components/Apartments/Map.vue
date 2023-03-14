@@ -13,6 +13,7 @@ export default {
 
     },
     methods: {
+
         setup() {
             const mapRef = ref(map);
             onMounted(() => {
