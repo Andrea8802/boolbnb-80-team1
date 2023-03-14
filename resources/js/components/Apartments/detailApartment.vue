@@ -45,7 +45,10 @@
                         </li>
                     </ul>
                 </div>
-                <button>Write to {{ user.name }}</button>
+                <button>
+                    <router-link :to="{ name: 'message', params: { id: apartment.id } }">Write to {{ user.name
+                    }}</router-link>
+                </button>
                 <div id="map"></div>
             </div>
         </div>
