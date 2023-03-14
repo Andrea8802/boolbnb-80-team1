@@ -7,22 +7,8 @@
         @keyup.delete="checkSearchBar">
     <button @click="getCoordinates">Cerca</button>
     <button @click="deleteText">Cancella</button>
+    <button><router-link :to="{ name: 'advancedSearch' }">Advanced Search</router-link></button>
 
-    <form action="" method="post">
-        <div>
-            <label for="">Rooms Number</label>
-            <select name="rooms_num" v-model="rooms_num" id="" @change="getCoordinates">
-                <option value="">-</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-
-            </select>
-        </div>
-    </form>
 
 
     <h1>Apartments</h1> <br>
@@ -78,10 +64,6 @@ export default {
             apartments: [],
             apartmentsGeo: [],
             onSearch: false,
-            rooms_num: "",
-
-
-
         }
     },
     methods: {
@@ -103,10 +85,9 @@ export default {
         },
         getApartment() {
             let formData = new FormData();
-            formData.append("latitude", this.modelLat);
-            formData.append("longitude", this.modelLong);
+            formData.append("lat", this.modelLat);
+            formData.append("long", this.modelLong);
             formData.append("radius", this.radius);
-            formData.append("rooms_num", this.rooms_num);
 
             axios.post("/api/searchApartment", formData)
                 .then(res => {
@@ -164,6 +145,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@use '/resources/sass/variables' as *;
+
 .router {
     text-decoration: none;
     color: black;

@@ -186,6 +186,8 @@ class ApiController extends Controller
             "baths_num" => ["required", "integer", "max:50"],
             "size" => ["required", "integer"],
             "address" => ["required", "string", "max:255"],
+            "lat" => ["nullable"],
+            "long" => ["nullable"],
             "services" => ["nullable", "array"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
 
@@ -210,6 +212,8 @@ class ApiController extends Controller
         $apartment->baths_num = $data["baths_num"];
         $apartment->size = $data["size"];
         $apartment->address = $data["address"];
+        $apartment->lat = $data["lat"];
+        $apartment->long = $data["long"];
         if (array_key_exists("imageApartment", $data)) {
             $apartment->imageApartment = $data["imageApartment"];
         }
@@ -257,12 +261,9 @@ class ApiController extends Controller
     public function searchApartment(Request $request)
     {
 
-        $latitude = $request["latitude"];
-        $longitude = $request["longitude"];
+        $latitude = $request["lat"];
+        $longitude = $request["long"];
         $radius = $request["radius"];
-        $roomNumber = $request["rooms_num"];
-
-
 
         $haversine = "(
             6371 * acos(
@@ -274,20 +275,12 @@ class ApiController extends Controller
             
             )";
 
-        if ($roomNumber) {
-            $apartments = Apartment::select("*")
-                ->selectRaw("$haversine AS distance")
-                ->having("distance", "<=", $radius)
-                ->where("rooms_num", "=", $roomNumber)
-                ->orderby("distance", "desc")
-                ->get();
-        } else {
-            $apartments = Apartment::select("*")
-                ->selectRaw("$haversine AS distance")
-                ->having("distance", "<=", $radius)
-                ->orderby("distance", "desc")
-                ->get();
-        }
+        $apartments = Apartment::select("*")
+            ->selectRaw("$haversine AS distance")
+            ->having("distance", "<=", $radius)
+            ->orderby("distance", "desc")
+            ->get();
+
 
 
         return response()->json([
@@ -302,6 +295,48 @@ class ApiController extends Controller
         return response()->json([
             "success" => true,
             "response" => $sponsors
+        ]);
+    }
+
+    public function advancedSearch(Request $request)
+    {
+
+        $latitude = $request["lat"];
+        $longitude = $request["long"];
+        $radius = $request["radius"];
+        $roomsNumber = $request["rooms_num"];
+        $bedsNumber = $request["beds_num"];
+        $services = $request["services"];
+
+        $haversine = "(
+            6371 * acos(
+                cos(radians(" . $latitude . "))
+                * cos(radians(`lat`))
+                * cos(radians(`long`) - radians(" . $longitude . "))
+                + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
+            ))";
+
+
+        $apartments = Apartment::select("*")
+            ->selectRaw("$haversine AS distance")
+            ->having("distance", "<=", $radius)
+            ->where("rooms_num", ">=", $roomsNumber)
+            ->where("beds_num", ">=", $bedsNumber)
+            ->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
+            ->join('services', 'apartment_service.service_id', '=', 'services.id')
+            ->orderby("distance", "asc");
+
+        if ($services) {
+            $apartments->whereIn("services.id", $services);
+        }
+
+        $apartments = $apartments->get();
+
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments,
+            "services" => $services
         ]);
     }
 

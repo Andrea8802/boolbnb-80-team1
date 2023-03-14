@@ -102,7 +102,7 @@
 
         <!-- container del form per modificare un appartamento -->
         <div class="mb-3">
-            <form action="" enctype="multipart/form-data" method="post" @submit.prevent="updateApartment">
+            <form action="" enctype="multipart/form-data" method="post" @submit.prevent="getCoordinates">
                 <p v-if="errors.length">
                     <b class="red">Please correct the following error(s):</b>
 
@@ -203,15 +203,6 @@ export default {
     data() {
         return {
             permission: true,
-            modelTitle: "",
-            modelDescription: "",
-            modelPrice: "",
-            modelRoomsNum: "",
-            modelBathsNum: "",
-            modelBedsNum: "",
-            modelSize: "",
-            modelAddress: "",
-            modelServices: [],
             services: [],
             imageApartment: '',
             imageBool: false,
@@ -272,7 +263,7 @@ export default {
                     console.log(errors);
                 });
         },
-        updateApartment(e) {
+        updateApartment() {
             this.errors.length = 0;
             const config = {
                 headers: {
@@ -288,6 +279,8 @@ export default {
             formData.append("beds_num", this.getApartment.beds_num);
             formData.append("size", this.getApartment.size);
             formData.append("address", this.getApartment.address);
+            formData.append("lat", this.getApartment.lat);
+            formData.append("long", this.getApartment.long);
             let check = document.getElementsByClassName("input");
             for (let index = 0; index < check.length; index++) {
                 const element = check[index];
@@ -309,7 +302,6 @@ export default {
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);
             }
-            console.log(this.modelServices);
 
             axios.post("/api/updateApartment/" + this.$route.params.id, formData, config)
                 .then(res => {
@@ -356,9 +348,6 @@ export default {
                     console.log(errors);
                 });
 
-            e.preventDefault()
-
-
         },
         getEditApartment() {
 
@@ -388,18 +377,28 @@ export default {
 
 
         },
+        getCoordinates(e) {
 
-        /* log() {
-            console.log(this.$route.params.id);
-        } */
+            e.preventDefault();
+            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.
+                getApartment.address}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false);
+            xmlHttp.send(null);
+            var json = JSON.parse(xmlHttp.responseText);
+            console.log("json", json);
+            this.getApartment.lat = parseFloat(json.results[0].position.lat);
+            this.getApartment.long = parseFloat(json.results[0].position.lon);
+
+            this.updateApartment();
+
+        },
 
 
     },
     mounted() {
         this.getData()
         this.getEditApartment()
-
-        /*  this.log() */
 
     }
 }
