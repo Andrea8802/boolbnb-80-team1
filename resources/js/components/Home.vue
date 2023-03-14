@@ -7,6 +7,23 @@
         @keyup.delete="checkSearchBar">
     <button @click="getCoordinates">Cerca</button>
     <button @click="deleteText">Cancella</button>
+
+    <form action="" method="post">
+        <div>
+            <label for="">Rooms Number</label>
+            <select name="rooms_num" v-model="rooms_num" id="" @change="getCoordinates">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+
+            </select>
+        </div>
+    </form>
+
+
     <h1>Apartments</h1> <br>
     <div>{{ error }}</div>
     <div class="container-fluid p-3">
@@ -56,7 +73,9 @@ export default {
             radius: 20,
             apartments: [],
             apartmentsGeo: [],
-            onSearch: false
+            onSearch: false,
+            rooms_num: "",
+
 
 
         }
@@ -65,14 +84,12 @@ export default {
         getCoordinates() {
             this.onSearch = false;
             if (!this.apartmentSearch) return;
-            this.onSearch = true;
 
             var theUrl = `https://api.tomtom.com/search/2/geocode/${this.apartmentSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", theUrl, false);
             xmlHttp.send(null);
             var json = JSON.parse(xmlHttp.responseText);
-
             console.log("json", json);
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
@@ -85,10 +102,13 @@ export default {
             formData.append("latitude", this.modelLat);
             formData.append("longitude", this.modelLong);
             formData.append("radius", this.radius);
+            formData.append("rooms_num", this.rooms_num);
 
             axios.post("/api/searchApartment", formData)
                 .then(res => {
                     console.log("apSear", res);
+                    this.onSearch = true;
+
                     this.apartmentsGeo = res.data.response;
                     if (this.apartmentsGeo.length == 0) {
                         this.error = "nessun appartamento trovato";
@@ -128,6 +148,7 @@ export default {
         deleteText() {
             this.apartmentSearch = "";
             this.onSearch = false;
+            this.rooms_num = "";
         }
     },
 

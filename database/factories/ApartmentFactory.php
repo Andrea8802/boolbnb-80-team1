@@ -183,7 +183,10 @@ class ApartmentFactory extends Factory
             'lat' => $fullAddress[$randAddress]["latitude"],
             'long' => $fullAddress[$randAddress]["longitude"],
             // 'imageApartment' => fake()->image(null, 360, 360, 'house', true),
+            'imageApartment' => 'app.Milano.jpeg',
+
             'visibility' => true,
         ];
     }
 }
+

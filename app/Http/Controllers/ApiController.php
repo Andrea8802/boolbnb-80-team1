@@ -249,6 +249,8 @@ class ApiController extends Controller
         $latitude = $request["latitude"];
         $longitude = $request["longitude"];
         $radius = $request["radius"];
+        $roomNumber = $request["rooms_num"];
+
 
 
         $haversine = "(
@@ -258,13 +260,24 @@ class ApiController extends Controller
                 * cos(radians(`long`) - radians(" . $longitude . "))
                 + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
             )
-        )";
+            
+            )";
 
-        $apartments = Apartment::select("*")
-            ->selectRaw("$haversine AS distance")
-            ->having("distance", "<=", $radius)
-            ->orderby("distance", "desc")
-            ->get();
+        if ($roomNumber) {
+            $apartments = Apartment::select("*")
+                ->selectRaw("$haversine AS distance")
+                ->having("distance", "<=", $radius)
+                ->where("rooms_num", "=", $roomNumber)
+                ->orderby("distance", "desc")
+                ->get();
+        } else {
+            $apartments = Apartment::select("*")
+                ->selectRaw("$haversine AS distance")
+                ->having("distance", "<=", $radius)
+                ->orderby("distance", "desc")
+                ->get();
+        }
+
 
         return response()->json([
             "success" => true,
