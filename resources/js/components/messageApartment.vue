@@ -105,6 +105,8 @@ export default {
         }
     },
     methods: {
+        // creata la funzione send message che riceve tramite axios l'id dell'appartamento a cui andrà associato il messaggio
+        // e acquisisce i dati inseriti nel form dall'utente e li manda al database
         sendMessage() {
             const config = {
                 headers: {
@@ -130,6 +132,7 @@ export default {
             this.clearMessage();
         },
 
+        // creata la funzione per pulire il form dopo l'invio di un messaggio e in più fa apparire un messaggio di conferma di invio
         clearMessage() {
             this.modelName = '';
             this.modelSurname = '';
