@@ -3,7 +3,7 @@
         <input type="text" v-model="apartmentSearch">
         <div>
             <label for="">Rooms Number</label>
-            <select name="rooms_num" v-model="rooms_num" id="" @change="getCoordinates">
+            <select name="rooms_num" v-model="roomsNum" id="" @change="getCoordinates">
                 <option value="">-</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -48,7 +48,7 @@ export default {
 
     data() {
         return {
-            roomNum: "",
+            roomsNum: "",
             bedsNum: "",
             error: "",
             apartmentSearch: "",
@@ -95,11 +95,23 @@ export default {
                     }
                 })
         },
+        reloadPage() {
+            var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
+            // Current Time //
+            var now = Date.now();
+            // Total Process Lenght as Minutes //
+            var tenSec = 10 * 1000;
+            // End Time of Process //
+            var plusTenSec = currentDocumentTimestamp + tenSec;
+            if (now > plusTenSec) {
+                location.reload();
+            }
+        }
 
 
     },
     mounted() {
-
+        this.reloadPage;
 
     }
 }
