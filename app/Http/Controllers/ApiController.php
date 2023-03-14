@@ -249,7 +249,6 @@ class ApiController extends Controller
         $latitude = $request["latitude"];
         $longitude = $request["longitude"];
         $radius = $request["radius"];
-        $roomNumber = $request["rooms_num"];
 
 
 
@@ -263,20 +262,12 @@ class ApiController extends Controller
             
             )";
 
-        if ($roomNumber) {
-            $apartments = Apartment::select("*")
-                ->selectRaw("$haversine AS distance")
-                ->having("distance", "<=", $radius)
-                ->where("rooms_num", "=", $roomNumber)
-                ->orderby("distance", "asc")
-                ->get();
-        } else {
-            $apartments = Apartment::select("*")
-                ->selectRaw("$haversine AS distance")
-                ->having("distance", "<=", $radius)
-                ->orderby("distance", "asc")
-                ->get();
-        }
+        $apartments = Apartment::select("*")
+            ->selectRaw("$haversine AS distance")
+            ->having("distance", "<=", $radius)
+            ->orderby("distance", "asc")
+            ->get();
+
 
 
         return response()->json([
@@ -291,6 +282,42 @@ class ApiController extends Controller
         return response()->json([
             "success" => true,
             "response" => $sponsors
+        ]);
+    }
+
+    public function advancedSearch(Request $request)
+    {
+
+        $latitude = $request["lat"];
+        $longitude = $request["long"];
+        $radius = $request["radius"];
+        $roomsNumber = $request["rooms_num"];
+        $bedsNumber = $request["beds_num"];
+
+
+        $haversine = "(
+            6371 * acos(
+                cos(radians(" . $latitude . "))
+                * cos(radians(`lat`))
+                * cos(radians(`long`) - radians(" . $longitude . "))
+                + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
+            )
+            
+            )";
+
+
+        $apartments = Apartment::select("*")
+            ->selectRaw("$haversine AS distance")
+            ->having("distance", "<=", $radius)
+            ->where("rooms_num", ">=", $roomsNumber)
+            ->where("beds_room", ">=", $bedsNumber)
+            ->where("rooms_num", ">=", $roomsNumber)
+            ->orderby("distance", "asc")
+            ->get();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments
         ]);
     }
 

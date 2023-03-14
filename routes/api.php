@@ -40,5 +40,7 @@ Route::post('searchApartment', [ApiController::class, 'searchApartment']);
 Route::get('sponsors', [ApiController::class, 'getSponsors']);
 Route::get('getApartmentDetail/{apartment}', [ApiController::class, 'getApartmentDetail']);
 
+Route::post('advancedSearch', [ApiController::class, 'advancedSearch']);
+
 
 /* Route::get('getUser', [ApiController::class, 'getUser']); */

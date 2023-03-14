@@ -1,44 +1,41 @@
 <template>
-    <div class="container-fluid">
-        <h1>DETAILS APARTMENT </h1>
-        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title">
-
-        <!-- carousel added images -->
+    <form action="" method="post">
+        <input type="text" v-model="apartmentSearch">
         <div>
-            <ul v-for="image in apartment.addedImage">
-                <li><img :src="'/storage/' + image"></li>
-            </ul>
+            <label for="">Rooms Number</label>
+            <select name="rooms_num" v-model="rooms_num" id="" @change="getCoordinates">
+                <option value="">-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
         </div>
 
-
-
-        <h3>{{ apartment.title }}</h3>
-        <div>{{ apartment.description }}</div>
-        <div>{{ apartment.address }}</div>
-        <div>
-            <h1>{{ apartment.price }}&euro;/night</h1>
+        <div class="slidecontainer">
+            <input type="range" min="1" max="50" class="slider" v-model="radius" @change="getCoordinates">
         </div>
         <div>
-            <h3>Our services:</h3>
-            <ul v-for="service in apartment.services">
-                <li>
-                    {{ service.name }}
-                </li>
-            </ul>
+            {{ radius }}
         </div>
+        <button @click="getCoordinates">Cerca</button>
+    </form>
 
+    <div class="col" v-for="apartment in apartments">
+        <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+            <div class="card rounded ms_card_efct">
+                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                    class="rounded fluid card-img-top h-50">
+                <div class="card-body h-35">
+                    <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                    <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                    <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                </div>
 
-        <div>
-            <h3>Our {{ apartment.rooms_num }} rooms ({{ apartment.size }} sq m):</h3>
-            <ul>
-                <li>Beds: {{ apartment.beds_num }}</li>
-                <li>Bathrooms: {{ apartment.baths_num }}</li>
-            </ul>
-        </div>
-
-        <button>Write to {{ user.name }}</button>
-        <div id="map"></div>
-
+            </div>
+        </router-link>
     </div>
 </template>
 
@@ -51,78 +48,57 @@ export default {
 
     data() {
         return {
-
-            apartment: "",
-
-            icons: {
-                'Pool': "fa-solid fa-person-swimming",
-                'Kitchen': "fa-solid fa-utensils",
-                'Parking': "fa-solid fa-square-parking",
-                'Shampoo': "fa-solid fa-shower",
-                'Freezer': "fa-solid fa-snowflake",
-                'Balcony': "fa-solid fa-mountain-sun",
-                'Hammock': "fa-solid fa-bed",
-                'Tv': "fa-solid fa-tv",
-                'Air conditioning': "fa-solid fa-wind",
-                'Lockbox': "fa-solid fa-vault",
-                'Private sauna': "fa-solid fa-spa",
-                'BBQ grill': "fa-solid fa-burger",
-                'Coffee': "fa-solid fa-mug-hot",
-                'Stove': "fa-solid fa-fire-burner",
-                'Refrigerator': "fa-solid fa-fish",
-                'Smoke alarm': "fa-solid fa-fire-extinguisher",
-                'Lake view': "fa-solid fa-water",
-                'Sea view': "fa-solid fa-ship",
-                'Ocean view': "fa-solid fa-person-swimming",
-                'Hangers': "fa-solid fa-vest",
-            },
-
-            user: "",
-
+            roomNum: "",
+            bedsNum: "",
+            error: "",
+            apartmentSearch: "",
+            modelLat: "",
+            modelLong: "",
+            radius: 1,
+            apartments: [],
         }
     },
     methods: {
+        getCoordinates() {
+            if (!this.apartmentSearch) return;
 
-        getData() {
-            axios.get("/api/getData")
-                .then(res => {
-                    this.services = res.data.response.services;
-                    this.sponsors = res.data.response.sponsors;
-                    /* console.log(this.services); */
-                }).catch((errors) => {
-                    console.log(errors);
-                });
-        },
-        getMap() {
-            let center = [this.apartment.long, this.apartment.lat];
-            let map = tt.map({
-                key: "HrIT0rDPsDPsPzHGmbsIRCwnxIakKjwM",
-                container: "map",
-                center: center,
-                zoom: 15,
-            });
-            new tt.Marker({ color: "#ff385c", height: "40px", width: "30px" }).setLngLat(center).addTo(map);
+            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.apartmentSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false);
+            xmlHttp.send(null);
+            var json = JSON.parse(xmlHttp.responseText);
+            console.log("json", json);
+            this.modelLat = parseFloat(json.results[0].position.lat);
+            this.modelLong = parseFloat(json.results[0].position.lon);
+            this.getApartment();
+
+
         },
         getApartment() {
+            let formData = new FormData();
+            formData.append("lat", this.modelLat);
+            formData.append("long", this.modelLong);
+            formData.append("radius", this.radius);
+            formData.append("rooms_num", this.roomsNum);
+            formData.append("beds_num", this.bedsNum);
 
-            axios.get("/api/getApartmentDetail/" + this.$route.params.id)
+            axios.post("/advancedSearch", formData)
                 .then(res => {
-                    this.apartment = res.data.response[0];
-                    this.user = res.data.response[1];
-                    this.getMap()
-                    console.log(this.apartment.long);
-                    console.log(this.apartment);
+                    console.log("apSear", res);
 
-
-                }).catch((errors) => {
-                    console.log(errors);
-                });
+                    this.apartments = res.data.response;
+                    if (this.apartmentsGeo.length == 0) {
+                        this.error = "nessun appartamento trovato";
+                    }
+                    else {
+                        this.error = null
+                    }
+                })
         },
+
 
     },
     mounted() {
-        this.getData()
-        this.getApartment()
 
 
     }
@@ -130,8 +106,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#map {
-    height: 400px;
-    width: 700px;
+@use '/resources/sass/variables' as *;
+
+// Stile slider
+.slider {
+    appearance: none;
+    width: 30%;
+    height: 15px;
+    margin-left: 20px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: $principalColor;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: $principalColor;
+    cursor: pointer;
 }
 </style>
