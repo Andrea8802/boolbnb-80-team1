@@ -93,7 +93,7 @@
                 <!-- input email -->
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="email">Email : </label>
-                    <input type="email" name="email" v-model="modelEmail" class="form-control ms_input_focus_color"
+                    <input type="email" name="email" v-model="user.email" class="form-control ms_input_focus_color"
                         placeholder="Enter a email..." aria-describedby="basic-addon1">
                 </div>
 
@@ -120,10 +120,22 @@ export default {
             modelEmail: '',
             modelText: '',
             messageConfirm: false,
+            user: [],
             errors: [],
         }
     },
     methods: {
+        getUserLogged() {
+            axios.get('/api/message' + this.$route.params.id)
+                .then(res => {
+                    // const success = res.data.success;
+                    this.user = res.data.response;
+                    console.log(user);
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+        },
+
         // creata la funzione send message che riceve tramite axios l'id dell'appartamento a cui andrà associato il messaggio
         // e acquisisce i dati inseriti nel form dall'utente e li manda al database
         sendMessage() {
@@ -172,6 +184,9 @@ export default {
             this.modelText = '';
             this.messageConfirm = true;
         }
+    },
+    mounted() {
+        this.getUserLogged();
     }
 }
 </script>
