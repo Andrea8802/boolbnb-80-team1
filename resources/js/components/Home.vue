@@ -12,6 +12,7 @@
         <div>
             <label for="">Rooms Number</label>
             <select name="rooms_num" v-model="rooms_num" id="" @change="getCoordinates">
+                <option value="">-</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
