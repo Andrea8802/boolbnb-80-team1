@@ -46,7 +46,7 @@
                     </ul>
                 </div>
                 <button>
-                    Write to {{ user.name }}
+                    <router-link :to="{ name: 'message' }">Write to {{ user.name }}</router-link>
                 </button>
                 <div id="map"></div>
             </div>
