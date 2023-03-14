@@ -174,7 +174,7 @@ class ApartmentFactory extends Factory
         return [
             'title' => $title[rand(0, 19)],
             'description' => $description[rand(0, 19)],
-            'price' => fake()->randomFloat(2, 20, 10000),
+            'price' => fake()->randomFloat(2, 20, 110),
             'rooms_num' => $rooms_num,
             'beds_num' => $beds_num,
             'baths_num' => $baths_num,
