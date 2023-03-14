@@ -11,6 +11,7 @@ import Register from './components/Register.vue';
 import Login from './components/Login.vue';
 import Dashboard from './components/Dashboard.vue';
 import Sponsor from './components/Sponsor.vue';
+import Payment from './components/Payment.vue';
 
 const routes = [
     {
@@ -41,6 +42,18 @@ const routes = [
         name: 'Login'
     },
     {
+        path: '/payment/:id',
+        component: Payment,
+        name: 'payment',
+        beforeEnter: (to, form, next) => {
+            axios.get('/api/athenticated').then(() => {
+                next()
+            }).catch(() => {
+                return next({ name: 'Login' })
+            })
+        }
+    },
+    {
         path: '/create',
         component: createApartment,
         name: 'createApartment',
@@ -53,7 +66,7 @@ const routes = [
         }
     },
     {
-        path: '/sponsor',
+        path: '/sponsor/:id',
         component: Sponsor,
         name: 'sponsor',
         beforeEnter: (to, form, next) => {
