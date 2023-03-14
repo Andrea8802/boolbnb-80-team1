@@ -333,6 +333,7 @@ export default {
                 console.log(value);
                 formData.append("services[]", value)
             })
+            console.log(this.selectedCheck);
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);
             }

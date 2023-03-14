@@ -290,6 +290,7 @@ export default {
                 console.log(value);
                 formData.append("services[]", value) // you have to add array symbol after the key name
             })
+            console.log(this.modelServices);
 
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);

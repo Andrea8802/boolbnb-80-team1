@@ -64,10 +64,10 @@ class ApiController extends Controller
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);
         $ap->save();
-        if (array_key_exists("services", $data)) {
-            $services = Service::find([$data["services"]]);
-            $ap->services()->attach($services);
-        }
+        // if (array_key_exists("services", $data)) {
+        $services = Service::find([$data["services"]]);
+        $ap->services()->attach($services);
+        // }
         // $services = Service::find([$data["services"]]);
         // $ap->services()->attach($services);
 
@@ -135,7 +135,7 @@ class ApiController extends Controller
     {
 
         $apartment = Apartment::find($id);
-
+        $apartment["services"] = $apartment->services;
         return response()->json([
             "success" => true,
             "response" => $apartment
