@@ -100,19 +100,39 @@ class ApiController extends Controller
 
     public function createAddedImages(Request $request, $id)
     {
-        foreach ($request->validate(["image" => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],]) as $imagefile) {
 
-            if (array_key_exists("image", $imagefile)) {
-                $path = Storage::put('uploads', $imagefile['image']);
-                $imagefile['image'] = $path;
+        /* foreach ($request->images as $image) {
+        $path = Storage::put('uploads', $image["image"]);
+        $image["image"] = $path;
+        $added_image = AddedImage::make($image["image"]);
+        $ap = Apartment::find($id);
+        $added_image->apartment()->associate($ap);
+        $added_image->save();
+        return response()->json([
+        "success" => true,
+        "response" => [
+        "added_images" => $added_image,
+        ]
+        ]);
+        }
+        ; */
+
+        $data = $request->validate([
+            "image" => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"]
+        ]);
+
+        for ($i = 0; $i < count($data); $i++) {
+
+            if (array_key_exists("image", $data[$i])) {
+                $path = Storage::put('uploads', $data["image"][$i]);
+                $data["image"][$i] = $path;
             } else {
-                $imagefile['image'] = 'avatar5.png';
+                $$data['image'] = 'avatar5.png';
             }
-
-            $added_image = AddedImage::make($imagefile);
+            $added_image = AddedImage::make($data[$i]);
             $ap = Apartment::find($id);
-            $ap->added_images()->associate($added_image);
-
+            $added_image->apartment()->associate($ap);
+            $added_image->save();
             return response()->json([
                 "success" => true,
                 "response" => [
@@ -120,7 +140,21 @@ class ApiController extends Controller
                 ]
             ]);
         }
-        ;
+
+        /* foreach ($data as $imagefile) {
+        $path = Storage::put('uploads', $imagefile['image']);
+        $imagefile['image'] = $path;
+        $added_image = AddedImage::make($imagefile);
+        $ap = Apartment::find($id);
+        $ap->added_images()->associate($added_image);
+        return response()->json([
+        "success" => true,
+        "response" => [
+        "added_images" => $added_image,
+        ]
+        ]);
+        }
+        ; */
     }
     /*     $new_img = $request->validate(["image" => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"]]);
     if (array_key_exists("image", $new_img)) {

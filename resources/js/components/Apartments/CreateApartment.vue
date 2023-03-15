@@ -203,12 +203,12 @@
                     <button @click="this.createAddedImages()"></button>
 
                     <!-- <div class="card" style="width: 18rem;">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item" v-for="image in this.addedImages">
-                                            {{ image }}
-                                        </li>
-                                    </ul>
-                                </div> -->
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item" v-for="image in this.addedImages">
+                                                                    {{ image }}
+                                                                </li>
+                                                            </ul>
+                                                        </div> -->
                 </div>
 
                 <div class="ms_ctn_service p-3 my-3">
@@ -376,18 +376,19 @@ export default {
         },
         createAddedImages() {
             let formDataAdIm = new FormData();
-            formDataAdIm.append('image[]', this.addedImages)
-            axios.post('/api/added-images', formDataAdIm, {
+            formDataAdIm.append('image[]', this.addedImages);
+
+            axios.post('/api/apartments/added-images', formDataAdIm, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
             }
             ).then(res => {
-                const success = res.data.success;
+                /* const success = res.data.success; */
                 console.log(res);
-                console.log(formDataAdIm);
             })
-                .catch(function () {
+                .catch((errors) => {
+                    console.log(errors);
                 });
         }
 
