@@ -116,30 +116,50 @@ class ApiController extends Controller
         ]);
         }
         ; */
+        $allowedfileExtension = ['jpg', 'png', 'jpeg', 'gif', 'svg'];
+        $files = $request->file('image');
+        foreach ($files as $file) {
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension, $allowedfileExtension);
+            if ($check) {
+                foreach ($request->fileName as $mediaFiles) {
 
-        $data = $request->validate([
-            "image" => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"]
-        ]);
+                    $path = $mediaFiles->store('public/images');
 
-        for ($i = 0; $i < count($data); $i++) {
 
-            if (array_key_exists("image", $data[$i])) {
-                $path = Storage::put('uploads', $data["image"][$i]);
-                $data["image"][$i] = $path;
+                    //store image file into directory and db
+                    $save = AddedImage::make();
+                    $save->image = $path;
+                    $ap = Apartment::find($id);
+                    $ap->added_images()->associate($save);
+                    /* $save->apartment()->associate($ap); */
+                    $save->save();
+                }
             } else {
-                $$data['image'] = 'avatar5.png';
+                return response()->json(['invalid_file_format'], 422);
             }
-            $added_image = AddedImage::make($data[$i]);
-            $ap = Apartment::find($id);
-            $added_image->apartment()->associate($ap);
-            $added_image->save();
-            return response()->json([
-                "success" => true,
-                "response" => [
-                    "added_images" => $added_image,
-                ]
-            ]);
+
+            return response()->json(['file_uploaded'], 200);
         }
+
+        /* for ($i = 0; $i < count($data); $i++) {
+        if (array_key_exists("image", $data[$i])) {
+        $path = Storage::put('uploads', $data["image"][$i]);
+        $data["image"][$i] = $path;
+        } else {
+        $$data['image'] = 'avatar5.png';
+        }
+        $added_image = AddedImage::make($data[$i]);
+        $ap = Apartment::find($id);
+        $added_image->apartment()->associate($ap);
+        $added_image->save();
+        return response()->json([
+        "success" => true,
+        "response" => [
+        "added_images" => $added_image,
+        ]
+        ]);
+        } */
 
         /* foreach ($data as $imagefile) {
         $path = Storage::put('uploads', $imagefile['image']);
