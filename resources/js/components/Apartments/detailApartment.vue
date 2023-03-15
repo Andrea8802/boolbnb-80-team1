@@ -7,29 +7,56 @@
                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="img-thumbnail">
 
 
-                <div class="text-center">{{ apartment.description }}</div>
+
+
+                <div class="card text-center">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item ms_pointer" :class="description ? 'active ms_active' : ''">
+                                <a class="nav-link" @click="this.descriptionActive()">Description</a>
+                            </li>
+                            <li class="nav-item ms_pointer" :class="services ? 'active ms_active' : ''">
+                                <a class="nav-link" @click="this.servicesActive()">Services</a>
+                            </li>
+                            <li class="nav-item ms_pointer" :class="rooms ? 'active ms_active' : ''">
+                                <a class="nav-link" @click="this.roomsActive()">Rooms</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-if="description" class="card-body" id="description">
+                        <h5 class="card-title">Your special place</h5>
+                        <div class="text-center">{{ apartment.description }}</div>
+                    </div>
+                    <div v-else-if="services" class="card-body" id="services">
+                        <h5 class="card-title">Our services:</h5>
+                        <p>We offert the following services for a true relaxing experience:</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" v-for="service in apartment.services">
+                                {{ service.name }}
+                                <font-awesome-icon :icon="icons[service.name]" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-else-if="rooms" class="card-body" id="rooms">
+                        <h5 class="card-title">Our rooms:</h5>
+                        <p>We offer {{ apartment.rooms_num }} rooms in total, for a comfy space of {{ apartment.size }} sq m
+                        </p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Beds: {{ apartment.beds_num }}
+                                <font-awesome-icon icon="fa-solid fa-bed" />
+                            </li>
+                            <li class="list-group-item">Bathrooms: {{ apartment.baths_num }}
+                                <font-awesome-icon icon="fa-solid fa-bath" />
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-else class="card-body"></div>
+                </div>
+
+
+
                 <div>
                     <h3>{{ apartment.price }}&euro;/night</h3>
-                </div>
-                <div>
-                    <h3>Our services:</h3>
-                    <ul v-for="service in apartment.services" class="list-unstyled">
-                        <li>
-                            <div>
-                                {{ service.name }}
-                                <font-awesome-icon :icon="icons[service.name]" class="d-inline-block" />
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-
-                <div>
-                    <h3>Our {{ apartment.rooms_num }} rooms ({{ apartment.size }} sq m):</h3>
-                    <ul class="list-unstyled">
-                        <li>Beds: {{ apartment.beds_num }} <font-awesome-icon icon="fa-solid fa-bed" /></li>
-                        <li>Bathrooms: {{ apartment.baths_num }} <font-awesome-icon icon="fa-solid fa-bath" /></li>
-                    </ul>
                 </div>
 
 
@@ -70,7 +97,7 @@
 
                 <div class="d-grid gap-2 col-6 mx-auto my-5">
                     <h3 class="text-center">Want to know more?</h3>
-                    <button class="btn btn-danger">
+                    <button class="btn btn-danger rounded-5">
                         <router-link :to="{ name: 'message' }" class="link-light">Write to {{ user.name }}</router-link>
                     </button>
                 </div>
@@ -97,6 +124,13 @@ export default {
 
             apartment: "",
 
+            user: "",
+
+            /* variabili carousel */
+            activeItem: 0,
+            meter: '',
+
+            /* variabili dettagli aps */
             icons: {
                 'Pool': "fa-solid fa-person-swimming",
                 'Kitchen': "fa-solid fa-utensils",
@@ -119,11 +153,9 @@ export default {
                 'Ocean view': "fa-solid fa-person-swimming",
                 'Hangers': "fa-solid fa-vest",
             },
-
-            user: "",
-            activeItem: 0,
-            meter: '',
-
+            description: true,
+            services: false,
+            rooms: false,
         }
     },
     methods: {
@@ -179,13 +211,32 @@ export default {
                 return this.activeItem = this.meter - 1;
             }
             return this.activeItem;
+        },
+        descriptionActive() {
+            this.description = true;
+            this.services = false;
+            this.rooms = false;
+        },
+        servicesActive() {
+            this.description = false;
+            this.services = true;
+            this.rooms = false;
+        },
+        roomsActive() {
+            this.description = false;
+            this.services = false;
+            this.rooms = true;
         }
+
 
 
     },
     mounted() {
         this.getData()
         this.getApartment()
+        /* this.descriptionActive() */
+        /* this.servicesActive() */
+        /* this.roomsActive() */
 
 
 
@@ -194,12 +245,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@use '/resources/sass/variables.scss' as *;
+
 #map {
-    height: 400px;
-    width: 700px;
+    height: 500px;
+    width: 100%;
+    max-width: 700px;
 }
 
 .icon {
     height: 50px;
+}
+
+.ms_pointer:hover {
+    cursor: pointer;
+
+}
+
+.ms_pointer {
+    background-color: $principalColor;
+
+    a {
+        color: $secondColor;
+    }
+
+}
+
+.ms_pointer.ms_active {
+    background-color: $secondColor;
+
+    a {
+        color: $principalColor;
+    }
 }
 </style>
