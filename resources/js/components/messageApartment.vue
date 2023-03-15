@@ -80,21 +80,21 @@
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="name">Name : </label>
                     <input type="text" name="name" v-model="modelName" class="form-control ms_input_focus_color"
-                        placeholder="Enter a name..." aria-describedby="basic-addon1">
+                        placeholder="Enter a name..." aria-describedby="basic-addon1" >
                 </div>
 
                 <!-- input Cognome -->
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="surname">Surname : </label>
                     <input type="text" name="surname" v-model="modelSurname" class="form-control ms_input_focus_color"
-                        placeholder="Enter a surname..." aria-describedby="basic-addon1">
+                        placeholder="Enter a surname..." aria-describedby="basic-addon1" >
                 </div>
 
                 <!-- input email -->
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="email">Email : </label>
-                    <input type="email" name="email" v-model="user.email" class="form-control ms_input_focus_color"
-                        placeholder="Enter a email..." aria-describedby="basic-addon1">
+                    <input type="email" name="email" v-model="modelEmail" class="form-control ms_input_focus_color"
+                        placeholder="Enter a email..." aria-describedby="basic-addon1" >
                 </div>
 
                 <!-- input per inserire il messaggio del testo -->
@@ -122,18 +122,32 @@ export default {
             messageConfirm: false,
             user: [],
             errors: [],
+            logged: false
         }
     },
     methods: {
         getUserLogged() {
-            axios.get('/api/message' + this.$route.params.id)
+            axios.get('/api/message/' + this.$route.params.id,)
                 .then(res => {
                     // const success = res.data.success;
-                    this.user = res.data.response;
-                    console.log(user);
+                    this.user = res.data.response
+                    console.log(this.user);
+                    
+                    if (this.user = res.data.response) {
+                    this.logged = true;
+                    
+                    this.modelName = this.user.name;
+                    this.modelSurname = this.user.surname;
+                    this.modelEmail = this.user.email;
+
+                }
+
+                console.log(this.logged);
+                    
                 }).catch((errors) => {
                     console.log(errors);
                 });
+                
         },
 
         // creata la funzione send message che riceve tramite axios l'id dell'appartamento a cui andrà associato il messaggio
@@ -144,11 +158,17 @@ export default {
                     "content-type": "multipart/form-data"
                 }
             }
-
+            
             let formData = new FormData();
             formData.append("name", this.modelName);
             formData.append("surname", this.modelSurname);
-            formData.append("email", this.modelEmail);
+            formData.append("email", this.modelEmail); 
+            // if (this.logged == false) {
+            //     formData.append("email", this.modelEmail);
+            // } else if (this.logged == true){
+            //     formData.set("email", this.user.email);
+                
+            // }
             formData.append("text", this.modelText);
 
             axios.post("/api/sendMessage/" + this.$route.params.id, formData, config)
@@ -187,6 +207,7 @@ export default {
     },
     mounted() {
         this.getUserLogged();
+        console.log(this.user.email);
     }
 }
 </script>
