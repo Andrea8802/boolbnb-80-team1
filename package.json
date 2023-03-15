@@ -17,6 +17,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "vue-braintree": "^2.1.0",
         "vue-router": "^4.0.13",
         "vuex": "^4.0.2"
     }

@@ -39,6 +39,8 @@ Route::post('updateApartment/{apartment}', [ApiController::class, 'updateApartme
 Route::get('logout', [ApiController::class, 'logout'])->name("logout");
 Route::post('searchApartment', [ApiController::class, 'searchApartment']);
 Route::get('sponsors', [ApiController::class, 'getSponsors']);
+Route::post('sponsorPayment', [ApiController::class, 'sponsorPayment']);
+Route::get('apartmentsSponsor', [ApiController::class, 'getApartmentsSponsor']);
 Route::get('getApartmentDetail/{apartment}', [ApiController::class, 'getApartmentDetail']);
 
 Route::post('advancedSearch', [ApiController::class, 'advancedSearch']);

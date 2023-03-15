@@ -239,7 +239,8 @@ class ApiController extends Controller
     }
     public function allApartments()
     {
-        $apartments = Apartment::all();
+        $apartments = Apartment::whereDoesntHave('sponsors')->get();
+
         return response()->json([
             "success" => true,
             "response" => $apartments
@@ -295,6 +296,32 @@ class ApiController extends Controller
         return response()->json([
             "success" => true,
             "response" => $sponsors
+        ]);
+    }
+    public function sponsorPayment(Request $request)
+    {
+        $sponsor = $request["sponsors"];
+        $id = $request["apartmentId"];
+        $apartment = Apartment::find($id);
+        $apartment->sponsors()->attach($sponsor);
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+        ]);
+    }
+    public function getApartmentsSponsor()
+    {
+        // $apartments = Apartment::select("*")
+
+        //     ->join('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
+        //     ->join('sponsors', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
+        //     ->where('apartment.id', 'like', 'apartment_sponsor.apartment.id')
+        //     ->get();
+        $apartments = Apartment::whereHas('sponsors')->get();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments
         ]);
     }
 
