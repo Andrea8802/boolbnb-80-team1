@@ -15,7 +15,8 @@
 
 .ms_ctn_input,
 .ms_ctn_service {
-    width: 600px;
+    width: 90%;
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -45,7 +46,7 @@
         label {
             color: $principalColor;
             font-weight: 600;
-            margin-left: 10px;
+            margin-left: 3px;
         }
 
         input[type="checkbox"] {
@@ -59,13 +60,29 @@
     color: #ffffff;
     font-size: 16px;
     font-weight: 600;
-    padding: 10px 40px;
+    padding: 7px 25px;
     border-color: $principalColor;
     border-radius: 30px;
 }
 
+.ms_label_smartphone {
+    color: $principalColor;
+    font-size: 16px;
+    font-weight: 600;
+}
+
 .red {
     color: red;
+}
+
+@media screen and (max-width: 600px) {
+    .ms_ctn_service {
+        .ms_ctn_check {
+            height: fit-content;
+            text-align: center;
+            gap: 5px;
+        }
+    }
 }
 </style>
 
@@ -85,65 +102,92 @@
                 </p>
 
                 <!-- input titolo -->
+                <label for="title" class="ms_label_smartphone d-block d-md-none">Title:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="title">Title : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="title">Title :
+                    </label>
                     <input type="text" name="title" v-model="modelTitle" class="form-control ms_input_focus_color"
                         placeholder="Enter a title..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input descrizione -->
+                <label for="description" class="ms_label_smartphone d-block d-md-none">Description:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="description">Description : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1"
+                        for="description">Description : </label>
                     <input type="text" name="description" v-model="modelDescription"
                         class="form-control ms_input_focus_color" placeholder="Enter a description..."
                         aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input prezzo -->
+                <label for="price" class="ms_label_smartphone d-block d-md-none">Price:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="price">Price : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="price">Price :
+                    </label>
                     <input type="number" name="price" v-model="modelPrice" class="form-control ms_input_focus_color"
                         placeholder="Enter a price..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di letti -->
+                <label for="beds_num" class="ms_label_smartphone d-block d-md-none">Beds Number:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="beds_num">Beds Number : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="beds_num">Beds
+                        Number : </label>
                     <input type="number" name="beds_num" v-model="modelBedsNum" class="form-control ms_input_focus_color"
                         placeholder="Enter a beds number..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di stanze -->
+                <label for="rooms_num" class="ms_label_smartphone d-block d-md-none">Rooms Number:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="rooms_num">Rooms Number : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="rooms_num">Rooms
+                        Number : </label>
                     <input type="number" name="rooms_num" v-model="modelRoomsNum" class="form-control ms_input_focus_color"
                         placeholder="Enter a rooms number..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di bagni  -->
+                <label for="baths_rum" class="ms_label_smartphone d-block d-md-none">Baths Number:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="baths_num">Baths Number : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="baths_num">Baths
+                        Number : </label>
                     <input type="number" name="baths_num" v-model="modelBathsNum" class="form-control ms_input_focus_color"
                         placeholder="Enter a baths number..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input grandezza appartamento -->
+                <label for="size" class="ms_label_smartphone d-block d-md-none">Size:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="size">Size : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="size">Size :
+                    </label>
                     <input type="number" name="size" v-model="modelSize" class="form-control ms_input_focus_color"
                         placeholder="Enter a size..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire l'indirizzo dell'appartamento -->
+                <label for="address" class="ms_label_smartphone d-block d-md-none">Address:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="address">Address : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="address">Address :
+                    </label>
                     <input type="text" name="address" v-model="modelAddress" class="form-control ms_input_focus_color"
                         placeholder="Enter a address..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire l'immagine di copertina dell'appartamento -->
+                <label for="description" class="ms_label_smartphone d-block d-md-none">Apartment Image:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="long">Apartment Image : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="long">Apartment
+                        Image : </label>
                     <input type="file" name="long" v-on:change="onImageChange" class="form-control ms_input_focus_color"
                         aria-describedby="basic-addon1">
                 </div>
