@@ -304,5 +304,20 @@ class ApiController extends Controller
             "response" => $apartment
         ]);
     }
+    public function getApartmentsSponsor()
+    {
+        // $apartments = Apartment::select("*")
+
+        //     ->join('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
+        //     ->join('sponsors', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
+        //     ->where('apartment.id', 'like', 'apartment_sponsor.apartment.id')
+        //     ->get();
+        $apartments = Apartment::whereHas('sponsors')->get();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments
+        ]);
+    }
 
 }

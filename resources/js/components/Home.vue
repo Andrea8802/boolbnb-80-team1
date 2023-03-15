@@ -3,15 +3,22 @@
     <label for="apartmentSearch">
         Destinazione
     </label>
-    <input type="text" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates"
+    <input type="text"
+        name="apartmentSearch"
+        v-model="apartmentSearch"
+        @keydown.enter="getCoordinates"
         @keyup.delete="checkSearchBar">
     <button @click="getCoordinates">Cerca</button>
     <button @click="deleteText">Cancella</button>
 
-    <form action="" method="post">
+    <form action=""
+        method="post">
         <div>
             <label for="">Rooms Number</label>
-            <select name="rooms_num" v-model="rooms_num" id="" @change="getCoordinates">
+            <select name="rooms_num"
+                v-model="rooms_num"
+                id=""
+                @change="getCoordinates">
                 <option value="">-</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -29,11 +36,15 @@
     <div>{{ error }}</div>
     <div class="container-fluid p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
-
-            <div class="col" v-for="apartment in apartments" v-if="!onSearch">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+            <h3 @click="logsp">Apartments with Sponsor</h3>
+            <div class="col"
+                v-for="apartment in apartmentsSponsor"
+                v-if="!onSearch">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                    class="router">
                     <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                        <img :src="'/storage/' + apartment.imageApartment"
+                            :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
                         <div class="card-body h-35">
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -44,10 +55,33 @@
                     </div>
                 </router-link>
             </div>
-            <div class="col" v-for="apartment in apartmentsGeo" v-else>
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+
+            <div class="col"
+                v-for="apartment in apartments"
+                v-if="!onSearch">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                    class="router">
                     <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                        <img :src="'/storage/' + apartment.imageApartment"
+                            :alt="apartment.title"
+                            class="rounded fluid card-img-top h-50">
+                        <div class="card-body h-35">
+                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                        </div>
+
+                    </div>
+                </router-link>
+            </div>
+            <div class="col"
+                v-for="apartment in apartmentsGeo"
+                v-else>
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                    class="router">
+                    <div class="card rounded ms_card_efct">
+                        <img :src="'/storage/' + apartment.imageApartment"
+                            :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
                         <div class="card-body h-35">
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -76,12 +110,26 @@ export default {
             apartmentsGeo: [],
             onSearch: false,
             rooms_num: "",
+            apartmentsSponsor: [],
 
 
 
         }
     },
     methods: {
+        apartmentsSponsored() {
+            axios.get("/api/apartmentsSponsor")
+                .then(res => {
+                    this.apartmentsSponsor = res.data.response;
+                    console.log(this.apartmentsSponsor)
+
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+        },
+        logsp() {
+            console.log(this.apartmentsSponsor);
+        },
         getCoordinates() {
             this.onSearch = false;
             if (!this.apartmentSearch) return;
@@ -156,6 +204,7 @@ export default {
     mounted() {
         this.reloadPage();
         this.allApartments()
+        this.apartmentsSponsored()
 
     }
 }

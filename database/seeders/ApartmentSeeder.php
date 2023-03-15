@@ -25,8 +25,8 @@ class ApartmentSeeder extends Seeder
             $ap->save();
             $services = Service::inRandomOrder()->limit(rand(1, 3))->get();
             $ap->services()->attach($services);
-            $sponsor = Sponsor::inRandomOrder()->first()->get();
-            $ap->sponsors()->attach($sponsor);
+            // $sponsor = Sponsor::inRandomOrder()->first()->get();
+            // $ap->sponsors()->attach($sponsor);
         });
     }
 }
