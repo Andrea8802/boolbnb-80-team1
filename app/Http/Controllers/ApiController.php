@@ -293,5 +293,16 @@ class ApiController extends Controller
             "response" => $sponsors
         ]);
     }
+    public function sponsorPayment(Request $request)
+    {
+        $sponsor = $request["sponsors"];
+        $id = $request["apartmentId"];
+        $apartment = Apartment::find($id);
+        $apartment->sponsors()->attach($sponsor);
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+        ]);
+    }
 
 }

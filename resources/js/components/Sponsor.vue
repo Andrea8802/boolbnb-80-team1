@@ -1,13 +1,14 @@
 <template>
-    <h1 @click="log">Sponsor</h1>
+    <h1>Sponsor</h1>
     <div v-for="sponsor in sponsors">
         <input type="radio"
             v-model="modelSponsor"
             name="profileImg"
             :value="sponsor.id"> {{ sponsor.name }} {{ sponsor.price }}&euro;
     </div>
-    <button v-if="getApartment.id !== undefined"><router-link
-            :to="{ name: 'payment', params: { id: getApartment.id } }">Pay</router-link></button>
+
+    <button v-if="getApartment.id !== undefined && modelSponsor !== undefined"><router-link
+            :to="{ name: 'payment', params: { id: getApartment.id, sponsor: modelSponsor } }">Pay</router-link></button>
 </template>
 <script>
 import axios from "axios"
@@ -15,13 +16,13 @@ export default {
     data() {
         return {
             sponsors: [],
-            modelSponsor: "",
+            modelSponsor: "sponsor",
             getApartment: "",
         }
     },
     methods: {
         log() {
-            console.log(this.getApartment);
+            console.log(this.modelSponsor);
         },
         getSponsors() {
             axios.get("/api/sponsors")

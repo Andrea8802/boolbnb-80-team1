@@ -42,7 +42,7 @@ const routes = [
         name: 'Login'
     },
     {
-        path: '/payment/:id',
+        path: '/payment/:id/:sponsor',
         component: Payment,
         name: 'payment',
         beforeEnter: (to, form, next) => {
