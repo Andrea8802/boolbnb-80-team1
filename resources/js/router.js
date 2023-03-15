@@ -14,6 +14,7 @@ import Dashboard from './components/Dashboard.vue';
 import Sponsor from './components/Sponsor.vue';
 import Payment from './components/Payment.vue';
 import Message from './components/messageApartment.vue';
+import viewMessages from './components/viewMessages.vue';
 
 const routes = [
     {
@@ -100,6 +101,18 @@ const routes = [
         path: '/detailApartment/:id',
         name: 'detailApartment',
         component: detailApartment,
+    },
+    {
+        path: '/viewMessages/:id',
+        name: 'viewMessages',
+        component: viewMessages,
+        beforeEnter: (to, form, next) => {
+            axios.get('/api/athenticated').then(() => {
+                next()
+            }).catch(() => {
+                return next({ name: 'Login' })
+            })
+        }
     },
     {
         path: '/advancedSearch',

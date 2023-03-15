@@ -49,5 +49,6 @@ Route::post('advancedSearch', [ApiController::class, 'advancedSearch']);
 /* Route::get('getUser', [ApiController::class, 'getUser']); */
 
 Route::get('apartment-edit/{apartment}', [ApiController::class, 'getApartmentEdit']);
+Route::post('getMessages', [ApiController::class, 'getMessages']);
 Route::get('message/{user}', [ApiController::class, 'getUserLogged']);
 Route::post('sendMessage/{apartment}', [ApiController::class, 'sendMessage']);
