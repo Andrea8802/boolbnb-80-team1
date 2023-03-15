@@ -240,10 +240,12 @@ class ApiController extends Controller
     public function allApartments()
     {
         $apartments = Apartment::whereDoesntHave('sponsors')->get();
+        $apartmentsSponsored = Apartment::whereHas('sponsors')->get();
 
         return response()->json([
             "success" => true,
-            "response" => $apartments
+            "apartments" => $apartments,
+            "apartmentsSponsored" => $apartmentsSponsored
         ]);
     }
     public function getUserLogged()
@@ -275,8 +277,12 @@ class ApiController extends Controller
             )
             
             )";
-
-        $apartments = Apartment::select("*")
+        $apartmentsSponsored = Apartment::select("*")->whereHas('sponsors')
+            ->selectRaw("$haversine AS distance")
+            ->having("distance", "<=", $radius)
+            ->orderby("distance", "desc")
+            ->get();
+        $apartments = Apartment::select("*")->whereDoesntHave('sponsors')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->orderby("distance", "desc")
@@ -286,7 +292,8 @@ class ApiController extends Controller
 
         return response()->json([
             "success" => true,
-            "response" => $apartments
+            "apartments" => $apartments,
+            "apartmentsSponsored" => $apartmentsSponsored
         ]);
 
     }

@@ -18,7 +18,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
             <h3 @click="logsp">Apartments with Sponsor</h3>
             <div class="col"
-                v-for="apartment in apartmentsSponsor"
+                v-for="apartment in apartmentsSponsored"
                 v-if="!onSearch">
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
                     class="router">
@@ -54,23 +54,43 @@
                     </div>
                 </router-link>
             </div>
-            <div class="col"
-                v-for="apartment in apartmentsGeo"
-                v-else>
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                    class="router">
-                    <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment"
-                            :alt="apartment.title"
-                            class="rounded fluid card-img-top h-50">
-                        <div class="card-body h-35">
-                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
-                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
-                        </div>
+            <div v-else>
+                <div class="col"
+                    v-for="apartment in apartmentsGeoSponsored">
 
-                    </div>
-                </router-link>
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
+                        <div class="card rounded ms_card_efct">
+                            <img :src="'/storage/' + apartment.imageApartment"
+                                :alt="apartment.title"
+                                class="rounded fluid card-img-top h-50">
+                            <div class="card-body h-35">
+                                <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                                <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                                <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                            </div>
+
+                        </div>
+                    </router-link>
+
+                </div>
+                <div class="col"
+                    v-for="apartment in apartmentsGeo">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
+                        <div class="card rounded ms_card_efct">
+                            <img :src="'/storage/' + apartment.imageApartment"
+                                :alt="apartment.title"
+                                class="rounded fluid card-img-top h-50">
+                            <div class="card-body h-35">
+                                <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                                <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                                <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                            </div>
+
+                        </div>
+                    </router-link>
+                </div>
             </div>
         </div>
     </div>
@@ -90,23 +110,24 @@ export default {
             apartmentsGeo: [],
             onSearch: false,
             rooms_num: "",
-            apartmentsSponsor: [],
+            apartmentsSponsored: [],
+            apartmentsGeoSponsored: [],
 
 
 
         }
     },
     methods: {
-        apartmentsSponsored() {
-            axios.get("/api/apartmentsSponsor")
-                .then(res => {
-                    this.apartmentsSponsor = res.data.response;
-                    console.log(this.apartmentsSponsor)
+        // apartmentsSponsored() {
+        //     axios.get("/api/apartmentsSponsor")
+        //         .then(res => {
+        //             this.apartmentsSponsor = res.data.response;
+        //             console.log(this.apartmentsSponsor)
 
-                }).catch((errors) => {
-                    console.log(errors);
-                });
-        },
+        //         }).catch((errors) => {
+        //             console.log(errors);
+        //         });
+        // },
         logsp() {
             console.log(this.apartmentsSponsor);
         },
@@ -137,7 +158,9 @@ export default {
                     console.log("apSear", res);
                     this.onSearch = true;
 
-                    this.apartmentsGeo = res.data.response;
+                    this.apartmentsGeo = res.data.apartments;
+                    this.apartmentsGeoSponsored = res.data.apartmentsSponsored;
+                    console.log(this.apartmentsGeo);
                     if (this.apartmentsGeo.length == 0) {
                         this.error = "nessun appartamento trovato";
                     }
@@ -162,7 +185,11 @@ export default {
         allApartments() {
             axios.get("/api/allApartments")
                 .then(res => {
-                    this.apartments = res.data.response;
+                    this.apartments = res.data.apartments;
+
+                    this.apartmentsSponsored = res.data.apartmentsSponsored
+
+
 
                 }).catch((errors) => {
                     console.log(errors);
@@ -183,7 +210,7 @@ export default {
     mounted() {
         this.reloadPage();
         this.allApartments()
-        this.apartmentsSponsored()
+        // this.apartmentsSponsored()
 
     }
 }
