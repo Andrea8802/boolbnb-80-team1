@@ -184,13 +184,14 @@
                 </div>
 
                 <!-- input per inserire l'immagine di copertina dell'appartamento -->
-                <label for="description" class="ms_label_smartphone d-block d-md-none">Apartment Image:</label>
+                <label for="imageApartment" class="ms_label_smartphone d-block d-md-none">Apartment Image:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="long">Apartment
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1"
+                        for="imageApartment">Apartment
                         Image : </label>
-                    <input type="file" name="long" v-on:change="onImageChange" class="form-control ms_input_focus_color"
-                        aria-describedby="basic-addon1">
+                    <input type="file" name="imageApartment" v-on:change="onImageChange"
+                        class="form-control ms_input_focus_color" aria-describedby="basic-addon1">
                 </div>
 
                 <div class="ms_ctn_service p-3 my-3">
