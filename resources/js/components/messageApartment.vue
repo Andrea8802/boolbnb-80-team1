@@ -120,10 +120,36 @@ export default {
             modelEmail: '',
             modelText: '',
             messageConfirm: false,
+            user: [],
             errors: [],
+            logged: false
         }
     },
     methods: {
+        getUserLogged() {
+            axios.get('/api/message/' + this.$route.params.id,)
+                .then(res => {
+                    // const success = res.data.success;
+                    this.user = res.data.response
+                    console.log(this.user);
+
+                    if (this.user = res.data.response) {
+                        this.logged = true;
+
+                        this.user.name ? this.modelName = this.user.name : this.modelName = '';
+                        this.user.surname ? this.modelSurname = this.user.surname : this.modelSurname = '';
+                        this.user.email ? this.modelEmail = this.user.email : this.modelEmail = '';
+
+                    }
+
+                    console.log(this.logged);
+
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+
+        },
+
         // creata la funzione send message che riceve tramite axios l'id dell'appartamento a cui andrà associato il messaggio
         // e acquisisce i dati inseriti nel form dall'utente e li manda al database
         sendMessage() {
@@ -137,6 +163,12 @@ export default {
             formData.append("name", this.modelName);
             formData.append("surname", this.modelSurname);
             formData.append("email", this.modelEmail);
+            // if (this.logged == false) {
+            //     formData.append("email", this.modelEmail);
+            // } else if (this.logged == true){
+            //     formData.set("email", this.user.email);
+
+            // }
             formData.append("text", this.modelText);
 
             axios.post("/api/sendMessage/" + this.$route.params.id, formData, config)
@@ -148,13 +180,13 @@ export default {
                     this.errors = [];
                 }).catch((errors) => {
                     this.messageConfirm = false;
-                    if (!this.modelName) {
+                    if (this.modelName === '') {
                         this.errors.push("Name required")
                     }
-                    if (!this.modelSurname) {
-                        this.errors.push("Surname")
+                    if (this.modelSurname === '') {
+                        this.errors.push("Surname required")
                     }
-                    if (!this.modelEmail) {
+                    if (this.modelEmail === '') {
                         this.errors.push("Email required")
                     }
                     if (!this.modelText) {
@@ -172,6 +204,10 @@ export default {
             this.modelText = '';
             this.messageConfirm = true;
         }
+    },
+    mounted() {
+        this.getUserLogged();
+        console.log(this.user.email);
     }
 }
 </script>

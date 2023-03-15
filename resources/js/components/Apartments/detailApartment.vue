@@ -69,17 +69,10 @@
 
                 <div class="d-grid gap-2 col-6 mx-auto my-5">
                     <h3 class="text-center">Want to know more?</h3>
-                    <button class="btn btn-danger">Write to {{ user.name }}</button>
+                    <button class="btn btn-danger">
+                        <router-link :to="{ name: 'message' }">Write to {{ user.name }}</router-link>
+                    </button>
                 </div>
-
-
-                <!-- <div v-for="image in apartment.added_images" class="carousel-item active">
-                    <img :src=image.image :alt="image.name" class="d-block w-100">
-                </div> -->
-
-
-
-
             </div>
 
 

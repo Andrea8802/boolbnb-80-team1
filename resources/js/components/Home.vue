@@ -25,9 +25,6 @@
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
                             <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
                             <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
-                            <button>
-                                <router-link :to="{ name: 'message', params: { id: apartment.id } }">Messages</router-link>
-                            </button>
                         </div>
 
                     </div>
