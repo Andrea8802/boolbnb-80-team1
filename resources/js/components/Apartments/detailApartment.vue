@@ -1,23 +1,24 @@
 <template>
     <div class="container-fluid">
-        <h1 class="text-center text-uppercase">apartment details</h1>
+        <h1 class="text-center text-capitalise">{{ apartment.title }}</h1>
         <div class="row d-flex">
             <div class="col">
 
                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="img-thumbnail">
 
 
-
-                <h3 class="text-center">{{ apartment.title }}</h3>
                 <div class="text-center">{{ apartment.description }}</div>
                 <div>
                     <h3>{{ apartment.price }}&euro;/night</h3>
                 </div>
                 <div>
                     <h3>Our services:</h3>
-                    <ul v-for="service in apartment.services">
+                    <ul v-for="service in apartment.services" class="list-unstyled">
                         <li>
-                            {{ service.name }}
+                            <div>
+                                {{ service.name }}
+                                <font-awesome-icon :icon="icons[service.name]" class="d-inline-block" />
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -25,9 +26,9 @@
 
                 <div>
                     <h3>Our {{ apartment.rooms_num }} rooms ({{ apartment.size }} sq m):</h3>
-                    <ul>
-                        <li>Beds: {{ apartment.beds_num }}</li>
-                        <li>Bathrooms: {{ apartment.baths_num }}</li>
+                    <ul class="list-unstyled">
+                        <li>Beds: {{ apartment.beds_num }} <font-awesome-icon icon="fa-solid fa-bed" /></li>
+                        <li>Bathrooms: {{ apartment.baths_num }} <font-awesome-icon icon="fa-solid fa-bath" /></li>
                     </ul>
                 </div>
 
@@ -70,7 +71,7 @@
                 <div class="d-grid gap-2 col-6 mx-auto my-5">
                     <h3 class="text-center">Want to know more?</h3>
                     <button class="btn btn-danger">
-                        <router-link :to="{ name: 'message' }">Write to {{ user.name }}</router-link>
+                        <router-link :to="{ name: 'message' }" class="link-light">Write to {{ user.name }}</router-link>
                     </button>
                 </div>
             </div>
@@ -103,7 +104,7 @@ export default {
                 'Shampoo': "fa-solid fa-shower",
                 'Freezer': "fa-solid fa-snowflake",
                 'Balcony': "fa-solid fa-mountain-sun",
-                'Hammock': "fa-solid fa-bed",
+                'Hammock': "fa-solid fa-mattress-pillow",
                 'Tv': "fa-solid fa-tv",
                 'Air conditioning': "fa-solid fa-wind",
                 'Lockbox': "fa-solid fa-vault",
@@ -196,5 +197,9 @@ export default {
 #map {
     height: 400px;
     width: 700px;
+}
+
+.icon {
+    height: 50px;
 }
 </style>
