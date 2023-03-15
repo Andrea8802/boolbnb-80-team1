@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Date;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
@@ -311,9 +314,26 @@ class ApiController extends Controller
         $id = $request["apartmentId"];
         $apartment = Apartment::find($id);
         $apartment->sponsors()->attach($sponsor);
+
+        $date = new DateTime();
+        $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
+
+        if ($sponsor == 1) {
+            $exDate = $dateTime->modify('+1 day');
+
+        } else if ($sponsor == 2) {
+            $exDate = $dateTime->modify('+3 day');
+
+        } else {
+            $exDate = $dateTime->modify('+6 day');
+        }
+
+        $apartment->sponsors()->updateExistingPivot($sponsor, ['end_date' => $exDate]);
+
+
         return response()->json([
             "success" => true,
-            "response" => $apartment
+            "response" => $sponsor
         ]);
     }
     public function getApartmentsSponsor()
