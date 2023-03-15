@@ -224,6 +224,17 @@
                         class="form-control ms_input_focus_color" aria-describedby="basic-addon1">
                 </div>
 
+                <!-- added images form -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="addedImage">Add
+                        more image to the apartment : </label>
+                    <input type="file" ref="file" multiple="multiple" name="addedImage[]" v-on:change="onAddedImagesChange"
+                        class="form-control ms_input_focus_color" aria-describedby="basic-addon1">
+                    <button @click="this.createAddedImages()"></button>
+                </div>
+                <!-- <input type="submit" value="Add More Images" formaction="/createAddedImages/" class="ms_input_submit"> -->
+
+
                 <div class="services-cont ms_ctn_service p-3 my-3"
                     v-if="getApartment.services != undefined && getApartment.services.length > 0">
                     <h4>Select services:</h4>
@@ -353,7 +364,7 @@ export default {
                 .then(res => {
                     const success = res.data.success;
                     console.log(res);
-                    this.$router.push({ name: 'userApartments' })
+                    /* this.$router.push({ name: 'userApartments' }) */
                 }).catch((errors) => {
                     if (!this.getApartment.title) {
                         this.errors.push("Title required")
@@ -393,6 +404,8 @@ export default {
                     }
                     console.log(errors);
                 });
+
+
 
         },
         getEditApartment() {
@@ -439,6 +452,28 @@ export default {
             this.updateApartment();
 
         },
+        createAddedImages() {
+            let formDataAdIm = new FormData();
+            for (let i = 0; i < this.$refs.file.files.length; i++) {
+                let file = this.$refs.file.files[i];
+                formDataAdIm.append('image', file);
+                /* formData.append('image[' + i + ']', file); */
+            };
+            console.log(this.FormDataAdIm);
+            /* axios.post('/api/createAddedImages', this.$route.params.id, formDataAdIm, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            })
+                .then(res => {
+                    const success = res.data.success;
+                    console.log(res);
+                    console.log(formDataAdIm);
+                })
+                .catch(function () {
+                }); */
+        },
+
 
 
     },

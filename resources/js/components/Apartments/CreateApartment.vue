@@ -116,12 +116,12 @@
                 <label for="description" class="ms_label_smartphone d-block d-md-none">Description:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1"
-                        for="description">Description : </label>
-                    <input type="text" name="description" v-model="modelDescription"
-                        class="form-control ms_input_focus_color" placeholder="Enter a description..."
-                        aria-describedby="basic-addon1">
-                </div>
+                <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1"
+                    for="description">Description : </label>
+                <input type="text" name="description" v-model="modelDescription"
+                    class="form-control ms_input_focus_color" placeholder="Enter a description..."
+                    aria-describedby="basic-addon1">
+            </div>
 
                 <!-- input prezzo -->
                 <label for="price" class="ms_label_smartphone d-block d-md-none">Price:</label>
@@ -194,6 +194,23 @@
                         class="form-control ms_input_focus_color" aria-describedby="basic-addon1">
                 </div>
 
+                <!-- added images form -->
+                <div class="ms_ctn_input input-group mb-3">
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="addedImage">Add
+                        more image to the apartment : </label>
+                    <input type="file" ref="file" multiple="multiple" name="addedImage[]" v-on:change="onAddedImagesChange"
+                        class="form-control ms_input_focus_color" aria-describedby="basic-addon1">
+                    <button @click="this.createAddedImages()"></button>
+
+                    <!-- <div class="card" style="width: 18rem;">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" v-for="image in this.addedImages">
+                                            {{ image }}
+                                        </li>
+                                    </ul>
+                                </div> -->
+                </div>
+
                 <div class="ms_ctn_service p-3 my-3">
                     <h4>Select services:</h4>
                     <div class="ms_ctn_check">
@@ -231,6 +248,10 @@ export default {
             imageBool: false,
             errors: [],
 
+            /* variabili added images */
+            addedImages: [],
+            addImgBool: false,
+
 
         }
     },
@@ -247,7 +268,7 @@ export default {
                 .then(res => {
                     this.services = res.data.response.services;
                     this.sponsors = res.data.response.sponsors;
-                    console.log(this.services);
+                    console.log(this.services,);
                 }).catch((errors) => {
                     console.log(errors);
                 });
@@ -272,6 +293,7 @@ export default {
             formData.append("long", this.modelLong);
             this.modelServices.forEach((value) => formData.append("services[]", value));
             console.log(this.modelServices);
+            console.log(this.addedImages);
 
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);
@@ -336,6 +358,37 @@ export default {
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
             this.createApartment();
+        },
+        onAddedImagesChange(e) {
+            this.addImgBool = true;
+            console.log(e);
+            let selectedImages = e.target.files;
+            if (!selectedImages.length) {
+                return false;
+            }
+
+            for (let i = 0; i < selectedImages.length; i++) {
+                this.addedImages.push(e.target.files[i]);
+            }
+
+
+            console.log(this.addedImages);
+        },
+        createAddedImages() {
+            let formDataAdIm = new FormData();
+            formDataAdIm.append('image[]', this.addedImages)
+            axios.post('/api/added-images', formDataAdIm, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            }
+            ).then(res => {
+                const success = res.data.success;
+                console.log(res);
+                console.log(formDataAdIm);
+            })
+                .catch(function () {
+                });
         }
 
 
@@ -343,6 +396,7 @@ export default {
 
     mounted() {
         this.getData()
+
     }
 }
 

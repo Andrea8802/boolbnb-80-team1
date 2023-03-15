@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Sponsor;
 use App\Models\Statistic;
 use App\Models\Message;
+use App\Models\AddedImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,9 @@ class ApiController extends Controller
         ]);
 
     }
+
+    /* Rotta per creare apartment */
+
     public function createApartment(Request $request)
     {
         $data = $request->validate([
@@ -51,6 +55,10 @@ class ApiController extends Controller
 
         ]);
 
+
+
+
+
         if (array_key_exists("imageApartment", $data)) {
 
             $img_path = Storage::put('uploads', $data['imageApartment']);
@@ -66,6 +74,10 @@ class ApiController extends Controller
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);
         $ap->save();
+
+
+
+
         // if (array_key_exists("services", $data)) {
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
@@ -78,9 +90,67 @@ class ApiController extends Controller
 
         return response()->json([
             "success" => true,
-            "response" => $ap
+            "response" => [
+                "apartments" => $ap,
+            ]
         ]);
     }
+
+    /* Rotta per creare added images */
+
+    public function createAddedImages(Request $request, $id)
+    {
+        foreach ($request->validate(["image" => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],]) as $imagefile) {
+
+            if (array_key_exists("image", $imagefile)) {
+                $path = Storage::put('uploads', $imagefile['image']);
+                $imagefile['image'] = $path;
+            } else {
+                $imagefile['image'] = 'avatar5.png';
+            }
+
+            $added_image = AddedImage::make($imagefile);
+            $ap = Apartment::find($id);
+            $ap->added_images()->associate($added_image);
+
+            return response()->json([
+                "success" => true,
+                "response" => [
+                    "added_images" => $added_image,
+                ]
+            ]);
+        }
+        ;
+    }
+    /*     $new_img = $request->validate(["image" => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"]]);
+    if (array_key_exists("image", $new_img)) {
+    $path = Storage::put('uploads', $new_img['image']);
+    $new_img['image'] = $path;
+    }
+    ;
+    $added_image = AddedImage::make($new_img);
+    $currentaps = Apartment::find($id);
+    $currentaps->added_images()->associate($added_image);
+    $added_image->save();  */
+
+
+    /* $data_adIm = $request->validate([
+    "name" => ["string", "nullable"],
+    "image" => ["image", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],
+    ]); */
+
+    /* $arrayImg = [];
+    array_push($arrayImg, $data_adIm);
+    $add_img_path = Storage::put('uploads', $arrayImg[$data_adIm['image']]);
+    $arrayImg[$data_adIm['image']] = $add_img_path;
+    $added_images = AddedImage::make($data_adIm);
+    $ap->added_images()->associate($added_images); */
+
+
+
+
+
+
     public function createApartmentPage()
     {
         return view('createApartment');
@@ -190,7 +260,6 @@ class ApiController extends Controller
             "long" => ["nullable"],
             "services" => ["nullable", "array"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
-
         ]);
 
         // if (array_key_exists("imageApartment", $data)) {
@@ -416,4 +485,6 @@ class ApiController extends Controller
             "response" => $m,
         ]);
     }
+
+
 }

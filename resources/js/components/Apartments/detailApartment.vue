@@ -52,7 +52,8 @@
                     <div class="carousel-inner">
                         <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
                             :class="index === activeItem ? 'active' : ''">
-                            <img :src=image.image :alt="image.name" class="d-block w-100">
+                            <!-- <img :src=image.image :alt="image.name" class="d-block w-100"> -->
+                            <img :src="'/storage/' + apartment.imageApartment">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"

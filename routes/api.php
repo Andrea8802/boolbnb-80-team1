@@ -51,3 +51,5 @@ Route::post('advancedSearch', [ApiController::class, 'advancedSearch']);
 Route::get('apartment-edit/{apartment}', [ApiController::class, 'getApartmentEdit']);
 Route::get('message/{user}', [ApiController::class, 'getUserLogged']);
 Route::post('sendMessage/{apartment}', [ApiController::class, 'sendMessage']);
+
+Route::post('added-images', [ApiController::class, 'createAddedImages']);
