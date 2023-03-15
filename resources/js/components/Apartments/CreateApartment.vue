@@ -75,6 +75,7 @@
     color: red;
 }
 
+// responsive
 @media screen and (max-width: 600px) {
     .ms_ctn_service {
         .ms_ctn_check {
