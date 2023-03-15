@@ -80,21 +80,21 @@
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="name">Name : </label>
                     <input type="text" name="name" v-model="modelName" class="form-control ms_input_focus_color"
-                        placeholder="Enter a name..." aria-describedby="basic-addon1" >
+                        placeholder="Enter a name..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input Cognome -->
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="surname">Surname : </label>
                     <input type="text" name="surname" v-model="modelSurname" class="form-control ms_input_focus_color"
-                        placeholder="Enter a surname..." aria-describedby="basic-addon1" >
+                        placeholder="Enter a surname..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input email -->
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text" id="basic-addon1" for="email">Email : </label>
                     <input type="email" name="email" v-model="modelEmail" class="form-control ms_input_focus_color"
-                        placeholder="Enter a email..." aria-describedby="basic-addon1" >
+                        placeholder="Enter a email..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire il messaggio del testo -->
@@ -132,22 +132,22 @@ export default {
                     // const success = res.data.success;
                     this.user = res.data.response
                     console.log(this.user);
-                    
+
                     if (this.user = res.data.response) {
-                    this.logged = true;
-                    
-                    this.modelName = this.user.name;
-                    this.modelSurname = this.user.surname;
-                    this.modelEmail = this.user.email;
+                        this.logged = true;
 
-                }
+                        this.user.name ? this.modelName = this.user.name : this.modelName = '';
+                        this.user.surname ? this.modelSurname = this.user.surname : this.modelSurname = '';
+                        this.user.email ? this.modelEmail = this.user.email : this.modelEmail = '';
 
-                console.log(this.logged);
-                    
+                    }
+
+                    console.log(this.logged);
+
                 }).catch((errors) => {
                     console.log(errors);
                 });
-                
+
         },
 
         // creata la funzione send message che riceve tramite axios l'id dell'appartamento a cui andrà associato il messaggio
@@ -158,16 +158,16 @@ export default {
                     "content-type": "multipart/form-data"
                 }
             }
-            
+
             let formData = new FormData();
             formData.append("name", this.modelName);
             formData.append("surname", this.modelSurname);
-            formData.append("email", this.modelEmail); 
+            formData.append("email", this.modelEmail);
             // if (this.logged == false) {
             //     formData.append("email", this.modelEmail);
             // } else if (this.logged == true){
             //     formData.set("email", this.user.email);
-                
+
             // }
             formData.append("text", this.modelText);
 
@@ -180,13 +180,13 @@ export default {
                     this.errors = [];
                 }).catch((errors) => {
                     this.messageConfirm = false;
-                    if (!this.modelName) {
+                    if (this.modelName === '') {
                         this.errors.push("Name required")
                     }
-                    if (!this.modelSurname) {
-                        this.errors.push("Surname")
+                    if (this.modelSurname === '') {
+                        this.errors.push("Surname required")
                     }
-                    if (!this.modelEmail) {
+                    if (this.modelEmail === '') {
                         this.errors.push("Email required")
                     }
                     if (!this.modelText) {
