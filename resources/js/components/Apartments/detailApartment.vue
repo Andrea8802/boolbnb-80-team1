@@ -1,6 +1,8 @@
 <template>
     <div class="container-fluid">
-        <h1 class="text-center text-capitalise">{{ apartment.title }}</h1>
+        <div class="lg-w-50 md-w-80 mx-auto">
+            <h1 class="text-center text-capitalise ms_title">{{ apartment.title }}</h1>
+        </div>
         <div class="row d-flex">
             <div class="col">
 
@@ -12,22 +14,27 @@
 
                 <!-- Card detail aps -->
 
-                <div class="card">
+                <div class="card-lg-6 col-md-12">
                     <div class="card-header ms_color ms_header_fix">
-                        <ul class="nav nav-tabs card-header-tabs ms_color ms_card_header_fix">
-                            <li class="nav-item ms_pointer ms_nav_item_fix text-center"
+                        <div class="nav-tabs card-header-tabs d-flex h-100 ms_color ms_card_header_fix">
+                            <div class="nav-item ms_pointer ms_nav_item_fix text-center py-2"
                                 :class="this.description ? 'ms_active' : ''">
-                                <a class="nav-link" @click="this.descriptionActive()">Description</a>
-                            </li>
-                            <li class="nav-item ms_pointer ms_nav_item_fix text-center"
+                                <a class="nav-link object-fit-contain h-100 d-block border-0 text-truncate"
+                                    @click="this.descriptionActive()">Description</a>
+
+                            </div>
+                            <div class="nav-item ms_pointer ms_nav_item_fix text-center py-2"
                                 :class="this.services ? 'ms_active' : ''">
-                                <a class="nav-link" @click="this.servicesActive()">Services</a>
-                            </li>
-                            <li class="nav-item ms_pointer ms_nav_item_fix text-center"
+                                <a class="nav-link object-fit-contain h-100 d-block border-0 text-truncate"
+                                    @click="this.servicesActive()">Services</a>
+                            </div>
+                            <div class="nav-item ms_pointer ms_nav_item_fix text-center py-2"
                                 :class="this.rooms ? 'ms_active' : ''">
-                                <a class="nav-link" @click="this.roomsActive()">Rooms</a>
-                            </li>
-                        </ul>
+                                <a class="nav-link object-fit-contain h-100 d-block border-0 text-truncate"
+                                    @click="this.roomsActive()">Rooms</a>
+                            </div>
+                        </div>
+
                     </div>
                     <div v-if="description" class="card-body" id="description">
                         <h5 class="card-title">Your special place</h5>
@@ -78,16 +85,16 @@
 
 
             </div>
-            <div class="col">
-                <h3 class="text-center">Where are we?</h3>
+            <div class="col-lg-6 col-md-12">
+                <h3 class="text-center my-5">Where are we?</h3>
                 <div class="text-center">{{ apartment.address }}</div>
-                <div id="map"></div>
+                <div id="map" class="mx-auto"></div>
 
                 <!-- carousel -->
 
-                <h3 class="text-center">More about us:</h3>
+                <h3 class="text-center my-5">More about us:</h3>
 
-                <div id="carouselExampleIndicators" class="carousel slide">
+                <div id="carouselExampleIndicators" class="carousel slide my-3">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -204,10 +211,16 @@ export default {
                     this.getMap()
                     this.meter = this.apartment.added_images.length;
                     this.highprice = parseInt((this.apartment.price) * 1.5);
-                    const img_name = this.apartment.added_images.name;
-                    const controller = img_name.split(/[/]/);
+
+
+                    const img_image = this.apartment.added_images[0].image;
+                    const controller = img_image.substring(0, 5);
+
+
                     console.log(controller);
-                    if (controller[0] == 'http') {
+
+
+                    if (controller == 'https') {
                         this.carousel_var = true;
                     } else {
                         this.carousel_var = false;
@@ -272,9 +285,18 @@ export default {
     max-width: 700px;
 }
 
+.ms_title {
+    font-size: 3em;
+}
+
+.ms_text {
+    font-size: 0.5em;
+}
+
 .ms_main_image {
     background-color: $principalColor;
 }
+
 
 .icon {
     height: 50px;
@@ -319,10 +341,12 @@ export default {
 .ms_header_fix {
     padding: 0;
     border-bottom: 0;
+    height: 3rem;
 
     .ms_card_header_fix {
         margin-right: 0;
         margin-left: 0;
+
 
         .ms_nav_item_fix {
             width: calc(100% / 3);
