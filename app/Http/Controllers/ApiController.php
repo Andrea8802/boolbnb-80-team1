@@ -174,7 +174,7 @@ class ApiController extends Controller
         ]);
 
     }
-    public function getApartmentDetail($id)
+    public function getApartmentDetail(Request $request, $id)
     {
 
         $apartment = Apartment::find($id);
@@ -186,10 +186,8 @@ class ApiController extends Controller
 
         return response()->json([
             "success" => true,
-            "response" => [
-                $apartment,
-                $user
-            ]
+            "apartment" => $apartment,
+            "user" => $user
         ]);
 
     }
