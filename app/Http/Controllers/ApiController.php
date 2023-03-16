@@ -156,6 +156,7 @@ class ApiController extends Controller
         $apartment->sponsors()->sync([]);
         $apartment->services()->sync([]);
         $apartment->added_images()->delete();
+        $apartment->messages()->delete();
         $apartment->delete();
         return response()->json([
             "success" => true,
