@@ -77,9 +77,10 @@
                 <!-- Message -->
                 <div class="d-grid gap-2 col-6 mx-auto my-5">
                     <h3 class="text-center">Want to know more?</h3>
-                    <button class="btn btn-danger rounded-5">
-                        <router-link :to="{ name: 'message' }" class="link-light">Write to {{ user.name }}</router-link>
-                    </button>
+
+                    <router-link :to="{ name: 'message' }" class="link-light"><button class="btn btn-danger rounded-5">Write
+                            to {{ user.name }}</button></router-link>
+
                 </div>
 
 
