@@ -28,14 +28,13 @@
                 </button>
             </router-link>
         </div>
+        <h4 class="ms_error_messagge">{{ error }}</h4>
     </div>
     <!-- ============================================================ -->
 
-    <h2>Apartments</h2>
-    <div>{{ error }}</div>
+
     <div class="container-fluid p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
-            <h3 @click="logsp">Apartments with Sponsor</h3>
             <div class="col" v-for="apartment in apartmentsSponsored" v-if="!onSearch">
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct">
@@ -123,16 +122,6 @@ export default {
         }
     },
     methods: {
-        // apartmentsSponsored() {
-        //     axios.get("/api/apartmentsSponsor")
-        //         .then(res => {
-        //             this.apartmentsSponsor = res.data.response;
-        //             console.log(this.apartmentsSponsor)
-
-        //         }).catch((errors) => {
-        //             console.log(errors);
-        //         });
-        // },
         logsp() {
             console.log(this.apartmentsSponsor);
         },
@@ -166,8 +155,8 @@ export default {
                     this.apartmentsGeo = res.data.apartments;
                     this.apartmentsGeoSponsored = res.data.apartmentsSponsored;
                     console.log(this.apartmentsGeo);
-                    if (this.apartmentsGeo.length == 0) {
-                        this.error = "nessun appartamento trovato";
+                    if (this.apartmentsGeo.length == 0 && this.apartmentsGeoSponsored == 0) {
+                        this.error = "We have not found any apartments in the search area!";
                     }
                     else {
                         this.error = null
@@ -209,6 +198,7 @@ export default {
             this.apartmentSearch = "";
             this.onSearch = false;
             this.rooms_num = "";
+            this.error = null;
         }
     },
 
@@ -234,8 +224,8 @@ export default {
 
 // grafica search bar
 .ms_ctn_search {
-    width: 90%;
-    max-width: 500px;
+    width: 60%;
+    max-width: 600px;
     margin: 0 auto;
 
     .ms_search_bar {
@@ -281,6 +271,11 @@ export default {
     color: $secondColor;
     background-color: $principalColor;
     border: none;
+}
+
+.ms_error_messagge {
+    margin-top: 100px;
+    color: $thirdColor;
 }
 
 // ===================================
