@@ -33,6 +33,18 @@ export default {
                     console.log(errors);
                 });
         },
+        getApartmentId() {
+            let formData = new FormData();
+            formData.append("apartmentId", this.$route.params.id);
+            axios.post('/api/sponsorApartmentId', formData).then(() => {
+                const success = res.data.success;
+            }).catch((errors) => {
+                if (errors.response.status = 403) {
+                    this.$router.push({ name: "Login" });
+                }
+
+            });
+        },
         geteditApartment() {
 
             axios.get("/api/Apartment/" + this.$route.params.id)
@@ -50,6 +62,7 @@ export default {
     mounted() {
         this.geteditApartment();
         this.getSponsors();
+        this.getApartmentId()
     }
 }
 </script>
