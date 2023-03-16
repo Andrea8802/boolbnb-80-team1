@@ -9,43 +9,32 @@
     <div class="form-container py-5">
 
         <header>
-            <h1 class="mb-2"
-                @click="log">Checkout</h1>
+            <h1 class="mb-2" @click="log">Checkout</h1>
         </header>
 
-        <form id="my-sample-form"
-            method="post"
-            class="scale-down">
+        <form id="my-sample-form" method="post" class="scale-down">
 
             <div class="cardinfo-card-number">
-                <label class="cardinfo-label"
-                    for="card-number">Card Number</label>
-                <div class='input-wrapper'
-                    id="card-number"></div>
+                <label class="cardinfo-label" for="card-number">Card Number</label>
+                <div class='input-wrapper' id="card-number"></div>
                 <div id="card-image"></div>
             </div>
 
             <div class="cardinfo-wrapper">
                 <div class="cardinfo-exp-date">
-                    <label class="cardinfo-label"
-                        for="expiration-date">Valid Thru</label>
-                    <div class='input-wrapper'
-                        id="expiration-date"></div>
+                    <label class="cardinfo-label" for="expiration-date">Valid Thru</label>
+                    <div class='input-wrapper' id="expiration-date"></div>
                 </div>
 
                 <div class="cardinfo-cvv">
-                    <label class="cardinfo-label"
-                        for="cvv">CVV</label>
-                    <div class='input-wrapper'
-                        id="cvv"></div>
+                    <label class="cardinfo-label" for="cvv">CVV</label>
+                    <div class='input-wrapper' id="cvv"></div>
                 </div>
             </div>
 
         </form>
 
-        <input type="submit"
-            value="Pay"
-            class="px-12 py-3 bg-blue-600 border border-transparent  " />
+        <input type="submit" value="Pay" class="px-12 py-3 bg-blue-600 border border-transparent  " />
 
     </div>
 </template>
@@ -179,8 +168,9 @@ export default {
                                     let formData = new FormData();
                                     formData.append("sponsors", this.$route.params.sponsor);
                                     formData.append("apartmentId", this.$route.params.id);
-                                    axios.post('/api/sponsorPayment', formData).then(() => {
-                                        this.$router.push({ name: "userApartments" });
+                                    axios.post('/api/sponsorPayment', formData).then((res) => {
+                                        console.log(res);
+                                        // this.$router.push({ name: "userApartments" });
 
 
                                     }).catch((errors) => {

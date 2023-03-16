@@ -313,10 +313,19 @@ class ApiController extends Controller
         $sponsor = $request["sponsors"];
         $id = $request["apartmentId"];
         $apartment = Apartment::find($id);
-        $apartment->sponsors()->attach($sponsor);
 
-        $date = new DateTime();
-        $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
+
+        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
+            $apartment->sponsors()->attach($sponsor);
+            $date = new DateTime();
+            $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
+
+        } else {
+            $dateTime = $apartment->sponsors()->select('end_date')->where('apartment_id', $id)->first()->end_date;
+            $dateTime = new DateTime($dateTime);
+
+        }
+
 
         if ($sponsor == 1) {
             $exDate = $dateTime->modify('+1 day');
@@ -328,12 +337,17 @@ class ApiController extends Controller
             $exDate = $dateTime->modify('+6 day');
         }
 
-        $apartment->sponsors()->updateExistingPivot($sponsor, ['end_date' => $exDate]);
+
+        $apartment->sponsors()->sync([
+            $sponsor => ['end_date' => $exDate->format('Y-m-d H:i:s')]
+        ]);
+
 
 
         return response()->json([
             "success" => true,
-            "response" => $sponsor
+            "response" => $dateTime,
+            "date" => $exDate
         ]);
     }
     public function getApartmentsSponsor()
