@@ -91,6 +91,12 @@ a {
 
 // responsive footer e main sotto i 992px
 @media screen and (max-width: 992px) {
+    .header {
+        .cont-header {
+            padding: 0 10px;
+        }
+    }
+
     .main {
         height: calc(100vh - 150px);
     }
@@ -104,11 +110,6 @@ a {
 
 // responsive footer e main sotto i 768px
 @media screen and (max-width: 768px) {
-    .header {
-        .cont-header {
-            padding: 0 10px;
-        }
-    }
 
     .main {
         height: calc(100% - 70px);

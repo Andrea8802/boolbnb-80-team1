@@ -30,7 +30,7 @@
 
     <!-- container principale di tutte le card degli appartamenti -->
     <div class="container-fluid mt-5 ms_ctn_card_home">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4  g-2 g-lg-3">
             <div class="col" v-for="apartment in apartmentsSponsored" v-if="!onSearch">
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct">
@@ -359,7 +359,7 @@ export default {
 // ====================================
 
 // responsive home
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
     .ms_ctn_card_home {
         padding: 0 20px;
     }
