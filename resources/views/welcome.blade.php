@@ -82,7 +82,7 @@
 @section('content')
 
     <div class="header">
-        <div class="cont-header">
+        <div class="cont-header container">
 
             {{-- link per riportare l'utente alla home page cliccando sul logo del sito --}}
             <div class="cont-home">
@@ -114,7 +114,7 @@
         <router-view></router-view>
     </div>
     <div class="footer">
-
+        <welcome-footer></welcome-footer>
     </div>
     
 @endsection
