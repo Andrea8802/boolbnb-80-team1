@@ -82,7 +82,7 @@
 @section('content')
 
     <div class="header">
-        <div class="cont-header container">
+        <div class="cont-header container-fluid">
 
             {{-- link per riportare l'utente alla home page cliccando sul logo del sito --}}
             <div class="cont-home">

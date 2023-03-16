@@ -4,8 +4,8 @@
 
 <template>
     <section>
-        <div class="ms_ctn_footer">
-            <div class="container h-100 d-flex justify-content-between align-items-center ms_ctn_footer_responsive768">
+        <div class="ms_ctn_footer container-fluid">
+            <div class="h-100 d-flex justify-content-between align-items-center ms_ctn_footer_responsive768">
                 <!-- slot dei link privacy, termini, mappa sito, dettagli azienda e destinazioni -->
                 <div class="ms_slot_link_footer_left">
                     <span>&#169; Boolbnb, Inc.</span>
@@ -49,6 +49,7 @@
     color: $secondColor;
     font-size: 14px;
     height: 50px;
+    padding: 0 100px;
 
     a {
         color: $secondColor;
@@ -60,6 +61,7 @@
 
     .ms_slot_link_footer_right {
         width: 40%;
+        text-align: end;
 
         a {
             font-weight: 500;
@@ -89,6 +91,10 @@
 
             .ms_slot_link_footer_left {
                 border-bottom: solid 1px $secondColor;
+            }
+
+            .ms_slot_link_footer_right {
+                text-align: start;
             }
 
             .ms_slot_link_footer_left,
