@@ -1,10 +1,8 @@
 <template>
     <h1>Sponsor</h1>
     <div v-for="sponsor in sponsors">
-        <input type="radio"
-            v-model="modelSponsor"
-            name="profileImg"
-            :value="sponsor.id"> {{ sponsor.name }} {{ sponsor.price }}&euro;
+        <input type="radio" v-model="modelSponsor" name="profileImg" :value="sponsor.id"> {{ sponsor.name }} {{
+            sponsor.price }}&euro;
     </div>
 
     <button v-if="getApartment.id !== undefined && modelSponsor !== undefined"><router-link

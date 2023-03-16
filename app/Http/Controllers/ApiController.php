@@ -198,8 +198,9 @@ class ApiController extends Controller
             "response" => [
                 $apartment,
                 $user,
-            ],
-            "ip" => $ipUtente
+                $ipUtente,
+            ]
+
 
         ]);
 
@@ -385,12 +386,12 @@ class ApiController extends Controller
 
 
         $sponsor = $request["sponsors"];
-        $id = $request["apartmentId"];
+        $id = $request["apartment_id"];
         $apartment = Apartment::find($id);
 
 
 
-        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
+        if (! $apartment->sponsors()->where('apartment_id', $id)->exists()) {
             $apartment->sponsors()->attach($sponsor);
             $date = new DateTime();
             $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
@@ -524,10 +525,10 @@ class ApiController extends Controller
     }
     public function getMessages(Request $request)
     {
-        $apartmentId = $request["apartmentId"];
+        $apartmentId = $request["apartment_id"];
         $apartment = Apartment::find($apartmentId);
         $this->authorize('update', $apartment);
-        $apartmentId = $request["apartmentId"];
+        $apartmentId = $request["apartment_id"];
         $apartment = Apartment::find($apartmentId);
         $messages = $apartment->messages()->get();
         return response()->json([
