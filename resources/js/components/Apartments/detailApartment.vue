@@ -109,7 +109,7 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
+                        
                         <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
                             :class="index === activeItem ? 'active' : ''">
                             <img v-if="this.carousel_var" :src=image.image class="d-block w-100 img-thumbnail">
@@ -117,17 +117,13 @@
                                 class="d-block w-100 img-thumbnail">
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
-                        data-slide="prev" @click="this.prevImg()">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              
                     <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
                         data-slide="prev" @click="this.prevImg()">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
-                        data-slide="next" @click="this.nextImg()">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                   
                     <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
                         data-slide="next" @click="this.nextImg()">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
