@@ -227,7 +227,7 @@ export default {
                     console.log(this.apartment);
                     console.log(this.apartment.added_images)
                     console.log(this.meter)
-
+                    console.log(res.data.ip);
 
                 }).catch((errors) => {
                     console.log(errors);
