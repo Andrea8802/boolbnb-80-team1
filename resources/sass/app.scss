@@ -10,6 +10,7 @@
 // general rules
 body {
     font-family: 'Sono', sans-serif;
+    scroll-behavior: smooth;
 }
 
 a {
@@ -79,6 +80,7 @@ a {
     height: calc(100vh - 120px);
     width: 100%;
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 .footer {

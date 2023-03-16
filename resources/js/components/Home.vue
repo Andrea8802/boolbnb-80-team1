@@ -1,7 +1,7 @@
 <template>
     <div class="container text-center">
         <!-- titolo della pagina -->
-        <h1 class="ms_home_title my-3">HI! Where do you want to go today?</h1>
+        <h1 id="msTitlePage" class="ms_home_title my-3">HI! Where do you want to go today?</h1>
 
         <!-- sottotitolo della pagina -->
         <h4 class="ms_home_subtitle mb-3 text-capitalize">your destination awaits: discover new and amazing experiences</h4>
@@ -9,9 +9,6 @@
 
     <!-- container della barra di ricerca e pulsante ricerca avanzata -->
     <div class="container text-center">
-        <!-- <label for="apartmentSearch">
-            Destinazione
-        </label> -->
         <div class="ms_ctn_search input-group">
             <input type="text" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates"
                 @keyup.delete="checkSearchBar" placeholder="Enter your destination..."
@@ -28,12 +25,11 @@
                 </button>
             </router-link>
         </div>
-        <h4 class="ms_error_messagge">{{ error }}</h4>
     </div>
-    <!-- ============================================================ -->
+    <!-- =============================================================== -->
 
-
-    <div class="container-fluid p-3">
+    <!-- container principale di tutte le card degli appartamenti -->
+    <div class="container-fluid mt-5 ms_ctn_card_home">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
             <div class="col" v-for="apartment in apartmentsSponsored" v-if="!onSearch">
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
@@ -97,6 +93,20 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- ================================================================ -->
+
+    <!-- bottone per ritornare in cima nella pagina -->
+    <div class="ms_btn_page_up">
+        <a href="#msTitlePage">
+            <font-awesome-icon icon="fa-solid fa-circle-chevron-up" />
+        </a>
+    </div>
+    <!-- ========================================== -->
+
+    <!-- messaggio di errore nel caso in cui la search bar non da alcun risultato -->
+    <div class="container text-center">
+        <h4 class="ms_error_messagge">{{ error }}</h4>
     </div>
 </template>
 
@@ -223,6 +233,10 @@ export default {
 }
 
 // grafica search bar
+.ms_ctn_card_home {
+    padding: 0 100px;
+}
+
 .ms_ctn_search {
     width: 60%;
     max-width: 600px;
@@ -325,4 +339,23 @@ export default {
 }
 
 // ==========================================================
+
+// grafica bottone per ritornare in cima nella pagina
+.ms_btn_page_up {
+    font-size: 40px;
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+
+    a {
+        color: $principalColor;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+// ====================================
 </style>
