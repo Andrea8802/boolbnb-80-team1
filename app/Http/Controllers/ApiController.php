@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\Sponsor;
 use App\Models\Statistic;
 use App\Models\Message;
+use App\Models\AddedImage;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,10 @@ class ApiController extends Controller
         ]);
 
     }
+
+    /* Rotta per creare apartment */
+
+
     public function createApartment(Request $request)
     {
         $data = $request->validate([
@@ -81,6 +86,7 @@ class ApiController extends Controller
             "response" => $ap
         ]);
     }
+
     public function createApartmentPage()
     {
         return view('createApartment');
@@ -190,7 +196,6 @@ class ApiController extends Controller
             "long" => ["nullable"],
             "services" => ["nullable", "array"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
-
         ]);
 
         // if (array_key_exists("imageApartment", $data)) {
@@ -416,14 +421,6 @@ class ApiController extends Controller
             "response" => $m,
         ]);
     }
-    public function getMessages(Request $request)
-    {
-        $apartmentId = $request["apartmentId"];
-        $apartment = Apartment::find($apartmentId);
-        $messages = $apartment->messages()->get();
-        return response()->json([
-            "success" => true,
-            "response" => $messages,
-        ]);
-    }
+
+
 }
