@@ -28,8 +28,7 @@
                                     </router-link>
                                 </button>
                                 <button type="button" class="btn btn-success">
-                                    <router-link :to="{ name: 'sponsor', params: { id: apartment.id } }"
-                                        class="link-warning">
+                                    <router-link :to="{ name: 'sponsor', params: { id: apartment.id } }" class="link-light">
                                         <font-awesome-icon icon="fa-solid fa-certificate" />
                                         Sponsor
                                     </router-link>

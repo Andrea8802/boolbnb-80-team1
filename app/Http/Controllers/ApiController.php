@@ -526,10 +526,10 @@ class ApiController extends Controller
     }
     public function getMessages(Request $request)
     {
-        $apartmentId = $request["apartment_id"];
+        $apartmentId = $request["apartmentId"];
         $apartment = Apartment::find($apartmentId);
         $this->authorize('update', $apartment);
-        $apartmentId = $request["apartment_id"];
+        $apartmentId = $request["apartmentId"];
         $apartment = Apartment::find($apartmentId);
         $messages = $apartment->messages()->get();
         return response()->json([
