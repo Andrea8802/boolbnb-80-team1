@@ -17,7 +17,7 @@ class AddedImageFactory extends Factory
     public function definition()
     {
         return [
-            "name" => fake()->word(),
+            /* "name" => fake()->word(), */
             "image" => 'https://picsum.photos/800/600?random=' . fake()->randomNumber(5, true),
         ];
     }

@@ -102,7 +102,6 @@
                             v-for="(image, index) in this.apartment.added_images"
                             :class="index === activeItem ? 'active' : ''">
                             <img :src=image.image
-                                :alt="image.name"
                                 class="d-block w-100">
                         </div>
                     </div>

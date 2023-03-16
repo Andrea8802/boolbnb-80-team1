@@ -37,7 +37,6 @@ class ApiController extends Controller
 
     /* Rotta per creare apartment */
 
-
     public function createApartment(Request $request)
     {
         $data = $request->validate([
@@ -53,6 +52,7 @@ class ApiController extends Controller
             "long" => ["nullable"],
             "services" => ["array", "required"],
             'imageApartment' => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],
+            'added_images' => ["array", "nullable"]
 
         ]);
 
@@ -66,11 +66,42 @@ class ApiController extends Controller
 
         $ap = Apartment::make($data);
 
-
         $id = auth()->user()->id;
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);
         $ap->save();
+
+        foreach ($data["added_images"] as $image) {
+            $addedimage = new AddedImage();
+            $addedimg_path = Storage::put('uploads', $image);
+            $addedimage->image = $addedimg_path;
+            $apartmentid = $ap->id;
+            $addedimage->apartment()->associate($apartmentid);
+            $addedimage->save();
+        }
+        // $addedimage->image = $data["added_images"];
+        // $apartmentid = $ap->id;
+        // $addedimage->apartment()->associate($apartmentid);
+        // $addedimage->save();
+
+
+        // if (array_key_exists('added_images', $data)) {
+
+
+        //     foreach ($data['added_images'] as $image) {
+        //         $addedImage = new AddedImage;
+        //         $img_path = Storage::put('uploads', $image);
+        //         $image = $img_path;
+        //         $addedImage->image->attach($image);
+
+        //         $ap->added_images()->attach($addedImage);
+
+        //         $addedImage->save();
+
+
+        //     }
+        // }
+
         // if (array_key_exists("services", $data)) {
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
@@ -83,7 +114,7 @@ class ApiController extends Controller
 
         return response()->json([
             "success" => true,
-            "response" => $ap
+            "apartments" => $ap,
         ]);
     }
 
@@ -196,15 +227,10 @@ class ApiController extends Controller
             "long" => ["nullable"],
             "services" => ["nullable", "array"],
             'imageApartment' => ['nullable', 'image', ' mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
+            'added_images' => ['array', 'nullable']
         ]);
 
-        // if (array_key_exists("imageApartment", $data)) {
 
-        //     $img_path = Storage::put('uploads', $data['imageApartment']);
-        //     $data['imageApartment'] = $img_path;
-        // } else {
-        //     $data['imageApartment'] = 'avatar5.png';
-        // }
         if (array_key_exists("imageApartment", $data)) {
             $img_path = Storage::put('uploads', $data['imageApartment']);
             $data['imageApartment'] = $img_path;
@@ -226,10 +252,18 @@ class ApiController extends Controller
 
         $id = auth()->user()->id;
         $currentuser = User::find($id);
-
-
         $apartment->user()->associate($currentuser);
         $apartment->save();
+
+        AddedImage::select('*')->where('apartment_id', 'like', $apartment->id)->delete();
+        foreach ($data["added_images"] as $image) {
+            $addedimage = new AddedImage();
+            $addedimg_path = Storage::put('uploads', $image);
+            $addedimage->image = $addedimg_path;
+            $apartmentid = $apartment->id;
+            $addedimage->apartment()->associate($apartmentid);
+            $addedimage->save();
+        }
 
         $services = Service::find([$data["services"]]);
         $apartment->services()->sync($services);
