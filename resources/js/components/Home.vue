@@ -36,6 +36,7 @@
                     <div class="card rounded ms_card_efct">
                         <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
+                        <div class="ms_card_sponsored">Sponsored</div>
                         <div class="card-body h-35">
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
                             <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
@@ -62,11 +63,11 @@
             </div>
             <div v-else>
                 <div class="col" v-for="apartment in apartmentsGeoSponsored">
-
                     <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                         <div class="card rounded ms_card_efct">
                             <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
+                            <div class="ms_card_sponsored">Sponsored</div>
                             <div class="card-body h-35">
                                 <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
                                 <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
@@ -336,6 +337,22 @@ export default {
 .ms_card_efct:hover {
     transform: scale(1.05);
 }
+
+.ms_card_efct {
+    position: relative;
+
+    .ms_card_sponsored {
+        background-color: rgba($principalColor, 0.8);
+        color: $secondColor;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 30px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+}
+
 
 // ==========================================================
 
