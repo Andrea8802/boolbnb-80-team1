@@ -455,6 +455,16 @@ class ApiController extends Controller
             "response" => $m,
         ]);
     }
+    public function getMessages(Request $request)
+    {
+        $apartmentId = $request["apartmentId"];
+        $apartment = Apartment::find($apartmentId);
+        $messages = $apartment->messages()->get();
+        return response()->json([
+            "success" => true,
+            "response" => $messages,
+        ]);
+    }
 
 
 }
