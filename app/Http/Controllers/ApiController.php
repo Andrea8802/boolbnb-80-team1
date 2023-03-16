@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Console\View\Components\Alert;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\User;
@@ -52,7 +53,7 @@ class ApiController extends Controller
             "long" => ["nullable"],
             "services" => ["array", "required"],
             'imageApartment' => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],
-            'added_images' => ["array", "nullable"]
+            'added_images' => ["array", "required"]
 
         ]);
 
@@ -105,9 +106,6 @@ class ApiController extends Controller
         // if (array_key_exists("services", $data)) {
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
-        // }
-        // $services = Service::find([$data["services"]]);
-        // $ap->services()->attach($services);
 
         $statistics = new Statistic();
         $statistics->ip_address = request()->ip();
@@ -125,10 +123,13 @@ class ApiController extends Controller
     }
     public function userApartments()
     {
-        // $apartments = Apartment::all()->where('user_id', 'like', auth()->user()->id);
-        $apartments = DB::table('apartments')
-            ->where('user_id', 'like', auth()->user()->id)
-            ->get();
+        $timezone = new DateTimeZone('Europe/Rome');
+        $date = new DateTime('now', $timezone);
+        DB::table('apartment_sponsor')
+            ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
+            ->delete();
+
+        $apartments = Apartment::where('user_id', 'like', auth()->user()->id)->get();
 
         return response()->json([
             "success" => true,
@@ -161,15 +162,6 @@ class ApiController extends Controller
         ]);
     }
 
-    // public function geteditApartment(Apartment $apartment)
-    // {
-
-    //     return response()->json([
-    //         "success" => true,
-    //         "response" => $apartment
-    //     ]);
-
-    // }
     public function getApartment($id)
     {
 
@@ -230,11 +222,11 @@ class ApiController extends Controller
             'added_images' => ['array', 'nullable']
         ]);
 
-
         if (array_key_exists("imageApartment", $data)) {
             $img_path = Storage::put('uploads', $data['imageApartment']);
             $data['imageApartment'] = $img_path;
         }
+
         $apartment->title = $data["title"];
         $apartment->description = $data["description"];
         $apartment->price = $data["price"];
@@ -255,15 +247,19 @@ class ApiController extends Controller
         $apartment->user()->associate($currentuser);
         $apartment->save();
 
-        AddedImage::select('*')->where('apartment_id', 'like', $apartment->id)->delete();
-        foreach ($data["added_images"] as $image) {
-            $addedimage = new AddedImage();
-            $addedimg_path = Storage::put('uploads', $image);
-            $addedimage->image = $addedimg_path;
-            $apartmentid = $apartment->id;
-            $addedimage->apartment()->associate($apartmentid);
-            $addedimage->save();
+
+        if (array_key_exists("added_images", $data)) {
+            AddedImage::select('*')->where('apartment_id', 'like', $apartment->id)->delete();
+            foreach ($data["added_images"] as $image) {
+                $addedimage = new AddedImage();
+                $addedimg_path = Storage::put('uploads', $image);
+                $addedimage->image = $addedimg_path;
+                $apartmentid = $apartment->id;
+                $addedimage->apartment()->associate($apartmentid);
+                $addedimage->save();
+            }
         }
+
 
         $services = Service::find([$data["services"]]);
         $apartment->services()->sync($services);
@@ -278,6 +274,12 @@ class ApiController extends Controller
     }
     public function allApartments()
     {
+        $timezone = new DateTimeZone('Europe/Rome');
+        $date = new DateTime('now', $timezone);
+        DB::table('apartment_sponsor')
+            ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
+            ->delete();
+
         $apartments = Apartment::whereDoesntHave('sponsors')->get();
         $apartmentsSponsored = Apartment::whereHas('sponsors')->get();
 
@@ -286,6 +288,7 @@ class ApiController extends Controller
             "apartments" => $apartments,
             "apartmentsSponsored" => $apartmentsSponsored
         ]);
+
     }
     public function getUserLogged()
     {
@@ -316,11 +319,22 @@ class ApiController extends Controller
             )
             
             )";
+
+
+        $timezone = new DateTimeZone('Europe/Rome');
+        $date = new DateTime('now', $timezone);
+        DB::table('apartment_sponsor')
+            ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
+            ->delete();
+
+
+
         $apartmentsSponsored = Apartment::select("*")->whereHas('sponsors')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->orderby("distance", "desc")
             ->get();
+
         $apartments = Apartment::select("*")->whereDoesntHave('sponsors')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
@@ -349,20 +363,44 @@ class ApiController extends Controller
         $sponsor = $request["sponsors"];
         $id = $request["apartmentId"];
         $apartment = Apartment::find($id);
-        $apartment->sponsors()->attach($sponsor);
+
+
+        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
+            $apartment->sponsors()->attach($sponsor);
+            $date = new DateTime();
+            $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
+
+        } else {
+            $dateTime = $apartment->sponsors()->select('end_date')->where('apartment_id', $id)->first()->end_date;
+            $dateTime = new DateTime($dateTime);
+
+        }
+
+
+        if ($sponsor == 1) {
+            $exDate = $dateTime->modify('+1 day');
+
+        } else if ($sponsor == 2) {
+            $exDate = $dateTime->modify('+3 day');
+
+        } else {
+            $exDate = $dateTime->modify('+6 day');
+        }
+
+
+        $apartment->sponsors()->sync([
+            $sponsor => ['end_date' => $exDate->format('Y-m-d H:i:s')]
+        ]);
+
+
+
         return response()->json([
             "success" => true,
-            "response" => $apartment
+            "response" => $exDate,
         ]);
     }
     public function getApartmentsSponsor()
     {
-        // $apartments = Apartment::select("*")
-
-        //     ->join('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
-        //     ->join('sponsors', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
-        //     ->where('apartment.id', 'like', 'apartment_sponsor.apartment.id')
-        //     ->get();
         $apartments = Apartment::whereHas('sponsors')->get();
 
         return response()->json([
@@ -389,6 +427,12 @@ class ApiController extends Controller
                 + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
             ))";
 
+
+        $timezone = new DateTimeZone('Europe/Rome');
+        $date = new DateTime('now', $timezone);
+        DB::table('apartment_sponsor')
+            ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
+            ->delete();
 
         $apartments = Apartment::select("*")
             ->selectRaw("$haversine AS distance")
@@ -432,8 +476,6 @@ class ApiController extends Controller
                 $currentuser
             ]
         ]);
-
-
 
     }
 

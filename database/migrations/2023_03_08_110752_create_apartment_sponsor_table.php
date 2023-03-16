@@ -13,7 +13,6 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('apartment_sponsor', function (Blueprint $table) {
-            $table->dateTime("start_date")->nullable();
             $table->dateTime("end_date")->nullable();
             $table->id();
         });
