@@ -510,8 +510,8 @@ export default {
 
                 }).catch((errors) => {
                     console.log(errors);
-                    if (errors) {
-                        this.permission = false;
+                    if (errors.response.status = 403) {
+                        this.$router.push({ name: "Login" });
                     }
                 });
 
