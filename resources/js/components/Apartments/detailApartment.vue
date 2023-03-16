@@ -36,12 +36,12 @@
                         </div>
 
                     </div>
-                    <div v-if="description" class="card-body" id="description">
-                        <h5 class="card-title">Your special place</h5>
-                        <div class="text-center">{{ apartment.description }}</div>
+                    <div v-if="description" class="card-body ms_card_body_fix" id="description">
+                        <h5 class="card-title my-3">Your special place</h5>
+                        <div class="text-center lh-lg">{{ apartment.description }}</div>
                     </div>
-                    <div v-else-if="services" class="card-body" id="services">
-                        <h5 class="card-title">Our services:</h5>
+                    <div v-else-if="services" class="card-body ms_card_body_fix" id="services">
+                        <h5 class="card-title my-3">Our services:</h5>
                         <p>We offert the following services for a true relaxing experience:</p>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" v-for="service in apartment.services">
@@ -50,8 +50,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div v-else-if="rooms" class="card-body" id="rooms">
-                        <h5 class="card-title">Our rooms:</h5>
+                    <div v-else-if="rooms" class="card-body ms_card_body_fix" id="rooms">
+                        <h5 class="card-title my-3">Our rooms:</h5>
                         <p>We offer {{ apartment.rooms_num }} rooms in total, for a comfy space of {{ apartment.size }} sq m
                         </p>
                         <ul class="list-group list-group-flush">
@@ -354,5 +354,9 @@ export default {
             width: calc(100% / 3);
         }
     }
+}
+
+.ms_card_body_fix {
+    height: 8rem;
 }
 </style>
