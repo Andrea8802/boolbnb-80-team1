@@ -1,12 +1,9 @@
 <template>
-    <h1>HOME </h1> <br>
+    <h1>HOME </h1>
     <label for="apartmentSearch">
         Destinazione
     </label>
-    <input type="text"
-        name="apartmentSearch"
-        v-model="apartmentSearch"
-        @keydown.enter="getCoordinates"
+    <input type="text" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates"
         @keyup.delete="checkSearchBar">
     <button @click="getCoordinates">Cerca</button>
     <button @click="deleteText">Cancella</button>
@@ -17,14 +14,10 @@
     <div class="container-fluid p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
             <h3 @click="logsp">Apartments with Sponsor</h3>
-            <div class="col"
-                v-for="apartment in apartmentsSponsored"
-                v-if="!onSearch">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                    class="router">
+            <div class="col" v-for="apartment in apartmentsSponsored" v-if="!onSearch">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment"
-                            :alt="apartment.title"
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
                         <div class="card-body h-35">
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -36,14 +29,10 @@
                 </router-link>
             </div>
 
-            <div class="col"
-                v-for="apartment in apartments"
-                v-if="!onSearch">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                    class="router">
+            <div class="col" v-for="apartment in apartments" v-if="!onSearch">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment"
-                            :alt="apartment.title"
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
                         <div class="card-body h-35">
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -55,14 +44,11 @@
                 </router-link>
             </div>
             <div v-else>
-                <div class="col"
-                    v-for="apartment in apartmentsGeoSponsored">
+                <div class="col" v-for="apartment in apartmentsGeoSponsored">
 
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                        class="router">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                         <div class="card rounded ms_card_efct">
-                            <img :src="'/storage/' + apartment.imageApartment"
-                                :alt="apartment.title"
+                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
                             <div class="card-body h-35">
                                 <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -74,13 +60,10 @@
                     </router-link>
 
                 </div>
-                <div class="col"
-                    v-for="apartment in apartmentsGeo">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                        class="router">
+                <div class="col" v-for="apartment in apartmentsGeo">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                         <div class="card rounded ms_card_efct">
-                            <img :src="'/storage/' + apartment.imageApartment"
-                                :alt="apartment.title"
+                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
                             <div class="card-body h-35">
                                 <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
