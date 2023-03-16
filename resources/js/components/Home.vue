@@ -30,41 +30,12 @@
 
     <!-- container principale di tutte le card degli appartamenti -->
     <div class="container-fluid mt-5 ms_ctn_card_home">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4  g-2 g-lg-3">
-            <div class="col" v-for="apartment in apartmentsSponsored" v-if="!onSearch">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
-                    <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                            class="rounded fluid card-img-top h-50">
-                        <div class="ms_card_sponsored">Sponsored</div>
-                        <div class="card-body h-35">
-                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
-                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
-                        </div>
-
-                    </div>
-                </router-link>
-            </div>
-
-            <div class="col" v-for="apartment in apartments" v-if="!onSearch">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
-                    <div class="card rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                            class="rounded fluid card-img-top h-50">
-                        <div class="card-body h-35">
-                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
-                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
-                        </div>
-
-                    </div>
-                </router-link>
-            </div>
-            <div v-else>
-                <div class="col" v-for="apartment in apartmentsGeoSponsored">
+        <div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 align-items-stretch g-2 g-lg-3"
+                v-if="!onSearch">
+                <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
                     <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
-                        <div class="card rounded ms_card_efct">
+                        <div class="card h-100 rounded ms_card_efct">
                             <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
                             <div class="ms_card_sponsored">Sponsored</div>
@@ -73,14 +44,13 @@
                                 <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
                                 <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
                             </div>
-
                         </div>
                     </router-link>
-
                 </div>
-                <div class="col" v-for="apartment in apartmentsGeo">
+
+                <div class="col ms_slot_card" v-for="apartment in apartments">
                     <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
-                        <div class="card rounded ms_card_efct">
+                        <div class="card h-100 rounded ms_card_efct">
                             <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
                             <div class="card-body h-35">
@@ -88,7 +58,37 @@
                                 <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
                                 <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
                             </div>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
 
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 align-items-stretch g-2 g-lg-3" v-else>
+                <div class="col ms_slot_card" v-for="apartment in apartmentsGeoSponsored">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                        <div class="card h-100 rounded ms_card_efct">
+                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                class="rounded fluid card-img-top h-50">
+                            <div class="ms_card_sponsored">Sponsored</div>
+                            <div class="card-body h-35">
+                                <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                                <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                                <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                            </div>
+                        </div>
+                    </router-link>
+                </div>
+
+                <div class="col ms_slot_card" v-for="apartment in apartmentsGeo">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                        <div class="card h-100 rounded ms_card_efct">
+                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                class="rounded fluid card-img-top h-50">
+                            <div class="card-body h-35">
+                                <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                                <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                                <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                            </div>
                         </div>
                     </router-link>
                 </div>
@@ -296,10 +296,8 @@ export default {
     color: black;
 }
 
-// .ms_ctn_main {
-//     overflow-y: auto;
-//     height: calc(100vh - 110px);
-
+// .ms_slot_card {
+//     height: 19rem;
 // }
 
 .ms_ctn_card_home {
