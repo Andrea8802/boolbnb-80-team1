@@ -3,8 +3,8 @@
         <div class="row">
             <div>
                 <h1>Your Apartments</h1>
-                <button class="btn btn-danger"> <router-link :to="{ name: 'createApartment' }" class="link-light">Create
-                        apartment</router-link></button>
+                <router-link :to="{ name: 'createApartment' }"><button class="btn btn-primary">Create
+                        apartment</button></router-link>
             </div>
 
             <!-- Colonna con appartamenti e pulsanti -->
@@ -12,7 +12,7 @@
                 <div class="accordion">
                     <div class="accordion-item ms_main_item" v-for="apartment in apartments">
                         <div class="accordion-header d-flex justify-content-between ms_active_show"
-                            @click="this.toggleViewInfo(apartment.id)">
+                            @click="this.toggleShow(apartment.id)">
                             <div class="ms_aps_title h-100 d-flex justify-content-between">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                     class="img-thumbnail ms_icon">
@@ -45,15 +45,18 @@
                             </div>
 
                         </div>
-                        <div class="accordion-collapse collapse show ms_active_hide" :id="'view_' + apartment.id">
-                            <div class="accordion-body">
+                        <div class="accordion-collapse collapse show ms_active_hide" :id="apartment.id">
+                            <div class="accordion-body ms_hide_body d-flex justify-content-between">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                    class="rounded fluid img-thumbnail h-50">
+                                    class="rounded fluid img-thumbnail ms_body_img">
 
-                                <p>
-                                    {{ apartment.description }}
-                                    <span>{{ apartment.address }}</span>
-                                </p>
+                                <div class="text-center d-flex flex-column justify-content-around ms_info">
+                                    <p class="text-capitalize lead">
+                                        {{ apartment.description }}
+                                    </p>
+                                    <sub class="">{{ apartment.address }}</sub>
+                                    <div>Prezzo: {{ apartment.price }}</div>
+                                </div>
 
                             </div>
                         </div>
@@ -136,9 +139,8 @@ export default {
                     console.log(errors);
                 });
         },
-        toggleViewInfo(x) {
-            console.log('view_' + `${x}`)
-            this.document.getElementById(`"'view_' + ${x}"`).classList.remove('ms_hide');
+        toggleShow(x) {
+            document.getElementById(x).classList.toggle('ms_active_hide');
         }
 
     },
@@ -179,30 +181,44 @@ export default {
         cursor: pointer;
     }
 
-    .ms_aps_title {
-        width: 50%;
-        padding: 1% 0;
+}
 
-        .ms_icon {
-            height: 80px;
-            width: 80px;
-            margin-left: 2rem;
-        }
+.ms_aps_title {
+    width: 50%;
+    padding: 1% 0;
+
+    .ms_icon {
+        width: 80px;
+        height: 80px;
+        margin-left: 2rem;
+    }
+
+    .ms_hide_body {
 
         .ms_title {
-            width: 70%;
+            width: 75%;
+
         }
     }
 
-    .ms_aps_buttons {
-        width: 30%;
-        padding: 2.5% 0;
-        margin-right: 2rem;
+}
 
-        button {
-            margin: auto 1rem;
-        }
+.ms_aps_buttons {
+    width: 30%;
+    padding: 2.5% 0;
+    margin-right: 1.5rem;
+
+    button {
+        margin: auto 1rem;
     }
+}
 
+.ms_body_img {
+    height: 200px;
+    width: 200px;
+}
+
+.ms_info {
+    width: 70%;
 }
 </style>
