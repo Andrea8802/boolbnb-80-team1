@@ -66,24 +66,32 @@ class ApiController extends Controller
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);
         $ap->save();
-
-
-        if (array_key_exists('added_images', $data)) {
-
-
-            foreach ($data['added_images'] as $image) {
-                $addedImage = new AddedImage;
-                $img_path = Storage::put('uploads', $image);
-                $image = $img_path;
-                $addedImage->image->attach($image);
-
-                $ap->added_images()->attach($addedImage);
-
-                $addedImage->save();
-
-
-            }
+        $addedimage = new AddedImage();
+        foreach ($data["added_images"] as $image) {
+            $addedimage->image = $image;
         }
+        // $addedimage->image = $data["added_images"];
+        $apartmentid = $ap->id;
+        $addedimage->apartment()->associate($apartmentid);
+        $addedimage->save();
+
+
+        // if (array_key_exists('added_images', $data)) {
+
+
+        //     foreach ($data['added_images'] as $image) {
+        //         $addedImage = new AddedImage;
+        //         $img_path = Storage::put('uploads', $image);
+        //         $image = $img_path;
+        //         $addedImage->image->attach($image);
+
+        //         $ap->added_images()->attach($addedImage);
+
+        //         $addedImage->save();
+
+
+        //     }
+        // }
 
         // if (array_key_exists("services", $data)) {
         $services = Service::find([$data["services"]]);
@@ -98,7 +106,6 @@ class ApiController extends Controller
         return response()->json([
             "success" => true,
             "apartments" => $ap,
-            "added_images" => $addedImage
         ]);
     }
 
