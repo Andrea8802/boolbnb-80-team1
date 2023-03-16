@@ -187,12 +187,12 @@
                         name="rooms_num"
                         v-model="modelRoomsNum"
                         class="form-control ms_input_focus_color"
-                    placeholder="Enter a rooms number..."
-                    aria-describedby="basic-addon1">
-            </div>
+                        placeholder="Enter a rooms number..."
+                        aria-describedby="basic-addon1">
+                </div>
 
-            <!-- input numero di bagni  -->
-            <label for="baths_rum"
+                <!-- input numero di bagni  -->
+                <label for="baths_rum"
                     class="ms_label_smartphone d-block d-md-none">Baths Number:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
@@ -262,8 +262,7 @@
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text d-none d-md-block"
                         id="basic-addon1"
-                        for="addedImage">Add
-                        more image to the apartment : </label>
+                        for="addedImage">Other images : </label>
                     <input type="file"
                         ref="file"
                         multiple="multiple"
@@ -271,15 +270,7 @@
                         v-on:change="onAddedImagesChange"
                         class="form-control ms_input_focus_color"
                         aria-describedby="basic-addon1">
-                    <button @click="this.createAddedImages()"></button>
 
-                    <!-- <div class="card" style="width: 18rem;">
-                                                                                                <ul class="list-group list-group-flush">
-                                                                                                    <li class="list-group-item" v-for="image in this.addedImages">
-                                                                                                        {{ image }}
-                                                                                                    </li>
-                                                                                                </ul>
-                                                                                            </div> -->
                 </div>
                 <div @click="logimg">prova</div>
 
