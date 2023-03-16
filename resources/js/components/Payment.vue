@@ -1,40 +1,45 @@
 <template>
-    <!-- Some test Card numbers
-    4111 1111 1111 1111: Visa
-    5555 5555 5555 4444: MasterCard
-    3714 496353 98431: American Express
-    invalid_card_number: 4000111111111115,
-    -->
-
     <div class="form-container py-5">
 
         <header>
-            <h1 class="mb-2" @click="log">Checkout</h1>
+            <h1 class="mb-2"
+                @click="log">Checkout</h1>
         </header>
 
-        <form id="my-sample-form" method="post" class="scale-down">
+        <form id="my-sample-form"
+            method="post"
+            class="scale-down"
+            autocomplete="off">
 
             <div class="cardinfo-card-number">
-                <label class="cardinfo-label" for="card-number">Card Number</label>
-                <div class='input-wrapper' id="card-number"></div>
+                <label class="cardinfo-label"
+                    for="card-number">Card Number</label>
+                <div class='input-wrapper'
+                    id="card-number"></div>
                 <div id="card-image"></div>
             </div>
 
             <div class="cardinfo-wrapper">
                 <div class="cardinfo-exp-date">
-                    <label class="cardinfo-label" for="expiration-date">Valid Thru</label>
-                    <div class='input-wrapper' id="expiration-date"></div>
+                    <label class="cardinfo-label"
+                        for="expiration-date">Valid Thru</label>
+                    <div class='input-wrapper'
+                        id="expiration-date"></div>
                 </div>
 
                 <div class="cardinfo-cvv">
-                    <label class="cardinfo-label" for="cvv">CVV</label>
-                    <div class='input-wrapper' id="cvv"></div>
+                    <label class="cardinfo-label"
+                        for="cvv">CVV</label>
+                    <div class='input-wrapper'
+                        id="cvv"></div>
                 </div>
             </div>
 
         </form>
 
-        <input type="submit" value="Pay" class="px-12 py-3 bg-blue-600 border border-transparent  " />
+        <input type="submit"
+            value="Pay"
+            class="px-12 py-3 bg-blue-600 border border-transparent  " />
 
     </div>
 </template>
