@@ -387,12 +387,12 @@ class ApiController extends Controller
 
 
         $sponsor = $request["sponsors"];
-        $id = $request["apartment_id"];
+        $id = $request["apartmentId"];
         $apartment = Apartment::find($id);
 
 
 
-        if (! $apartment->sponsors()->where('apartment_id', $id)->exists()) {
+        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
             $apartment->sponsors()->attach($sponsor);
             $date = new DateTime();
             $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
