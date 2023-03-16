@@ -152,7 +152,7 @@ background:#eee;
             <div class="panel">
                 <div class="panel-heading">
                     <div class="pull-left">
-                        <h3 class="panel-title my-margin-mx">NEW MESSAGES</h3>
+                        <h3 class="panel-title my-margin-mx">NEW MESSAGES </h3>
                     </div>
                     <!-- <div class="pull-right">
                         <div class="btn-group">
@@ -191,7 +191,7 @@ background:#eee;
             <div class="panel">
                 <div class="panel-heading">
                     <div class="media">
-                        <a href="mail-compose.html" class="btn btn-danger pull-right rounded"><i class="fa fa-share"></i></a>
+                        <a href="mail-compose.html" class="btn btn-danger pull-right rounded"><font-awesome-icon icon="fa-regular fa-trash-can" /></a>
                         <a class="pull-left" href="#">
                             <img :src="'/storage/' + this.user.avatar"  class="img-circle avatar">
                         </a>
