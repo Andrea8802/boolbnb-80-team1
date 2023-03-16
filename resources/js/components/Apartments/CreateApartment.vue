@@ -203,12 +203,12 @@
                     <button @click="this.createAddedImages()"></button>
 
                     <!-- <div class="card" style="width: 18rem;">
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item" v-for="image in this.addedImages">
-                                                                    {{ image }}
-                                                                </li>
-                                                            </ul>
-                                                        </div> -->
+                                                                                        <ul class="list-group list-group-flush">
+                                                                                            <li class="list-group-item" v-for="image in this.addedImages">
+                                                                                                {{ image }}
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div> -->
                 </div>
 
                 <div class="ms_ctn_service p-3 my-3">
@@ -292,6 +292,7 @@ export default {
             formData.append("lat", this.modelLat);
             formData.append("long", this.modelLong);
             this.modelServices.forEach((value) => formData.append("services[]", value));
+            this.addedImages.forEach((value) => formData.append("added_images[]", value));
             console.log(this.modelServices);
             console.log(this.addedImages);
 
@@ -303,8 +304,9 @@ export default {
             axios.post("/api/apartments", formData, config)
                 .then(res => {
                     const success = res.data.success;
-                    console.log(res);
+                    console.log(res.data.apartment);
                     console.log(formData);
+                    console.log(res.data.added_images);
                     this.$router.push({ name: "userApartments" })
                 }).catch((errors) => {
                     if (!this.modelTitle) {
@@ -373,23 +375,6 @@ export default {
 
 
             console.log(this.addedImages);
-        },
-        createAddedImages() {
-            let formDataAdIm = new FormData();
-            formDataAdIm.append('image[]', this.addedImages);
-
-            axios.post('/api/apartments/added-images', formDataAdIm, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-            }
-            ).then(res => {
-                /* const success = res.data.success; */
-                console.log(res);
-            })
-                .catch((errors) => {
-                    console.log(errors);
-                });
         }
 
 
