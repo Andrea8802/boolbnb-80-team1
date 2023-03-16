@@ -14,8 +14,8 @@
 
                 <!-- Card detail aps -->
 
-                <div class="card-lg-6 col-md-12">
-                    <div class="card-header ms_color ms_header_fix">
+                <div class="card-lg-6 col-md-12 ms_card_detail">
+                    <div class="card-header ms_color ms_header_fix sticky-top">
                         <div class="nav-tabs card-header-tabs d-flex h-100 ms_color ms_card_header_fix">
                             <div class="nav-item ms_pointer ms_nav_item_fix text-center py-2"
                                 :class="this.description ? 'ms_active' : ''">
@@ -34,7 +34,6 @@
                                     @click="this.roomsActive()">Rooms</a>
                             </div>
                         </div>
-
                     </div>
                     <div v-if="description"
                         class="card-body"
@@ -355,10 +354,22 @@ export default {
     font-size: 1.5rem;
 }
 
+.ms_card_detail {
+    height: 250px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+}
+
 .ms_header_fix {
     padding: 0;
     border-bottom: 0;
-    height: 3rem;
+    height: 50px;
 
     .ms_card_header_fix {
         margin-right: 0;
@@ -372,6 +383,6 @@ export default {
 }
 
 .ms_card_body_fix {
-    height: 8rem;
+    height: calc(100% - 50px);
 }
 </style>
