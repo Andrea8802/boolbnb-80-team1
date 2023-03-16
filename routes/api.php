@@ -52,5 +52,5 @@ Route::get('apartment-edit/{apartment}', [ApiController::class, 'getApartmentEdi
 Route::post('getMessages', [ApiController::class, 'getMessages']);
 Route::get('message/{user}', [ApiController::class, 'getUserLogged']);
 Route::post('sendMessage/{apartment}', [ApiController::class, 'sendMessage']);
-
+Route::post('sponsorApartmentId', [ApiController::class, 'sponsorApartmentId']);
 Route::post('Apartment/{apartment}/added-images', [ApiController::class, 'createAddedImages']);

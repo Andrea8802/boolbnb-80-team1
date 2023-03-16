@@ -36,12 +36,16 @@
                         </div>
 
                     </div>
-                    <div v-if="description" class="card-body ms_card_body_fix" id="description">
-                        <h5 class="card-title my-3">Your special place</h5>
-                        <div class="text-center lh-lg">{{ apartment.description }}</div>
+                    <div v-if="description"
+                        class="card-body"
+                        id="description">
+                        <h5 class="card-title">Your special place</h5>
+                        <div class="text-center">{{ apartment.description }}</div>
                     </div>
-                    <div v-else-if="services" class="card-body ms_card_body_fix" id="services">
-                        <h5 class="card-title my-3">Our services:</h5>
+                    <div v-else-if="services"
+                        class="card-body"
+                        id="services">
+                        <h5 class="card-title">Our services:</h5>
                         <p>We offert the following services for a true relaxing experience:</p>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" v-for="service in apartment.services">
@@ -63,6 +67,7 @@
                             </li>
                         </ul>
                     </div>
+                    <div v-else class="card-body"></div>
                     <div v-else class="card-body"></div>
                 </div>
 
@@ -99,8 +104,12 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
+                        <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
                         <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
                             :class="index === activeItem ? 'active' : ''">
                             <img v-if="this.carousel_var" :src=image.image class="d-block w-100 img-thumbnail">
@@ -111,8 +120,14 @@
                     <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
                         data-slide="prev" @click="this.prevImg()">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
+                        data-slide="prev" @click="this.prevImg()">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </button>
+                    <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
+                        data-slide="next" @click="this.nextImg()">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
                         data-slide="next" @click="this.nextImg()">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -207,8 +222,9 @@ export default {
 
             axios.get("/api/getApartmentDetail/" + this.$route.params.id)
                 .then(res => {
-                    this.apartment = res.data.response[0];
-                    this.user = res.data.response[1];
+                    this.apartment = res.data.apartment;
+                    this.user = res.data.user;
+                    console.log(res.data.ip);
                     this.getMap()
                     this.meter = this.apartment.added_images.length;
                     this.highprice = parseInt((this.apartment.price) * 1.5);
@@ -230,7 +246,9 @@ export default {
                     console.log(this.highprice);
                     console.log(this.apartment.long);
                     console.log(this.apartment);
-                    console.log(this.apartment.added_images);
+                    console.log(this.apartment.added_images)
+                    console.log(this.meter)
+
 
                 }).catch((errors) => {
                     console.log(errors);

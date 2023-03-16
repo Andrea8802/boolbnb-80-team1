@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -174,7 +175,7 @@ class ApiController extends Controller
         ]);
 
     }
-    public function getApartmentDetail($id)
+    public function getApartmentDetail(Request $request, $id)
     {
 
         $apartment = Apartment::find($id);
@@ -184,12 +185,22 @@ class ApiController extends Controller
 
         $user = User::find($apartment->user_id);
 
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipAddresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            return trim(end($ipAddresses));
+        }
+
+        // Se non è presente, restituisce l'indirizzo IP standard
+        $ipUtente = $_SERVER['REMOTE_ADDR'];
+
         return response()->json([
             "success" => true,
             "response" => [
                 $apartment,
-                $user
-            ]
+                $user,
+            ],
+            "ip" => $ipUtente
+
         ]);
 
     }
@@ -352,17 +363,31 @@ class ApiController extends Controller
     }
     public function getSponsors()
     {
+
         $sponsors = Sponsor::all();
         return response()->json([
             "success" => true,
             "response" => $sponsors
         ]);
     }
+    public function sponsorApartmentId(Request $request)
+    {
+        $apartmentId = $request["apartmentId"];
+        $apartment = Apartment::find($apartmentId);
+        $this->authorize('update', $apartment);
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+        ]);
+    }
     public function sponsorPayment(Request $request)
     {
+
+
         $sponsor = $request["sponsors"];
         $id = $request["apartmentId"];
         $apartment = Apartment::find($id);
+
 
 
         if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
@@ -512,4 +537,19 @@ class ApiController extends Controller
     }
 
 
+// public function getIpAddress() {
+//     // Verifica se l'indirizzo IP dell'utente è presente nel header "X-Forwarded-For" (in caso di proxy)
+//     if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+//         $ipAddresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+//         return trim(end($ipAddresses));
+//     }
+
+//     // Se non è presente, restituisce l'indirizzo IP standard
+//     $ipUtente = $_SERVER['REMOTE_ADDR'];
+
+//     return response()->json([
+//         "success" => true,
+//         "response" => $ipUtente,
+//     ]);
+// }
 }
