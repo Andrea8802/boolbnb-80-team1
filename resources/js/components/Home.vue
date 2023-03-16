@@ -20,8 +20,14 @@
                 <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
             </button>
         </div>
-        <button @click="deleteText">Cancella</button>
-        <button><router-link :to="{ name: 'advancedSearch' }">Advanced Search</router-link></button>
+        <div class="my-3">
+            <button @click="deleteText" class="ms_btn_delete me-3">Reset</button>
+            <router-link :to="{ name: 'advancedSearch' }">
+                <button class="ms_btn_advanced">
+                    Advanced Search
+                </button>
+            </router-link>
+        </div>
     </div>
     <!-- ============================================================ -->
 
@@ -222,12 +228,13 @@ export default {
 }
 
 .ms_home_subtitle {
+    font-size: 1rem;
     color: $thirdColor;
 }
 
 // grafica search bar
 .ms_ctn_search {
-    width: 60%;
+    width: 90%;
     max-width: 500px;
     margin: 0 auto;
 
@@ -259,9 +266,26 @@ export default {
     }
 }
 
+.ms_btn_delete,
+.ms_btn_advanced {
+    color: $thirdColor;
+    background-color: $body-bg;
+    border: solid 2px $thirdColor;
+    border-radius: 30px;
+    font-weight: 600;
+    padding: 5px 10px;
+}
 
-// ============
+.ms_btn_delete:hover,
+.ms_btn_advanced:hover {
+    color: $secondColor;
+    background-color: $principalColor;
+    border: none;
+}
 
+// ===================================
+
+// grafica main
 .router {
     text-decoration: none;
     color: black;
@@ -304,4 +328,6 @@ export default {
 .ms_card_efct:hover {
     transform: scale(1.05);
 }
+
+// ==========================================================
 </style>
