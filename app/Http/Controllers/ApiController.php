@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Date;
 use DateTime;
 use DateTimeZone;
-use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use App\Models\Apartment;
 use App\Models\User;
@@ -69,12 +67,8 @@ class ApiController extends Controller
         $currentuser = User::find($id);
         $ap->user()->associate($currentuser);
         $ap->save();
-        // if (array_key_exists("services", $data)) {
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
-        // }
-        // $services = Service::find([$data["services"]]);
-        // $ap->services()->attach($services);
 
         $statistics = new Statistic();
         $statistics->ip_address = request()->ip();
@@ -91,7 +85,6 @@ class ApiController extends Controller
     }
     public function userApartments()
     {
-        // $apartments = Apartment::all()->where('user_id', 'like', auth()->user()->id);
         $apartments = DB::table('apartments')
             ->where('user_id', 'like', auth()->user()->id)
             ->get();
@@ -127,15 +120,6 @@ class ApiController extends Controller
         ]);
     }
 
-    // public function geteditApartment(Apartment $apartment)
-    // {
-
-    //     return response()->json([
-    //         "success" => true,
-    //         "response" => $apartment
-    //     ]);
-
-    // }
     public function getApartment($id)
     {
 
@@ -242,6 +226,11 @@ class ApiController extends Controller
     }
     public function allApartments()
     {
+        $date = new DateTime();
+        DB::table('apartment_sponsor')
+            ->whereDate('end_date', '<=', $date)
+            ->delete();
+
         $apartments = Apartment::whereDoesntHave('sponsors')->get();
         $apartmentsSponsored = Apartment::whereHas('sponsors')->get();
 
@@ -250,6 +239,7 @@ class ApiController extends Controller
             "apartments" => $apartments,
             "apartmentsSponsored" => $apartmentsSponsored
         ]);
+
     }
     public function getUserLogged()
     {
@@ -351,12 +341,6 @@ class ApiController extends Controller
     }
     public function getApartmentsSponsor()
     {
-        // $apartments = Apartment::select("*")
-
-        //     ->join('apartment_sponsor', 'apartments.id', '=', 'apartment_sponsor.apartment_id')
-        //     ->join('sponsors', 'apartment_sponsor.sponsor_id', '=', 'sponsors.id')
-        //     ->where('apartment.id', 'like', 'apartment_sponsor.apartment.id')
-        //     ->get();
         $apartments = Apartment::whereHas('sponsors')->get();
 
         return response()->json([
@@ -426,8 +410,6 @@ class ApiController extends Controller
                 $currentuser
             ]
         ]);
-
-
 
     }
 
