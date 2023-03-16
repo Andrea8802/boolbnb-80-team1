@@ -37,6 +37,20 @@ class ApiController extends Controller
 
     }
 
+    public function getInfo()
+    {
+        $user = User::all();
+        $apartment = Apartment::all();
+
+        return response()->json([
+            "success" => true,
+            "response" => [
+                "user" => $user,
+                "apartment" => $apartment,
+
+            ]
+        ]);
+    }
     /* Rotta per creare apartment */
 
     public function createApartment(Request $request)

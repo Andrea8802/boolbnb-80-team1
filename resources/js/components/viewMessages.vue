@@ -1,15 +1,226 @@
+<style lang="scss" scoped>
+
+body{margin-top:20px;
+background:#eee;
+}
+
+/* ========================================================================
+ * MESSAGES
+ * ======================================================================== */
+
+ .my-margin-mx {
+    margin-left: 10px;
+    margin-top: 10px;
+ }
+.message form {
+  padding: 6px 15px;
+  background-color: #FAFAFA;
+  border-bottom: 1px solid #E6EBED;
+}
+.message form .has-icon .form-control-icon {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  width: 34px;
+  line-height: 33px;
+  text-align: center;
+  color: #777;
+}
+.message > a {
+  position: relative;
+}
+.message .indicator {
+  text-align: center;
+}
+.message .indicator .spinner {
+  left: 26%;
+  width: 200px;
+  font-size: 13px;
+  line-height: 17px;
+  color: #999;
+}
+
+.message-wrapper {
+  position: relative;
+  padding: 0px;
+  background-color: #ffffff;
+  margin: 0px;
+}
+.message-wrapper .message-sideleft {
+  vertical-align: top !important;
+}
+.message-wrapper .message-sideleft[class*="col-"] {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.message-wrapper .message-sideright {
+  background-color: #f8f8f8;
+}
+.message-wrapper .message-sideright[class*="col-"] {
+  padding: 30px;
+}
+.message-wrapper .message-sideright .panel {
+  border-top: 1px dotted #DDD;
+  padding-top: 20px;
+}
+.message-wrapper .message-sideright .panel:first-child {
+  border-top: none;
+  padding-top: 0px;
+}
+.message-wrapper .message-sideright .panel .panel-heading {
+  border-bottom: none;
+}
+.message-wrapper .panel {
+  background-color: transparent !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.message-wrapper .panel .panel-heading, .message-wrapper .panel .panel-body {
+  background-color: transparent !important;
+}
+.message-wrapper .media .media-body {
+  font-weight: 300;
+}
+.message-wrapper .media .media-heading {
+  margin-bottom: 0px;
+}
+.message-wrapper .media small {
+  color: #999999;
+  font-weight: 400;
+}
+
+.list-message .list-group-item {
+  padding: 15px;
+  color: #999999 !important;
+  border-right: 3px solid #8CC152 !important;
+}
+.list-message .list-group-item.active {
+  background-color: #EEEEEE;
+  border-bottom: 1px solid #DDD !important;
+}
+.list-message .list-group-item.active p {
+  color: #999999 !important;
+}
+.list-message .list-group-item.active:hover, .list-message .list-group-item.active:focus, .list-message .list-group-item.active:active {
+  background-color: #EEEEEE;
+}
+.list-message .list-group-item small {
+  font-size: 12px;
+}
+.list-message .list-group-item .list-group-item-heading {
+  color: #999999 !important;
+}
+.list-message .list-group-item .list-group-item-text {
+  margin-bottom: 10px;
+}
+.list-message .list-group-item:last-child {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  border-bottom: 1px solid #DDD !important;
+}
+.avatar{
+    width:50px;
+    height:50px;
+}
+
+
+</style>
+
 <template>
-    <div v-if="this.messages.length == 0">
-        You have no messages to read
+    
+        <!-- <div class="container-fluid">
+            <div v-if="this.messages.length == 0">
+                You have no messages to read
+            </div>
+            <ul>
+                <li v-for="message in messages">
+                    Name : {{ message.name }} <br>
+                    Surname : {{ message.surname }} <br>
+                    Email : {{ message.email }} <br>
+                    Message text : {{ message.text }} <br>
+                </li>
+            </ul>
+        </div> -->
+
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container mt-5 mb-5">
+    <div class="row message-wrapper rounded shadow mb-20">
+        <div class="col-md-4 message-sideleft">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h3 class="panel-title my-margin-mx">NEW MESSAGES</h3>
+                    </div>
+                    <!-- <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-success">All Sources</button>
+                            <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li><a href="#"><i class="fa fa-download"></i> Inbox</a></li>
+                                <li><a href="#"><i class="fa fa-upload"></i> Outbox</a></li>
+                                <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><i class="fa fa-briefcase"></i> Other</a></li>
+                            </ul>
+                        </div> -->
+                    <!-- </div> -->
+                    <div class="clearfix"></div>
+                </div><!-- /.panel-heading -->
+                <div class="panel-body no-padding" v-for="message in messages">
+                    <div class="list-group no-margin list-message">
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">{{ message.name }} </h4>
+                            <p class="list-group-item-text">
+                                <strong>You have a new message</strong>
+                            </p>
+                            <span class="label label-success pull-right">NEW</span>
+                            <div class="clearfix"></div>
+                        </a>
+                        
+                    </div><!-- /.list-group -->
+                </div><!-- /.panel-body -->
+            </div><!-- /.panel -->
+        </div><!-- /.message-sideleft -->
+        <div class="col-md-8 message-sideright">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="media">
+                        <a href="mail-compose.html" class="btn btn-danger pull-right rounded"><i class="fa fa-share"></i></a>
+                        <a class="pull-left" href="#">
+                            <img :src="'/storage/' + this.user.avatar"  class="img-circle avatar">
+                        </a>
+                        <div class="media-body" v-for="message in messages">
+                            <h4 class="media-heading"> {{ message.name }} </h4>
+                            <div> {{ user.surname }}</div>
+                            <!-- <small>Thursday 5th July 2014-via Intercom</small> -->
+                            <p class="lead">
+                                {{ message.email }}
+                            </p>
+                            <p>
+                                {{ message.text }}
+                            </p>
+                            <p>
+                                Thanks! <br>
+                                {{ message.name }}
+                            </p>
+                            <hr>
+                        </div>
+                    </div>
+                </div><!-- /.panel-heading -->
+                
+            </div><!-- /.panel -->
+            
+        </div><!-- /.message-sideright -->
     </div>
-    <ul>
-        <li v-for="message in messages">
-            Name : {{ message.name }} <br>
-            Surname : {{ message.surname }} <br>
-            Email : {{ message.email }} <br>
-            Message text : {{ message.text }} <br>
-        </li>
-    </ul>
+    </div>
+
+
 </template>
 <script>
 import axios from "axios"
@@ -17,6 +228,8 @@ export default {
     data() {
         return {
             messages: [],
+            user: "",
+            apartment: [],
         }
     },
     methods: {
@@ -51,6 +264,16 @@ export default {
                 });
         },
     },
+    getInfo() {
+        axios.get("/api/getInfo")
+                .then(res => {
+                    this.user = res.data.response.user;
+                    this.apartment = res.data.response.apartment;
+                    console.log(this.user);
+                }).catch((errors) => {
+                    console.log(errors);
+                });
+    },
 
     mounted() {
         this.geteditApartment()
@@ -58,3 +281,4 @@ export default {
     }
 }
 </script>
+
