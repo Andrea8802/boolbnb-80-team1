@@ -346,8 +346,7 @@ class ApiController extends Controller
 
         return response()->json([
             "success" => true,
-            "response" => $dateTime,
-            "date" => $exDate
+            "response" => $exDate,
         ]);
     }
     public function getApartmentsSponsor()

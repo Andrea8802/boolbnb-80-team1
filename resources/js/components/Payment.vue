@@ -168,9 +168,8 @@ export default {
                                     let formData = new FormData();
                                     formData.append("sponsors", this.$route.params.sponsor);
                                     formData.append("apartmentId", this.$route.params.id);
-                                    axios.post('/api/sponsorPayment', formData).then((res) => {
-                                        console.log(res);
-                                        // this.$router.push({ name: "userApartments" });
+                                    axios.post('/api/sponsorPayment', formData).then(() => {
+                                        this.$router.push({ name: "userApartments" });
 
 
                                     }).catch((errors) => {
