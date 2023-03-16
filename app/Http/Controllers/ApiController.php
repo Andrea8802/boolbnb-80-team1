@@ -459,6 +459,9 @@ class ApiController extends Controller
     {
         $apartmentId = $request["apartmentId"];
         $apartment = Apartment::find($apartmentId);
+        $this->authorize('update', $apartment);
+        $apartmentId = $request["apartmentId"];
+        $apartment = Apartment::find($apartmentId);
         $messages = $apartment->messages()->get();
         return response()->json([
             "success" => true,

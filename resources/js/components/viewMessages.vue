@@ -30,6 +30,9 @@ export default {
                     console.log(this.messages);
 
                 }).catch((errors) => {
+                    if (errors.response.status = 403) {
+                        this.$router.push({ name: "Login" });
+                    }
 
                     console.log(errors);
                 });
@@ -43,6 +46,7 @@ export default {
 
 
                 }).catch((errors) => {
+
                     console.log(errors);
                 });
         },
