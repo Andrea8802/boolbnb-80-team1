@@ -4,9 +4,7 @@
         <div class="row d-flex">
             <div class="col">
 
-                <img :src="'/storage/' + apartment.imageApartment"
-                    :alt="apartment.title"
-                    class="img-thumbnail">
+                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="img-thumbnail">
 
 
 
@@ -14,45 +12,32 @@
                 <div class="card text-center">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
-                            <li class="nav-item ms_pointer"
-                                :class="description ? 'active ms_active' : ''">
-                                <a class="nav-link"
-                                    @click="this.descriptionActive()">Description</a>
+                            <li class="nav-item ms_pointer" :class="description ? 'active ms_active' : ''">
+                                <a class="nav-link" @click="this.descriptionActive()">Description</a>
                             </li>
-                            <li class="nav-item ms_pointer"
-                                :class="services ? 'active ms_active' : ''">
-                                <a class="nav-link"
-                                    @click="this.servicesActive()">Services</a>
+                            <li class="nav-item ms_pointer" :class="services ? 'active ms_active' : ''">
+                                <a class="nav-link" @click="this.servicesActive()">Services</a>
                             </li>
-                            <li class="nav-item ms_pointer"
-                                :class="rooms ? 'active ms_active' : ''">
-                                <a class="nav-link"
-                                    @click="this.roomsActive()">Rooms</a>
+                            <li class="nav-item ms_pointer" :class="rooms ? 'active ms_active' : ''">
+                                <a class="nav-link" @click="this.roomsActive()">Rooms</a>
                             </li>
                         </ul>
                     </div>
-                    <div v-if="description"
-                        class="card-body"
-                        id="description">
+                    <div v-if="description" class="card-body" id="description">
                         <h5 class="card-title">Your special place</h5>
                         <div class="text-center">{{ apartment.description }}</div>
                     </div>
-                    <div v-else-if="services"
-                        class="card-body"
-                        id="services">
+                    <div v-else-if="services" class="card-body" id="services">
                         <h5 class="card-title">Our services:</h5>
                         <p>We offert the following services for a true relaxing experience:</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"
-                                v-for="service in apartment.services">
+                            <li class="list-group-item" v-for="service in apartment.services">
                                 {{ service.name }}
                                 <font-awesome-icon :icon="icons[service.name]" />
                             </li>
                         </ul>
                     </div>
-                    <div v-else-if="rooms"
-                        class="card-body"
-                        id="rooms">
+                    <div v-else-if="rooms" class="card-body" id="rooms">
                         <h5 class="card-title">Our rooms:</h5>
                         <p>We offer {{ apartment.rooms_num }} rooms in total, for a comfy space of {{ apartment.size }} sq m
                         </p>
@@ -65,8 +50,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div v-else
-                        class="card-body"></div>
+                    <div v-else class="card-body"></div>
                 </div>
 
 
@@ -86,41 +70,26 @@
 
                 <h3 class="text-center">More about us:</h3>
 
-                <div id="carouselExampleIndicators"
-                    class="carousel slide">
+                <div id="carouselExampleIndicators" class="carousel slide">
                     <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="0"
-                            class="active"></li>
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item"
-                            v-for="(image, index) in this.apartment.added_images"
+                        <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
                             :class="index === activeItem ? 'active' : ''">
-                            <img :src=image.image
-                                class="d-block w-100">
+                            <img :src=image.image class="d-block w-100">
                         </div>
                     </div>
-                    <button class="carousel-control-prev"
-                        type="button"
-                        data-target="#carouselExampleIndicators"
-                        data-slide="prev"
-                        @click="this.prevImg()">
-                        <span class="carousel-control-prev-icon"
-                            aria-hidden="true"></span>
+                    <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
+                        data-slide="prev" @click="this.prevImg()">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </button>
-                    <button class="carousel-control-next"
-                        type="button"
-                        data-target="#carouselExampleIndicators"
-                        data-slide="next"
-                        @click="this.nextImg()">
-                        <span class="carousel-control-next-icon"
-                            aria-hidden="true"></span>
+                    <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
+                        data-slide="next" @click="this.nextImg()">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </button>
                 </div>
@@ -128,8 +97,7 @@
 
                 <div class="d-grid gap-2 col-6 mx-auto my-5">
                     <h3 class="text-center">Want to know more?</h3>
-                    <router-link :to="{ name: 'message' }"
-                        class="link-light btn-route">
+                    <router-link :to="{ name: 'message' }" class="link-light btn-route">
                         <button class="btn btn-danger rounded-5">Write to {{ user.name }}</button>
                     </router-link>
                     <!-- <button class="btn btn-danger rounded-5">
@@ -219,8 +187,9 @@ export default {
 
             axios.get("/api/getApartmentDetail/" + this.$route.params.id)
                 .then(res => {
-                    this.apartment = res.data.response[0];
-                    this.user = res.data.response[1];
+                    this.apartment = res.data.apartment;
+                    this.user = res.data.user;
+                    console.log(res.data.ip);
                     this.getMap()
                     this.meter = this.apartment.added_images.length
                     console.log(this.apartment.long);
