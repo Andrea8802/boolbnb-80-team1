@@ -82,6 +82,7 @@
 @media screen and (max-width: 768px) {
     .ms_ctn_footer {
         height: fit-content;
+        padding: 0 10px;
 
         .ms_ctn_footer_responsive768 {
             padding: 10px 10px;

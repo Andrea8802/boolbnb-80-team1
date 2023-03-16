@@ -233,13 +233,8 @@ export default {
 }
 
 // grafica search bar
-.ms_ctn_card_home {
-    padding: 0 100px;
-}
-
 .ms_ctn_search {
-    width: 60%;
-    max-width: 600px;
+    width: 500px;
     margin: 0 auto;
 
     .ms_search_bar {
@@ -300,10 +295,14 @@ export default {
     color: black;
 }
 
-.ms_ctn_main {
-    overflow-y: auto;
-    height: calc(100vh - 110px);
+// .ms_ctn_main {
+//     overflow-y: auto;
+//     height: calc(100vh - 110px);
 
+// }
+
+.ms_ctn_card_home {
+    padding: 0 100px;
 }
 
 .ms_ctn_main::-webkit-scrollbar-thumb {
@@ -344,7 +343,7 @@ export default {
 .ms_btn_page_up {
     font-size: 40px;
     position: fixed;
-    bottom: 100px;
+    bottom: 150px;
     right: 30px;
 
     a {
@@ -358,4 +357,17 @@ export default {
 }
 
 // ====================================
+
+// responsive home
+@media screen and (max-width: 768px) {
+    .ms_ctn_card_home {
+        padding: 0 20px;
+    }
+
+    .ms_ctn_search {
+        width: 90%;
+    }
+}
+
+// =====================================
 </style>

@@ -104,6 +104,12 @@ a {
 
 // responsive footer e main sotto i 768px
 @media screen and (max-width: 768px) {
+    .header {
+        .cont-header {
+            padding: 0 10px;
+        }
+    }
+
     .main {
         height: calc(100% - 70px);
     }
