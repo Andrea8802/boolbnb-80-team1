@@ -4,21 +4,27 @@
         <div class="row d-flex">
             <div class="col">
 
-                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="img-thumbnail">
+                <div class="img-thumbnail mb-5 mt-5 ms_main_image">
+                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="img-thumbnail">
+                </div>
 
 
 
+                <!-- Card detail aps -->
 
-                <div class="card text-center">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs">
-                            <li class="nav-item ms_pointer" :class="description ? 'active ms_active' : ''">
+                <div class="card">
+                    <div class="card-header ms_color ms_header_fix">
+                        <ul class="nav nav-tabs card-header-tabs ms_color ms_card_header_fix">
+                            <li class="nav-item ms_pointer ms_nav_item_fix text-center"
+                                :class="this.description ? 'ms_active' : ''">
                                 <a class="nav-link" @click="this.descriptionActive()">Description</a>
                             </li>
-                            <li class="nav-item ms_pointer" :class="services ? 'active ms_active' : ''">
+                            <li class="nav-item ms_pointer ms_nav_item_fix text-center"
+                                :class="this.services ? 'ms_active' : ''">
                                 <a class="nav-link" @click="this.servicesActive()">Services</a>
                             </li>
-                            <li class="nav-item ms_pointer" :class="rooms ? 'active ms_active' : ''">
+                            <li class="nav-item ms_pointer ms_nav_item_fix text-center"
+                                :class="this.rooms ? 'ms_active' : ''">
                                 <a class="nav-link" @click="this.roomsActive()">Rooms</a>
                             </li>
                         </ul>
@@ -53,10 +59,21 @@
                     <div v-else class="card-body"></div>
                 </div>
 
+                <!-- Prezzo -->
+                <div class="w-100 my-5">
+                    <h3 class="text-center">Our best price for you:</h3>
+                    <div class="text-center">
+                        <span class="ms_highprice">{{ this.highprice }}&euro;/night</span>
+                        <span class="ms_bestprice">{{ apartment.price }}&euro;/night</span>
+                    </div>
+                </div>
 
-
-                <div>
-                    <h3>{{ apartment.price }}&euro;/night</h3>
+                <!-- Message -->
+                <div class="d-grid gap-2 col-6 mx-auto my-5">
+                    <h3 class="text-center">Want to know more?</h3>
+                    <button class="btn btn-danger rounded-5">
+                        <router-link :to="{ name: 'message' }" class="link-light">Write to {{ user.name }}</router-link>
+                    </button>
                 </div>
 
 
@@ -79,7 +96,8 @@
                     <div class="carousel-inner">
                         <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
                             :class="index === activeItem ? 'active' : ''">
-                            <img :src=image.image :alt="image.name" class="d-block w-100">
+                            <img v-if="this.carousel_var" :src=image.image :alt="image.name" class="d-block w-100">
+                            <img v-else :src="'/storage/' + image.image" :alt="image.name">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
@@ -95,12 +113,7 @@
                 </div>
 
 
-                <div class="d-grid gap-2 col-6 mx-auto my-5">
-                    <h3 class="text-center">Want to know more?</h3>
-                    <button class="btn btn-danger rounded-5">
-                        <router-link :to="{ name: 'message' }" class="link-light">Write to {{ user.name }}</router-link>
-                    </button>
-                </div>
+
             </div>
 
 
@@ -156,6 +169,8 @@ export default {
             description: true,
             services: false,
             rooms: false,
+            highprice: 0,
+            carousel_var: true,
         }
     },
     methods: {
@@ -187,16 +202,26 @@ export default {
                     this.apartment = res.data.response[0];
                     this.user = res.data.response[1];
                     this.getMap()
-                    this.meter = this.apartment.added_images.length
+                    this.meter = this.apartment.added_images.length;
+                    this.highprice = parseInt((this.apartment.price) * 1.5);
+                    const img_name = this.apartment.added_images.name;
+                    const controller = img_name.split(/[/]/);
+                    console.log(controller);
+                    if (controller[0] == 'http') {
+                        this.carousel_var = true;
+                    } else {
+                        this.carousel_var = false;
+                    }
+
+                    console.log(this.highprice);
                     console.log(this.apartment.long);
                     console.log(this.apartment);
-                    console.log(this.apartment.added_images)
-                    console.log(this.meter)
-
+                    console.log(this.apartment.added_images);
 
                 }).catch((errors) => {
                     console.log(errors);
                 });
+
         },
         nextImg() {
             this.activeItem++;
@@ -226,7 +251,7 @@ export default {
             this.description = false;
             this.services = false;
             this.rooms = true;
-        }
+        },
 
 
 
@@ -234,12 +259,6 @@ export default {
     mounted() {
         this.getData()
         this.getApartment()
-        /* this.descriptionActive() */
-        /* this.servicesActive() */
-        /* this.roomsActive() */
-
-
-
     }
 }
 </script>
@@ -253,17 +272,20 @@ export default {
     max-width: 700px;
 }
 
+.ms_main_image {
+    background-color: $principalColor;
+}
+
 .icon {
     height: 50px;
 }
 
-.ms_pointer:hover {
-    cursor: pointer;
-
-}
-
 .ms_pointer {
     background-color: $principalColor;
+
+    :hover {
+        cursor: pointer;
+    }
 
     a {
         color: $secondColor;
@@ -271,11 +293,40 @@ export default {
 
 }
 
-.ms_pointer.ms_active {
+.ms_active {
     background-color: $secondColor;
 
     a {
         color: $principalColor;
+    }
+}
+
+.ms_color {
+    background-color: $principalColor;
+}
+
+.ms_highprice {
+    text-decoration: line-through;
+    color: red;
+    font-size: 1rem;
+}
+
+.ms_bestprice {
+    color: green;
+    font-size: 1.5rem;
+}
+
+.ms_header_fix {
+    padding: 0;
+    border-bottom: 0;
+
+    .ms_card_header_fix {
+        margin-right: 0;
+        margin-left: 0;
+
+        .ms_nav_item_fix {
+            width: calc(100% / 3);
+        }
     }
 }
 </style>
