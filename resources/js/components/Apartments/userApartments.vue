@@ -3,18 +3,20 @@
         <div class="row">
             <div>
                 <h1>Your Apartments</h1>
-                <button> <router-link :to="{ name: 'createApartment' }">Create apartment</router-link></button>
+                <button class="btn btn-danger"> <router-link :to="{ name: 'createApartment' }" class="link-light">Create
+                        apartment</router-link></button>
             </div>
 
             <!-- Colonna con appartamenti e pulsanti -->
             <div class="col my-5">
                 <div class="accordion">
                     <div class="accordion-item ms_main_item" v-for="apartment in apartments">
-                        <div class="accordion-header d-flex justify-content-around ms_active_show">
-                            <div class="ms_aps_title h-100">
+                        <div class="accordion-header d-flex justify-content-between ms_active_show"
+                            @click="this.toggleViewInfo(apartment.id)">
+                            <div class="ms_aps_title h-100 d-flex justify-content-between">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                    class="rounded fluid img-thumbnail">
-                                <h2 class="text-capitalize">{{ apartment.title }}</h2>
+                                    class="img-thumbnail ms_icon">
+                                <h2 class="text-capitalize ms_title">{{ apartment.title }}</h2>
                             </div>
                             <div class="ms_aps_buttons h-100">
                                 <button type="button" class="btn btn-danger" @click="deleteApartment(apartment.id)">
@@ -43,7 +45,7 @@
                             </div>
 
                         </div>
-                        <div class="accordion-collapse collapse show ms_active_hide">
+                        <div class="accordion-collapse collapse show ms_active_hide" :id="'view_' + apartment.id">
                             <div class="accordion-body">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                     class="rounded fluid img-thumbnail h-50">
@@ -93,6 +95,10 @@ export default {
             apartments: [],
             getapartment: [],
 
+            /* viewing info-aps */
+
+            view: false,
+
         }
     },
     methods: {
@@ -130,6 +136,10 @@ export default {
                     console.log(errors);
                 });
         },
+        toggleViewInfo(x) {
+            console.log('view_' + `${x}`)
+            this.document.getElementById(`"'view_' + ${x}"`).classList.remove('ms_hide');
+        }
 
     },
 
@@ -156,10 +166,6 @@ export default {
     display: none;
 }
 
-.ms_active_show:active+.ms_active_hide {
-    display: block;
-}
-
 
 
 /* main items */
@@ -172,19 +178,31 @@ export default {
     :hover {
         cursor: pointer;
     }
-}
 
-.ms_aps_title {
-    width: 45%;
-    padding: 1% 0;
-}
+    .ms_aps_title {
+        width: 50%;
+        padding: 1% 0;
 
-.ms_aps_buttons {
-    width: 30%;
-    padding: 2.5% 0;
+        .ms_icon {
+            height: 80px;
+            width: 80px;
+            margin-left: 2rem;
+        }
 
-    button {
-        margin: auto 1rem;
+        .ms_title {
+            width: 70%;
+        }
     }
+
+    .ms_aps_buttons {
+        width: 30%;
+        padding: 2.5% 0;
+        margin-right: 2rem;
+
+        button {
+            margin: auto 1rem;
+        }
+    }
+
 }
 </style>
