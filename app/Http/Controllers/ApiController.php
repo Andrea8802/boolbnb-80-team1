@@ -85,9 +85,13 @@ class ApiController extends Controller
     }
     public function userApartments()
     {
-        $apartments = DB::table('apartments')
-            ->where('user_id', 'like', auth()->user()->id)
-            ->get();
+        $timezone = new DateTimeZone('Europe/Rome');
+        $date = new DateTime('now', $timezone);
+        DB::table('apartment_sponsor')
+            ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
+            ->delete();
+
+        $apartments = Apartment::where('user_id', 'like', auth()->user()->id)->get();
 
         return response()->json([
             "success" => true,
@@ -180,13 +184,6 @@ class ApiController extends Controller
 
         ]);
 
-        // if (array_key_exists("imageApartment", $data)) {
-
-        //     $img_path = Storage::put('uploads', $data['imageApartment']);
-        //     $data['imageApartment'] = $img_path;
-        // } else {
-        //     $data['imageApartment'] = 'avatar5.png';
-        // }
         if (array_key_exists("imageApartment", $data)) {
             $img_path = Storage::put('uploads', $data['imageApartment']);
             $data['imageApartment'] = $img_path;
@@ -226,9 +223,10 @@ class ApiController extends Controller
     }
     public function allApartments()
     {
-        $date = new DateTime();
+        $timezone = new DateTimeZone('Europe/Rome');
+        $date = new DateTime('now', $timezone);
         DB::table('apartment_sponsor')
-            ->whereDate('end_date', '<=', $date)
+            ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
             ->delete();
 
         $apartments = Apartment::whereDoesntHave('sponsors')->get();
@@ -270,11 +268,22 @@ class ApiController extends Controller
             )
             
             )";
+
+
+        $timezone = new DateTimeZone('Europe/Rome');
+        $date = new DateTime('now', $timezone);
+        DB::table('apartment_sponsor')
+            ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
+            ->delete();
+
+
+
         $apartmentsSponsored = Apartment::select("*")->whereHas('sponsors')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->orderby("distance", "desc")
             ->get();
+
         $apartments = Apartment::select("*")->whereDoesntHave('sponsors')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
@@ -367,6 +376,12 @@ class ApiController extends Controller
                 + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
             ))";
 
+
+        $timezone = new DateTimeZone('Europe/Rome');
+        $date = new DateTime('now', $timezone);
+        DB::table('apartment_sponsor')
+            ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
+            ->delete();
 
         $apartments = Apartment::select("*")
             ->selectRaw("$haversine AS distance")
