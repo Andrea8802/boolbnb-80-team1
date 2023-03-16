@@ -1,15 +1,31 @@
 <template>
-    <h1>HOME </h1>
-    <label for="apartmentSearch">
-        Destinazione
-    </label>
-    <input type="text" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates"
-        @keyup.delete="checkSearchBar">
-    <button @click="getCoordinates">Cerca</button>
-    <button @click="deleteText">Cancella</button>
-    <button><router-link :to="{ name: 'advancedSearch' }">Advanced Search</router-link></button>
+    <div class="container text-center">
+        <!-- titolo della pagina -->
+        <h1 class="ms_home_title my-3">HI! Where do you want to go today?</h1>
 
-    <h1>Apartments</h1> <br>
+        <!-- sottotitolo della pagina -->
+        <h4 class="ms_home_subtitle mb-3 text-capitalize">your destination awaits: discover new and amazing experiences</h4>
+    </div>
+
+    <!-- container della barra di ricerca e pulsante ricerca avanzata -->
+    <div class="container text-center">
+        <!-- <label for="apartmentSearch">
+            Destinazione
+        </label> -->
+        <div class="ms_ctn_search input-group">
+            <input type="text" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates"
+                @keyup.delete="checkSearchBar" placeholder="Enter your destination..."
+                class="ms_search_bar form-control border-end-0">
+            <button @click="getCoordinates" class="input-group-text ms_btn_search border-start-0">
+                <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+            </button>
+        </div>
+        <button @click="deleteText">Cancella</button>
+        <button><router-link :to="{ name: 'advancedSearch' }">Advanced Search</router-link></button>
+    </div>
+    <!-- ============================================================ -->
+
+    <h2>Apartments</h2>
     <div>{{ error }}</div>
     <div class="container-fluid p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
@@ -200,6 +216,51 @@ export default {
 </script>
 <style lang="scss" scoped>
 @use '/resources/sass/variables' as *;
+
+.ms_home_title {
+    color: $principalColor;
+}
+
+.ms_home_subtitle {
+    color: $thirdColor;
+}
+
+// grafica search bar
+.ms_ctn_search {
+    width: 60%;
+    max-width: 500px;
+    margin: 0 auto;
+
+    .ms_search_bar {
+        color: $thirdColor;
+        font-weight: 600;
+        padding: 5px 10px;
+        border: solid 2px $thirdColor;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+    }
+
+    .ms_search_bar:focus {
+        color: $principalColor;
+        border: solid 2px $principalColor;
+        box-shadow: none;
+    }
+
+    .ms_search_bar:focus+.ms_btn_search {
+        color: $principalColor;
+        border: solid 2px $principalColor;
+    }
+
+    .ms_btn_search {
+        background-color: $body-bg;
+        border: solid 2px $thirdColor;
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+}
+
+
+// ============
 
 .router {
     text-decoration: none;
