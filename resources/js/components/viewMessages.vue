@@ -178,8 +178,9 @@ body {
 <template>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <div class="container mt-5 mb-5 ">
-        <div class="row message-wrapper my-padding-chatsx rounded shadow mb-20 d-none d-md-block">
+    <!-- componente diplay grandi -->
+    <div class="container mt-5 mb-5 d-none d-md-block">
+        <div class="row message-wrapper my-padding-chatsx rounded shadow mb-20">
             <div class="col-md-4 message-sideleft ">
                 <div class="panel">
                     <div class="panel-heading">
@@ -238,10 +239,11 @@ body {
                 </div><!-- /.panel -->
             </div><!-- /.message-sideright -->
         </div>
+    </div>
 
-        <!-- responsive components -->
-
-        <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
+    <!-- responsive components -->
+    <div class="container mt-5 mb-5 d-block d-md-none">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
             <h1>NEW MESSAGES</h1>
             <div class="accordion-item" v-for="(message, index) in messages">
                 <h2 class="accordion-header" :id="'flush-heading-' + index">
@@ -275,7 +277,6 @@ body {
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 <script>
