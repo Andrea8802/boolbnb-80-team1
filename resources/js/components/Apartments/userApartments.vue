@@ -88,6 +88,8 @@
                                 </div>
 
 
+
+                                Views: {{ numViews[index] }} <!-- Numero visite -->
                             </div>
 
                         </div>
@@ -120,10 +122,10 @@ import { resolveComponent } from 'vue';
 export default {
     data() {
         return {
-
             apartments: [],
             getapartment: [],
-
+            numViews: 0,
+            idApartments: [],
 
             messages_count: [],
 
@@ -150,7 +152,10 @@ export default {
         getUserApartments() {
             axios.get("/api/userApartments")
                 .then(res => {
-                    this.apartments = res.data.response[0];
+                    this.apartments = res.data.response;
+                    this.getNumViews();
+
+                    console.log(this.idApartments);
 
 
                     console.log(this.apartments);
@@ -208,6 +213,19 @@ export default {
                     console.log(errors);
                 });
         },
+
+        getNumViews() {
+            let formData = new FormData();
+            formData.append("apartment_id", this.idApartments);
+            this.apartments.forEach(apartment => formData.append("apartmentsId[]", apartment.id));
+
+            axios.post('/api/getNumViews', formData)
+                .then(res => {
+                    console.log(res);
+                    this.numViews = res.data.response
+                })
+        },
+
         deleteApartment(apartmentId) {
 
             axios.get("/api/delete/" + apartmentId)
@@ -232,8 +250,8 @@ export default {
     },
 
     mounted() {
-        this.reloadPage()
-        this.getUserApartments()
+        this.reloadPage();
+        this.getUserApartments();
     }
 }
 </script>

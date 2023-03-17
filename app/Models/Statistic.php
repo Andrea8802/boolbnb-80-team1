@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Statistic extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $fillable = [
-        // 'num_views',
-        'ip_address'
+        'ip_address',
+        'ip_date'
     ];
     public function apartment()
     {

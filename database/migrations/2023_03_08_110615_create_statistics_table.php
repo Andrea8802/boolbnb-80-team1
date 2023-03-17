@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
-            $table->string('ip_address', 32)->unique();
-            $table->timestamps();
+            $table->string('ip_address', 32); //->unique()
+            $table->date('ip_date');
         });
     }
 
