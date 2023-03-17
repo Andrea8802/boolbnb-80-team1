@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container p-0">
         <div class="row">
             <div>
                 <h1>Your Apartments</h1>
@@ -10,38 +10,84 @@
             <!-- Colonna con appartamenti e pulsanti -->
             <div class="col my-5">
                 <div class="accordion">
-                    <div class="accordion-item ms_main_item" v-for="apartment in apartments">
-                        <div class="accordion-header d-flex justify-content-between ms_active_show"
-                            @click="this.toggleShow(apartment.id)">
-                            <div class="ms_aps_title h-100 d-flex justify-content-between">
+                    <div class="accordion-item ms_main_item" v-for="(apartment, index) in this.apartments">
+                        <div class="accordion-header d-flex justify-content-between md-flex-column ms_active_show ">
+                            <div class="ms_aps_title h-100 d-flex justify-content-between"
+                                @click="this.toggleShow(apartment.id)">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                     class="img-thumbnail ms_icon">
                                 <h2 class="text-capitalize ms_title">{{ apartment.title }}</h2>
                             </div>
-                            <div class="ms_aps_buttons h-100">
-                                <button type="button" class="btn btn-danger" @click="deleteApartment(apartment.id)">
-                                    Delete
-                                </button>
-                                <button type="button" class="btn btn-warning">
-                                    <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }"
-                                        class="link-dark">
-                                        <font-awesome-icon icon="fa-solid fa-pen-to-square" />
-                                        Edit
-                                    </router-link>
-                                </button>
-                                <button type="button" class="btn btn-success">
-                                    <router-link :to="{ name: 'sponsor', params: { id: apartment.id } }" class="link-light">
-                                        <font-awesome-icon icon="fa-solid fa-certificate" />
-                                        Sponsor
-                                    </router-link>
-                                </button>
-                                <router-link :to="{ name: 'viewMessages', params: { id: apartment.id } }"
-                                    class="ms_hover_show">
-                                    <font-awesome-icon icon="fa-regular fa-envelope" />
-                                </router-link>
-                                <div class="ms_hide">
-                                    You have "X" messages for this apartment
+                            <div class="ms_aps_sponsor" v-show="this.sponsors_count[index] > 0">
+                                <div class="btn disabled btn-sm btn-danger mx-auto my-2 text-capitalize">
+                                    <font-awesome-icon icon="fa-solid fa-certificate" class="ms_sponsor_icon" />
+                                    sponsored
                                 </div>
+                                <div>
+                                    <strong>Your sponsorship ends:</strong>
+                                    {{ apartment.end_date['end_date'] }}
+                                </div>
+                                <div>
+                                    <!-- <em>You have {{ this.time_left[index][0] }} days and {{ this.time_left[index][1] }}
+                                        hours of
+                                        sponsorship</em> -->
+                                </div>
+
+                            </div>
+                            <div class="ms_aps_buttons flex-shrink ">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="btn btn-danger h-100 mx-auto" @click="deleteApartment(apartment.id)">
+                                            Delete
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item"><router-link
+                                            :to="{ name: 'editApartment', params: { id: apartment.id } }"
+                                            class="link-dark btn btn-warning h-100 mx-auto ms_router">
+                                            <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+                                            Edit
+                                        </router-link></li>
+                                    <li class="list-group-item"><router-link
+                                            :to="{ name: 'sponsor', params: { id: apartment.id } }"
+                                            class="link-light btn btn-success h-100 mx-auto ms_router">
+                                            <font-awesome-icon icon="fa-solid fa-certificate" />
+                                            Sponsor
+                                        </router-link></li>
+                                    <li class="list-group-item"><button class="btn btn-light ms_hover_show h-100 mx-auto"
+                                            v-if="this.messages_count[index] > 0" @click="this.toggleShow(index)"
+                                            :class="this.messages_count[index] > 0 ? 'ms_msg_present' : ''">
+                                            <font-awesome-icon icon="fa-regular fa-envelope"
+                                                :class="this.messages_count[index] > 0 ? 'ms_font_icon' : ''" />
+                                        </button>
+
+                                        <button v-else class="btn btn-light ms_hover_show mx-auto"
+                                            @click="this.toggleShow(index)">
+                                            <font-awesome-icon icon="fa-solid fa-comment-slash" />
+                                        </button>
+                                    </li>
+
+
+
+
+
+
+
+
+                                </ul>
+
+
+
+                                <div class="ms_msg ms_active_hide text-center" :id="index">
+                                    You have {{ this.messages_count[index] }} messages for this apartment
+                                    <router-link v-if="this.messages_count[index] > 0"
+                                        :to="{ name: 'viewMessages', params: { id: apartment.id } }"
+                                        class="btn btn-primary btn-sm d-inline ms_msg_link">
+                                        Read
+                                    </router-link>
+                                    <div v-else></div>
+                                </div>
+
+
                             </div>
 
                         </div>
@@ -66,33 +112,11 @@
 
         </div>
     </div>
-
-
-    <!-- <div class="container-fluid p-3">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
-            <div class="col" v-for="apartment in apartments">
-                <div class="card rounded ms_card_efct">
-                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                        class="rounded fluid card-img-top h-50">
-
-                    <div class="card-body h-35">
-                        <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
-                        <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                        <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
-                    </div>
-                    <div class="card-body h-35">
-
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div> -->
 </template>
 
 <script>
 import axios from 'axios'
+import { resolveComponent } from 'vue';
 export default {
     data() {
         return {
@@ -100,10 +124,13 @@ export default {
             apartments: [],
             getapartment: [],
 
-            /* viewing info-aps */
 
-            view: false,
+            messages_count: [],
 
+            sponsors_count: [],
+
+            time_left: [],
+            sponsors_end: [],
         }
     },
     methods: {
@@ -123,8 +150,60 @@ export default {
         getUserApartments() {
             axios.get("/api/userApartments")
                 .then(res => {
-                    this.apartments = res.data.response;
+                    this.apartments = res.data.response[0];
+
+
                     console.log(this.apartments);
+                    console.log(this.apartments.length);
+
+
+                    /* variabili count per show */
+                    for (let i = 0; i < this.apartments.length; i++) {
+
+                        /* messaggi */
+                        const count_msg = this.apartments[i].messages.length;
+                        console.log(count_msg);
+                        this.messages_count.push(count_msg);
+
+                        /* sponsor */
+                        const count_spons = this.apartments[i].sponsors.length;
+                        this.sponsors_count.push(count_spons);
+
+
+                        /* end date */
+
+                        this.sponsors_end.push(this.apartments[i].end_date);
+                        console.log(this.sponsors_end);
+                    };
+
+
+
+                    /* end_date + tempo rimasto */
+
+                    /* this.apartments.forEach((apartment) => {
+                        this.sponsors_end.push(apartment.end_date);
+                        console.log(this.sponsors_end);
+
+
+                        const end = apartment.end_date.end_date;
+                        
+
+                        const date = new Date();
+                        const remaining = Date.parse(end) - date.getTime();
+
+                        const seconds = Math.floor(remaining / 1000);
+                        const minutes = Math.floor(seconds / 60);
+                        const hours = Math.floor(minutes / 60);
+                        const days = Math.floor(hours / 24);
+
+                        const hours_remaining = hours - (days * 24);
+                        console.log(days, hours_remaining);
+                        this.time_left.push([days, hours_remaining]);
+                    }); */
+
+
+
+
                 }).catch((errors) => {
                     console.log(errors);
                 });
@@ -143,6 +222,11 @@ export default {
         },
         toggleShow(x) {
             document.getElementById(x).classList.toggle('ms_active_hide');
+        },
+        addCountdown() {
+            this.getUserApartments().then({
+
+            })
         }
 
     },
@@ -154,40 +238,37 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-/* hide show messaggi */
-.ms_hide {
-    display: none;
+@use '/resources/sass/variables.scss' as *;
+
+
+/* alert messaggi */
+.ms_msg {
+    width: 100%;
+    height: 50px;
+
+    .ms_msg_link {
+        width: 50%;
+    }
+
 }
 
-.ms_hover_show:hover+.ms_hide {
-    display: block;
-}
-
-/* temporaneo hide-show items */
-
-
+/* classe hide */
 .ms_active_hide {
     display: none;
 }
 
 
 
+
+
 /* main items */
-
-
-/* componenti show di main items */
-.ms_active_show {
-    height: 100px;
+.ms_aps_title {
+    width: calc(100% / 2);
+    padding: 1% 0;
 
     :hover {
         cursor: pointer;
     }
-
-}
-
-.ms_aps_title {
-    width: 50%;
-    padding: 1% 0;
 
     .ms_icon {
         width: 80px;
@@ -203,17 +284,50 @@ export default {
         }
     }
 
+    .ms_title {
+        width: calc(100% - 80px);
+        font-size: 1.5rem;
+    }
+
+}
+
+.ms_aps_sponsor {
+    width: calc(100% / 3);
+
+    .ms_sponsor_box {
+        width: 30%;
+        background-color: $principalColor;
+        padding: 0.25rem 0.5rem;
+        border-radius: 25px;
+
+        .ms_sponsor_icon {
+            color: yellow;
+        }
+    }
 }
 
 .ms_aps_buttons {
-    width: 30%;
     padding: 2.5% 0;
     margin-right: 1.5rem;
 
     button {
-        margin: auto 1rem;
+        margin: auto 0.5rem;
     }
+
+    .ms_router {
+        margin: auto 0.5rem;
+
+    }
+
 }
+
+
+/* componenti show di main items */
+
+
+
+
+
 
 .ms_body_img {
     height: 200px;
@@ -222,5 +336,20 @@ export default {
 
 .ms_info {
     width: 70%;
+}
+
+.ms_button_msg {
+    height: 50px;
+    width: 50px;
+}
+
+.ms_msg_present {
+
+
+    .ms_font_icon {
+        color: $principalColor;
+    }
+
+
 }
 </style>

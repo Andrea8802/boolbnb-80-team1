@@ -135,7 +135,7 @@ class ApiController extends Controller
         return view('createApartment');
 
     }
-    public function userApartments()
+    public function userApartments(Request $request)
     {
         $timezone = new DateTimeZone('Europe/Rome');
         $date = new DateTime('now', $timezone);
@@ -144,10 +144,27 @@ class ApiController extends Controller
             ->delete();
 
         $apartments = Apartment::where('user_id', 'like', auth()->user()->id)->get();
+        foreach ($apartments as $apartment) {
+            $apartment['messages'] = $apartment->messages;
+            $apartment['sponsors'] = $apartment->sponsors;
 
+            if (count($apartment['sponsors']) !== 0) {
+                $apartmentId = $request['apartmentId'];
+                $sponsorId = $request['sponsorId'];
+                $apartment_sponsor = DB::table('apartment_sponsor')
+                    ->where($sponsorId, '=', $apartmentId)->get('end_date');
+                $apartment['end_date'] = $apartment_sponsor;
+            } else {
+                $apartment['end_date'] = [];
+            }
+
+        }
+        ;
         return response()->json([
             "success" => true,
-            "response" => $apartments
+            "response" => [
+                $apartments,
+            ]
         ]);
     }
     public function userApartmentsPage()
@@ -405,7 +422,7 @@ class ApiController extends Controller
 
 
 
-        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
+        if (! $apartment->sponsors()->where('apartment_id', $id)->exists()) {
             $apartment->sponsors()->attach($sponsor);
             $date = new DateTime();
             $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
@@ -497,7 +514,7 @@ class ApiController extends Controller
 
 
         // Se è vuoto non controllare service
-        if (!empty($services)) {
+        if (! empty($services)) {
 
             $apartments->join("apartment_service", "apartments.id", "=", "apartment_service.apartment_id")
                 ->whereIn("apartment_service.service_id", $services);
