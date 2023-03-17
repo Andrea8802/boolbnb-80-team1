@@ -4,7 +4,8 @@
         <div class="container mt-5">
             <div class="ms_ctn_form">
                 <form action="" method="post">
-                    <input type="text" v-model="apartmentSearch" class="ms_search_bar form-control">
+                    <input type="text" v-model="apartmentSearch" placeholder="Enter your destination..."
+                        class="ms_search_bar form-control mb-3">
                     <div>
                         <label for="">Rooms Number</label>
                         <select name="rooms_num" v-model="roomsNum">
@@ -199,6 +200,12 @@ export default {
         padding: 5px 10px;
         border: solid 2px $thirdColor;
         border-radius: 30px;
+    }
+
+    .ms_search_bar:focus {
+        color: $principalColor;
+        border: solid 2px $principalColor;
+        box-shadow: none;
     }
 }
 
