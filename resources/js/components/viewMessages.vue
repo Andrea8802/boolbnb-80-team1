@@ -177,7 +177,8 @@ body {
 
 <template>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <div class="container mt-5 mb-5">
+
+    <div class="container mt-5 mb-5 d-none d-md-block">
         <div class="row message-wrapper my-padding-chatsx rounded shadow mb-20">
             <div class="col-md-4 message-sideleft ">
                 <div class="panel">
@@ -240,41 +241,7 @@ body {
 
         <!-- responsive components -->
 
-        <!-- <div class="accordion accordion-flush" id="accordionFlushExample">
-                    <h1>NEW MESSAGES</h1>
-                    <div class="accordion-item" v-for="message in messages">
-                        <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                {{ message.name }}
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
-                            data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <div class="d-flex ">
-                                    <img src="/storage/img-user-prifle.jpeg" class="img-circle avatar rounded-circle me-3">
-                                    <div>
-                                        <h4 class="media-heading"> {{ message.name }} </h4>
-                                        <p class="lead">
-                                            {{ message.email }}
-                                        </p>
-                                    </div>
-                                </div>
-                                <p>
-                                    {{ message.text }}
-                                </p>
-                                <p>
-                                    Thanks! <br>
-                                    {{ message.name }}
-                                </p>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-        <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion accordion-flush d-block d-md-none" id="accordionFlushExample">
             <h1>NEW MESSAGES</h1>
             <div class="accordion-item" v-for="(message, index) in messages">
                 <h2 class="accordion-header" :id="'flush-heading-' + index">
