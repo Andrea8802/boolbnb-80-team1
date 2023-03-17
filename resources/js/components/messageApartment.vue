@@ -30,7 +30,8 @@
 }
 
 .ms_ctn_input {
-    width: 600px;
+    width: 90%;
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -43,6 +44,12 @@
 .ms_label_text_area {
     color: $principalColor;
     font-weight: 500;
+}
+
+.ms_label_smartphone {
+    color: $principalColor;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .ms_message_sent {
@@ -77,22 +84,31 @@
             <form action="" enctype="multipart/form-data" @submit.prevent="sendMessage" method="post">
 
                 <!-- input nome -->
+                <label for="name" class="ms_label_smartphone d-block d-md-none">Name:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="name">Name : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="name">Name :
+                    </label>
                     <input type="text" name="name" v-model="modelName" class="form-control ms_input_focus_color"
                         placeholder="Enter a name..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input Cognome -->
+                <label for="surname" class="ms_label_smartphone d-block d-md-none">Surname:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="surname">Surname : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="surname">Surname :
+                    </label>
                     <input type="text" name="surname" v-model="modelSurname" class="form-control ms_input_focus_color"
                         placeholder="Enter a surname..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input email -->
+                <label for="surname" class="ms_label_smartphone d-block d-md-none">Email:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text" id="basic-addon1" for="email">Email : </label>
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="email">Email :
+                    </label>
                     <input type="email" name="email" v-model="modelEmail" class="form-control ms_input_focus_color"
                         placeholder="Enter a email..." aria-describedby="basic-addon1">
                 </div>
