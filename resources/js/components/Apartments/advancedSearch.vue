@@ -1,48 +1,50 @@
 <template>
     <div class="container-fluid">
         <!-- container del form -->
-        <div class="container">
-            <form action="" method="post">
-                <input type="text" v-model="apartmentSearch">
-                <div>
-                    <label for="">Rooms Number</label>
-                    <select name="rooms_num" v-model="roomsNum">
-                        <option value="0">-</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                    </select>
-                </div>
+        <div class="container mt-5">
+            <div class="ms_ctn_form">
+                <form action="" method="post">
+                    <input type="text" v-model="apartmentSearch" class="ms_search_bar form-control">
+                    <div>
+                        <label for="">Rooms Number</label>
+                        <select name="rooms_num" v-model="roomsNum">
+                            <option value="0">-</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
 
-                <div>
-                    <label for="">Beds Number</label>
-                    <select name="rooms_num" v-model="bedsNum">
-                        <option value="0">-</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                    </select>
-                </div>
+                    <div>
+                        <label for="">Beds Number</label>
+                        <select name="rooms_num" v-model="bedsNum">
+                            <option value="0">-</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
 
-                <div class="slidecontainer">
-                    <input type="range" min="1" max="50" class="slider" v-model="radius">
-                </div>
-                <div>
-                    Raggio : {{ radius }}
-                </div>
+                    <div class="slidecontainer">
+                        <input type="range" min="1" max="50" class="slider" v-model="radius">
+                    </div>
+                    <div>
+                        Raggio : {{ radius }}
+                    </div>
 
-                <div v-for="service in services">
-                    <input type="checkbox" :value="service.id" name=services v-model="modelServices">
-                    <label for="services">{{ service.name }}</label>
-                </div>
-                <button @click="getCoordinates">Cerca</button>
-            </form>
+                    <div v-for="service in services">
+                        <input type="checkbox" :value="service.id" name=services v-model="modelServices">
+                        <label for="services">{{ service.name }}</label>
+                    </div>
+                    <button @click="getCoordinates">Cerca</button>
+                </form>
+            </div>
         </div>
 
         <!-- container delle card -->
@@ -185,6 +187,22 @@ export default {
 
 <style lang="scss" scoped>
 @use '/resources/sass/variables' as *;
+
+// grafica form
+.ms_ctn_form {
+    width: 500px;
+    margin: 0 auto;
+
+    .ms_search_bar {
+        color: $thirdColor;
+        font-weight: 600;
+        padding: 5px 10px;
+        border: solid 2px $thirdColor;
+        border-radius: 30px;
+    }
+}
+
+// =======================
 
 // Stile slider
 .slider {
