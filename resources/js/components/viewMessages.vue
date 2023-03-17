@@ -1,5 +1,7 @@
 <style lang="scss" scoped>
 
+@use '/resources/sass/variables.scss' as *;
+
 body{margin-top:20px;
 background:#eee;
 }
@@ -7,11 +9,25 @@ background:#eee;
 /* ========================================================================
  * MESSAGES
  * ======================================================================== */
-
+.active {
+    display: block;
+}
+.none {
+    display: none;
+}
  .my-margin-mx {
     margin-left: 10px;
     margin-top: 10px;
  }
+//  .my-padding-chatsx{
+//     // padding-left: 5px !important;
+//     // padding-right: 5px !important;
+//  }
+ .selected-message, .selected-message > *{
+    background-color: $body-bg;
+    color: $principalColor !important;
+ }
+
 .message form {
   padding: 6px 15px;
   background-color: #FAFAFA;
@@ -93,15 +109,15 @@ background:#eee;
 
 .list-message .list-group-item {
   padding: 15px;
-  color: #999999 !important;
-  border-right: 3px solid #8CC152 !important;
+  color: black ;
+//   border-right: 3px solid #8CC152 !important;
 }
 .list-message .list-group-item.active {
   background-color: #EEEEEE;
   border-bottom: 1px solid #DDD !important;
 }
 .list-message .list-group-item.active p {
-  color: #999999 !important;
+  color: black;
 }
 .list-message .list-group-item.active:hover, .list-message .list-group-item.active:focus, .list-message .list-group-item.active:active {
   background-color: #EEEEEE;
@@ -110,7 +126,7 @@ background:#eee;
   font-size: 12px;
 }
 .list-message .list-group-item .list-group-item-heading {
-  color: #999999 !important;
+  color: black;
 }
 .list-message .list-group-item .list-group-item-text {
   margin-bottom: 10px;
@@ -147,8 +163,8 @@ background:#eee;
 
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container mt-5 mb-5">
-    <div class="row message-wrapper rounded shadow mb-20">
-        <div class="col-md-4 message-sideleft">
+    <div class="row message-wrapper my-padding-chatsx rounded shadow mb-20">
+        <div class="col-md-4 message-sideleft ">
             <div class="panel">
                 <div class="panel-heading">
                     <div class="pull-left">
@@ -172,18 +188,18 @@ background:#eee;
                     <!-- </div> -->
                     <div class="clearfix"></div>
                 </div><!-- /.panel-heading -->
-                <div class="panel-body no-padding" v-for="message in messages">
-                    <div class="list-group no-margin list-message">
-                        <a href="#" class="list-group-item">
+                <div class="panel-body no-padding " @click="selectChat(message.id)" v-for="message in messages" :key="message.id">
+                    <div class="list-group no-margin list-message" >
+                        <a href="#" :class="activeChat === message.id ? 'list-group-item mb-1 mx-2 rounded selected-message' : 'list-group-item mb-1 mx-2 rounded '">
                             <h4 class="list-group-item-heading">{{ message.name }} </h4>
-                            <p class="list-group-item-text">
-                                <strong>You have a new message</strong>
+                            <p class="list-group-item-text" >
+                                <strong>You have a new message  </strong> 
                             </p>
                             <span class="label label-success pull-right">NEW</span>
                             <div class="clearfix"></div>
                         </a>
                         
-                    </div><!-- /.list-group -->
+                    </div><!-- /.list-group    -->
                 </div><!-- /.panel-body -->
             </div><!-- /.panel -->
         </div><!-- /.message-sideleft -->
@@ -192,16 +208,25 @@ background:#eee;
                 <div class="panel-heading">
                     <div class="media">
                         <a href="mail-compose.html" class="btn btn-danger pull-right rounded"><font-awesome-icon icon="fa-regular fa-trash-can" /></a>
-                        <a class="pull-left" href="#">
-                            <img :src="'/storage/' + this.user.avatar"  class="img-circle avatar">
+                        <a class="pull-left" href="#" >
+                            
                         </a>
-                        <div class="media-body" v-for="message in messages">
-                            <h4 class="media-heading"> {{ message.name }} </h4>
-                            <div> {{ user.surname }}</div>
-                            <!-- <small>Thursday 5th July 2014-via Intercom</small> -->
-                            <p class="lead">
-                                {{ message.email }}
-                            </p>
+
+
+                        <div :class="activeChat === message.id ? 'active' : 'none'"  v-for="message in messages">
+                            
+                            <div class="d-flex ">
+                                <img src="/storage/img-user-prifle.jpeg"  class="img-circle avatar rounded-circle me-3">
+                             <div>
+                                    <h4 class="media-heading"> {{ message.name }} </h4>
+                                    <p class="lead">
+                                        {{ message.email }}
+                                    </p>
+                             </div>
+                             
+                            </div>
+                        
+                            
                             <p>
                                 {{ message.text }}
                             </p>
@@ -228,11 +253,17 @@ export default {
     data() {
         return {
             messages: [],
-            user: "",
+            message:"",
+            users:[] ,
             apartment: [],
+            activeChat: 0,
         }
     },
     methods: {
+        selectChat(index){
+            let k = index;
+            this.activeChat = k ;
+        },
         getMessages() {
             let formData = new FormData();
             formData.append("apartmentId", this.$route.params.id);
@@ -263,21 +294,23 @@ export default {
                     console.log(errors);
                 });
         },
-    },
-    getInfo() {
+        getInfo() {
         axios.get("/api/getInfo")
                 .then(res => {
-                    this.user = res.data.response.user;
-                    this.apartment = res.data.response.apartment;
-                    console.log(this.user);
+                    this.users = res.data.user;
+                    this.apartment = res.data.apartment;
+                    console.log(this.users);
                 }).catch((errors) => {
                     console.log(errors);
                 });
     },
+    },
+    
 
     mounted() {
         this.geteditApartment()
         this.getMessages()
+        this.getInfo()
     }
 }
 </script>

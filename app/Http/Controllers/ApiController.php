@@ -44,11 +44,10 @@ class ApiController extends Controller
 
         return response()->json([
             "success" => true,
-            "response" => [
-                "user" => $user,
-                "apartment" => $apartment,
+            "user" => $user,
+            "apartment" => $apartment,
 
-            ]
+            
         ]);
     }
     /* Rotta per creare apartment */
