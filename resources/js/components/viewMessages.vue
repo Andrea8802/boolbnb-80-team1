@@ -178,8 +178,8 @@ body {
 <template>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <div class="container mt-5 mb-5 d-none d-md-block">
-        <div class="row message-wrapper my-padding-chatsx rounded shadow mb-20">
+    <div class="container mt-5 mb-5 ">
+        <div class="row message-wrapper my-padding-chatsx rounded shadow mb-20 d-none d-md-block">
             <div class="col-md-4 message-sideleft ">
                 <div class="panel">
                     <div class="panel-heading">
@@ -248,7 +248,7 @@ body {
                     <button class="accordion-button collapsed" type="button" :data-bs-toggle="'collapse'"
                         :data-bs-target="'#flush-collapse-' + index" aria-expanded="false"
                         :aria-controls="'flush-collapse-' + index">
-                        {{ message.name }}
+                        <strong>{{ message.name }} </strong> <i style="margin-left: 12px;"> (You have a new message)</i>
                     </button>
                 </h2>
                 <div :id="'flush-collapse-' + index" class="accordion-collapse collapse"
