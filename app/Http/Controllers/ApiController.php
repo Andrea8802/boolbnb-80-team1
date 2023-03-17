@@ -412,6 +412,7 @@ class ApiController extends Controller
     public function advancedSearch(Request $request)
     {
 
+        // Raccolta dati
         $latitude = $request["lat"];
         $longitude = $request["long"];
         $radius = $request["radius"];
@@ -419,40 +420,62 @@ class ApiController extends Controller
         $bedsNumber = $request["beds_num"];
         $services = $request["services"];
 
-        $haversine = "(
-            6371 * acos(
-                cos(radians(" . $latitude . "))
-                * cos(radians(`lat`))
-                * cos(radians(`long`) - radians(" . $longitude . "))
-                + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
-            ))";
 
-
+        // Verifica Scadenza Sponsor
         $timezone = new DateTimeZone('Europe/Rome');
         $date = new DateTime('now', $timezone);
         DB::table('apartment_sponsor')
             ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
             ->delete();
 
+        // Calcolo coordinate in base al raggio
+        $haversine = "(
+                6371 * acos(
+                    cos(radians(" . $latitude . "))
+                    * cos(radians(`lat`))
+                    * cos(radians(`long`) - radians(" . $longitude . "))
+                    + sin(radians(" . $latitude . ")) * sin(radians(`lat`))
+                ))";
+
+        // Query Apartments
         $apartments = Apartment::select("*")
+            ->whereDoesntHave('sponsors')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->where("rooms_num", ">=", $roomsNumber)
             ->where("beds_num", ">=", $bedsNumber)
-            ->join('apartment_service', 'apartments.id', '=', 'apartment_service.apartment_id')
-            ->join('services', 'apartment_service.service_id', '=', 'services.id')
             ->orderby("distance", "asc");
 
-        if ($services) {
-            $apartments->whereIn("services.id", $services);
+        // Query Apartments Sponsorizzati
+        $apartmentsSponsored = Apartment::select("*")
+            ->whereHas('sponsors')
+            ->selectRaw("$haversine AS distance")
+            ->having("distance", "<=", $radius)
+            ->where("rooms_num", ">=", $roomsNumber)
+            ->where("beds_num", ">=", $bedsNumber)
+            ->orderby("distance", "asc");
+
+
+        // Se è vuoto non controllare service
+        if (!empty($services)) {
+
+            $apartments->join("apartment_service", "apartments.id", "=", "apartment_service.apartment_id")
+                ->whereIn("apartment_service.service_id", $services);
+
+            $apartmentsSponsored->join("apartment_service", "apartments.id", "=", "apartment_service.apartment_id")
+                ->whereIn("apartment_service.service_id", $services);
+
         }
 
+        // Get dati query
         $apartments = $apartments->get();
+        $apartmentsSponsored = $apartmentsSponsored->get();
 
 
         return response()->json([
             "success" => true,
-            "response" => $apartments,
+            "apartments" => $apartments,
+            "apartmentsSponsored" => $apartmentsSponsored,
             "services" => $services
         ]);
     }

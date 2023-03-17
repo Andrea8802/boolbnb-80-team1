@@ -31,7 +31,7 @@
             <input type="range" min="1" max="50" class="slider" v-model="radius">
         </div>
         <div>
-            {{ radius }}
+            Raggio : {{ radius }}
         </div>
 
         <div v-for="service in services">
@@ -40,6 +40,21 @@
         </div>
         <button @click="getCoordinates">Cerca</button>
     </form>
+
+    <div class="col" v-for="apartment in apartmentsSponsored">
+        <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+            <div class="card rounded ms_card_efct">
+                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                    class="rounded fluid card-img-top h-50">
+                <div class="card-body h-35">
+                    <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                    <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                    <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                </div>
+
+            </div>
+        </router-link>
+    </div>
 
     <div class="col" v-for="apartment in apartments">
         <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
@@ -74,6 +89,7 @@ export default {
             modelLong: "",
             radius: 1,
             apartments: [],
+            apartmentsSponsored: [],
             services: [],
             modelServices: []
         }
@@ -107,9 +123,13 @@ export default {
 
             axios.post("/api/advancedSearch", formData)
                 .then(res => {
-                    console.log("apSear", res);
+                    console.log(res);
+                    this.apartments = res.data.apartments;
+                    this.apartmentsSponsored = res.data.apartmentsSponsored;
+                    console.log(res);
+                    console.log("norm", this.apartments);
+                    console.log("spons", this.apartmentsSponsored);
 
-                    this.apartments = res.data.response;
                     if (this.apartments.length == 0) {
                         this.error = "nessun appartamento trovato";
                     }

@@ -3,11 +3,9 @@
     <button> <router-link :to="{ name: 'createApartment' }">Create apartment</router-link></button>
     <div class="container-fluid p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
-            <div class="col"
-                v-for="apartment in apartments">
+            <div class="col" v-for="apartment in apartments">
                 <div class="card rounded ms_card_efct">
-                    <img :src="'/storage/' + apartment.imageApartment"
-                        :alt="apartment.title"
+                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                         class="rounded fluid card-img-top h-50">
                     <div class="card-body h-35">
                         <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
