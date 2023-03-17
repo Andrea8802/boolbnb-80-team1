@@ -17,7 +17,8 @@ class StatisticFactory extends Factory
     public function definition()
     {
         return [
-            'ip_address' => fake()->ipv4()
+            'ip_address' => fake()->ipv4(),
+            'ip_date' => fake()->date('Y_m_d')
         ];
     }
 }

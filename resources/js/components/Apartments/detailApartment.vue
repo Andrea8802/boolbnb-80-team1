@@ -193,6 +193,7 @@ export default {
         getData() {
             axios.get("/api/getData")
                 .then(res => {
+                    console.log(res);
                     this.services = res.data.response.services;
                     this.sponsors = res.data.response.sponsors;
                     /* console.log(this.services); */

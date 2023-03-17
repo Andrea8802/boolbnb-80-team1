@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
+use Carbon\Carbon;
+use Date;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -183,16 +184,27 @@ class ApiController extends Controller
         $apartment["services"] = $apartment->services;
         $apartment["added_images"] = $apartment->added_images;
         $apartment["user_id"] = $apartment->user_id;
-
         $user = User::find($apartment->user_id);
 
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ipAddresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            return trim(end($ipAddresses));
+
+        $ipUtente = $request->ip();
+        $date = Date('Y-m-d');
+
+
+
+        $dateCheck = $apartment->statistics()->where('apartment_id', '=', $id)->where('ip_address', 'like', $ipUtente)->where('ip_date', '=', $date)->orderBy('ip_date', 'desc')->first();
+
+
+        if ($dateCheck === null) {
+            $statistic = new Statistic([
+                'ip_address' => $ipUtente,
+                'ip_date' => $date
+            ]);
+
+            $apartment->statistics()->save($statistic);
+
         }
 
-        // Se non è presente, restituisce l'indirizzo IP standard
-        $ipUtente = $_SERVER['REMOTE_ADDR'];
 
         return response()->json([
             "success" => true,
@@ -200,6 +212,7 @@ class ApiController extends Controller
                 $apartment,
                 $user,
                 $ipUtente,
+                $date,
             ]
 
 
