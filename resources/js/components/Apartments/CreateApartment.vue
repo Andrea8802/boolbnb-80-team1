@@ -55,6 +55,24 @@
     }
 }
 
+.ms_ctn_radio {
+    width: 90%;
+    max-width: 600px;
+    margin: 25px auto;
+    height: fit-content;
+    text-align: start;
+
+    label {
+        color: $principalColor;
+        font-weight: 600;
+        margin-left: 3px;
+    }
+
+    input[type="radio"] {
+        accent-color: $principalColor;
+    }
+}
+
 .ms_input_submit {
     background-color: $principalColor;
     color: #ffffff;
@@ -94,198 +112,123 @@
 
         <!-- container del form per creare un appartemento -->
         <div class="mb-3">
-            <form action=""
-                enctype="multipart/form-data"
-                @submit.prevent="createApartment()"
-                method="post"
-                novalidate>
+            <form action="" enctype="multipart/form-data" @submit.prevent="createApartment()" method="post" novalidate>
                 <p v-if="errors.length">
                     <b class="red">Please correct the following error(s):</b>
 
-                <div class="red"
-                    v-for="error in errors">{{ error }}</div>
+                <div class="red" v-for="error in errors">{{ error }}</div>
 
                 </p>
 
                 <!-- input titolo -->
-                <label for="title"
-                    class="ms_label_smartphone d-block d-md-none">Title:</label>
+                <label for="title" class="ms_label_smartphone d-block d-md-none">Title:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="title">Title :
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="title">Title :
                     </label>
-                    <input type="text"
-                        name="title"
-                        v-model="modelTitle"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a title..."
-                        aria-describedby="basic-addon1">
+                    <input type="text" name="title" v-model="modelTitle" class="form-control ms_input_focus_color"
+                        placeholder="Enter a title..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input descrizione -->
-                <label for="description"
-                    class="ms_label_smartphone d-block d-md-none">Description:</label>
+                <label for="description" class="ms_label_smartphone d-block d-md-none">Description:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1"
                         for="description">Description : </label>
-                    <input type="text"
-                        name="description"
-                        v-model="modelDescription"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a description..."
+                    <input type="text" name="description" v-model="modelDescription"
+                        class="form-control ms_input_focus_color" placeholder="Enter a description..."
                         aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input prezzo -->
-                <label for="price"
-                    class="ms_label_smartphone d-block d-md-none">Price:</label>
+                <label for="price" class="ms_label_smartphone d-block d-md-none">Price:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="price">Price :
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="price">Price :
                     </label>
-                    <input type="number"
-                        name="price"
-                        v-model="modelPrice"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a price..."
-                        aria-describedby="basic-addon1">
+                    <input type="number" name="price" v-model="modelPrice" class="form-control ms_input_focus_color"
+                        placeholder="Enter a price..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di letti -->
-                <label for="beds_num"
-                    class="ms_label_smartphone d-block d-md-none">Beds Number:</label>
+                <label for="beds_num" class="ms_label_smartphone d-block d-md-none">Beds Number:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="beds_num">Beds
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="beds_num">Beds
                         Number : </label>
-                    <input type="number"
-                        name="beds_num"
-                        v-model="modelBedsNum"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a beds number..."
-                        aria-describedby="basic-addon1">
+                    <input type="number" name="beds_num" v-model="modelBedsNum" class="form-control ms_input_focus_color"
+                        placeholder="Enter a beds number..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di stanze -->
-                <label for="rooms_num"
-                    class="ms_label_smartphone d-block d-md-none">Rooms Number:</label>
+                <label for="rooms_num" class="ms_label_smartphone d-block d-md-none">Rooms Number:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="rooms_num">Rooms
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="rooms_num">Rooms
                         Number : </label>
-                    <input type="number"
-                        name="rooms_num"
-                        v-model="modelRoomsNum"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a rooms number..."
-                        aria-describedby="basic-addon1">
+                    <input type="number" name="rooms_num" v-model="modelRoomsNum" class="form-control ms_input_focus_color"
+                        placeholder="Enter a rooms number..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input numero di bagni  -->
-                <label for="baths_rum"
-                    class="ms_label_smartphone d-block d-md-none">Baths Number:</label>
+                <label for="baths_rum" class="ms_label_smartphone d-block d-md-none">Baths Number:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="baths_num">Baths
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="baths_num">Baths
                         Number : </label>
-                    <input type="number"
-                        name="baths_num"
-                        v-model="modelBathsNum"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a baths number..."
-                        aria-describedby="basic-addon1">
+                    <input type="number" name="baths_num" v-model="modelBathsNum" class="form-control ms_input_focus_color"
+                        placeholder="Enter a baths number..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input grandezza appartamento -->
-                <label for="size"
-                    class="ms_label_smartphone d-block d-md-none">Size:</label>
+                <label for="size" class="ms_label_smartphone d-block d-md-none">Size:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="size">Size :
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="size">Size :
                     </label>
-                    <input type="number"
-                        name="size"
-                        v-model="modelSize"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a size..."
-                        aria-describedby="basic-addon1">
+                    <input type="number" name="size" v-model="modelSize" class="form-control ms_input_focus_color"
+                        placeholder="Enter a size..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire l'indirizzo dell'appartamento -->
-                <label for="address"
-                    class="ms_label_smartphone d-block d-md-none">Address:</label>
+                <label for="address" class="ms_label_smartphone d-block d-md-none">Address:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="address">Address :
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="address">Address :
                     </label>
-                    <input type="text"
-                        name="address"
-                        v-model="modelAddressSearch"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a address..."
-                        aria-describedby="basic-addon1">
-                    <input type="submit"
-                        value="Search"
-                        class="ms_input_submit"
-                        @click.prevent="getCoordinates">
+                    <input type="text" name="address" v-model="modelAddressSearch" class="form-control ms_input_focus_color"
+                        placeholder="Enter a address..." aria-describedby="basic-addon1">
+                    <input type="submit" value="Search" class="ms_input_submit" @click.prevent="getCoordinates">
 
 
                 </div>
-                <div v-if="view">
-                    <div v-for="apartment in arrayApartments"> <input type="radio"
-                            name="address"
-                            id=""
-                            :value=apartment.address.freeformAddress
-                            v-model="modelAddress"
-                            @click="address(apartment)"> <label for="">{{
-                                apartment.address.freeformAddress
-                            }}</label></div>
+                <div class="ms_ctn_radio" v-if="view">
+                    <div v-for="apartment in arrayApartments"> <input type="radio" name="address" id=""
+                            :value=apartment.address.freeformAddress v-model="modelAddress" @click="address(apartment)">
+                        <label for="">{{
+                            apartment.address.freeformAddress
+                        }}</label>
+                    </div>
 
                 </div>
                 <!-- input per inserire l'immagine di copertina dell'appartamento -->
-                <label for="imageApartment"
-                    class="ms_label_smartphone d-block d-md-none">Apartment Image:</label>
+                <label for="imageApartment" class="ms_label_smartphone d-block d-md-none">Apartment Image:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1"
                         for="imageApartment">Apartment
                         Image : </label>
-                    <input type="file"
-                        name="imageApartment"
-                        v-on:change="onImageChange"
-                        class="form-control ms_input_focus_color"
-                        aria-describedby="basic-addon1">
+                    <input type="file" name="imageApartment" v-on:change="onImageChange"
+                        class="form-control ms_input_focus_color" aria-describedby="basic-addon1">
                 </div>
 
                 <!-- added images form -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="addedImage">Other images : </label>
-                    <input type="file"
-                        ref="file"
-                        multiple="multiple"
-                        name="addedImage[]"
-                        v-on:change="onAddedImagesChange"
-                        class="form-control ms_input_focus_color"
-                        aria-describedby="basic-addon1">
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="addedImage">Other
+                        images : </label>
+                    <input type="file" ref="file" multiple="multiple" name="addedImage[]" v-on:change="onAddedImagesChange"
+                        class="form-control ms_input_focus_color" aria-describedby="basic-addon1">
 
                 </div>
 
@@ -293,18 +236,13 @@
                     <h4>Select services:</h4>
                     <div class="ms_ctn_check">
                         <div v-for="service in services">
-                            <input type="checkbox"
-                                :value="service.id"
-                                name=services
-                                v-model="modelServices">
+                            <input type="checkbox" :value="service.id" name=services v-model="modelServices">
                             <label for="services">{{ service.name }}</label>
                         </div>
                     </div>
                 </div>
 
-                <input type="submit"
-                    value="Create"
-                    class="ms_input_submit">
+                <input type="submit" value="Create" class="ms_input_submit">
             </form>
         </div>
     </div>
