@@ -10,38 +10,52 @@
             <!-- Colonna con appartamenti e pulsanti -->
             <div class="col my-5">
                 <div class="accordion">
-                    <div class="accordion-item ms_main_item" v-for="apartment in apartments">
-                        <div class="accordion-header d-flex justify-content-between ms_active_show"
-                            @click="this.toggleShow(apartment.id)">
-                            <div class="ms_aps_title h-100 d-flex justify-content-between">
+                    <div class="accordion-item ms_main_item" v-for="(apartment, index) in apartments">
+                        <div class="accordion-header d-flex justify-content-between ms_active_show">
+                            <div class="ms_aps_title h-100 d-flex justify-content-between"
+                                @click="this.toggleShow(apartment.id)">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                     class="img-thumbnail ms_icon">
                                 <h2 class="text-capitalize ms_title">{{ apartment.title }}</h2>
                             </div>
-                            <div class="ms_aps_buttons h-100">
-                                <button type="button" class="btn btn-danger" @click="deleteApartment(apartment.id)">
+                            <div class="ms_aps_buttons h-100 d-flex">
+                                <button type="button" class="btn btn-danger h-100 w-25"
+                                    @click="deleteApartment(apartment.id)">
                                     Delete
                                 </button>
-                                <button type="button" class="btn btn-warning">
+                                <button type="button" class="btn btn-warning h-100 w-25">
                                     <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }"
                                         class="link-dark">
                                         <font-awesome-icon icon="fa-solid fa-pen-to-square" />
                                         Edit
                                     </router-link>
                                 </button>
-                                <button type="button" class="btn btn-success">
+                                <button type="button" class="btn btn-success h-100 w-25">
                                     <router-link :to="{ name: 'sponsor', params: { id: apartment.id } }" class="link-light">
                                         <font-awesome-icon icon="fa-solid fa-certificate" />
                                         Sponsor
                                     </router-link>
                                 </button>
-                                <router-link :to="{ name: 'viewMessages', params: { id: apartment.id } }"
-                                    class="ms_hover_show">
+
+                                <button class="btn btn-light ms_hover_show" v-if="this.messages_count[index] > 0"
+                                    @click="this.toggleShow(index)">
                                     <font-awesome-icon icon="fa-regular fa-envelope" />
-                                </router-link>
-                                <div class="ms_hide">
-                                    You have "X" messages for this apartment
+                                </button>
+
+                                <button v-else class="btn btn-light ms_hover_show" @click="this.toggleShow(index)">
+                                    <font-awesome-icon icon="fa-solid fa-comment-slash" />
+                                </button>
+
+
+                                <div class="ms_msg ms_active_hide" :id="index">
+                                    You have {{ this.messages_count[index] }} messages for this apartment
+                                    <router-link v-show="this.messages_count[index] > 0"
+                                        :to="{ name: 'viewMessages', params: { id: apartment.id } }">
+                                        Visualizza messaggi
+                                    </router-link>
                                 </div>
+
+
                             </div>
 
                         </div>
@@ -97,6 +111,7 @@ export default {
 
             apartments: [],
             getapartment: [],
+            messages_count: [],
 
         }
     },
@@ -118,7 +133,16 @@ export default {
             axios.get("/api/userApartments")
                 .then(res => {
                     this.apartments = res.data.response;
+
                     console.log(this.apartments);
+
+                    for (let i = 0; i < this.apartments.length; i++) {
+                        const count = this.apartments[i].messages.length;
+                        this.messages_count.push(count);
+                    }
+
+                    console.log(this.messages_count);
+
                 }).catch((errors) => {
                     console.log(errors);
                 });
@@ -149,12 +173,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 /* hide show messaggi */
-.ms_hide {
-    display: none;
-}
-
-.ms_hover_show:hover+.ms_hide {
-    display: block;
+.ms_msg {
+    width: 200px;
 }
 
 /* temporaneo hide-show items */
@@ -164,9 +184,7 @@ export default {
     display: none;
 }
 
-.ms_active_show:active+.ms_active_hide {
-    display: block;
-}
+
 
 
 
@@ -177,15 +195,17 @@ export default {
 .ms_active_show {
     height: 100px;
 
-    :hover {
-        cursor: pointer;
-    }
+
 
 }
 
 .ms_aps_title {
     width: 50%;
     padding: 1% 0;
+
+    :hover {
+        cursor: pointer;
+    }
 
     .ms_icon {
         width: 80px;
@@ -204,7 +224,7 @@ export default {
 }
 
 .ms_aps_buttons {
-    width: 30%;
+    width: 50%;
     padding: 2.5% 0;
     margin-right: 1.5rem;
 
@@ -220,5 +240,10 @@ export default {
 
 .ms_info {
     width: 70%;
+}
+
+.ms_button_msg {
+    height: 50px;
+    width: 50px;
 }
 </style>

@@ -130,6 +130,9 @@ class ApiController extends Controller
             ->delete();
 
         $apartments = Apartment::where('user_id', 'like', auth()->user()->id)->get();
+        foreach ($apartments as $apartment) {
+            $apartment['messages'] = $apartment->messages;
+        }
 
         return response()->json([
             "success" => true,
@@ -365,7 +368,7 @@ class ApiController extends Controller
         $apartment = Apartment::find($id);
 
 
-        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
+        if (! $apartment->sponsors()->where('apartment_id', $id)->exists()) {
             $apartment->sponsors()->attach($sponsor);
             $date = new DateTime();
             $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
