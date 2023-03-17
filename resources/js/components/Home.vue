@@ -31,7 +31,7 @@
     <!-- container principale di tutte le card degli appartamenti -->
     <div class="container-fluid mt-5 ms_ctn_card_home">
         <div>
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 align-items-stretch g-2 g-lg-3"
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 align-items-stretch g-2 g-lg-3"
                 v-if="!onSearch">
                 <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
                     <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
@@ -63,7 +63,8 @@
                 </div>
             </div>
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 align-items-stretch g-2 g-lg-3" v-else>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 align-items-stretch g-2 g-lg-3"
+                v-else>
                 <div class="col ms_slot_card" v-for="apartment in apartmentsGeoSponsored">
                     <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                         <div class="card h-100 rounded ms_card_efct">
