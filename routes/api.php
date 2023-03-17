@@ -32,6 +32,7 @@ Route::get('Apartment/{apartment}', [ApiController::class, 'getApartment']); //
 Route::post('apartments', [ApiController::class, 'createApartment']);
 Route::get('delete/{apartment}', [ApiController::class, 'deleteApartment']);
 Route::get('getData', [ApiController::class, 'getData']);
+Route::get('getInfo', [ApiController::class, 'getInfo']);
 Route::get('getUserLogged', [ApiController::class, 'getUserLogged']);
 Route::get('allApartments', [ApiController::class, 'allApartments']);
 Route::post('updateApartment/{apartment}', [ApiController::class, 'updateApartment']);
