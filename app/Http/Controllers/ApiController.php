@@ -121,7 +121,7 @@ class ApiController extends Controller
         return view('createApartment');
 
     }
-    public function userApartments()
+    public function userApartments(Request $request)
     {
         $timezone = new DateTimeZone('Europe/Rome');
         $date = new DateTime('now', $timezone);
@@ -132,11 +132,25 @@ class ApiController extends Controller
         $apartments = Apartment::where('user_id', 'like', auth()->user()->id)->get();
         foreach ($apartments as $apartment) {
             $apartment['messages'] = $apartment->messages;
-        }
+            $apartment['sponsors'] = $apartment->sponsors;
 
+            if (count($apartment['sponsors']) !== 0) {
+                $apartmentId = $request['apartmentId'];
+                $sponsorId = $request['sponsorId'];
+                $apartment_sponsor = DB::table('apartment_sponsor')
+                    ->where($sponsorId, '=', $apartmentId)->get('end_date');
+                $apartment['end_date'] = $apartment_sponsor;
+            } else {
+                $apartment['end_date'] = [];
+            }
+
+        }
+        ;
         return response()->json([
             "success" => true,
-            "response" => $apartments
+            "response" => [
+                $apartments,
+            ]
         ]);
     }
     public function userApartmentsPage()
