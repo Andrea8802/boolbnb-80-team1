@@ -1,74 +1,84 @@
 <template>
-    <form action="" method="post">
-        <input type="text" v-model="apartmentSearch">
-        <div>
-            <label for="">Rooms Number</label>
-            <select name="rooms_num" v-model="roomsNum">
-                <option value="0">-</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="">Beds Number</label>
-            <select name="rooms_num" v-model="bedsNum">
-                <option value="0">-</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
-        </div>
-
-        <div class="slidecontainer">
-            <input type="range" min="1" max="50" class="slider" v-model="radius">
-        </div>
-        <div>
-            Raggio : {{ radius }}
-        </div>
-
-        <div v-for="service in services">
-            <input type="checkbox" :value="service.id" name=services v-model="modelServices">
-            <label for="services">{{ service.name }}</label>
-        </div>
-        <button @click="getCoordinates">Cerca</button>
-    </form>
-
-    <div class="col" v-for="apartment in apartmentsSponsored">
-        <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
-            <div class="card rounded ms_card_efct">
-                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                    class="rounded fluid card-img-top h-50">
-                <div class="card-body h-35">
-                    <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
-                    <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                    <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+    <div class="container-fluid">
+        <!-- container del form -->
+        <div class="container">
+            <form action="" method="post">
+                <input type="text" v-model="apartmentSearch">
+                <div>
+                    <label for="">Rooms Number</label>
+                    <select name="rooms_num" v-model="roomsNum">
+                        <option value="0">-</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
                 </div>
 
-            </div>
-        </router-link>
-    </div>
-
-    <div class="col" v-for="apartment in apartments">
-        <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
-            <div class="card rounded ms_card_efct">
-                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                    class="rounded fluid card-img-top h-50">
-                <div class="card-body h-35">
-                    <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
-                    <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                    <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                <div>
+                    <label for="">Beds Number</label>
+                    <select name="rooms_num" v-model="bedsNum">
+                        <option value="0">-</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
                 </div>
 
+                <div class="slidecontainer">
+                    <input type="range" min="1" max="50" class="slider" v-model="radius">
+                </div>
+                <div>
+                    Raggio : {{ radius }}
+                </div>
+
+                <div v-for="service in services">
+                    <input type="checkbox" :value="service.id" name=services v-model="modelServices">
+                    <label for="services">{{ service.name }}</label>
+                </div>
+                <button @click="getCoordinates">Cerca</button>
+            </form>
+        </div>
+
+        <!-- container delle card -->
+        <div
+            class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 align-items-stretch g-2 g-lg-3 mt-5 ms_ctn_card_home">
+            <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                    <div class="card h-100 rounded ms_card_efct">
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                            class="rounded fluid card-img-top h-50">
+                        <div class="ms_card_sponsored">Sponsored</div>
+                        <div class="card-body h-35">
+                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                        </div>
+
+                    </div>
+                </router-link>
             </div>
-        </router-link>
+
+            <div class="col ms_slot_card" v-for="apartment in apartments">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                    <div class="card h-100 rounded ms_card_efct">
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                            class="rounded fluid card-img-top h-50">
+                        <div class="card-body h-35">
+                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
+                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                        </div>
+
+                    </div>
+                </router-link>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -206,4 +216,82 @@ export default {
     background: $principalColor;
     cursor: pointer;
 }
+
+// ============================================
+
+// grafica container card
+.router {
+    text-decoration: none;
+    color: black;
+}
+
+// .ms_slot_card {
+//     height: 19rem;
+// }
+
+.ms_ctn_card_home {
+    padding: 0 100px;
+}
+
+.ms_ctn_main::-webkit-scrollbar-thumb {
+    background-color: #ff385c;
+    outline: 1px solid #ff385c;
+}
+
+.ms_ctn_main::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.ms_ctn_main::-webkit-scrollbar {
+    width: 0.5em;
+    color: #ff385c;
+}
+
+.ms_aps_text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.ms_aps_sm_text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.ms_card_efct:hover {
+    transform: scale(1.05);
+}
+
+.ms_card_efct {
+    position: relative;
+
+    .ms_card_sponsored {
+        background-color: rgba($principalColor, 0.8);
+        color: $secondColor;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 30px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+}
+
+// ===========================================
+
+// responsive home
+@media screen and (max-width: 992px) {
+    .ms_ctn_card_home {
+        padding: 0 20px;
+    }
+
+    .ms_ctn_search {
+        width: 90%;
+    }
+}
+
+// =====================================
 </style>
