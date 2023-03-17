@@ -1,7 +1,8 @@
 <template>
     <div class="container-fluid">
         <!-- container del form -->
-        <div class="container mt-5">
+        <div class="container mt-5 text-center">
+            <h1 id="msTitlePage" class="ms_home_title my-3">Select search filters</h1>
             <div class="ms_ctn_form">
                 <form action="" method="post">
                     <input type="text" v-model="apartmentSearch" placeholder="Enter your destination..."
@@ -35,15 +36,20 @@
                     <div class="slidecontainer">
                         <input type="range" min="1" max="50" class="slider" v-model="radius">
                     </div>
-                    <div>
+                    <div class="ms_radius">
                         Raggio : {{ radius }}
                     </div>
 
-                    <div v-for="service in services">
-                        <input type="checkbox" :value="service.id" name=services v-model="modelServices">
-                        <label for="services">{{ service.name }}</label>
+                    <div class="ms_ctn_service p-3 my-3">
+                        <h4>Select services:</h4>
+                        <div class="ms_ctn_check">
+                            <div v-for="service in services">
+                                <input type="checkbox" :value="service.id" name=services v-model="modelServices">
+                                <label for="services">{{ service.name }}</label>
+                            </div>
+                        </div>
                     </div>
-                    <button @click="getCoordinates">Cerca</button>
+                    <button @click="getCoordinates" class="ms_btn_search">Cerca</button>
                 </form>
             </div>
         </div>
@@ -83,6 +89,14 @@
             </div>
         </div>
     </div>
+
+    <!-- bottone per ritornare in cima nella pagina -->
+    <div class="ms_btn_page_up">
+        <a href="#msTitlePage">
+            <font-awesome-icon icon="fa-solid fa-circle-chevron-up" />
+        </a>
+    </div>
+    <!-- ========================================== -->
 </template>
 
 <script>
@@ -189,9 +203,14 @@ export default {
 <style lang="scss" scoped>
 @use '/resources/sass/variables' as *;
 
+.ms_home_title {
+    color: $principalColor;
+}
+
 // grafica form
 .ms_ctn_form {
-    width: 500px;
+    width: 90%;
+    max-width: 600px;
     margin: 0 auto;
 
     .ms_search_bar {
@@ -207,6 +226,26 @@ export default {
         border: solid 2px $principalColor;
         box-shadow: none;
     }
+}
+
+.ms_btn_search {
+    color: $thirdColor;
+    background-color: $body-bg;
+    border: solid 2px $thirdColor;
+    border-radius: 30px;
+    font-weight: 600;
+    padding: 5px 10px;
+
+    &:hover {
+        color: $secondColor;
+        background-color: $principalColor;
+        border: none;
+    }
+}
+
+.ms_radius {
+    color: $principalColor;
+    font-weight: 600;
 }
 
 // =======================
@@ -243,6 +282,38 @@ export default {
 }
 
 // ============================================
+
+// grafica container servizi del form
+.ms_ctn_service {
+    border: solid 2px $principalColor;
+    border-radius: 30px;
+
+    h4 {
+        color: $principalColor;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .ms_ctn_check {
+        height: 200px;
+        text-align: start;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        label {
+            color: $principalColor;
+            font-weight: 600;
+            margin-left: 3px;
+        }
+
+        input[type="checkbox"] {
+            accent-color: $principalColor;
+        }
+    }
+}
+
+// ==========================================
 
 // grafica container card
 .router {
@@ -307,14 +378,48 @@ export default {
 
 // ===========================================
 
-// responsive home
+// grafica bottone per ritornare in cima nella pagina
+.ms_btn_page_up {
+    font-size: 40px;
+    position: fixed;
+    bottom: 150px;
+    right: 30px;
+
+    a {
+        color: $principalColor;
+        opacity: 0.5;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+// ====================================
+
+// responsive
 @media screen and (max-width: 992px) {
     .ms_ctn_card_home {
         padding: 0 20px;
     }
 
-    .ms_ctn_search {
-        width: 90%;
+    .ms_ctn_form {
+        .ms_ctn_search {
+            width: 90%;
+        }
+    }
+
+}
+
+
+@media screen and (max-width: 600px) {
+    .ms_ctn_service {
+
+        .ms_ctn_check {
+            height: fit-content;
+            text-align: center;
+            gap: 5px;
+        }
     }
 }
 
