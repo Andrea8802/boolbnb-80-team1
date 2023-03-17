@@ -133,11 +133,30 @@ class ApiController extends Controller
 
         $apartments = Apartment::where('user_id', 'like', auth()->user()->id)->get();
 
+
+
         return response()->json([
             "success" => true,
             "response" => $apartments
         ]);
     }
+
+
+    public function getNumViews(Request $request)
+    {
+        $apartmentId = $request['apartmentsId'];
+        $numViews = array();
+
+        foreach ($apartmentId as $apartment) {
+            array_push($numViews, Statistic::select('*')->where('apartment_id', '=', $apartment)->count());
+        }
+
+        return response()->json([
+            "success" => true,
+            "response" => $numViews
+        ]);
+    }
+
     public function userApartmentsPage()
     {
         return view('apartment');
@@ -573,21 +592,4 @@ class ApiController extends Controller
             "response" => $messages,
         ]);
     }
-
-
-// public function getIpAddress() {
-//     // Verifica se l'indirizzo IP dell'utente è presente nel header "X-Forwarded-For" (in caso di proxy)
-//     if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-//         $ipAddresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-//         return trim(end($ipAddresses));
-//     }
-
-//     // Se non è presente, restituisce l'indirizzo IP standard
-//     $ipUtente = $_SERVER['REMOTE_ADDR'];
-
-//     return response()->json([
-//         "success" => true,
-//         "response" => $ipUtente,
-//     ]);
-// }
 }

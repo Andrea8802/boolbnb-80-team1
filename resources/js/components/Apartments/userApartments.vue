@@ -10,7 +10,7 @@
             <!-- Colonna con appartamenti e pulsanti -->
             <div class="col my-5">
                 <div class="accordion">
-                    <div class="accordion-item ms_main_item" v-for="apartment in apartments">
+                    <div class="accordion-item ms_main_item" v-for="apartment, id in apartments">
                         <div class="accordion-header d-flex justify-content-between ms_active_show"
                             @click="this.toggleShow(apartment.id)">
                             <div class="ms_aps_title h-100 d-flex justify-content-between">
@@ -42,6 +42,8 @@
                                 <div class="ms_hide">
                                     You have "X" messages for this apartment
                                 </div>
+
+                                {{ numViews[id] }} <!-- Numero visite -->
                             </div>
 
                         </div>
@@ -96,10 +98,10 @@ import axios from 'axios'
 export default {
     data() {
         return {
-
             apartments: [],
             getapartment: [],
-
+            numViews: 0,
+            idApartments: [],
             /* viewing info-aps */
 
             view: false,
@@ -124,11 +126,26 @@ export default {
             axios.get("/api/userApartments")
                 .then(res => {
                     this.apartments = res.data.response;
-                    console.log(this.apartments);
+                    this.getNumViews();
+
+                    console.log(this.idApartments);
                 }).catch((errors) => {
                     console.log(errors);
                 });
         },
+
+        getNumViews() {
+            let formData = new FormData();
+            formData.append("apartment_id", this.idApartments);
+            this.apartments.forEach(apartment => formData.append("apartmentsId[]", apartment.id));
+
+            axios.post('/api/getNumViews', formData)
+                .then(res => {
+                    console.log(res);
+                    this.numViews = res.data.response
+                })
+        },
+
         deleteApartment(apartmentId) {
 
             axios.get("/api/delete/" + apartmentId)
@@ -148,8 +165,8 @@ export default {
     },
 
     mounted() {
-        this.reloadPage()
-        this.getUserApartments()
+        this.reloadPage();
+        this.getUserApartments();
     }
 }
 </script>

@@ -44,6 +44,7 @@ Route::get('apartmentsSponsor', [ApiController::class, 'getApartmentsSponsor']);
 Route::get('getApartmentDetail/{apartment}', [ApiController::class, 'getApartmentDetail']);
 
 Route::post('advancedSearch', [ApiController::class, 'advancedSearch']);
+Route::post('getNumViews', [ApiController::class, 'getNumViews']);
 
 
 /* Route::get('getUser', [ApiController::class, 'getUser']); */
