@@ -375,9 +375,13 @@ export default {
                     if (!this.imageApartment) {
                         this.errors.push("Apartment image required")
                     }
+                    if (this.imageApartment != 'jpg,png,jpeg,gif,svg') {
+                        this.errors.push("Apartment image must be jpg,png,jpeg,gif,svg ")
+                    }
                     if (this.modelServices.length === 0) {
                         this.errors.push("Insert at least 1 service")
                     }
+
                     console.log(errors);
                 });
         },
