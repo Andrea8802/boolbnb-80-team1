@@ -47,7 +47,7 @@ class ApiController extends Controller
             "user" => $user,
             "apartment" => $apartment,
 
-            
+
         ]);
     }
     /* Rotta per creare apartment */
@@ -66,7 +66,7 @@ class ApiController extends Controller
             "lat" => ["nullable"],
             "long" => ["nullable"],
             "services" => ["array", "required"],
-            'imageApartment' => ["image", "required", "mimes:jpg,png,jpeg,gif,svg", "max:2048"],
+            'imageApartment' => ["image", "required", "max:2048"],
             'added_images' => ["array", "required"]
 
         ]);

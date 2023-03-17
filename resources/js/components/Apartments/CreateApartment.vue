@@ -271,6 +271,7 @@ export default {
             errors: [],
             arrayApartments: [],
             view: false,
+            arrayAp: ['jpg', 'png', 'jpeg', 'gif', 'svg'],
 
             /* variabili added images */
             addedImages: [],
@@ -375,9 +376,18 @@ export default {
                     if (!this.imageApartment) {
                         this.errors.push("Apartment image required")
                     }
-                    if (this.imageApartment != 'jpg,png,jpeg,gif,svg') {
-                        this.errors.push("Apartment image must be jpg,png,jpeg,gif,svg ")
+                    // if (!this.getApartment.imageApartment) {
+                    //     this.errors.push("Apartment image required")
+                    // } else if (!['jpg', 'png', 'jpeg', 'gif', 'svg'].some(ext => this.getApartment.imageApartment.toLowerCase().endsWith(ext))) {
+                    //     this.errors.push("Apartment image must be jpg, png, jpeg, gif, or svg")
+                    // }
+                    // if (!['jpg', 'png', 'jpeg', 'gif', 'svg'].some(ext => this.imageApartment.toLowerCase().endsWith(ext))) {
+                    //     this.errors.push("Apartment image must be jpg, png, jpeg, gif, or svg")
+                    // }
+                    if (this.addedImages.length === 0) {
+                        this.errors.push("You need to insert at least one image")
                     }
+
                     if (this.modelServices.length === 0) {
                         this.errors.push("Insert at least 1 service")
                     }
