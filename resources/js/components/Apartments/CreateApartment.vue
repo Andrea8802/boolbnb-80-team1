@@ -96,7 +96,7 @@
         <div class="mb-3">
             <form action=""
                 enctype="multipart/form-data"
-                @submit.prevent="getCoordinates"
+                @submit.prevent="createApartment()"
                 method="post"
                 novalidate>
                 <p v-if="errors.length">
@@ -236,12 +236,28 @@
                     </label>
                     <input type="text"
                         name="address"
-                        v-model="modelAddress"
+                        v-model="modelAddressSearch"
                         class="form-control ms_input_focus_color"
                         placeholder="Enter a address..."
                         aria-describedby="basic-addon1">
-                </div>
+                    <input type="submit"
+                        value="Search"
+                        class="ms_input_submit"
+                        @click.prevent="getCoordinates">
 
+
+                </div>
+                <div v-if="view">
+                    <div v-for="apartment in arrayApartments"> <input type="radio"
+                            name="address"
+                            id=""
+                            :value=apartment.address.freeformAddress
+                            v-model="modelAddress"
+                            @click="address(apartment)"> <label for="">{{
+                                apartment.address.freeformAddress
+                            }}</label></div>
+
+                </div>
                 <!-- input per inserire l'immagine di copertina dell'appartamento -->
                 <label for="imageApartment"
                     class="ms_label_smartphone d-block d-md-none">Apartment Image:</label>
@@ -272,7 +288,6 @@
                         aria-describedby="basic-addon1">
 
                 </div>
-                <div @click="logimg">prova</div>
 
                 <div class="ms_ctn_service p-3 my-3">
                     <h4>Select services:</h4>
@@ -300,6 +315,7 @@ import axios from 'axios'
 export default {
     data() {
         return {
+            modelAddressSearch: "",
             modelTitle: "",
             modelDescription: "",
             modelPrice: "",
@@ -315,6 +331,8 @@ export default {
             imageApartment: '',
             imageBool: false,
             errors: [],
+            arrayApartments: [],
+            view: false,
 
             /* variabili added images */
             addedImages: [],
@@ -324,8 +342,12 @@ export default {
         }
     },
     methods: {
-        logimg() {
-            console.log(this.imageApartment);
+        address(addressObj) {
+            this.modelAddressSearch = addressObj.address.freeformAddress
+            this.modelLat = parseFloat(addressObj.position.lat)
+            console.log(this.modelLat);
+            this.modelLong = parseFloat(addressObj.position.lon)
+            console.log(this.modelAddress);
         },
 
         onImageChange(e) {
@@ -345,6 +367,8 @@ export default {
                 });
         },
         createApartment() {
+
+            this.getCoordinates()
             this.errors.length = 0;
             const config = {
                 headers: {
@@ -419,18 +443,25 @@ export default {
                     console.log(errors);
                 });
         },
-        getCoordinates(e) {
-            e.preventDefault()
+        getCoordinates() {
 
-            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.modelAddress}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
+
+            // if (this.modelAddress.length > 14) {
+            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.modelAddressSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", theUrl, false);
             xmlHttp.send(null);
             var json = JSON.parse(xmlHttp.responseText);
 
-            this.modelLat = parseFloat(json.results[0].position.lat);
-            this.modelLong = parseFloat(json.results[0].position.lon);
-            this.createApartment();
+            // this.modelLat = parseFloat(json.results);
+            // this.modelLong = parseFloat(json.results);
+            this.arrayApartments = json.results
+            this.view = true;
+
+            console.log(this.arrayApartments);
+            // }
+
+            // this.createApartment();
         },
         onAddedImagesChange(e) {
             this.addImgBool = true;
