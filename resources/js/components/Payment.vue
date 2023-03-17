@@ -36,10 +36,16 @@
             </div>
 
         </form>
-
+        <div v-if="payed"
+            class="green">Payment Successful, You will be redirect to your apartments page...
+        </div>
+        <div v-if="error"
+            class="red">Invalid Card Number, Try Again
+        </div>
         <input type="submit"
             value="Pay"
             class="px-12 py-3 bg-blue-600 border border-transparent  " />
+
 
     </div>
 </template>
@@ -50,7 +56,8 @@ export default {
     name: "Payment",
     data() {
         return {
-
+            error: false,
+            payed: false
         };
     },
     methods: {
@@ -121,6 +128,7 @@ export default {
                         }
                     }, (hostedFieldsErr, hostedFieldsInstance) => {
                         if (hostedFieldsErr) {
+
                             console.error(hostedFieldsErr);
                             return;
                         }
@@ -166,6 +174,7 @@ export default {
                             event.preventDefault();
                             hostedFieldsInstance.tokenize((tokenizeErr) => {
                                 if (tokenizeErr) {
+                                    this.error = true;
                                     console.error(tokenizeErr);
                                     return;
                                 }
@@ -174,10 +183,14 @@ export default {
                                     formData.append("sponsors", this.$route.params.sponsor);
                                     formData.append("apartmentId", this.$route.params.id);
                                     axios.post('/api/sponsorPayment', formData).then(() => {
-                                        this.$router.push({ name: "userApartments" });
+                                        this.error = false;
+                                        this.payed = true;
+                                        setTimeout(() => this.$router.push({ name: "userApartments" }), 2000);
+
 
 
                                     }).catch((errors) => {
+
                                         console.log(errors);
 
                                     });
@@ -199,6 +212,16 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.green {
+    font-size: 18px;
+    color: green;
+}
+
+.red {
+    font-size: 18px;
+    color: red;
+}
+
 /*--------------------
     Shared Variables
     --------------------*/

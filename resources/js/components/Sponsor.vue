@@ -24,6 +24,7 @@
                     class="btn btn-outline-danger btn-lg"><router-link
                         :to="{ name: 'payment', params: { id: getApartment.id, sponsor: modelSponsor } }">Pay</router-link></button>
             </div>
+
         </div>
 
 
