@@ -42,6 +42,7 @@
 
 
 import Dashboard from './components/Dashboard.vue';
+import welcomeFooter from './components/welcome_components/welcomeFooter.vue';
 
 import { createApp } from 'vue'
 import router from './router' // <---
@@ -58,6 +59,7 @@ const app = ({
     router: router,
     components: {
         "component-dashboard": Dashboard,
+        "welcome-footer": welcomeFooter,
     }
 });
 createApp(app).use(router).component('font-awesome-icon', FontAwesomeIcon).mount('#app')

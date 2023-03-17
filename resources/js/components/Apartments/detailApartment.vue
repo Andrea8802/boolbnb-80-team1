@@ -14,8 +14,8 @@
 
                 <!-- Card detail aps -->
 
-                <div class="card-lg-6 col-md-12">
-                    <div class="card-header ms_color ms_header_fix">
+                <div class="card-lg-6 col-md-12 ms_card_detail">
+                    <div class="card-header ms_color ms_header_fix sticky-top">
                         <div class="nav-tabs card-header-tabs d-flex h-100 ms_color ms_card_header_fix">
                             <div class="nav-item ms_pointer ms_nav_item_fix text-center py-2"
                                 :class="this.description ? 'ms_active' : ''">
@@ -34,7 +34,6 @@
                                     @click="this.roomsActive()">Rooms</a>
                             </div>
                         </div>
-
                     </div>
                     <div v-if="description" class="card-body" id="description">
                         <h5 class="card-title">Your special place</h5>
@@ -50,8 +49,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div v-else-if="rooms" class="card-body" id="rooms">
-                        <h5 class="card-title">Our rooms:</h5>
+                    <div v-else-if="rooms" class="card-body ms_card_body_fix" id="rooms">
+                        <h5 class="card-title my-3">Our rooms:</h5>
                         <p>We offer {{ apartment.rooms_num }} rooms in total, for a comfy space of {{ apartment.size }} sq m
                         </p>
                         <ul class="list-group list-group-flush">
@@ -63,6 +62,7 @@
                             </li>
                         </ul>
                     </div>
+                    <div v-else class="card-body"></div>
                     <div v-else class="card-body"></div>
                 </div>
 
@@ -99,19 +99,26 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
+
                         <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
                             :class="index === activeItem ? 'active' : ''">
-                            <img v-if="this.carousel_var" :src=image.image class="d-block w-100">
-                            <img v-else :src="'/storage/' + image.image" :alt="image.name">
+                            <img v-if="this.carousel_var" :src=image.image class="d-block w-100 img-thumbnail">
+                            <img v-else :src="'/storage/' + image.image" :alt="image.name"
+                                class="d-block w-100 img-thumbnail">
                         </div>
                     </div>
+
                     <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
                         data-slide="prev" @click="this.prevImg()">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </button>
+
                     <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
                         data-slide="next" @click="this.nextImg()">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -178,6 +185,7 @@ export default {
             rooms: false,
             highprice: 0,
             carousel_var: true,
+            ip_user: '',
         }
     },
     methods: {
@@ -193,7 +201,7 @@ export default {
                 });
         },
         getMap() {
-            let center = [this.apartment.long, this.apartment.lat];
+            let center = [parseInt(this.apartment.long), parseInt(this.apartment.lat)];
             let map = tt.map({
                 key: "HrIT0rDPsDPsPzHGmbsIRCwnxIakKjwM",
                 container: "map",
@@ -206,11 +214,23 @@ export default {
 
             axios.get("/api/getApartmentDetail/" + this.$route.params.id)
                 .then(res => {
+                    console.log(res.data.response);
                     this.apartment = res.data.response[0];
                     this.user = res.data.response[1];
-                    this.getMap()
+                    this.ip_user = res.data.response[2];
+
+
+                    /* console.log(this.apartment);
+                    console.log(this.user);
+                    console.log(this.ip_user); */
+                    console.log(this.apartment);
+                    this.getMap();
+                    console.log(this.apartment.added_images);
+
+
                     this.meter = this.apartment.added_images.length;
                     this.highprice = parseInt((this.apartment.price) * 1.5);
+
 
 
                     const img_image = this.apartment.added_images[0].image;
@@ -229,7 +249,9 @@ export default {
                     console.log(this.highprice);
                     console.log(this.apartment.long);
                     console.log(this.apartment);
-                    console.log(this.apartment.added_images);
+                    console.log(this.apartment.added_images)
+                    console.log(this.meter)
+
 
                 }).catch((errors) => {
                     console.log(errors);
@@ -272,6 +294,7 @@ export default {
     mounted() {
         this.getData()
         this.getApartment()
+        /* this.getMap() */
     }
 }
 </script>
@@ -340,10 +363,22 @@ export default {
     font-size: 1.5rem;
 }
 
+.ms_card_detail {
+    height: 250px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+}
+
 .ms_header_fix {
     padding: 0;
     border-bottom: 0;
-    height: 3rem;
+    height: 50px;
 
     .ms_card_header_fix {
         margin-right: 0;
@@ -354,5 +389,9 @@ export default {
             width: calc(100% / 3);
         }
     }
+}
+
+.ms_card_body_fix {
+    height: calc(100% - 50px);
 }
 </style>

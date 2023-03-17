@@ -1,35 +1,94 @@
 <template>
-    <h1>Your Apartments</h1> <br>
-    <button> <router-link :to="{ name: 'createApartment' }">Create apartment</router-link></button>
-    <div class="container-fluid p-3">
+    <div class="container">
+        <div class="row">
+            <div>
+                <h1>Your Apartments</h1>
+                <router-link :to="{ name: 'createApartment' }"><button class="btn btn-primary">Create
+                        apartment</button></router-link>
+            </div>
+
+            <!-- Colonna con appartamenti e pulsanti -->
+            <div class="col my-5">
+                <div class="accordion">
+                    <div class="accordion-item ms_main_item" v-for="apartment in apartments">
+                        <div class="accordion-header d-flex justify-content-between ms_active_show"
+                            @click="this.toggleShow(apartment.id)">
+                            <div class="ms_aps_title h-100 d-flex justify-content-between">
+                                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                    class="img-thumbnail ms_icon">
+                                <h2 class="text-capitalize ms_title">{{ apartment.title }}</h2>
+                            </div>
+                            <div class="ms_aps_buttons h-100">
+                                <button type="button" class="btn btn-danger" @click="deleteApartment(apartment.id)">
+                                    Delete
+                                </button>
+                                <button type="button" class="btn btn-warning">
+                                    <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }"
+                                        class="link-dark">
+                                        <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+                                        Edit
+                                    </router-link>
+                                </button>
+                                <button type="button" class="btn btn-success">
+                                    <router-link :to="{ name: 'sponsor', params: { id: apartment.id } }" class="link-light">
+                                        <font-awesome-icon icon="fa-solid fa-certificate" />
+                                        Sponsor
+                                    </router-link>
+                                </button>
+                                <router-link :to="{ name: 'viewMessages', params: { id: apartment.id } }"
+                                    class="ms_hover_show">
+                                    <font-awesome-icon icon="fa-regular fa-envelope" />
+                                </router-link>
+                                <div class="ms_hide">
+                                    You have "X" messages for this apartment
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="accordion-collapse collapse show ms_active_hide" :id="apartment.id">
+                            <div class="accordion-body ms_hide_body d-flex justify-content-between">
+                                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                    class="rounded fluid img-thumbnail ms_body_img">
+
+                                <div class="text-center d-flex flex-column justify-content-around ms_info">
+                                    <p class="text-capitalize lead">
+                                        {{ apartment.description }}
+                                    </p>
+                                    <sub class="">{{ apartment.address }}</sub>
+                                    <div>Prezzo: {{ apartment.price }}</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- <div class="container-fluid p-3">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 g-4">
             <div class="col" v-for="apartment in apartments">
                 <div class="card rounded ms_card_efct">
                     <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                         class="rounded fluid card-img-top h-50">
+
                     <div class="card-body h-35">
                         <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
                         <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
                         <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
                     </div>
                     <div class="card-body h-35">
-                        <button @click="deleteApartment(apartment.id)">DELETE</button>
-                        <button> <router-link
-                                :to="{ name: 'editApartment', params: { id: apartment.id } }">Edit</router-link> </button>
-                        <button><router-link
-                                :to="{ name: 'sponsor', params: { id: apartment.id } }">Sponsor</router-link></button>
-                        <button>
-                            <router-link :to="{ name: 'viewMessages', params: { id: apartment.id } }">
-                                Messages</router-link>
 
-                        </button>
                     </div>
 
                 </div>
             </div>
 
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script>
@@ -40,6 +99,10 @@ export default {
 
             apartments: [],
             getapartment: [],
+
+            /* viewing info-aps */
+
+            view: false,
 
         }
     },
@@ -78,6 +141,9 @@ export default {
                     console.log(errors);
                 });
         },
+        toggleShow(x) {
+            document.getElementById(x).classList.toggle('ms_active_hide');
+        }
 
     },
 
@@ -87,4 +153,74 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+/* hide show messaggi */
+.ms_hide {
+    display: none;
+}
+
+.ms_hover_show:hover+.ms_hide {
+    display: block;
+}
+
+/* temporaneo hide-show items */
+
+
+.ms_active_hide {
+    display: none;
+}
+
+
+
+/* main items */
+
+
+/* componenti show di main items */
+.ms_active_show {
+    height: 100px;
+
+    :hover {
+        cursor: pointer;
+    }
+
+}
+
+.ms_aps_title {
+    width: 50%;
+    padding: 1% 0;
+
+    .ms_icon {
+        width: 80px;
+        height: 80px;
+        margin-left: 2rem;
+    }
+
+    .ms_hide_body {
+
+        .ms_title {
+            width: 75%;
+
+        }
+    }
+
+}
+
+.ms_aps_buttons {
+    width: 30%;
+    padding: 2.5% 0;
+    margin-right: 1.5rem;
+
+    button {
+        margin: auto 1rem;
+    }
+}
+
+.ms_body_img {
+    height: 200px;
+    width: 200px;
+}
+
+.ms_info {
+    width: 70%;
+}
+</style>

@@ -1,40 +1,51 @@
 <template>
-    <!-- Some test Card numbers
-    4111 1111 1111 1111: Visa
-    5555 5555 5555 4444: MasterCard
-    3714 496353 98431: American Express
-    invalid_card_number: 4000111111111115,
-    -->
-
     <div class="form-container py-5">
 
         <header>
-            <h1 class="mb-2" @click="log">Checkout</h1>
+            <h1 class="mb-2"
+                @click="log">Checkout</h1>
         </header>
 
-        <form id="my-sample-form" method="post" class="scale-down">
+        <form id="my-sample-form"
+            method="post"
+            class="scale-down"
+            autocomplete="off">
 
             <div class="cardinfo-card-number">
-                <label class="cardinfo-label" for="card-number">Card Number</label>
-                <div class='input-wrapper' id="card-number"></div>
+                <label class="cardinfo-label"
+                    for="card-number">Card Number</label>
+                <div class='input-wrapper'
+                    id="card-number"></div>
                 <div id="card-image"></div>
             </div>
 
             <div class="cardinfo-wrapper">
                 <div class="cardinfo-exp-date">
-                    <label class="cardinfo-label" for="expiration-date">Valid Thru</label>
-                    <div class='input-wrapper' id="expiration-date"></div>
+                    <label class="cardinfo-label"
+                        for="expiration-date">Valid Thru</label>
+                    <div class='input-wrapper'
+                        id="expiration-date"></div>
                 </div>
 
                 <div class="cardinfo-cvv">
-                    <label class="cardinfo-label" for="cvv">CVV</label>
-                    <div class='input-wrapper' id="cvv"></div>
+                    <label class="cardinfo-label"
+                        for="cvv">CVV</label>
+                    <div class='input-wrapper'
+                        id="cvv"></div>
                 </div>
             </div>
 
         </form>
+        <div v-if="payed"
+            class="green">Payment Successful, You will be redirect to your apartments page...
+        </div>
+        <div v-if="error"
+            class="red">Invalid Card Number, Try Again
+        </div>
+        <input type="submit"
+            value="Pay"
+            class="px-12 py-3 bg-blue-600 border border-transparent  " />
 
-        <input type="submit" value="Pay" class="px-12 py-3 bg-blue-600 border border-transparent  " />
 
     </div>
 </template>
@@ -45,7 +56,8 @@ export default {
     name: "Payment",
     data() {
         return {
-
+            error: false,
+            payed: false
         };
     },
     methods: {
@@ -116,6 +128,7 @@ export default {
                         }
                     }, (hostedFieldsErr, hostedFieldsInstance) => {
                         if (hostedFieldsErr) {
+
                             console.error(hostedFieldsErr);
                             return;
                         }
@@ -161,6 +174,7 @@ export default {
                             event.preventDefault();
                             hostedFieldsInstance.tokenize((tokenizeErr) => {
                                 if (tokenizeErr) {
+                                    this.error = true;
                                     console.error(tokenizeErr);
                                     return;
                                 }
@@ -169,10 +183,14 @@ export default {
                                     formData.append("sponsors", this.$route.params.sponsor);
                                     formData.append("apartmentId", this.$route.params.id);
                                     axios.post('/api/sponsorPayment', formData).then(() => {
-                                        this.$router.push({ name: "userApartments" });
+                                        this.error = false;
+                                        this.payed = true;
+                                        setTimeout(() => this.$router.push({ name: "userApartments" }), 2000);
+
 
 
                                     }).catch((errors) => {
+
                                         console.log(errors);
 
                                     });
@@ -194,6 +212,16 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.green {
+    font-size: 18px;
+    color: green;
+}
+
+.red {
+    font-size: 18px;
+    color: red;
+}
+
 /*--------------------
     Shared Variables
     --------------------*/
