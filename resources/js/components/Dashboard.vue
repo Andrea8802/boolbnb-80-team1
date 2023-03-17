@@ -18,9 +18,13 @@
 <template>
     <div>
         <div class="dropdown">
-            <img :src="'/storage/' + user.avatar" @click="myFunction()" class="img" />
-            <div id="myDropdown" class="dropdown-content">
-                <a href="" @click.prevent="logout">Logout</a>
+            <img :src="'/storage/' + user.avatar"
+                @click="myFunction()"
+                class="img" />
+            <div id="myDropdown"
+                class="dropdown-content">
+                <a href=""
+                    @click.prevent="logout">Logout</a>
 
             </div>
         </div>
@@ -99,7 +103,7 @@ export default {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    min-width: 160px;
+    width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
