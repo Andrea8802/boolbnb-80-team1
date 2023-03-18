@@ -38,7 +38,7 @@
                         <div class="card rounded ms_card_efct border-0">
                             <div class="ms_slot_card_img">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                    class="rounded fluid card-img-top">
+                                    class="rounded-5 fluid card-img-top">
                             </div>
                             <div class="ms_card_sponsored">Sponsored</div>
                             <div class="card-body h-35 text-start ps-0">
@@ -55,7 +55,7 @@
                         <div class="card rounded ms_card_efct border-0">
                             <div class="ms_slot_card_img">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                    class="rounded fluid card-img-top">
+                                    class="rounded-5 fluid card-img-top">
                             </div>
                             <div class="card-body h-35 text-start ps-0">
                                 <h5 class="card-title  ms_aps_text">{{ apartment.title }}</h5>
@@ -74,7 +74,7 @@
                         <div class="card rounded ms_card_efct border-0 text-start">
                             <div class="ms_slot_card_img">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                    class="rounded fluid card-img-top">
+                                    class="rounded-5 fluid card-img-top">
                                 <div class="ms_card_sponsored">Sponsored</div>
                             </div>
                             <div class="card-body h-35 text-start ps-0">
@@ -91,7 +91,7 @@
                         <div class="card rounded ms_card_efct border-0">
                             <div class="ms_slot_card_img">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                    class="rounded fluid card-img-top">
+                                    class="rounded-5 fluid card-img-top">
                             </div>
                             <div class="card-body h-35 text-start ps-0">
                                 <h5 class="card-title  ms_aps_text">{{ apartment.title }}</h5>
