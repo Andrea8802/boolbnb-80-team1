@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
     {{-- favicon --}}
-    <link rel="shortcut icon" href="/storage/logo-boolbnb.png" type="image/png">
+    <link rel="shortcut icon" href="/images/logo-bool.png" type="image/png">
   <script>src="https://js.braintreegateway.com/v2/braintree.js"</script>  
   <script src="https://js.braintreegateway.com/web/3.90.0/js/client.min.js"></script>
   <script src="https://js.braintreegateway.com/web/3.90.0/js/hosted-fields.min.js"></script>
