@@ -8,33 +8,42 @@
             <div class="h-100 d-flex justify-content-between align-items-center ms_ctn_footer_responsive768">
                 <!-- slot dei link privacy, termini, mappa sito, dettagli azienda e destinazioni -->
                 <div class="ms_slot_link_footer_left">
-                    <span>&#169; Boolbnb, Inc.</span>
-                    <span class="mx-2">&#8226;</span>
-                    <a href="#">Privacy</a>
-                    <span class="mx-2">&#8226;</span>
-                    <a href="#">Terms</a>
-                    <span class="mx-2">&#8226;</span>
-                    <a href="#">Sitemap</a>
-                    <span class="mx-2">&#8226;</span>
-                    <a href="#">Your Privacy Choices</a>
-                    <span class="mx-2">&#8226;</span>
-                    <a href="#">Destinations</a>
+                    <span class="text-black">&#169; Boolbnb, Inc.</span>
+                    <span class="mx-2 text-black">&#8226;</span>
+                    <a href="#"
+                        class="text-black">Privacy</a>
+                    <span class="mx-2 text-black">&#8226;</span>
+                    <a href="#"
+                        class="text-black">Terms</a>
+                    <span class="mx-2 text-black">&#8226;</span>
+                    <a href="#"
+                        class="text-black">Sitemap</a>
+                    <span class="mx-2 text-black">&#8226;</span>
+                    <a href="#"
+                        class="text-black">Your Privacy Choices</a>
+                    <span class="mx-2 text-black">&#8226;</span>
+                    <a href="#"
+                        class="text-black">Destinations</a>
                 </div>
 
                 <!-- slot dei link lingua, tipo moneta, supporto e risorse -->
                 <div class="ms_slot_link_footer_right">
-                    <a href="#">
-                        <font-awesome-icon icon="fa-solid fa-globe" />
+                    <a href="#"
+                        class="text-black">
+                        <font-awesome-icon icon="fa-solid fa-globe"
+                            class="text-black" />
                         English(US)
                     </a>
-                    <span class="mx-2">&#8226;</span>
-                    <a href="#">&euro; EUR</a>
-                    <span class="mx-2">&#8226;</span>
+                    <span class="mx-2 text-black">&#8226;</span>
+                    <a href="#"
+                        class="text-black">&euro; EUR</a>
+                    <span class="mx-2 text-black">&#8226;</span>
                     <a href="#">
-                        <span>
+                        <span class="text-black">
                             Support & resources
                         </span>
-                        <font-awesome-icon icon="fa-solid fa-angle-up" />
+                        <font-awesome-icon icon="fa-solid fa-angle-up"
+                            class="text-black" />
                     </a>
                 </div>
             </div>

@@ -11,6 +11,7 @@
 body {
     font-family: 'Ubuntu', sans-serif;
     scroll-behavior: smooth;
+    background-color: white;
 }
 
 a {
@@ -43,7 +44,17 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $principalColor;
+    background-color: white;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 5px;
+    position: fixed;
+    top: 0;
+
+
+    // .line {
+    //     border-bottom: 1px solid black;
+    //     width: 100%;
+    // }
 
     .cont-header {
         height: 100%;
@@ -54,6 +65,10 @@ a {
 
         .cont-home {
             width: 10%;
+
+            .principal {
+                color: $principalColor;
+            }
         }
 
         .cont-user {
@@ -62,6 +77,11 @@ a {
             display: flex;
             justify-content: end;
             align-items: center;
+
+            .principal {
+                color: $principalColor;
+            }
+
 
             a {
                 font-weight: 600;
@@ -76,7 +96,11 @@ a {
 
 // ===========================================
 
+
+
 .main {
+    margin-top: 70px;
+    margin-bottom: 50px;
     height: calc(100vh - 120px);
     width: 100%;
     overflow-y: auto;
@@ -86,7 +110,12 @@ a {
 .footer {
     height: 50px;
     width: 100%;
-    background-color: $principalColor;
+    background-color: white;
+    border-top: 1px solid #ebebeb;
+    // padding-top: 10px;
+    position: fixed;
+    bottom: 0;
+
 }
 
 // responsive footer e main sotto i 992px

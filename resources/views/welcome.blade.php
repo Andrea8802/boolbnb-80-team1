@@ -90,10 +90,10 @@
                     {{-- logo pagina --}}
                     <div class="ms_ctn_logo d-flex justify-content-start align-items-center">
                         <div class="ms_slot_logo me-1">
-                            <img src="/storage/logo-boolbnb.png" alt="logo_boolbnb">
+                            <img src="{{url('/images/logo-bool.png')}}" alt="logo_boolbnb">
                         </div>
-                        <div class="ms_slot_boolbnb_title d-none d-md-block">
-                            <h1>bollbnb</h1>
+                        <div class="ms_slot_boolbnb_title d-none d-md-block principal">
+                            <h1 class="principal">boolbnb</h1>
                         </div>
                     </div>
                 </router-link>
@@ -104,12 +104,14 @@
                     <router-link to='/register'>Register</router-link>
                 @endguest
                 @auth
-                    <router-link to='/userApartments' class="border-0 me-3">Your Apartments</router-link>
+                    <router-link to='/userApartments' class="border-0 me-3 principal">Your Apartments</router-link>
                     <component-dashboard></component-dashboard>
                 @endauth
             </div>
         </div>
+       
     </div>
+   
     <div class="main">
         <router-view></router-view>
     </div>

@@ -2,7 +2,7 @@
     <div class="container text-center">
         <!-- titolo della pagina -->
         <h1 id="msTitlePage"
-            class="ms_home_title my-3">HI! Where do you want to go today?</h1>
+            class="ms_home_title my-3 text-black">HI! Where do you want to go today?</h1>
 
         <!-- sottotitolo della pagina -->
         <h4 class="ms_home_subtitle mb-3 text-capitalize">your destination awaits: discover new and amazing experiences</h4>
@@ -25,9 +25,9 @@
         </div>
         <div class="my-3">
             <button @click="deleteText"
-                class="ms_btn_delete me-3">Reset</button>
+                class="ms_btn_delete me-3 principal">Reset</button>
             <router-link :to="{ name: 'advancedSearch' }">
-                <button class="ms_btn_advanced">
+                <button class="ms_btn_advanced principal">
                     Advanced Search
                 </button>
             </router-link>
@@ -290,6 +290,7 @@ export default {
 .ms_btn_advanced {
     color: $thirdColor;
     background-color: $body-bg;
+
     border: solid 2px $thirdColor;
     border-radius: 30px;
     font-weight: 600;
@@ -380,6 +381,7 @@ export default {
     position: fixed;
     bottom: 150px;
     right: 30px;
+
 
     a {
         color: $principalColor;
