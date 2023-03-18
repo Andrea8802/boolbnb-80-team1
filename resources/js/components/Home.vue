@@ -41,7 +41,7 @@
                                     class="rounded-5 fluid card-img-top">
                             </div>
                             <div class="ms_card_sponsored">Sponsored</div>
-                            <div class="card-body h-35 text-start ps-0">
+                            <div class="card-body h-35 text-start ps-2">
                                 <h5 class="card-title  ms_aps_text">{{ apartment.title }}</h5>
                                 <div class=" small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
                                 <div class=" "><strong>{{ apartment.price }}€</strong>/night</div>
@@ -57,7 +57,7 @@
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                     class="rounded-5 fluid card-img-top">
                             </div>
-                            <div class="card-body h-35 text-start ps-0">
+                            <div class="card-body h-35 text-start ps-2">
                                 <h5 class="card-title  ms_aps_text">{{ apartment.title }}</h5>
                                 <div class=" small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
                                 <div class=" "><strong>{{ apartment.price }}€</strong>/notte</div>
@@ -77,7 +77,7 @@
                                     class="rounded-5 fluid card-img-top">
                                 <div class="ms_card_sponsored">Sponsored</div>
                             </div>
-                            <div class="card-body h-35 text-start ps-0">
+                            <div class="card-body h-35 text-start ps-2">
                                 <h5 class="card-title  ms_aps_text">{{ apartment.title }}</h5>
                                 <div class=" small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
                                 <div class=" "><strong>{{ apartment.price }}€</strong>/night</div>
@@ -93,7 +93,7 @@
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                     class="rounded-5 fluid card-img-top">
                             </div>
-                            <div class="card-body h-35 text-start ps-0">
+                            <div class="card-body h-35 text-start ps-2">
                                 <h5 class="card-title  ms_aps_text">{{ apartment.title }}</h5>
                                 <div class=" small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
                                 <div class=" "><strong>{{ apartment.price }}€</strong>/notte</div>

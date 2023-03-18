@@ -47,14 +47,16 @@
             class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 align-items-stretch g-2 g-lg-3 mt-5 ms_ctn_card_home">
             <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
-                    <div class="card h-100 rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                            class="rounded fluid card-img-top h-50">
+                    <div class="card rounded ms_card_efct border-0">
+                        <div class="ms_slot_card_img">
+                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                class="rounded-5 fluid card-img-top">
+                        </div>
                         <div class="ms_card_sponsored">Sponsored</div>
-                        <div class="card-body h-35">
-                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
-                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                        <div class="card-body h-35 text-start ps-2">
+                            <h5 class="card-title ms_aps_text">{{ apartment.title }}</h5>
+                            <div class=" small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                            <div class=" "><strong>{{ apartment.price }}€</strong>/notte</div>
                         </div>
 
                     </div>
@@ -63,13 +65,15 @@
 
             <div class="col ms_slot_card" v-for="apartment in apartments">
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
-                    <div class="card h-100 rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                            class="rounded fluid card-img-top h-50">
-                        <div class="card-body h-35">
-                            <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
-                            <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                            <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                    <div class="card rounded ms_card_efct border-0">
+                        <div class="ms_slot_card_img">
+                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                class="rounded-5 fluid card-img-top">
+                        </div>
+                        <div class="card-body h-35 text-start ps-2">
+                            <h5 class="card-title ms_aps_text">{{ apartment.title }}</h5>
+                            <div class="small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
+                            <div class=""><strong>{{ apartment.price }}€</strong>/notte</div>
                         </div>
 
                     </div>
@@ -352,6 +356,7 @@ export default {
 
 .ms_card_efct:hover {
     transform: scale(1.05);
+    color: $principalColor;
 }
 
 .ms_card_efct {
@@ -366,6 +371,13 @@ export default {
         position: absolute;
         top: 10px;
         left: 10px;
+    }
+
+    .ms_slot_card_img {
+
+        img {
+            height: 230px;
+        }
     }
 }
 
