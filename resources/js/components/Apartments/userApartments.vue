@@ -82,14 +82,14 @@
 
                                     <li class="list-group-item" v-if="apartment.visibility">
                                         <button class="btn btn-light ms_hover_show h-100 mx-auto"
-                                            @click="changeVisibility(apartment.id)">
+                                            @click="changeVisibility(apartment)">
                                             <font-awesome-icon icon="fa-solid fa-eye-slash" />
                                             Set Private
                                         </button>
                                     </li>
                                     <li class="list-group-item" v-else>
                                         <button class="btn btn-light ms_hover_show h-100 mx-auto"
-                                            @click="changeVisibility(apartment.id)">
+                                            @click="changeVisibility(apartment)">
                                             <font-awesome-icon icon="fa-solid fa-eye" />
                                             Set Public
                                         </button>
@@ -145,13 +145,11 @@ export default {
             getapartment: [],
             numViews: 0,
             idApartments: [],
-
             messages_count: [],
-
             sponsors_count: [],
-
             time_left: [],
             sponsors_end: [],
+            waitTime: true
         }
     },
     methods: {
@@ -265,9 +263,20 @@ export default {
 
             })
         },
-        changeVisibility(id) {
+        changeVisibility(apartment) {
+
+            // Filtro antispam
+            if (!this.waitTime) return;
+            this.waitTime = false;
+
+            setInterval(() => {
+                this.waitTime = true;
+            }, 3000);
+
+            apartment.visibility = !apartment.visibility;
+
             let formData = new FormData();
-            formData.append("apartment_id", id);
+            formData.append("apartment_id", apartment.id);
             axios.post('/api/changeVisibility', formData)
                 .then(res => {
                     console.log(res);
