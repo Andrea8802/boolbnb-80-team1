@@ -10,40 +10,31 @@
                 <div class="ms_slot_link_footer_left">
                     <span class="text-black">&#169; Boolbnb, Inc.</span>
                     <span class="mx-2 text-black">&#8226;</span>
-                    <a href="#"
-                        class="text-black">Privacy</a>
+                    <a href="#" class="text-black">Privacy</a>
                     <span class="mx-2 text-black">&#8226;</span>
-                    <a href="#"
-                        class="text-black">Terms</a>
+                    <a href="#" class="text-black">Terms</a>
                     <span class="mx-2 text-black">&#8226;</span>
-                    <a href="#"
-                        class="text-black">Sitemap</a>
+                    <a href="#" class="text-black">Sitemap</a>
                     <span class="mx-2 text-black">&#8226;</span>
-                    <a href="#"
-                        class="text-black">Your Privacy Choices</a>
+                    <a href="#" class="text-black">Your Privacy Choices</a>
                     <span class="mx-2 text-black">&#8226;</span>
-                    <a href="#"
-                        class="text-black">Destinations</a>
+                    <a href="#" class="text-black">Destinations</a>
                 </div>
 
                 <!-- slot dei link lingua, tipo moneta, supporto e risorse -->
                 <div class="ms_slot_link_footer_right">
-                    <a href="#"
-                        class="text-black">
-                        <font-awesome-icon icon="fa-solid fa-globe"
-                            class="text-black" />
+                    <a href="#" class="text-black">
+                        <font-awesome-icon icon="fa-solid fa-globe" class="text-black" />
                         English(US)
                     </a>
                     <span class="mx-2 text-black">&#8226;</span>
-                    <a href="#"
-                        class="text-black">&euro; EUR</a>
+                    <a href="#" class="text-black">&euro; EUR</a>
                     <span class="mx-2 text-black">&#8226;</span>
                     <a href="#">
                         <span class="text-black">
                             Support & resources
                         </span>
-                        <font-awesome-icon icon="fa-solid fa-angle-up"
-                            class="text-black" />
+                        <font-awesome-icon icon="fa-solid fa-angle-up" class="text-black" />
                     </a>
                 </div>
             </div>
@@ -62,6 +53,7 @@
 
     a {
         color: $secondColor;
+        text-decoration: none;
     }
 
     .ms_slot_link_footer_left {
