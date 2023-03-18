@@ -16,7 +16,20 @@
                                 @click="this.toggleShow(apartment.id)">
                                 <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                     class="img-thumbnail ms_icon">
-                                <h2 class="text-capitalize ms_title">{{ apartment.title }}</h2>
+                                <div>
+                                    <div class="text-capitalize ms_title">{{ apartment.title }}</div>
+                                    <div class="fs-5">Visibility:
+                                        <span class="text-info">
+                                            {{ apartment.visibility ? "Public" : "Private" }}
+                                        </span>
+                                    </div>
+                                    <div class="list-group-item fs-6 text-primary">
+                                        <font-awesome-icon icon="fa-regular fa-eye" />
+                                        Views: <span class="fw-bold"> {{ numViews[index] }}</span>
+                                    </div>
+                                </div>
+
+
                             </div>
                             <div class="ms_aps_sponsor" v-show="this.sponsors_count[index] > 0">
                                 <div class="btn disabled btn-sm btn-danger mx-auto my-2 text-capitalize">
@@ -63,11 +76,8 @@
                                         <button v-else class="btn btn-light ms_hover_show mx-auto"
                                             @click="this.toggleShow(index)">
                                             <font-awesome-icon icon="fa-solid fa-comment-slash" />
+                                            Messages
                                         </button>
-                                    </li>
-                                    <li class="list-group-item fs-5 text-primary">
-                                        <font-awesome-icon icon="fa-regular fa-eye" />
-                                        Views: <span class="fw-bold"> {{ numViews[index] }}</span>
                                     </li>
 
                                     <li class="list-group-item" v-if="apartment.visibility">
@@ -307,8 +317,8 @@ export default {
     }
 
     .ms_icon {
-        width: 80px;
-        height: 80px;
+        width: 90px;
+        height: 90px;
         margin-left: 2rem;
     }
 
@@ -323,6 +333,7 @@ export default {
     .ms_title {
         width: calc(100% - 80px);
         font-size: 1.5rem;
+        font-weight: 500;
     }
 
 }
