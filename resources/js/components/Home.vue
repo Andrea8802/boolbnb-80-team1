@@ -290,7 +290,7 @@ export default {
 .ms_btn_advanced:hover {
     color: $secondColor;
     background-color: $principalColor;
-    border: none;
+    border-color: $principalColor;
 }
 
 .ms_error_messagge {
