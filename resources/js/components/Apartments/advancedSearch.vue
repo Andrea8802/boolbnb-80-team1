@@ -9,13 +9,13 @@
                     <input type="text" v-model="apartmentSearch" placeholder="Enter your destination..."
                         class="ms_search_bar form-control mb-3">
                     <div>
-                        <label for="">Rooms number </label> <span> </span>
-                        <input type="number" name="rooms_num" v-model="roomsNum">
+                        <label for="" class="ms_label_ni">Rooms number </label>
+                        <input type="number" name="rooms_num" v-model="roomsNum" class="ms_number_bar form-control mb-3">
                     </div> <br>
 
                     <div>
-                        <label for="">Beds number </label> <span> </span>
-                        <input type="number" name="rooms_num" v-model="bedsNum">
+                        <label for="" class="ms_label_ni">Beds number </label>
+                        <input type="number" name="rooms_num" v-model="bedsNum" class="ms_number_bar form-control mb-3">
                     </div> <br>
 
                     <div class="slidecontainer">
@@ -196,7 +196,7 @@ export default {
 @use '/resources/sass/variables' as *;
 
 .ms_home_title {
-    color: $principalColor;
+    color: $thirdColor;
 }
 
 // grafica form
@@ -205,7 +205,14 @@ export default {
     max-width: 600px;
     margin: 0 auto;
 
-    .ms_search_bar {
+    .ms_number_bar {
+        width: 90%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .ms_search_bar,
+    .ms_number_bar {
         color: $thirdColor;
         font-weight: 600;
         padding: 5px 10px;
@@ -213,7 +220,8 @@ export default {
         border-radius: 30px;
     }
 
-    .ms_search_bar:focus {
+    .ms_search_bar:focus,
+    .ms_number_bar:focus {
         color: $principalColor;
         border: solid 2px $principalColor;
         box-shadow: none;
@@ -235,8 +243,9 @@ export default {
     }
 }
 
-.ms_radius {
-    color: $principalColor;
+.ms_radius,
+.ms_label_ni {
+    color: $thirdColor;
     font-weight: 600;
 }
 
@@ -261,7 +270,7 @@ export default {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: $principalColor;
+    background: $thirdColor;
     cursor: pointer;
 }
 
@@ -277,11 +286,11 @@ export default {
 
 // grafica container servizi del form
 .ms_ctn_service {
-    border: solid 2px $principalColor;
+    border: solid 2px $thirdColor;
     border-radius: 30px;
 
     h4 {
-        color: $principalColor;
+        color: $thirdColor;
         font-size: 20px;
         font-weight: 600;
     }
@@ -428,5 +437,4 @@ export default {
     }
 }
 
-// =====================================
-</style>
+// =====================================</style>
