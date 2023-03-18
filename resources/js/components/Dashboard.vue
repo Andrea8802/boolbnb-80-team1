@@ -18,13 +18,9 @@
 <template>
     <div>
         <div class="dropdown">
-            <img :src="'/storage/' + user.avatar"
-                @click="myFunction()"
-                class="img" />
-            <div id="myDropdown"
-                class="dropdown-content">
-                <a href=""
-                    @click.prevent="logout">Logout</a>
+            <img :src="'/storage/' + user.avatar" @click="myFunction()" class="img" />
+            <div id="myDropdown" class="dropdown-content">
+                <a href="" @click.prevent="logout">Logout</a>
 
             </div>
         </div>
@@ -69,8 +65,8 @@ export default {
 </script>
 <style scoped>
 .img {
-    height: 30px;
-    width: 30px;
+    height: 42px;
+    width: 42px;
     border-radius: 100%;
     object-fit: cover;
     cursor: pointer;

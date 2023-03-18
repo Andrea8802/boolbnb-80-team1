@@ -22,12 +22,19 @@ a {
 .ms_slot_logo {
 
     img {
-        width: 70px;
+        width: 50px;
         height: auto;
     }
 }
 
+.ms_auth {
+    color: black;
+}
+
 .ms_slot_boolbnb_title {
+    display: flex;
+    align-items: center;
+
     h1 {
         color: $secondColor;
         font-size: 24px;
@@ -49,12 +56,16 @@ a {
     padding-bottom: 5px;
     position: fixed;
     top: 0;
+    box-shadow: 0px 0px 30px lightgray;
 
 
     // .line {
     //     border-bottom: 1px solid black;
     //     width: 100%;
     // }
+    .ms_ctn_logo {
+        height: 100%;
+    }
 
     .cont-header {
         height: 100%;
@@ -65,9 +76,10 @@ a {
 
         .cont-home {
             width: 10%;
+            height: 100%;
 
             .principal {
-                color: $principalColor;
+                color: $thirdColor;
             }
         }
 
@@ -79,7 +91,7 @@ a {
             align-items: center;
 
             .principal {
-                color: $principalColor;
+                color: $thirdColor;
             }
 
 
@@ -99,6 +111,7 @@ a {
 
 
 .main {
+    padding-top: 30px;
     margin-top: 70px;
     margin-bottom: 50px;
     height: calc(100vh - 120px);
