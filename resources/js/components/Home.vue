@@ -1,7 +1,8 @@
 <template>
     <div class="container text-center">
         <!-- titolo della pagina -->
-        <h1 id="msTitlePage" class="ms_home_title my-3">HI! Where do you want to go today?</h1>
+        <h1 id="msTitlePage"
+            class="ms_home_title my-3">HI! Where do you want to go today?</h1>
 
         <!-- sottotitolo della pagina -->
         <h4 class="ms_home_subtitle mb-3 text-capitalize">your destination awaits: discover new and amazing experiences</h4>
@@ -10,15 +11,21 @@
     <!-- container della barra di ricerca e pulsante ricerca avanzata -->
     <div class="container text-center">
         <div class="ms_ctn_search input-group">
-            <input type="text" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates"
-                @keyup.delete="checkSearchBar" placeholder="Enter your destination..."
+            <input type="text"
+                name="apartmentSearch"
+                v-model="apartmentSearch"
+                @keydown.enter="getCoordinates"
+                @keyup.delete="checkSearchBar"
+                placeholder="Enter your destination..."
                 class="ms_search_bar form-control border-end-0">
-            <button @click="getCoordinates" class="input-group-text ms_btn_search border-start-0">
+            <button @click="getCoordinates"
+                class="input-group-text ms_btn_search border-start-0">
                 <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
             </button>
         </div>
         <div class="my-3">
-            <button @click="deleteText" class="ms_btn_delete me-3">Reset</button>
+            <button @click="deleteText"
+                class="ms_btn_delete me-3">Reset</button>
             <router-link :to="{ name: 'advancedSearch' }">
                 <button class="ms_btn_advanced">
                     Advanced Search
@@ -33,25 +40,31 @@
         <div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 align-items-stretch g-2 g-lg-3"
                 v-if="!onSearch">
-                <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                <div class="col ms_slot_card"
+                    v-for="apartment in apartmentsSponsored">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
                         <div class="card h-100 rounded ms_card_efct">
-                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                            <img :src="'/storage/' + apartment.imageApartment"
+                                :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
                             <div class="ms_card_sponsored">Sponsored</div>
                             <div class="card-body h-35">
                                 <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
                                 <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                                <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                                <div class="text-center "><strong>{{ apartment.price }}€</strong>/night</div>
                             </div>
                         </div>
                     </router-link>
                 </div>
 
-                <div class="col ms_slot_card" v-for="apartment in apartments">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                <div class="col ms_slot_card"
+                    v-for="apartment in apartments">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
                         <div class="card h-100 rounded ms_card_efct">
-                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                            <img :src="'/storage/' + apartment.imageApartment"
+                                :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
                             <div class="card-body h-35">
                                 <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -65,25 +78,31 @@
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 align-items-stretch g-2 g-lg-3"
                 v-else>
-                <div class="col ms_slot_card" v-for="apartment in apartmentsGeoSponsored">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                <div class="col ms_slot_card"
+                    v-for="apartment in apartmentsGeoSponsored">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
                         <div class="card h-100 rounded ms_card_efct">
-                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                            <img :src="'/storage/' + apartment.imageApartment"
+                                :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
                             <div class="ms_card_sponsored">Sponsored</div>
                             <div class="card-body h-35">
                                 <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
                                 <div class="text-center small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                                <div class="text-center "><strong>{{ apartment.price }}€</strong>/notte</div>
+                                <div class="text-center "><strong>{{ apartment.price }}€</strong>/night</div>
                             </div>
                         </div>
                     </router-link>
                 </div>
 
-                <div class="col ms_slot_card" v-for="apartment in apartmentsGeo">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                <div class="col ms_slot_card"
+                    v-for="apartment in apartmentsGeo">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
                         <div class="card h-100 rounded ms_card_efct">
-                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                            <img :src="'/storage/' + apartment.imageApartment"
+                                :alt="apartment.title"
                                 class="rounded fluid card-img-top h-50">
                             <div class="card-body h-35">
                                 <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
@@ -168,7 +187,7 @@ export default {
                     this.apartmentsGeoSponsored = res.data.apartmentsSponsored;
                     console.log(this.apartmentsGeo);
                     if (this.apartmentsGeo.length == 0 && this.apartmentsGeoSponsored == 0) {
-                        this.error = "We have not found any apartments in the search area!";
+                        this.error = "we didn't find any apartments";
                     }
                     else {
                         this.error = null
