@@ -242,8 +242,8 @@
                     <div class="ms_ctn_check">
                         <div v-for="service in services">
                             <input type="checkbox" :value="service.id" name=services class="input"
-                                :checked="apServices(service)">
-                            <label for="services">{{ service.name }}</label>
+                                :checked="apServices(service)" :id="service.id">
+                            <label :for="service.id">{{ service.name }}</label>
                         </div>
                     </div>
                 </div>
