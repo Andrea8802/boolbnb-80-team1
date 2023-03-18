@@ -148,7 +148,7 @@
                     <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="price">Price :
                     </label>
                     <input type="number" name="price" v-model="modelPrice" class="form-control ms_input_focus_color"
-                        placeholder="Enter a price..." aria-describedby="basic-addon1">
+                        placeholder="Enter a price..." aria-describedby="basic-addon1" step="0.01">
                 </div>
 
                 <!-- input numero di letti -->
