@@ -7,7 +7,9 @@
             <div class="col">
 
                 <div class="img-thumbnail mb-5 mt-5 ms_main_image">
-                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title" class="img-thumbnail">
+                    <img :src="'/storage/' + apartment.imageApartment"
+                        :alt="apartment.title"
+                        class="img-thumbnail">
                 </div>
 
 
@@ -35,21 +37,28 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="description" class="card-body" id="description">
+                    <div v-if="description"
+                        class="card-body"
+                        id="description">
                         <h5 class="card-title">Your special place</h5>
                         <div class="text-center">{{ apartment.description }}</div>
                     </div>
-                    <div v-else-if="services" class="card-body" id="services">
+                    <div v-else-if="services"
+                        class="card-body"
+                        id="services">
                         <h5 class="card-title">Our services:</h5>
                         <p>We offert the following services for a true relaxing experience:</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item" v-for="service in apartment.services">
+                            <li class="list-group-item"
+                                v-for="service in apartment.services">
                                 {{ service.name }}
                                 <font-awesome-icon :icon="icons[service.name]" />
                             </li>
                         </ul>
                     </div>
-                    <div v-else-if="rooms" class="card-body ms_card_body_fix" id="rooms">
+                    <div v-else-if="rooms"
+                        class="card-body ms_card_body_fix"
+                        id="rooms">
                         <h5 class="card-title my-3">Our rooms:</h5>
                         <p>We offer {{ apartment.rooms_num }} rooms in total, for a comfy space of {{ apartment.size }} sq m
                         </p>
@@ -62,8 +71,10 @@
                             </li>
                         </ul>
                     </div>
-                    <div v-else class="card-body"></div>
-                    <div v-else class="card-body"></div>
+                    <div v-else
+                        class="card-body"></div>
+                    <div v-else
+                        class="card-body"></div>
                 </div>
 
                 <!-- Prezzo -->
@@ -79,7 +90,8 @@
                 <div class="d-grid gap-2 col-6 mx-auto my-5">
                     <h3 class="text-center">Want to know more?</h3>
 
-                    <router-link :to="{ name: 'message' }" class="link-light"><button class="btn btn-danger rounded-5">Write
+                    <router-link :to="{ name: 'message' }"
+                        class="link-light"><button class="btn btn-danger rounded-5">Write
                             to {{ user.name }}</button></router-link>
 
                 </div>
@@ -89,40 +101,63 @@
             <div class="col-lg-6 col-md-12">
                 <h3 class="text-center my-5">Where are we?</h3>
                 <div class="text-center">{{ apartment.address }}</div>
-                <div id="map" class="mx-auto"></div>
+                <div id="map"
+                    class="mx-auto"></div>
 
                 <!-- carousel -->
 
                 <h3 class="text-center my-5">More about us:</h3>
 
-                <div id="carouselExampleIndicators" class="carousel slide my-3">
+                <div id="carouselExampleIndicators"
+                    class="carousel slide my-3">
                     <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="0"
+                            class="active"></li>
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="0"
+                            class="active"></li>
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators"
+                            data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
 
-                        <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
+                        <div class="carousel-item"
+                            v-for="(image, index) in this.apartment.added_images"
                             :class="index === activeItem ? 'active' : ''">
-                            <img v-if="this.carousel_var" :src=image.image class="d-block w-100 img-thumbnail">
-                            <img v-else :src="'/storage/' + image.image" :alt="image.name"
+                            <img v-if="this.carousel_var"
+                                :src=image.image
+                                class="d-block w-100 img-thumbnail">
+                            <img v-else
+                                :src="'/storage/' + image.image"
+                                :alt="image.name"
                                 class="d-block w-100 img-thumbnail">
                         </div>
                     </div>
 
-                    <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
-                        data-slide="prev" @click="this.prevImg()">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <button class="carousel-control-prev"
+                        type="button"
+                        data-target="#carouselExampleIndicators"
+                        data-slide="prev"
+                        @click="this.prevImg()">
+                        <span class="carousel-control-prev-icon"
+                            aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </button>
 
-                    <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
-                        data-slide="next" @click="this.nextImg()">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <button class="carousel-control-next"
+                        type="button"
+                        data-target="#carouselExampleIndicators"
+                        data-slide="next"
+                        @click="this.nextImg()">
+                        <span class="carousel-control-next-icon"
+                            aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </button>
                 </div>
@@ -203,13 +238,14 @@ export default {
                 });
         },
         getMap() {
-            let center = [parseInt(this.apartment.long), parseInt(this.apartment.lat)];
+            let center = [parseFloat(this.apartment.long), parseFloat(this.apartment.lat)];
             let map = tt.map({
                 key: "HrIT0rDPsDPsPzHGmbsIRCwnxIakKjwM",
                 container: "map",
                 center: center,
                 zoom: 15,
             });
+            console.log(this.apartment.long);
             new tt.Marker({ color: "#ff385c", height: "40px", width: "30px" }).setLngLat(center).addTo(map);
         },
         getApartment() {
