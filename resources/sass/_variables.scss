@@ -11,3 +11,24 @@ $principalColor: #ff385c;
 $secondColor: #FFFFFF;
 $confirmedColor: #0bdf15;
 $thirdColor: #282A3A;
+
+// change breakpoints bootstrap
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 1180px,
+    xl: 1400px,
+    xxl: 1800px
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1610px
+);
+
+// Import BT sources
+@import "../node_modules/bootstrap/scss/bootstrap";
