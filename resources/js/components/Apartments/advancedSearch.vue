@@ -385,6 +385,7 @@ export default {
     .ms_slot_card_img {
 
         img {
+            object-fit: cover;
             height: 260px;
         }
     }
