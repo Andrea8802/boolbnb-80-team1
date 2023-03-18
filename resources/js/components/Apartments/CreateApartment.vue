@@ -198,8 +198,8 @@
                     <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="address">Address :
                     </label>
                     <input type="text" name="address" v-model="modelAddressSearch" class="form-control ms_input_focus_color"
-                        placeholder="Enter a address..." aria-describedby="basic-addon1">
-                    <input type="submit" value="Search" class="ms_input_submit" @click.prevent="getCoordinates">
+                        placeholder="Enter a address..." aria-describedby="basic-addon1" @input="getCoordinates">
+                    <!-- <input type="submit" value="Search" class="ms_input_submit" @click.prevent="getCoordinates"> -->
 
 
                 </div>
@@ -273,6 +273,7 @@ export default {
             arrayApartments: [],
             view: false,
             arrayAp: ['jpg', 'png', 'jpeg', 'gif', 'svg'],
+            waitTime: true,
 
             /* variabili added images */
             addedImages: [],
@@ -398,6 +399,10 @@ export default {
         },
         getCoordinates() {
 
+            if (!this.waitTime) return;
+            this.waitTime = false;
+
+            setTimeout(() => this.waitTime = true, 2500)
 
             // if (this.modelAddress.length > 14) {
             var theUrl = `https://api.tomtom.com/search/2/geocode/${this.modelAddressSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;

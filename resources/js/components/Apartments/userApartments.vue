@@ -269,9 +269,7 @@ export default {
             if (!this.waitTime) return;
             this.waitTime = false;
 
-            setInterval(() => {
-                this.waitTime = true;
-            }, 3000);
+            setTimeout(() => this.waitTime = true, 1500);
 
             apartment.visibility = !apartment.visibility;
 
