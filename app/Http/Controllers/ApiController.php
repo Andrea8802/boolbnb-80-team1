@@ -624,4 +624,22 @@ class ApiController extends Controller
             "response" => $messages,
         ]);
     }
+
+    public function changeVisibility(Request $request)
+    {
+        $apartmentId = $request['apartment_id'];
+
+        $apartment = Apartment::select('*')
+            ->where('id', '=', $apartmentId)->first();
+
+        $apartment->visibility = !$apartment->visibility;
+
+        $apartment->save();
+
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+        ]);
+    }
 }

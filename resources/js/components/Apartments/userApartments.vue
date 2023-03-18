@@ -34,7 +34,7 @@
                                 </div>
 
                             </div>
-                            <div class="ms_aps_buttons flex-shrink ">
+                            <div class="ms_aps_buttons flex-shrink ms_menu ">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <div class="btn btn-danger h-100 mx-auto" @click="deleteApartment(apartment.id)">
@@ -65,11 +65,24 @@
                                             <font-awesome-icon icon="fa-solid fa-comment-slash" />
                                         </button>
                                     </li>
-                                    <li class="list-group-item">
-                                        <span class=" fs-5 text-primary">
+                                    <li class="list-group-item fs-5 text-primary">
+                                        <font-awesome-icon icon="fa-regular fa-eye" />
+                                        Views: <span class="fw-bold"> {{ numViews[index] }}</span>
+                                    </li>
+
+                                    <li class="list-group-item" v-if="apartment.visibility">
+                                        <button class="btn btn-light ms_hover_show h-100 mx-auto"
+                                            @click="changeVisibility(apartment.id)">
+                                            <font-awesome-icon icon="fa-solid fa-eye-slash" />
+                                            Set Private
+                                        </button>
+                                    </li>
+                                    <li class="list-group-item" v-else>
+                                        <button class="btn btn-light ms_hover_show h-100 mx-auto"
+                                            @click="changeVisibility(apartment.id)">
                                             <font-awesome-icon icon="fa-solid fa-eye" />
-                                            Views: <span class="fw-bold"> {{ numViews[index] }}</span>
-                                        </span>
+                                            Set Public
+                                        </button>
                                     </li>
 
                                 </ul>
@@ -241,6 +254,15 @@ export default {
             this.getUserApartments().then({
 
             })
+        },
+        changeVisibility(id) {
+            let formData = new FormData();
+            formData.append("apartment_id", id);
+            axios.post('/api/changeVisibility', formData)
+                .then(res => {
+                    console.log(res);
+                    this.getUserApartments();
+                })
         }
 
     },
@@ -318,6 +340,11 @@ export default {
             color: yellow;
         }
     }
+}
+
+.ms_menu {
+    width: 160px;
+    text-align: center;
 }
 
 .ms_aps_buttons {
