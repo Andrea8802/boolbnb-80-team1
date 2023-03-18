@@ -10,13 +10,13 @@
 
 .ms_title_page {
     font-weight: 900;
-    color: $principalColor;
+    color: $thirdColor;
 }
 
 .ms_label_bg {
-    background-color: $principalColor;
-    color: #ffffff;
-    border-color: $principalColor;
+    background-color: $thirdColor;
+    color: $secondColor;
+    border-color: $thirdColor;
     font-weight: 600;
 }
 
@@ -34,11 +34,11 @@
 }
 
 .ms_ctn_service {
-    border: solid 2px $principalColor;
+    border: solid 2px $thirdColor;
     border-radius: 30px;
 
     h4 {
-        color: $principalColor;
+        color: $thirdColor;
         font-size: 20px;
         font-weight: 600;
     }
@@ -63,17 +63,23 @@
 }
 
 .ms_input_submit {
-    background-color: $principalColor;
-    color: #ffffff;
+    background-color: $body-bg;
+    color: $thirdColor;
     font-size: 16px;
     font-weight: 600;
     padding: 7px 25px;
-    border-color: $principalColor;
+    border-color: $thirdColor;
     border-radius: 30px;
+
+    &:hover {
+        background-color: $principalColor;
+        color: $secondColor;
+        border-color: $principalColor;
+    }
 }
 
 .ms_label_smartphone {
-    color: $principalColor;
+    color: $thirdColor;
     font-size: 16px;
     font-weight: 600;
 }

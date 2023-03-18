@@ -102,6 +102,12 @@ a {
             }
         }
     }
+
+    .ms_btn_navbar:hover {
+        background-color: $principalColor;
+        border-color: $principalColor !important;
+        color: $secondColor !important;
+    }
 }
 
 // ===========================================

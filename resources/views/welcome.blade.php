@@ -19,12 +19,12 @@
             </div>
             <div class="cont-user">
                 @guest
-                    <router-link class="me-2 text-black fw-bold rounded-pill border-dark" to='/login' exact>Login
+                    <router-link class="me-2 text-black fw-bold rounded-pill border-dark ms_btn_navbar" to='/login' exact>Login
                     </router-link>
-                    <router-link to='/register' class="text-black fw-bold rounded-pill border-dark">Register</router-link>
+                    <router-link to='/register' class="text-black fw-bold rounded-pill border-dark ms_btn_navbar">Register</router-link>
                 @endguest
                 @auth
-                    <router-link to='/userApartments' class="border-dark me-3 principal">Your Apartments</router-link>
+                    <router-link to='/userApartments' class="border-dark me-3 principal ms_btn_navbar">Your Apartments</router-link>
                     <component-dashboard></component-dashboard>
                 @endauth
             </div>
