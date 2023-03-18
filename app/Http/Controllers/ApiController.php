@@ -351,8 +351,8 @@ class ApiController extends Controller
             ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
             ->delete();
 
-        $apartments = Apartment::whereDoesntHave('sponsors')->get();
-        $apartmentsSponsored = Apartment::whereHas('sponsors')->get();
+        $apartments = Apartment::whereDoesntHave('sponsors')->where('visibility', '=', '1')->get();
+        $apartmentsSponsored = Apartment::whereHas('sponsors')->where('visibility', '=', '1')->get();
 
         return response()->json([
             "success" => true,
@@ -400,13 +400,17 @@ class ApiController extends Controller
 
 
 
-        $apartmentsSponsored = Apartment::select("*")->whereHas('sponsors')
+        $apartmentsSponsored = Apartment::select("*")
+            ->whereHas('sponsors')
+            ->where('visibility', '=', '1')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->orderby("distance", "desc")
             ->get();
 
-        $apartments = Apartment::select("*")->whereDoesntHave('sponsors')
+        $apartments = Apartment::select("*")
+            ->whereDoesntHave('sponsors')
+            ->where('visibility', '=', '1')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->orderby("distance", "desc")
@@ -525,6 +529,7 @@ class ApiController extends Controller
         // Query Apartments
         $apartments = Apartment::select("*")
             ->whereDoesntHave('sponsors')
+            ->where('visibility', '=', '1')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->where("rooms_num", ">=", $roomsNumber)
@@ -534,6 +539,7 @@ class ApiController extends Controller
         // Query Apartments Sponsorizzati
         $apartmentsSponsored = Apartment::select("*")
             ->whereHas('sponsors')
+            ->where('visibility', '=', '1')
             ->selectRaw("$haversine AS distance")
             ->having("distance", "<=", $radius)
             ->where("rooms_num", ">=", $roomsNumber)

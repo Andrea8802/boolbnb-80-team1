@@ -65,13 +65,12 @@
                                             <font-awesome-icon icon="fa-solid fa-comment-slash" />
                                         </button>
                                     </li>
-
-
-
-
-
-
-
+                                    <li class="list-group-item">
+                                        <span class=" fs-5 text-primary">
+                                            <font-awesome-icon icon="fa-solid fa-eye" />
+                                            Views: <span class="fw-bold"> {{ numViews[index] }}</span>
+                                        </span>
+                                    </li>
 
                                 </ul>
 
@@ -87,9 +86,6 @@
                                     <div v-else></div>
                                 </div>
 
-
-
-                                Views: {{ numViews[index] }} <!-- Numero visite -->
                             </div>
 
                         </div>
