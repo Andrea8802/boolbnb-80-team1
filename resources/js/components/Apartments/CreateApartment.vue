@@ -402,10 +402,10 @@ export default {
             if (!this.waitTime) return;
             this.waitTime = false;
 
-            setTimeout(() => this.waitTime = true, 2500)
+            setTimeout(() => this.waitTime = true, 500)
 
             // if (this.modelAddress.length > 14) {
-            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.modelAddressSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
+            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.modelAddressSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO&limit=5`;
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", theUrl, false);
             xmlHttp.send(null);
