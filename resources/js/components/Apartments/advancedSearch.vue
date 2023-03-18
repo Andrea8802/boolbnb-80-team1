@@ -8,36 +8,20 @@
                     <input type="text" v-model="apartmentSearch" placeholder="Enter your destination..."
                         class="ms_search_bar form-control mb-3">
                     <div>
-                        <label for="">Rooms Number</label>
-                        <select name="rooms_num" v-model="roomsNum">
-                            <option value="0">-</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
+                        <label for="">Rooms</label>
+                        <input type="number" name="rooms_num" v-model="roomsNum">
                     </div>
 
                     <div>
-                        <label for="">Beds Number</label>
-                        <select name="rooms_num" v-model="bedsNum">
-                            <option value="0">-</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
+                        <label for="">Beds</label>
+                        <input type="number" name="rooms_num" v-model="bedsNum">
                     </div>
 
                     <div class="slidecontainer">
                         <input type="range" min="1" max="50" class="slider" v-model="radius">
                     </div>
                     <div class="ms_radius">
-                        Raggio : {{ radius }}
+                        Radius : {{ radius }}KM
                     </div>
 
                     <div class="ms_ctn_service p-3 my-3">
@@ -49,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <button @click="getCoordinates" class="ms_btn_search">Cerca</button>
+                    <button @click="getCoordinates" class="ms_btn_search">Search</button>
                 </form>
             </div>
         </div>
