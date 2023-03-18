@@ -2,36 +2,24 @@
     <div class="container-fluid">
         <!-- container del form -->
         <div class="container mt-5 text-center">
-            <h1 id="msTitlePage"
-                class="ms_home_title my-3">Select search filters</h1>
+            <h1 id="msTitlePage" class="ms_home_title my-3">Select search filters</h1>
             <div class="ms_ctn_form">
-                <form action=""
-                    method="post">
+                <form action="" method="post">
 
-                    <input type="text"
-                        v-model="apartmentSearch"
-                        placeholder="Enter your destination..."
+                    <input type="text" v-model="apartmentSearch" placeholder="Enter your destination..."
                         class="ms_search_bar form-control mb-3">
                     <div>
                         <label for="">Rooms number </label> <span> </span>
-                        <input type="number"
-                            name="rooms_num"
-                            v-model="roomsNum">
+                        <input type="number" name="rooms_num" v-model="roomsNum">
                     </div> <br>
 
                     <div>
                         <label for="">Beds number </label> <span> </span>
-                        <input type="number"
-                            name="rooms_num"
-                            v-model="bedsNum">
+                        <input type="number" name="rooms_num" v-model="bedsNum">
                     </div> <br>
 
                     <div class="slidecontainer">
-                        <input type="range"
-                            min="1"
-                            max="50"
-                            class="slider"
-                            v-model="radius">
+                        <input type="range" min="1" max="50" class="slider" v-model="radius">
                     </div>
                     <div class="ms_radius">
                         Radius : {{ radius }}KM
@@ -41,16 +29,12 @@
                         <h4>Select services:</h4>
                         <div class="ms_ctn_check">
                             <div v-for="service in services">
-                                <input type="checkbox"
-                                    :value="service.id"
-                                    name=services
-                                    v-model="modelServices">
+                                <input type="checkbox" :value="service.id" name=services v-model="modelServices">
                                 <label for="services">{{ service.name }}</label>
                             </div>
                         </div>
                     </div>
-                    <button @click="getCoordinates"
-                        class="ms_btn_search">Search</button>
+                    <button @click="getCoordinates" class="ms_btn_search">Search</button>
                 </form>
                 <div class="container text-center">
                     <h4 class="ms_error_messagge">{{ error }}</h4>
@@ -60,14 +44,11 @@
 
         <!-- container delle card -->
         <div
-            class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 align-items-stretch g-2 g-lg-3 mt-5 ms_ctn_card_home">
-            <div class="col ms_slot_card"
-                v-for="apartment in apartmentsSponsored">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                    class="router">
+            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 align-items-stretch g-2 g-lg-3 mt-5 ms_ctn_card_home">
+            <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card h-100 rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment"
-                            :alt="apartment.title"
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
                         <div class="ms_card_sponsored">Sponsored</div>
                         <div class="card-body h-35">
@@ -80,13 +61,10 @@
                 </router-link>
             </div>
 
-            <div class="col ms_slot_card"
-                v-for="apartment in apartments">
-                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
-                    class="router">
+            <div class="col ms_slot_card" v-for="apartment in apartments">
+                <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card h-100 rounded ms_card_efct">
-                        <img :src="'/storage/' + apartment.imageApartment"
-                            :alt="apartment.title"
+                        <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                             class="rounded fluid card-img-top h-50">
                         <div class="card-body h-35">
                             <h5 class="card-title text-center ms_aps_text">{{ apartment.title }}</h5>
