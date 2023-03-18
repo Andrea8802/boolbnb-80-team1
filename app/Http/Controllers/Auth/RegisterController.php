@@ -77,6 +77,7 @@ class RegisterController extends Controller
         } else {
             $data['avatar'] = 'avatar5.png';
         }
+
         return User::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
