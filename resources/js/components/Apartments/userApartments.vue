@@ -36,9 +36,9 @@
                                     <font-awesome-icon icon="fa-solid fa-certificate" class="ms_sponsor_icon" />
                                     sponsored
                                 </div>
-                                <div>
+                                <div v-if="apartment.end_date && apartment.end_date[index]">
                                     <strong>Your sponsorship ends:</strong>
-                                    {{ apartment.end_date['end_date'] }}
+                                    {{ apartment.end_date[index].end_date }}
                                 </div>
                                 <div>
                                     <!-- <em>You have {{ this.time_left[index][0] }} days and {{ this.time_left[index][1] }}
