@@ -1,22 +1,22 @@
 <template>
-    <div class="container-fluid">
-        <div class="lg-w-50 md-w-80 mx-auto">
-            <h1 class="text-center text-capitalise ms_title">{{ apartment.title }}</h1>
+    <div class="container">
+        <div class="lg-w-50 md-w-80 mx-auto ps-2">
+            <h4 class="ms_title">{{ apartment.title }}</h4>
+            <span class="ms_address_ap">{{ apartment.address }}</span>
         </div>
-        <div class="row d-flex">
-            <div class="col">
+        <div class="row d-flex mt-3">
+            <div class="col-lg-6 col-md-12">
 
-                <div class="img-thumbnail mb-5 mt-5 ms_main_image">
-                    <img :src="'/storage/' + apartment.imageApartment"
-                        :alt="apartment.title"
-                        class="img-thumbnail">
+                <div class="w-100 my-3">
+                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                        class="w-100 ms_image_ap_detail">
                 </div>
 
 
 
                 <!-- Card detail aps -->
 
-                <div class="card-lg-6 col-md-12 ms_card_detail">
+                <div class="card-lg-6 col-md-12 ms_card_detail shadow rounded-3">
                     <div class="card-header ms_color ms_header_fix sticky-top">
                         <div class="nav-tabs card-header-tabs d-flex h-100 ms_color ms_card_header_fix">
                             <div class="nav-item ms_pointer ms_nav_item_fix text-center py-2"
@@ -37,28 +37,21 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="description"
-                        class="card-body"
-                        id="description">
-                        <h5 class="card-title">Your special place</h5>
-                        <div class="text-center">{{ apartment.description }}</div>
+                    <div v-if="description" class="card-body p-3" id="description">
+                        <h5 class="card-title mb-2">Your special place</h5>
+                        <p>{{ apartment.description }}</p>
                     </div>
-                    <div v-else-if="services"
-                        class="card-body"
-                        id="services">
+                    <div v-else-if="services" class="card-body p-3" id="services">
                         <h5 class="card-title">Our services:</h5>
                         <p>We offert the following services for a true relaxing experience:</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"
-                                v-for="service in apartment.services">
+                            <li class="list-group-item" v-for="service in apartment.services">
                                 {{ service.name }}
                                 <font-awesome-icon :icon="icons[service.name]" />
                             </li>
                         </ul>
                     </div>
-                    <div v-else-if="rooms"
-                        class="card-body ms_card_body_fix"
-                        id="rooms">
+                    <div v-else-if="rooms" class="card-body ms_card_body_fix p-3" id="rooms">
                         <h5 class="card-title my-3">Our rooms:</h5>
                         <p>We offer {{ apartment.rooms_num }} rooms in total, for a comfy space of {{ apartment.size }} sq m
                         </p>
@@ -71,14 +64,47 @@
                             </li>
                         </ul>
                     </div>
-                    <div v-else
-                        class="card-body"></div>
-                    <div v-else
-                        class="card-body"></div>
+                    <div v-else class="card-body"></div>
+                    <div v-else class="card-body"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 d-flex flex-column">
+
+                <!--  carousel  -->
+                <div id="carouselExampleIndicators" class="carousel slide my-3 order-2 order-lg-1">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item" v-for="(image, index) in this.apartment.added_images"
+                            :class="index === activeItem ? 'active' : ''">
+                            <img v-if="this.carousel_var" :src=image.image class="d-block ms_carousel_img">
+                            <img v-else :src="'/storage/' + image.image" :alt="image.name" class="d-block ms_carousel_img">
+                        </div>
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators"
+                        data-slide="prev" @click="this.prevImg()">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators"
+                        data-slide="next" @click="this.nextImg()">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </button>
                 </div>
 
                 <!-- Prezzo -->
-                <div class="w-100 my-5">
+                <div class="w-100 my-2 order-1 order-lg-2 rounded-3 shadow p-3">
                     <h3 class="text-center">Our best price for you:</h3>
                     <div class="text-center">
                         <span class="ms_highprice">{{ this.highprice }}&euro;/night</span>
@@ -87,90 +113,23 @@
                 </div>
 
                 <!-- Message -->
-                <div class="d-grid gap-2 col-6 mx-auto my-5">
+                <div class="d-grid gap-2 col-6 mx-auto my-2 order-3 order-lg-3 rounded-3 shadow p-3 w-100">
                     <h3 class="text-center">Want to know more?</h3>
-
-                    <router-link :to="{ name: 'message' }"
-                        class="link-light"><button class="btn btn-danger rounded-5">Write
+                    <router-link :to="{ name: 'message' }" class="link-light mx-auto"><button class="ms_btn_message">Write
                             to {{ user.name }}</button></router-link>
-
                 </div>
-
-
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <h3 class="text-center my-5">Where are we?</h3>
-                <div class="text-center">{{ apartment.address }}</div>
-                <div id="map"
-                    class="mx-auto"></div>
-
-                <!-- carousel -->
-
-                <h3 class="text-center my-5">More about us:</h3>
-
-                <div id="carouselExampleIndicators"
-                    class="carousel slide my-3">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="0"
-                            class="active"></li>
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="2"></li>
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="0"
-                            class="active"></li>
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators"
-                            data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-
-                        <div class="carousel-item"
-                            v-for="(image, index) in this.apartment.added_images"
-                            :class="index === activeItem ? 'active' : ''">
-                            <img v-if="this.carousel_var"
-                                :src=image.image
-                                class="d-block w-100 img-thumbnail">
-                            <img v-else
-                                :src="'/storage/' + image.image"
-                                :alt="image.name"
-                                class="d-block w-100 img-thumbnail">
-                        </div>
-                    </div>
-
-                    <button class="carousel-control-prev"
-                        type="button"
-                        data-target="#carouselExampleIndicators"
-                        data-slide="prev"
-                        @click="this.prevImg()">
-                        <span class="carousel-control-prev-icon"
-                            aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </button>
-
-                    <button class="carousel-control-next"
-                        type="button"
-                        data-target="#carouselExampleIndicators"
-                        data-slide="next"
-                        @click="this.nextImg()">
-                        <span class="carousel-control-next-icon"
-                            aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </button>
-                </div>
-
-
 
             </div>
 
+            <hr class="my-5">
 
+            <div class="col-12">
+                <!-- mappa indirizzo -->
+                <h3 class="my-3 ps-5">Where are we?</h3>
+                <div class="ms_address_ap ps-5">{{ apartment.address }}</div>
+                <div id="map" class="mx-auto shadow"></div>
+            </div>
         </div>
-
-
-
     </div>
 </template>
 
@@ -343,33 +302,56 @@ export default {
 
 
 #map {
-    height: 500px;
-    width: 100%;
-    max-width: 700px;
+    height: 400px;
+    width: 90%;
+    // max-width: 700px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    border-radius: 20px;
 }
 
 .ms_title {
-    font-size: 3em;
+    font-size: 2em;
 }
+
+.ms_address_ap {
+    color: $thirdColor;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.ms_image_ap_detail {
+    height: 300px;
+    border-bottom-left-radius: 30px;
+    border-top-left-radius: 30px;
+    object-fit: cover;
+}
+
+.ms_carousel_img {
+    width: 100%;
+    height: 300px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    object-fit: cover;
+}
+
+
 
 .ms_text {
     font-size: 0.5em;
 }
-
-.ms_main_image {
-    background-color: $principalColor;
-}
-
 
 .icon {
     height: 50px;
 }
 
 .ms_pointer {
-    background-color: $principalColor;
+    background-color: $thirdColor;
+    font-weight: 600;
 
     :hover {
         cursor: pointer;
+        color: $secondColor;
     }
 
     a {
@@ -379,15 +361,11 @@ export default {
 }
 
 .ms_active {
-    background-color: $secondColor;
-
-    a {
-        color: $principalColor;
-    }
+    background-color: $principalColor;
 }
 
 .ms_color {
-    background-color: $principalColor;
+    background-color: $thirdColor;
 }
 
 .ms_highprice {
@@ -432,4 +410,31 @@ export default {
 .ms_card_body_fix {
     height: calc(100% - 50px);
 }
+
+.ms_btn_message {
+    color: $thirdColor;
+    background-color: $body-bg;
+
+    border: solid 2px $thirdColor;
+    border-radius: 30px;
+    font-weight: 600;
+    padding: 5px 10px;
+}
+
+.ms_btn_message:hover {
+    color: $secondColor;
+    background-color: $principalColor;
+    border-color: $principalColor;
+}
+
+// responsive
+@media screen and (max-width: 1180px) {
+
+    .ms_image_ap_detail,
+    .ms_carousel_img {
+        border-radius: 30px;
+    }
+}
+
+// ====================
 </style>
