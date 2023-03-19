@@ -7,7 +7,7 @@
 
                     <div class="card-body">
                         <form action=""
-                            novalidation
+                            novalidate
                             @submit.prevent="loginUser">
                             <p class="center">
                             <div class="red">{{ error }}</div>
