@@ -1,8 +1,8 @@
 <template>
     <div class="container-fluid">
         <!-- container del form -->
-        <div class="container mt-5 text-center">
-            <h1 id="msTitlePage" class="ms_home_title my-3">Select search filters</h1>
+        <div class="container mt-2 text-center">
+            <h1 id="msTitlePage" class="ms_home_title mb-3">Select search filters</h1>
             <div class="ms_ctn_form">
                 <form action="" method="post">
 
@@ -11,12 +11,12 @@
                     <div>
                         <label for="" class="ms_label_ni">Rooms number </label>
                         <input type="number" name="rooms_num" v-model="roomsNum" class="ms_number_bar form-control mb-3">
-                    </div> <br>
+                    </div>
 
                     <div>
                         <label for="" class="ms_label_ni">Beds number </label>
                         <input type="number" name="rooms_num" v-model="bedsNum" class="ms_number_bar form-control mb-3">
-                    </div> <br>
+                    </div>
 
                     <div class="slidecontainer">
                         <input type="range" min="1" max="50" class="slider" v-model="radius">
@@ -385,7 +385,8 @@ export default {
     .ms_slot_card_img {
 
         img {
-            height: 230px;
+            object-fit: cover;
+            height: 260px;
         }
     }
 }
@@ -437,4 +438,5 @@ export default {
     }
 }
 
-// =====================================</style>
+// =====================================
+</style>

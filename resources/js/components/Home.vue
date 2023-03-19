@@ -290,7 +290,7 @@ export default {
 .ms_btn_advanced:hover {
     color: $secondColor;
     background-color: $principalColor;
-    border: none;
+    border-color: $principalColor;
 }
 
 .ms_error_messagge {
@@ -364,7 +364,8 @@ export default {
     .ms_slot_card_img {
 
         img {
-            height: 230px;
+            object-fit: cover;
+            height: 260px;
         }
     }
 }

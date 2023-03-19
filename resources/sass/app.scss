@@ -66,13 +66,6 @@ a {
         height: 100%;
     }
 
-    .ms_auth:hover {
-        color: $secondColor;
-        background-color: $principalColor;
-        border: none !important;
-        color: white !important;
-    }
-
     .cont-header {
         height: 100%;
         padding: 0 100px;
@@ -109,6 +102,12 @@ a {
                 border-radius: 30px;
             }
         }
+    }
+
+    .ms_btn_navbar:hover {
+        background-color: $principalColor;
+        border-color: $principalColor !important;
+        color: $secondColor !important;
     }
 }
 
