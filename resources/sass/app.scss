@@ -24,6 +24,7 @@ a {
     img {
         width: 50px;
         height: auto;
+        border-radius: 5px;
     }
 }
 
@@ -37,7 +38,7 @@ a {
 
     h1 {
         color: $secondColor;
-        font-size: 24px;
+        font-size: 28px;
         font-weight: 600;
     }
 }
@@ -63,6 +64,13 @@ a {
     // }
     .ms_ctn_logo {
         height: 100%;
+    }
+
+    .ms_auth:hover {
+        color: $secondColor;
+        background-color: $principalColor;
+        border: none !important;
+        color: white !important;
     }
 
     .cont-header {

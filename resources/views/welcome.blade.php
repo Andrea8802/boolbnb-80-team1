@@ -11,7 +11,7 @@
                         <div class="ms_slot_logo me-1">
                             <img src="{{ url('/images/logo-bool.png') }}" alt="logo_boolbnb">
                         </div>
-                        <div class="ms_slot_boolbnb_title d-none d-md-block principal mt-2 ms-2">
+                        <div class="ms_slot_boolbnb_title d-none d-md-block principal mt-1 ms-2">
                             <h1 class="principal">BoolBnB</h1>
                         </div>
                     </div>
@@ -19,9 +19,10 @@
             </div>
             <div class="cont-user">
                 @guest
-                    <router-link class="me-2 text-black fw-bold rounded-pill border-dark" to='/login' exact>Login
+                    <router-link class="me-2 text-black fw-bold rounded-pill border-dark ms_auth" to='/login' exact>Login
                     </router-link>
-                    <router-link to='/register' class="text-black fw-bold rounded-pill border-dark">Register</router-link>
+                    <router-link to='/register' class="text-black fw-bold rounded-pill border-dark ms_auth">Register
+                    </router-link>
                 @endguest
                 @auth
                     <router-link to='/userApartments' class="border-dark me-3 principal">Your Apartments</router-link>
