@@ -383,7 +383,7 @@ export default {
 
 
     a {
-        color: $principalColor;
+        color: $thirdColor;
         opacity: 0.5;
 
         &:hover {

@@ -22,7 +22,7 @@ a {
 .ms_slot_logo {
 
     img {
-        width: 50px;
+        width: 40px;
         height: auto;
         border-radius: 5px;
     }
@@ -38,7 +38,7 @@ a {
 
     h1 {
         color: $secondColor;
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 600;
     }
 }
@@ -84,10 +84,10 @@ a {
 
         .cont-user {
             height: 100%;
-            width: 20%;
             display: flex;
             justify-content: end;
             align-items: center;
+            gap: 20px;
 
             .principal {
                 color: $thirdColor;
@@ -104,11 +104,18 @@ a {
         }
     }
 
-    .ms_btn_navbar:hover {
-        background-color: $principalColor;
-        border-color: $principalColor !important;
-        color: $secondColor !important;
+    .ms_btn_navbar {
+        padding: 5px 9px !important;
+        font-size: 14px;
+
+        &:hover {
+            background-color: $principalColor;
+            border-color: $principalColor !important;
+            color: $secondColor !important;
+        }
     }
+
+
 }
 
 // ===========================================
@@ -117,7 +124,7 @@ a {
 
 .main {
     padding-top: 30px;
-    height: calc(100vh - 120px);
+    height: calc(100vh - 130px);
     width: 100%;
     overflow-y: auto;
     scroll-behavior: smooth;

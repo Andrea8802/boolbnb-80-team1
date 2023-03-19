@@ -18,7 +18,11 @@
 <template>
     <div>
         <div class="dropdown">
-            <img :src="'/storage/' + user.avatar" @click="myFunction()" class="img" />
+            <div class="ms_profile d-flex justify-content-evenly align-items-center gap-2 border-dark border-2"
+                @click="myFunction()">
+                <img :src="'/storage/' + user.avatar" class="img" />
+                <div class="fw-bold">{{ user.name }}</div>
+            </div>
             <div id="myDropdown" class="dropdown-content">
                 <a href="" @click.prevent="logout">Logout</a>
 
@@ -63,13 +67,28 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style scoped lang=scss>
+@use '/resources/sass/variables.scss' as *;
+
+.ms_profile {
+    cursor: pointer;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 14px;
+
+    &:hover {
+        color: $secondColor;
+        background-color: $principalColor;
+    }
+}
+
 .img {
-    height: 42px;
-    width: 42px;
+    height: 30px;
     border-radius: 100%;
     object-fit: cover;
     cursor: pointer;
+    border: 2px solid black;
 }
 
 /* Dropdown Button */
