@@ -205,14 +205,14 @@
                     </label>
                     <input type="text" name="address" v-model="modelAddressSearch" class="form-control ms_input_focus_color"
                         placeholder="Enter a address..." aria-describedby="basic-addon1" @input="getCoordinates">
-                    <!-- <input type="submit" value="Search" class="ms_input_submit" @click.prevent="getCoordinates"> -->
 
 
                 </div>
                 <div class="ms_ctn_radio" v-if="view">
-                    <div v-for="apartment in arrayApartments"> <input type="radio" name="address" id=""
-                            :value=apartment.address.freeformAddress v-model="modelAddress" @click="address(apartment)">
-                        <label for="">{{
+                    <div v-for="apartment in arrayApartments">
+                        <input type="radio" name="address" :value=apartment.address.freeformAddress v-model="modelAddress"
+                            @click="address(apartment)" :id="apartment.id">
+                        <label :for="apartment.id">{{
                             apartment.address.freeformAddress
                         }}</label>
                     </div>
@@ -242,7 +242,7 @@
                     <h4>Select services:</h4>
                     <div class="ms_ctn_check">
                         <div v-for="service in services">
-                            <input type="checkbox" :value="service.id" name=services :id="service.id"
+                            <input type="checkbox" :value="service.id" name="services" :id="service.id"
                                 v-model="modelServices">
                             <label :for="service.id">{{ service.name }}</label>
                         </div>

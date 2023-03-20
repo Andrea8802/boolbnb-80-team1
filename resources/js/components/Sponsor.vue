@@ -7,11 +7,9 @@
             <div class="sponsor">
                 <div class="cont-sponsor">
                     <div v-for="sponsor in sponsors">
-                        <input type="radio"
-                            v-model="modelSponsor"
-                            name="profileImg"
-                            :value="sponsor.id"> <span class="text">{{ sponsor.name }} {{
-                                sponsor.price }}&euro;</span> <br> <br>
+                        <input type="radio" v-model="modelSponsor" name="profileImg" :value="sponsor.id" :id="sponsor.id">
+                        <label class="text" :for="sponsor.id">{{ sponsor.name }} {{
+                            sponsor.price }}&euro;</label> <br> <br>
                     </div>
 
 
