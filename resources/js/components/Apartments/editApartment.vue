@@ -231,6 +231,8 @@
                 </div>
 
                 <!-- added images form -->
+                <label for="addedImage" class="ms_label_smartphone d-block d-md-none">Other images:</label>
+                <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
                     <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1"
                         for="addedImage">Overwrite other images : </label>
