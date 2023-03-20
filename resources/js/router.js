@@ -15,6 +15,7 @@ import Sponsor from './components/Sponsor.vue';
 import Payment from './components/Payment.vue';
 import Message from './components/messageApartment.vue';
 import viewMessages from './components/viewMessages.vue';
+import ChartStatistics from './components/ChartStatistics.vue';
 
 const routes = [
     {
@@ -131,6 +132,11 @@ const routes = [
             })
         }
 
+    },
+    {
+        path: '/chartStatistics',
+        name: 'chartStatistics',
+        component: ChartStatistics,
     }
 ];
 
