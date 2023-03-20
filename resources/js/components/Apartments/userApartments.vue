@@ -3,8 +3,6 @@
         <div class="row">
             <div>
                 <h1>Your Apartments</h1>
-                <router-link :to="{ name: 'createApartment' }"><button class="btn btn-primary">Create
-                        apartment</button></router-link>
             </div>
 
             <!-- Colonna con appartamenti e pulsanti -->

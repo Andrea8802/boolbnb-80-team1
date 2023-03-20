@@ -26,6 +26,8 @@
             <div id="myDropdown" class="dropdown-content">
                 <router-link to='/userApartments' class="d-block d-md-none">Your Apartments
                 </router-link>
+                <router-link :to="{ name: 'createApartment' }">Create
+                    apartment</router-link>
                 <a href="" @click.prevent="logout">Logout</a>
             </div>
         </div>
