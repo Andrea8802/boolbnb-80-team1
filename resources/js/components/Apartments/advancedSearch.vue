@@ -33,8 +33,9 @@
                         <h4>Select services:</h4>
                         <div class="ms_ctn_check">
                             <div v-for="service in services">
-                                <input type="checkbox" :value="service.id" name=services v-model="modelServices">
-                                <label for="services">{{ service.name }}</label>
+                                <input type="checkbox" :value="service.id" name=services v-model="modelServices"
+                                    :id="service.id">
+                                <label :for="service.id">{{ service.name }}</label>
                             </div>
                         </div>
                     </div>
