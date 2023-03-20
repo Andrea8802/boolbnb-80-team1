@@ -44,7 +44,7 @@
         </div>
         <input type="submit"
             value="Pay"
-            class="px-12 py-3 bg-blue-600 border border-transparent  " />
+            class="btn btn-outline-danger btn-lg" />
 
 
     </div>
@@ -255,7 +255,7 @@ h1 {
 }
 
 .form-container {
-    height: calc(100vh - 120px);
+    height: 100%;
     width: 100%;
     background-color: #f3f4f6;
     display: flex;

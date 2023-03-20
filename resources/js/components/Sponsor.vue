@@ -12,8 +12,9 @@
                             name="profileImg"
                             :value="sponsor.id"
                             :id="sponsor.id">
-                        <label class="text"
-                            :for="sponsor.id">{{ sponsor.name }} {{
+                        <label :class="`text` + sponsor.id"
+                            :for="sponsor.id"
+                            :id=sponsor.price>{{ sponsor.name }} {{
                                 sponsor.price }}&euro;</label> <br> <br>
                     </div>
 
@@ -22,12 +23,17 @@
 
 
             </div>
+
             <div class="cont-btn">
+
                 <button @click="push"
-                    class="btn btn-outline-danger btn-lg">Pay</button>
-            </div>
-            <div>
-                {{ error }}
+                    class="btn btn-outline-danger btn-lg">Pay</button> <br>
+
+            </div> <br>
+            <div class="cont-btn">
+                <div class="red">
+                    {{ error }}
+                </div>
             </div>
 
         </div>
@@ -106,6 +112,11 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.red {
+    font-size: 18px;
+    color: red;
+}
+
 .cont {
     width: 100%;
     height: calc(100vh - 120px);
@@ -133,6 +144,49 @@ export default {
             align-items: center;
 
             .cont-sponsor {
+                height: 100%;
+                width: 70%;
+                // background-color: blue;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .text1 {
+                    background-color: #A37E49;
+                }
+
+                .text2 {
+                    background-color: #FFD700;
+                }
+
+                .text3 {
+                    background-color: #b9f2ff;
+                }
+
+                input[type="radio"] {
+                    visibility: hidden;
+                    height: 0;
+                    width: 0;
+                }
+
+                label {
+                    font-size: 23px;
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                    cursor: pointer;
+                    // background-color: #454545;
+                    color: white;
+                    padding: 10px 15px;
+                    border-radius: 3px;
+
+                }
+
+                input[type="radio"]:checked+label {
+                    // background-color: #58ba83;
+                    background-color: #dc3545;
+                }
+
                 .text {
                     font-size: 18px;
                 }
