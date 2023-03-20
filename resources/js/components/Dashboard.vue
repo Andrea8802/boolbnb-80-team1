@@ -3,7 +3,7 @@
 
 .dropdown-content {
     a {
-        color: $principalColor !important;
+        color: $thirdColor !important;
         border: none !important;
         border-radius: 0px !important;
 
@@ -78,6 +78,7 @@ export default {
     font-size: 14px;
 
     &:hover {
+        border-color: $principalColor !important;
         color: $secondColor;
         background-color: $principalColor;
     }
