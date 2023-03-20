@@ -3,6 +3,8 @@
         <div class="row">
             <div>
                 <h1>Your Apartments</h1>
+                <router-link :to="{ name: 'createApartment' }"><button class="ms_btn_create">Create
+                        apartment</button></router-link>
             </div>
 
             <!-- Colonna con appartamenti e pulsanti -->
@@ -376,6 +378,23 @@ export default {
 
     }
 
+}
+
+
+.ms_btn_create {
+    color: $thirdColor;
+    background-color: $body-bg;
+
+    border: solid 2px $thirdColor;
+    border-radius: 30px;
+    font-weight: 600;
+    padding: 5px 10px;
+}
+
+.ms_btn_create:hover {
+    color: $secondColor;
+    background-color: $principalColor;
+    border-color: $principalColor;
 }
 
 
