@@ -8,14 +8,18 @@
 
                     <input type="text" v-model="apartmentSearch" placeholder="Enter your destination..."
                         class="ms_search_bar form-control mb-3">
-                    <div>
-                        <label for="" class="ms_label_ni">Rooms number </label>
-                        <input type="number" name="rooms_num" v-model="roomsNum" class="ms_number_bar form-control mb-3">
-                    </div>
+                    <div class="d-flex justify-content-center align-items-centet gap-3">
+                        <div>
+                            <label for="" class="ms_label_ni">Rooms number </label>
+                            <input type="number" name="rooms_num" v-model="roomsNum"
+                                class="ms_number_bar form-control mb-3">
+                        </div>
 
-                    <div>
-                        <label for="" class="ms_label_ni">Beds number </label>
-                        <input type="number" name="rooms_num" v-model="bedsNum" class="ms_number_bar form-control mb-3">
+                        <div>
+                            <label for="" class="ms_label_ni">Beds number </label>
+                            <input type="number" name="rooms_num" v-model="bedsNum" class="ms_number_bar form-control mb-3">
+                        </div>
+
                     </div>
 
                     <div class="slidecontainer">
@@ -206,9 +210,8 @@ export default {
     margin: 0 auto;
 
     .ms_number_bar {
-        width: 90%;
-        max-width: 300px;
         margin: 0 auto;
+        width: 80px;
     }
 
     .ms_search_bar,

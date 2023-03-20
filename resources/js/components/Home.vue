@@ -345,6 +345,7 @@ export default {
 .ms_card_efct:hover {
     transform: scale(1.05);
     color: $principalColor;
+    transition: all 0.2s ease;
 }
 
 .ms_card_efct {
