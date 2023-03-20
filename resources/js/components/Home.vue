@@ -36,7 +36,7 @@
     <!-- =============================================================== -->
 
     <!-- container principale di tutte le card degli appartamenti -->
-    <div class="container-fluid mt-5 ms_ctn_card_home">
+    <div class="container-fluid mt-5 ms_ctn_card_home" v-if="!searching">
         <div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 align-items-stretch g-2 g-lg-3"
                 v-if="!onSearch">
@@ -123,6 +123,9 @@
             </div>
         </div>
     </div>
+    <div v-else>
+        <SearchLoader />
+    </div>
     <!-- ================================================================ -->
 
     <!-- bottone per ritornare in cima nella pagina -->
@@ -140,8 +143,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import SearchLoader from './SearchLoader.vue';
 export default {
+    components: {
+        SearchLoader
+    },
     data() {
         return {
             error: "",
@@ -155,6 +162,8 @@ export default {
             rooms_num: "",
             apartmentsSponsored: [],
             apartmentsGeoSponsored: [],
+            apiKey: "7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO",
+            searching: false
 
 
 
@@ -167,8 +176,8 @@ export default {
         getCoordinates() {
             this.onSearch = false;
             if (!this.apartmentSearch) return;
-
-            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.apartmentSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
+            this.searching = true;
+            var theUrl = `https://api.tomtom.com/search/2/geocode/${this.apartmentSearch}.json?key=${this.apiKey}`;
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", theUrl, false);
             xmlHttp.send(null);
@@ -190,7 +199,7 @@ export default {
                 .then(res => {
                     console.log("apSear", res);
                     this.onSearch = true;
-
+                    this.searching = false;
                     this.apartmentsGeo = res.data.apartments;
                     this.apartmentsGeoSponsored = res.data.apartmentsSponsored;
                     console.log(this.apartmentsGeo);
@@ -201,10 +210,14 @@ export default {
                         this.error = null
                     }
                 })
+                .catch(err => {
+                    this.searching = false;
+
+                })
         },
 
         reloadPage() {
-            var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
+            var currentDocumentTimestamp = new Date(performance.timing.domsearching).getTime();
             // Current Time //
             var now = Date.now();
             // Total Process Lenght as Minutes //
