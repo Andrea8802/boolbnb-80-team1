@@ -36,7 +36,8 @@
     <!-- =============================================================== -->
 
     <!-- container principale di tutte le card degli appartamenti -->
-    <div class="container-fluid mt-5 ms_ctn_card_home" v-if="!searching">
+    <div class="container-fluid mt-5 ms_ctn_card_home"
+        v-if="!searching">
         <div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 align-items-stretch g-2 g-lg-3"
                 v-if="!onSearch">
@@ -73,7 +74,7 @@
                             <div class="card-body h-35 text-start ps-2">
                                 <h5 class="card-title  ms_aps_text">{{ apartment.title }}</h5>
                                 <div class=" small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                                <div class=" "><strong>{{ apartment.price }}€</strong>/notte</div>
+                                <div class=" "><strong>{{ apartment.price }}€</strong>/night</div>
                             </div>
                         </div>
                     </router-link>
@@ -115,7 +116,7 @@
                             <div class="card-body h-35 text-start ps-2">
                                 <h5 class="card-title  ms_aps_text">{{ apartment.title }}</h5>
                                 <div class=" small font-italic ms_aps_sm_text">{{ apartment.address }}</div>
-                                <div class=" "><strong>{{ apartment.price }}€</strong>/notte</div>
+                                <div class=" "><strong>{{ apartment.price }}€</strong>/night</div>
                             </div>
                         </div>
                     </router-link>
@@ -438,4 +439,5 @@ export default {
     }
 }
 
-// =====================================</style>
+// =====================================
+</style>
