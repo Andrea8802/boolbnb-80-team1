@@ -234,8 +234,8 @@ body {
                                     {{ message.text }}
                                 </p>
                                 <p>
-                                    Thanks! <br>
-                                    {{ message.name }}
+
+                                    From : {{ message.name }}
                                 </p>
                                 <hr>
                             </div>
