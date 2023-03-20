@@ -26,7 +26,7 @@
                     </router-link>
                 @endguest
                 @auth
-                    <router-link to='/userApartments' class="border-dark me-3 principal ms_btn_navbar d-none d-md-block">Your Apartments
+                    <router-link to='/userApartments' class="border-dark me-3 principal ms_btn_navbar d-none d-md-block ">Your Apartments
                     </router-link>
                     <component-dashboard></component-dashboard>
                 @endauth

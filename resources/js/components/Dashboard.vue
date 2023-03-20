@@ -17,23 +17,44 @@
 
 <template>
     <div>
-        <div class="dropdown ms_dropdown">
+    <!-- <div class="dropdown ms_dropdown">
             <div class="ms_profile d-flex justify-content-evenly align-items-center gap-2 border-dark border-2"
                 @click="myFunction()">
+                                                                                    <img :src="'/storage/' + user.avatar"
+                                                                                        class="img" />
+                                                                                    <div class="fw-bold">{{ user.name }}</div>
+                                                                                </div>
+                                                                                <div id="myDropdown"
+                                                                                    class="dropdown-content">
+                                                                                    <router-link to='/userApartments'
+                                                                                        class="d-block d-md-none">Your Apartments
+                                                                                    </router-link>
+                                                                                    <router-link :to="{ name: 'createApartment' }">Create
+                                                                                        apartment</router-link>
+                                                                                    <a href=""
+                                                                                        @click.prevent="logout">Logout</a>
+                                                                                </div>
+                                                                            </div> -->
+        <!-- class="btn btn-secondary dropdown-toggle" -->
+        <div class="dropdown">
+            <a class="btn btn-secondary text-black dropdown-toggle ms_profile d-flex justify-content-evenly align-items-center gap-2 border-dark border-2"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
                 <img :src="'/storage/' + user.avatar"
                     class="img" />
-                <div class="fw-bold">{{ user.name }}</div>
-            </div>
-            <div id="myDropdown"
-                class="dropdown-content">
-                <router-link to='/userApartments'
-                    class="d-block d-md-none">Your Apartments
-                </router-link>
-                <router-link :to="{ name: 'createApartment' }">Create
-                    apartment</router-link>
-                <a href=""
-                    @click.prevent="logout">Logout</a>
-            </div>
+                <div class="fw-bold text-black">{{ user.name }}</div>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li @click="create"
+                    class="cursor mb-2 px-2">
+                    Create Apartment </li>
+                <li @click="logout"
+                    class="cursor px-2 ">Logout</li>
+
+            </ul>
         </div>
         <br>
 
@@ -48,6 +69,9 @@ export default {
         }
     },
     methods: {
+        create() {
+            this.$router.push({ name: "createApartment" })
+        },
         myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         },
@@ -77,11 +101,20 @@ export default {
 <style scoped lang=scss>
 @use '/resources/sass/variables.scss' as *;
 
+.cursor {
+    cursor: pointer;
+}
+
+.cursor:hover {
+    background-color: $principalColor;
+}
+
 .ms_profile {
     margin-top: 2px;
     cursor: pointer;
     border: 2px solid black;
     border-radius: 20px;
+    background-color: white;
     padding: 2px 10px;
     font-size: 14px;
 
