@@ -7,9 +7,14 @@
             <div class="sponsor">
                 <div class="cont-sponsor">
                     <div v-for="sponsor in sponsors">
-                        <input type="radio" v-model="modelSponsor" name="profileImg" :value="sponsor.id" :id="sponsor.id">
-                        <label class="text" :for="sponsor.id">{{ sponsor.name }} {{
-                            sponsor.price }}&euro;</label> <br> <br>
+                        <input type="radio"
+                            v-model="modelSponsor"
+                            name="profileImg"
+                            :value="sponsor.id"
+                            :id="sponsor.id">
+                        <label class="text"
+                            :for="sponsor.id">{{ sponsor.name }} {{
+                                sponsor.price }}&euro;</label> <br> <br>
                     </div>
 
 
@@ -18,9 +23,11 @@
 
             </div>
             <div class="cont-btn">
-                <button v-if="getApartment.id !== undefined && modelSponsor !== undefined"
-                    class="btn btn-outline-danger btn-lg"><router-link
-                        :to="{ name: 'payment', params: { id: getApartment.id, sponsor: modelSponsor } }">Pay</router-link></button>
+                <button @click="push"
+                    class="btn btn-outline-danger btn-lg">Pay</button>
+            </div>
+            <div>
+                {{ error }}
             </div>
 
         </div>
@@ -36,9 +43,23 @@ export default {
             sponsors: [],
             modelSponsor: "sponsor",
             getApartment: "",
+            error: "",
         }
     },
     methods: {
+        push() {
+            if (this.modelSponsor == "sponsor") {
+                this.error = "You need to insert one type of sponsor"
+
+            }
+            else {
+                this.$router.push({
+                    name: 'payment',
+                    params: { id: this.getApartment.id, sponsor: this.modelSponsor }
+                });
+            }
+
+        },
         log() {
             console.log(this.modelSponsor);
         },
