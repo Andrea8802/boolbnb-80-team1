@@ -17,7 +17,7 @@
 
 <template>
     <div>
-        <div class="dropdown">
+        <div class="dropdown ms_dropdown">
             <div class="ms_profile d-flex justify-content-evenly align-items-center gap-2 border-dark border-2"
                 @click="myFunction()">
                 <img :src="'/storage/' + user.avatar" class="img" />
@@ -25,7 +25,8 @@
             </div>
             <div id="myDropdown" class="dropdown-content">
                 <a href="" @click.prevent="logout">Logout</a>
-
+                <router-link to='/userApartments' class="d-block d-md-none">Your Apartments
+                </router-link>
             </div>
         </div>
         <br>
@@ -118,8 +119,9 @@ export default {
 .dropdown-content {
     display: none;
     position: absolute;
+    right: 2px;
     background-color: #f1f1f1;
-    width: 100px;
+    width: 150px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
