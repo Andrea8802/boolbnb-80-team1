@@ -62,6 +62,24 @@
     }
 }
 
+.ms_ctn_radio {
+    width: 90%;
+    max-width: 600px;
+    margin: 25px auto;
+    height: fit-content;
+    text-align: start;
+
+    label {
+        color: $principalColor;
+        font-weight: 600;
+        margin-left: 3px;
+    }
+
+    input[type="radio"] {
+        accent-color: $principalColor;
+    }
+}
+
 .ms_input_submit {
     background-color: $body-bg;
     color: $thirdColor;
@@ -108,7 +126,6 @@
                 <use xlink:href="#exclamation-triangle-fill" />
             </svg>
             <div class="col-6 mx-auto">
-                <h1 class="text-center">VOLEVIIIII!!!</h1>
                 <h2 class="text-center my-6">Non hai i permessi per accedere a questa pagina</h2>
             </div>
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -126,7 +143,7 @@
 
         <!-- container del form per modificare un appartamento -->
         <div class="mb-3">
-            <form action="" enctype="multipart/form-data" method="post" @submit.prevent="getCoordinates">
+            <form action="" enctype="multipart/form-data" method="post" @submit.prevent="updateApartment">
                 <p v-if="errors.length">
                     <b class="red">Please correct the following error(s):</b>
 
@@ -216,7 +233,18 @@
                     </label>
                     <input type="text" name="address" v-model="getApartment.address"
                         class="form-control ms_input_focus_color" placeholder="Enter a address..."
-                        aria-describedby="basic-addon1">
+                        aria-describedby="basic-addon1" @input="getCoordinates">
+
+                    <div class="ms_ctn_radio" v-if="view">
+                        <div v-for="apartment in arrayApartments">
+                            <input type="radio" name="address" :value=apartment.address.freeformAddress
+                                v-model="getApartment.address" @click="address(apartment)" :id="apartment.id">
+                            <label :for="apartment.id">{{
+                                apartment.address.freeformAddress
+                            }}</label>
+                        </div>
+
+                    </div>
                 </div>
 
                 <!-- input per inserire l'immagine di copertina dell'appartamento -->
@@ -275,18 +303,24 @@ export default {
             user: [],
             selectedCheck: [],
             errors: [],
-
-
-            /* variabili immagini aggiuntive */
-            addedImages: [],
+            addedImages: [],             /* variabili immagini aggiuntive */
             addImgBool: false,
+            waitTime: true,
+            view: false,
+            arrayApartments: []
 
 
 
         }
     },
     methods: {
-
+        address(addressObj) {
+            this.getApartment.address = addressObj.address.freeformAddress
+            this.getApartment.lat = parseFloat(addressObj.position.lat)
+            console.log(this.getApartment.lat);
+            this.getApartment.long = parseFloat(addressObj.position.lon)
+            console.log(this.getApartment.long);
+        },
         apServices(service) {
             for (let index = 0; index < this.getApartment.services.length; index++) {
                 const element = this.getApartment.services[index];
@@ -334,6 +368,8 @@ export default {
                 });
         },
         updateApartment() {
+
+            this.getCoordinates();
             this.errors.length = 0;
             const config = {
                 headers: {
@@ -426,22 +462,12 @@ export default {
 
         },
         getEditApartment() {
-
             axios.get("/api/apartment-edit/" + this.$route.params.id)
                 .then(res => {
                     this.getApartment = res.data.response[0];
                     this.user = res.data.response[1]
                     console.log(this.getApartment);
-                    console.log(this.user)
-                    /* if (this.getApartment.user_id !== this.user.id) {
-                        console.log(this.permission, this.getApartment.user_id, this.user.id);
-                        this.permission = false;
-                        return this.permission;
-                    } else {
-                        console.log(this.permission, this.getApartment.user_id, this.user.id);
-                        this.permission = true;
-                        return (this.permission, this.getApartment, this.user)
-                    } */
+                    console.log(this.user);
 
 
                 }).catch((errors) => {
@@ -453,20 +479,24 @@ export default {
 
 
         },
-        getCoordinates(e) {
+        getCoordinates() {
+            console.log("sni");
+            if (!this.waitTime) return;
+            this.waitTime = false;
 
-            e.preventDefault();
+            setTimeout(() => this.waitTime = true, 500);
+
             var theUrl = `https://api.tomtom.com/search/2/geocode/${this.
-                getApartment.address}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
+                getApartment.address}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO&limit=3`;
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", theUrl, false);
             xmlHttp.send(null);
             var json = JSON.parse(xmlHttp.responseText);
-            console.log("json", json);
-            this.getApartment.lat = parseFloat(json.results[0].position.lat);
-            this.getApartment.long = parseFloat(json.results[0].position.lon);
+            console.log(this.json);
 
-            this.updateApartment();
+            this.arrayApartments = json.results
+            this.view = true;
+
 
         },
         onAddedImagesChange(e) {
