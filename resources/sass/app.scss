@@ -126,8 +126,9 @@ a {
 
 .main {
     // padding-top: 30px;
-    height: calc(100vh - 130px);
+    height: calc(100vh - 160px);
     width: 100%;
+    padding-top: 15px;
     overflow-y: auto;
     scroll-behavior: smooth;
 }
