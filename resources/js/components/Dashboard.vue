@@ -24,9 +24,9 @@
                 <div class="fw-bold">{{ user.name }}</div>
             </div>
             <div id="myDropdown" class="dropdown-content">
-                <a href="" @click.prevent="logout">Logout</a>
                 <router-link to='/userApartments' class="d-block d-md-none">Your Apartments
                 </router-link>
+                <a href="" @click.prevent="logout">Logout</a>
             </div>
         </div>
         <br>
