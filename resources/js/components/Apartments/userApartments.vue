@@ -26,6 +26,16 @@
     font-weight: 600;
 }
 
+.ms_msg_present {
+
+
+    .ms_font_icon {
+        color: $principalColor;
+    }
+
+
+}
+
 // =====================
 
 
@@ -117,16 +127,16 @@
                                 <button class="btn btn-light me-2 my-2 border-dark" @click="this.toggleShow(index)"
                                     :class="this.messages_count[index] > 0 ? 'ms_msg_present' : ''">
                                     <font-awesome-icon icon="fa-regular fa-envelope"
-                                        :class="this.messages_count[index] > 0 ? 'ms_font_icon' : ''" />
-                                </button>
-                            </div>
+                                    :class="this.messages_count[index] > 0 ? 'ms_font_icon' : ''" />
+                            </button>
+                        </div>
 
-                            <!-- bottone per andare alla pagina messagi -->
-                            <div v-else>
-                                <button class="btn btn-light me-2 my-2 border-dark" @click="this.toggleShow(index)">
-                                    <font-awesome-icon icon="fa-solid fa-comment-slash" />
-                                    Messages
-                                </button>
+                        <!-- bottone per andare alla pagina messagi -->
+                        <div v-else>
+                            <button class="btn btn-light me-2 my-2 border-dark" @click="this.toggleShow(index)">
+                                <font-awesome-icon icon="fa-solid fa-comment-slash" />
+                                Messages
+                            </button>
                         </div>
 
                         <!-- bottini per la visibilità dell'apartamento -->
@@ -161,7 +171,7 @@
 
                     <!-- visibilità appartamento -->
                     <div class="fs-5">Visibility:
-                        <span class="text-info">
+                        <span class="text-danger">
                             {{ apartment.visibility ? "Public" : "Private" }}
                         </span>
                     </div>
@@ -232,63 +242,63 @@
                                                 :class="this.messages_count[index] > 0 ? 'ms_font_icon' : ''" />
                                         </button>
 
-                                        <button v-else class="btn btn-light ms_hover_show mx-auto"
-                                            @click="this.toggleShow(index)">
-                                            <font-awesome-icon icon="fa-solid fa-comment-slash" />
-                                            Messages
-                                        </button>
-                                    </li>
+                                                    <button v-else class="btn btn-light ms_hover_show mx-auto"
+                                                        @click="this.toggleShow(index)">
+                                                        <font-awesome-icon icon="fa-solid fa-comment-slash" />
+                                                        Messages
+                                                    </button>
+                                                </li>
 
-                                    <li v-if="apartment.visibility">
-                                        <button class="btn btn-light ms_hover_show h-100 mx-auto"
-                                                                                                                                                            @click="changeVisibility(apartment)">
-                                                                                                                                                                <font-awesome-icon icon="fa-solid fa-eye-slash" />
-                                                                                                                                                                Set Private
-                                                                                                                                                            </button>
-                                                                                                                                                        </li>
-                                                                                                                                                        <li v-else>
-                                                                                                                                                            <button class="btn btn-light ms_hover_show h-100 mx-auto"
-                                                                                                                                                                                                                                                                @click="changeVisibility(apartment)">
-                                                                                                                                                                                                                                                                <font-awesome-icon icon="fa-solid fa-eye" />
-                                                                                                                                                                                                                                                                Set Public
-                                                                                                                                                                                                                                                        </button>
-                                                                                                                                                                                                                                                                                                                                                                                    </li>
+                                                <li v-if="apartment.visibility">
+                                                    <button class="btn btn-light ms_hover_show h-100 mx-auto"
+                                                                                                                                                                        @click="changeVisibility(apartment)">
+                                                                                                                                                                            <font-awesome-icon icon="fa-solid fa-eye-slash" />
+                                                                                                                                                                            Set Private
+                                                                                                                                                                        </button>
+                                                                                                                                                                    </li>
+                                                                                                                                                                    <li v-else>
+                                                                                                                                                                        <button class="btn btn-light ms_hover_show h-100 mx-auto"
+                                                                                                                                                                                                                                                                            @click="changeVisibility(apartment)">
+                                                                                                                                                                                                                                                                            <font-awesome-icon icon="fa-solid fa-eye" />
+                                                                                                                                                                                                                                                                            Set Public
+                                                                                                                                                                                                                                                                    </button>
+                                                                                                                                                                                                                                                                                                                                                                                                </li>
 
-                                                                                                                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                                                                            </ul>
 
 
 
-                                                                                                                                                                                                                                                                                                                                                                                <div class="ms_msg ms_active_hide text-center" :id="index">
-                                                                                                                                                                                                                                                                                                                                                                                    You have {{ this.messages_count[index] }} messages for this apartment
-                                                                                                                                                                                                                                                                                                                                                                                    <router-link v-if="this.messages_count[index] > 0"
-                                                                                                                                                                                                                                                                                                                                                                                        :to="{ name: 'viewMessages', params: { id: apartment.id } }"
-                                                                                                                                                                                                                                                                                                                                                                                        class="btn btn-primary btn-sm d-inline ms_msg_link">
-                                                                                                                                                                                                                                                                                                                                                                                        Read
-                                                                                                                                                                                                                                                                                                                                                                                    </router-link>
-                                                                                                                                                                                                                                                                                                                                                                                    <div v-else></div>
+                                                                                                                                                                                                                                                                                                                                                                                            <div class="ms_msg ms_active_hide text-center" :id="index">
+                                                                                                                                                                                                                                                                                                                                                                                                You have {{ this.messages_count[index] }} messages for this apartment
+                                                                                                                                                                                                                                                                                                                                                                                                <router-link v-if="this.messages_count[index] > 0"
+                                                                                                                                                                                                                                                                                                                                                                                                    :to="{ name: 'viewMessages', params: { id: apartment.id } }"
+                                                                                                                                                                                                                                                                                                                                                                                                    class="btn btn-primary btn-sm d-inline ms_msg_link">
+                                                                                                                                                                                                                                                                                                                                                                                                    Read
+                                                                                                                                                                                                                                                                                                                                                                                                </router-link>
+                                                                                                                                                                                                                                                                                                                                                                                                <div v-else></div>
+                                                                                                                                                                                                                                                                                                                                                                                            </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                        </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                                    <div class="accordion-collapse collapse show ms_active_hide" :id="apartment.id">
+                                                                                                                                                                                                                                                                                                                                                                                        <div class="accordion-body ms_hide_body d-flex justify-content-between">
+                                                                                                                                                                                                                                                                                                                                                                                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                                                                                                                                                                                                                                                                                                                                                                                class="rounded fluid img-thumbnail ms_body_img">
+
+                                                                                                                                                                                                                                                                                                                                                                                            <div class="text-center d-flex flex-column justify-content-around ms_info">
+                                                                                                                                                                                                                                                                                                                                                                                                <p class="text-capitalize lead">
+                                                                                                                                                                                                                                                                                                                                                                                                    {{ apartment.description }}
+                                                                                                                                                                                                                                                                                                                                                                                                </p>
+                                                                                                                                                                                                                                                                                                                                                                                                <sub class="">{{ apartment.address }}</sub>
+                                                                                                                                                                                                                                                                                                                                                                                                <div>Prezzo: {{ apartment.price }}</div>
+                                                                                                                                                                                                                                                                                                                                                                                            </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                                                                                                                                                                                                    </div>
                                                                                                                                                                                                                                                                                                                                                                                 </div>
-
                                                                                                                                                                                                                                                                                                                                                                             </div>
-
-                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                        <div class="accordion-collapse collapse show ms_active_hide" :id="apartment.id">
-                                                                                                                                                                                                                                                                                                                                                                            <div class="accordion-body ms_hide_body d-flex justify-content-between">
-                                                                                                                                                                                                                                                                                                                                                                                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                                                                                                                                                                                                                                                                                                                                                                    class="rounded fluid img-thumbnail ms_body_img">
-
-                                                                                                                                                                                                                                                                                                                                                                                <div class="text-center d-flex flex-column justify-content-around ms_info">
-                                                                                                                                                                                                                                                                                                                                                                                    <p class="text-capitalize lead">
-                                                                                                                                                                                                                                                                                                                                                                                        {{ apartment.description }}
-                                                                                                                                                                                                                                                                                                                                                                                    </p>
-                                                                                                                                                                                                                                                                                                                                                                                    <sub class="">{{ apartment.address }}</sub>
-                                                                                                                                                                                                                                                                                                                                                                                    <div>Prezzo: {{ apartment.price }}</div>
-                                                                                                                                                                                                                                                                                                                                                                                </div>
-
-                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                                    </div> -->
 
         </div>
     </div>
