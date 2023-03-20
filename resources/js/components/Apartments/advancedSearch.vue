@@ -7,7 +7,7 @@
                 <form>
 
                     <input type="text" v-model="apartmentSearch" placeholder="Enter your destination..."
-                        class="ms_search_bar form-control mb-3">
+                        class="ms_search_bar form-control mb-3" @keydown.enter="getCoordinates">
                     <div class="d-flex justify-content-center align-items-centet gap-3">
                         <div>
                             <label for="" class="ms_label_ni">Rooms number </label>
@@ -49,7 +49,7 @@
 
         <!-- container delle card -->
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 align-items-stretch g-2 g-lg-3 mt-5 ms_ctn_card_home"
-            v-if="onSearch && !searching">
+            v-if="!searching">
             <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct border-0">
@@ -120,14 +120,12 @@ export default {
             apartmentsSponsored: [],
             services: [],
             modelServices: [],
-            onSearch: false,
             searching: false
         }
     },
     methods: {
         getCoordinates(e) {
             e.preventDefault();
-            this.onSearch = false;
             if (!this.apartmentSearch) return;
             this.searching = true;
 
@@ -158,7 +156,6 @@ export default {
                     console.log(res);
                     this.apartments = res.data.apartments;
                     this.apartmentsSponsored = res.data.apartmentsSponsored;
-                    this.onSearch = true;
                     console.log(res);
                     console.log("norm", this.apartments);
                     console.log("spons", this.apartmentsSponsored);
@@ -170,6 +167,10 @@ export default {
                     else {
                         this.error = null
                     }
+                })
+                .catch(err => {
+                    this.searching = false;
+
                 })
         },
         reloadPage() {
@@ -199,12 +200,13 @@ export default {
         deleteText(e) {
             e.preventDefault();
             this.apartmentSearch = "";
-            this.onSearch = false;
             this.error = null;
             this.roomsNum = 0;
             this.bedsNum = 0;
             this.radius = 1;
             this.modelServices = [];
+            this.apartments = [];
+            this.apartmentsSponsored = [];
         }
 
 
