@@ -137,179 +137,61 @@
                                     <font-awesome-icon icon="fa-solid fa-comment-slash" />
                                     Messages
                                 </button>
-                        </div>
+                            </div>
 
-                        <div class="ms_msg ms_active_hide text-center" :id="index">
-                            You have {{ this.messages_count[index] }} messages for this apartment
-                            <router-link v-if="this.messages_count[index] > 0"
-                                :to="{ name: 'viewMessages', params: { id: apartment.id } }"
-                                class="btn btn-primary btn-sm">
-                                Read
-                            </router-link>
-                            <div v-else></div>
-                        </div>
+                            <div class="ms_msg ms_active_hide text-center" :id="index">
+                                You have {{ this.messages_count[index] }} messages for this apartment
+                                <router-link v-if="this.messages_count[index] > 0"
+                                    :to="{ name: 'viewMessages', params: { id: apartment.id } }"
+                                    class="btn btn-primary btn-sm">
+                                    Read
+                                </router-link>
+                                <div v-else></div>
+                            </div>
 
-                        <!-- bottini per la visibilità dell'apartamento -->
-                        <div v-if="apartment.visibility">
-                            <button class="btn btn-light me-2 my-2 border-dark" @click="changeVisibility(apartment)">
-                                <font-awesome-icon icon="fa-solid fa-eye-slash" />
-                                Set Private
-                            </button>
-                        </div>
+                            <!-- bottini per la visibilità dell'apartamento -->
+                            <div v-if="apartment.visibility">
+                                <button class="btn btn-light me-2 my-2 border-dark" @click="changeVisibility(apartment)">
+                                    <font-awesome-icon icon="fa-solid fa-eye-slash" />
+                                    Set Private
+                                </button>
+                            </div>
 
-                        <div v-else>
-                            <button class="btn btn-light me-2 my-2 border-dark" @click="changeVisibility(apartment)">
-                                <font-awesome-icon icon="fa-solid fa-eye" />
-                                Set Public
-                            </button>
-                        </div>
+                            <div v-else>
+                                <button class="btn btn-light me-2 my-2 border-dark" @click="changeVisibility(apartment)">
+                                    <font-awesome-icon icon="fa-solid fa-eye" />
+                                    Set Public
+                                </button>
+                            </div>
 
-                    </div>
-                </div>
-                <div class="card-footer text-muted">
-                    <!-- sponsorizzazione appartamento -->
-                    <div class="ms_aps_sponsor" v-show="this.sponsors_count[index] > 0">
-                        <div class="btn disabled btn-sm btn-danger mx-auto my-2 text-capitalize">
-                            <font-awesome-icon icon="fa-solid fa-certificate" class="ms_sponsor_icon" />
-                            sponsored
-                        </div>
-                        <div v-if="apartment.end_date && apartment.end_date[index]">
-                            <strong>Your sponsorship ends:</strong>
-                            {{ apartment.end_date[index].end_date }}
                         </div>
                     </div>
+                    <div class="card-footer text-muted">
+                        <!-- sponsorizzazione appartamento -->
+                        <div class="ms_aps_sponsor" v-show="this.sponsors_count[index] > 0">
+                            <div class="btn disabled btn-sm btn-danger mx-auto my-2 text-capitalize">
+                                <font-awesome-icon icon="fa-solid fa-certificate" class="ms_sponsor_icon" />
+                                sponsored
+                            </div>
+                            <div v-if="apartment.end_date && apartment.end_date[index]">
+                                <strong>Your sponsorship ends:</strong>
+                                {{ apartment.end_date[index].end_date }}
+                            </div>
+                        </div>
 
-                    <!-- visibilità appartamento -->
-                    <div class="fs-5">Visibility:
-                        <span class="text-danger">
-                            {{ apartment.visibility ? "Public" : "Private" }}
-                        </span>
-                    </div>
-                    <div class="list-group-item fs-6 text-primary">
-                        <font-awesome-icon icon="fa-regular fa-eye" />
-                        Views: <span class="fw-bold"> {{ numViews[index] }}</span>
+                        <!-- visibilità appartamento -->
+                        <div class="fs-5">Visibility:
+                            <span class="text-danger">
+                                {{ apartment.visibility ? "Public" : "Private" }}
+                            </span>
+                        </div>
+                        <div class="list-group-item fs-6 text-primary">
+                            <font-awesome-icon icon="fa-regular fa-eye" />
+                            Views: <span class="fw-bold"> {{ numViews[index] }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Colonna con appartamenti e pulsanti -->
-        <!-- <div class="my-5">
-                <div class="accordion">
-                    <div class="accordion-item ms_main_item" v-for="(apartment, index) in this.apartments">
-                        <div class="accordion-header d-flex justify-content-between md-flex-column ms_active_show ">
-                            <div class="ms_aps_title h-100 d-flex justify-content-between"
-                                @click="this.toggleShow(apartment.id)">
-                                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                    class="img-thumbnail ms_icon">
-                                <div>
-                                    <div class="text-capitalize ms_title">{{ apartment.title }}</div>
-                                    <div class="fs-5">Visibility:
-                                        <span class="text-info">
-                                            {{ apartment.visibility ? "Public" : "Private" }}
-                                        </span>
-                                    </div>
-                                    <div class="list-group-item fs-6 text-primary">
-                                        <font-awesome-icon icon="fa-regular fa-eye" />
-                                        Views: <span class="fw-bold"> {{ numViews[index] }}</span>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="ms_aps_sponsor" v-show="this.sponsors_count[index] > 0">
-                                <div class="btn disabled btn-sm btn-danger mx-auto my-2 text-capitalize">
-                                    <font-awesome-icon icon="fa-solid fa-certificate" class="ms_sponsor_icon" />
-                                    sponsored
-                                </div>
-                                <div v-if="apartment.end_date && apartment.end_date[index]">
-                                    <strong>Your sponsorship ends:</strong>
-                                    {{ apartment.end_date[index].end_date }}
-                                </div>
-
-                            </div>
-                            <div class="ms_aps_buttons flex-shrink ms_menu ">
-                                <ul>
-                                    <li>
-                                        <div class="btn btn-danger h-100 mx-auto" @click="deleteApartment(apartment.id)">
-                                            Delete
-                                        </div>
-                                    </li>
-                                    <li><router-link :to="{ name: 'editApartment', params: { id: apartment.id } }"
-                                            class="link-dark btn btn-warning h-100 mx-auto ms_router">
-                                            <font-awesome-icon icon="fa-solid fa-pen-to-square" />
-                                            Edit
-                                        </router-link></li>
-                                    <li><router-link :to="{ name: 'sponsor', params: { id: apartment.id } }"
-                                            class="link-light btn btn-success h-100 mx-auto ms_router">
-                                            <font-awesome-icon icon="fa-solid fa-certificate" />
-                                            Sponsor
-                                        </router-link></li>
-                                    <li><button class="btn btn-light ms_hover_show h-100 mx-auto"
-                                            v-if="this.messages_count[index] > 0" @click="this.toggleShow(index)"
-                                            :class="this.messages_count[index] > 0 ? 'ms_msg_present' : ''">
-                                            <font-awesome-icon icon="fa-regular fa-envelope"
-                                                :class="this.messages_count[index] > 0 ? 'ms_font_icon' : ''" />
-                                        </button>
-
-                                                            <button v-else class="btn btn-light ms_hover_show mx-auto"
-                                                                @click="this.toggleShow(index)">
-                                                                <font-awesome-icon icon="fa-solid fa-comment-slash" />
-                                                                Messages
-                                                            </button>
-                                                        </li>
-
-                                                        <li v-if="apartment.visibility">
-                                                            <button class="btn btn-light ms_hover_show h-100 mx-auto"
-                                                                                                                                                                                @click="changeVisibility(apartment)">
-                                                                                                                                                                                    <font-awesome-icon icon="fa-solid fa-eye-slash" />
-                                                                                                                                                                                    Set Private
-                                                                                                                                                                                </button>
-                                                                                                                                                                            </li>
-                                                                                                                                                                            <li v-else>
-                                                                                                                                                                                <button class="btn btn-light ms_hover_show h-100 mx-auto"
-                                                                                                                                                                                                                                                                                    @click="changeVisibility(apartment)">
-                                                                                                                                                                                                                                                                                    <font-awesome-icon icon="fa-solid fa-eye" />
-                                                                                                                                                                                                                                                                                    Set Public
-                                                                                                                                                                                                                                                                            </button>
-                                                                                                                                                                                                                                                                                                                                                                                                        </li>
-
-                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
-
-
-
-                                                                                                                                                                                                                                                                                                                                                                                                    <div class="ms_msg ms_active_hide text-center" :id="index">
-                                                                                                                                                                                                                                                                                                                                                                                                        You have {{ this.messages_count[index] }} messages for this apartment
-                                                                                                                                                                                                                                                                                                                                                                                                        <router-link v-if="this.messages_count[index] > 0"
-                                                                                                                                                                                                                                                                                                                                                                                                            :to="{ name: 'viewMessages', params: { id: apartment.id } }"
-                                                                                                                                                                                                                                                                                                                                                                                                            class="btn btn-primary btn-sm d-inline ms_msg_link">
-                                                                                                                                                                                                                                                                                                                                                                                                            Read
-                                                                                                                                                                                                                                                                                                                                                                                                        </router-link>
-                                                                                                                                                                                                                                                                                                                                                                                                        <div v-else></div>
-                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                                </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                            <div class="accordion-collapse collapse show ms_active_hide" :id="apartment.id">
-                                                                                                                                                                                                                                                                                                                                                                                                <div class="accordion-body ms_hide_body d-flex justify-content-between">
-                                                                                                                                                                                                                                                                                                                                                                                                    <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
-                                                                                                                                                                                                                                                                                                                                                                                                        class="rounded fluid img-thumbnail ms_body_img">
-
-                                                                                                                                                                                                                                                                                                                                                                                                    <div class="text-center d-flex flex-column justify-content-around ms_info">
-                                                                                                                                                                                                                                                                                                                                                                                                        <p class="text-capitalize lead">
-                                                                                                                                                                                                                                                                                                                                                                                                            {{ apartment.description }}
-                                                                                                                                                                                                                                                                                                                                                                                                        </p>
-                                                                                                                                                                                                                                                                                                                                                                                                        <sub class="">{{ apartment.address }}</sub>
-                                                                                                                                                                                                                                                                                                                                                                                                        <div>Prezzo: {{ apartment.price }}</div>
-                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                            </div> -->
-
         </div>
     </div>
 </template>
@@ -376,35 +258,6 @@ export default {
                         this.sponsors_end.push(this.apartments[i].end_date);
                         console.log(this.sponsors_end);
                     };
-
-
-
-                    /* end_date + tempo rimasto */
-
-                    /* this.apartments.forEach((apartment) => {
-                        this.sponsors_end.push(apartment.end_date);
-                        console.log(this.sponsors_end);
-
-
-                        const end = apartment.end_date.end_date;
-                        
-
-                        const date = new Date();
-                        const remaining = Date.parse(end) - date.getTime();
-
-                        const seconds = Math.floor(remaining / 1000);
-                        const minutes = Math.floor(seconds / 60);
-                        const hours = Math.floor(minutes / 60);
-                        const days = Math.floor(hours / 24);
-
-                        const hours_remaining = hours - (days * 24);
-                        console.log(days, hours_remaining);
-                        this.time_left.push([days, hours_remaining]);
-                    }); */
-
-
-
-
                 }).catch((errors) => {
                     console.log(errors);
                 });
