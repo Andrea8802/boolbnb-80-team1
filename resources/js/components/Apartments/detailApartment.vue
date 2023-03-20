@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container pt-4">
         <div class="lg-w-50 md-w-80 mx-auto ps-2">
             <h4 class="ms_title">{{ apartment.title }}</h4>
             <span class="ms_address_ap">{{ apartment.address }}</span>
