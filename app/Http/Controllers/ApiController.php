@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Session;
 class ApiController extends Controller
 {
 
+    // !!!!!!!!!!!!!!!!!!!!!! DATA / INFO !!!!!!!!!!!!!!!!!!!!!!
+
     public function getData()
     {
         $services = Service::all();
@@ -51,7 +53,8 @@ class ApiController extends Controller
 
         ]);
     }
-    /* Rotta per creare apartment */
+
+    // !!!!!!!!!!!!!!!!!!!!!! APARTMENT !!!!!!!!!!!!!!!!!!!!!!
 
     public function createApartment(Request $request)
     {
@@ -95,30 +98,7 @@ class ApiController extends Controller
             $addedimage->apartment()->associate($apartmentid);
             $addedimage->save();
         }
-        // $addedimage->image = $data["added_images"];
-        // $apartmentid = $ap->id;
-        // $addedimage->apartment()->associate($apartmentid);
-        // $addedimage->save();
 
-
-        // if (array_key_exists('added_images', $data)) {
-
-
-        //     foreach ($data['added_images'] as $image) {
-        //         $addedImage = new AddedImage;
-        //         $img_path = Storage::put('uploads', $image);
-        //         $image = $img_path;
-        //         $addedImage->image->attach($image);
-
-        //         $ap->added_images()->attach($addedImage);
-
-        //         $addedImage->save();
-
-
-        //     }
-        // }
-
-        // if (array_key_exists("services", $data)) {
         $services = Service::find([$data["services"]]);
         $ap->services()->attach($services);
 
@@ -136,6 +116,7 @@ class ApiController extends Controller
         return view('createApartment');
 
     }
+
     public function userApartments(Request $request)
     {
         $timezone = new DateTimeZone('Europe/Rome');
@@ -158,35 +139,19 @@ class ApiController extends Controller
             } else {
                 $apartment['end_date'] = [];
             }
-
         }
 
         return response()->json([
             "success" => true,
             "response" => $apartments
-
         ]);
     }
 
-
-    public function getNumViews(Request $request)
-    {
-        $apartmentId = $request['apartmentsId'];
-        $numViews = array();
-
-        foreach ($apartmentId as $apartment) {
-            array_push($numViews, Statistic::select('*')->where('apartment_id', '=', $apartment)->count());
-        }
-
-        return response()->json([
-            "success" => true,
-            "response" => $numViews
-        ]);
-    }
     public function userApartmentsPage()
     {
         return view('apartment');
     }
+
     public function getApartments()
     {
         $apartments = Apartment::all();
@@ -196,9 +161,9 @@ class ApiController extends Controller
             "response" => $apartments
         ]);
     }
+
     public function deleteApartment(Apartment $apartment)
     {
-
         $apartment->sponsors()->sync([]);
         $apartment->services()->sync([]);
         $apartment->added_images()->delete();
@@ -212,33 +177,27 @@ class ApiController extends Controller
 
     public function getApartment($id)
     {
-
         $apartment = Apartment::find($id);
         $apartment["services"] = $apartment->services;
         return response()->json([
             "success" => true,
             "response" => $apartment
-
         ]);
 
     }
+
     public function getApartmentDetail(Request $request, $id)
     {
-
         $apartment = Apartment::find($id);
         $apartment["services"] = $apartment->services;
         $apartment["added_images"] = $apartment->added_images;
         $apartment["user_id"] = $apartment->user_id;
         $user = User::find($apartment->user_id);
 
-
         $ipUtente = $request->ip();
         $date = Date('Y-m-d');
 
-
-
         $dateCheck = $apartment->statistics()->where('apartment_id', '=', $id)->where('ip_address', 'like', $ipUtente)->where('ip_date', '=', $date)->orderBy('ip_date', 'desc')->first();
-
 
         if ($dateCheck === null) {
             $statistic = new Statistic([
@@ -247,9 +206,7 @@ class ApiController extends Controller
             ]);
 
             $apartment->statistics()->save($statistic);
-
         }
-
 
         return response()->json([
             "success" => true,
@@ -259,11 +216,10 @@ class ApiController extends Controller
                 $ipUtente,
                 $date,
             ]
-
-
         ]);
 
     }
+
     public function userEditApartmentsPage(Apartment $apartment)
     {
         if ($this->authorize('update', $apartment)) {
@@ -271,9 +227,8 @@ class ApiController extends Controller
         } else {
             return view('/');
         }
-
-
     }
+
     public function updateApartment(Request $request, Apartment $apartment)
     {
         $this->authorize('update', $apartment);
@@ -311,13 +266,11 @@ class ApiController extends Controller
         if (array_key_exists("imageApartment", $data)) {
             $apartment->imageApartment = $data["imageApartment"];
         }
-        // $apartment->imageApartment = $data["imageApartment"];
 
         $id = auth()->user()->id;
         $currentuser = User::find($id);
         $apartment->user()->associate($currentuser);
         $apartment->save();
-
 
         if (array_key_exists("added_images", $data)) {
             AddedImage::select('*')->where('apartment_id', 'like', $apartment->id)->delete();
@@ -331,18 +284,15 @@ class ApiController extends Controller
             }
         }
 
-
         $services = Service::find([$data["services"]]);
         $apartment->services()->sync($services);
-
-        // $statistics = new Statistic();
-        // $statistics->ip_address = request()->ip();
 
         return response()->json([
             "success" => true,
             "response" => $apartment
         ]);
     }
+
     public function allApartments()
     {
         $timezone = new DateTimeZone('Europe/Rome');
@@ -361,22 +311,32 @@ class ApiController extends Controller
         ]);
 
     }
-    public function getUserLogged()
+
+    public function getApartmentEdit(Request $request, $id)
     {
-        $user = auth()->user();
+        $apartment = Apartment::find($id);
+        $this->authorize('update', $apartment);
+        $apartment["services"] = $apartment->services;
+        $apartment["added_images"] = $apartment->added_images;
+        $apartment["user_id"] = $apartment->user_id;
+
+        $id = auth()->user()->id;
+        $currentuser = User::find($id);
+
         return response()->json([
             "success" => true,
-            "response" => $user
+            "response" => [
+                $apartment,
+                $currentuser
+            ]
         ]);
+
     }
-    public function logout()
-    {
-        Session::flush();
-        Auth::logout();
-    }
+
+    // !!!!!!!!!!!!!!!!!!!!!! SEARCH APARTMENT !!!!!!!!!!!!!!!!!!!!!!
+
     public function searchApartment(Request $request)
     {
-
         $latitude = $request["lat"];
         $longitude = $request["long"];
         $radius = $request["radius"];
@@ -391,14 +351,11 @@ class ApiController extends Controller
             
             )";
 
-
         $timezone = new DateTimeZone('Europe/Rome');
         $date = new DateTime('now', $timezone);
         DB::table('apartment_sponsor')
             ->where('end_date', '<=', $date->format('Y-m-d H:i:s'))
             ->delete();
-
-
 
         $apartmentsSponsored = Apartment::select("*")
             ->whereHas('sponsors')
@@ -416,8 +373,6 @@ class ApiController extends Controller
             ->orderby("distance", "desc")
             ->get();
 
-
-
         return response()->json([
             "success" => true,
             "apartments" => $apartments,
@@ -425,82 +380,9 @@ class ApiController extends Controller
         ]);
 
     }
-    public function getSponsors()
-    {
-
-        $sponsors = Sponsor::all();
-        return response()->json([
-            "success" => true,
-            "response" => $sponsors
-        ]);
-    }
-    public function sponsorApartmentId(Request $request)
-    {
-        $apartmentId = $request["apartmentId"];
-        $apartment = Apartment::find($apartmentId);
-        $this->authorize('update', $apartment);
-        return response()->json([
-            "success" => true,
-            "response" => $apartment
-        ]);
-    }
-    public function sponsorPayment(Request $request)
-    {
-
-
-        $sponsor = $request["sponsors"];
-        $id = $request["apartmentId"];
-        $apartment = Apartment::find($id);
-
-
-
-        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
-            $apartment->sponsors()->attach($sponsor);
-            $date = new DateTime();
-            $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
-
-        } else {
-            $dateTime = $apartment->sponsors()->select('end_date')->where('apartment_id', $id)->first()->end_date;
-            $dateTime = new DateTime($dateTime);
-
-        }
-
-
-        if ($sponsor == 1) {
-            $exDate = $dateTime->modify('+1 day');
-
-        } else if ($sponsor == 2) {
-            $exDate = $dateTime->modify('+3 day');
-
-        } else {
-            $exDate = $dateTime->modify('+6 day');
-        }
-
-
-        $apartment->sponsors()->sync([
-            $sponsor => ['end_date' => $exDate->format('Y-m-d H:i:s')]
-        ]);
-
-
-
-        return response()->json([
-            "success" => true,
-            "response" => $exDate,
-        ]);
-    }
-    public function getApartmentsSponsor()
-    {
-        $apartments = Apartment::whereHas('sponsors')->get();
-
-        return response()->json([
-            "success" => true,
-            "response" => $apartments
-        ]);
-    }
 
     public function advancedSearch(Request $request)
     {
-
         // Raccolta dati
         $latitude = $request["lat"];
         $longitude = $request["long"];
@@ -508,7 +390,6 @@ class ApiController extends Controller
         $roomsNumber = $request["rooms_num"];
         $bedsNumber = $request["beds_num"];
         $services = $request["services"];
-
 
         // Verifica Scadenza Sponsor
         $timezone = new DateTimeZone('Europe/Rome');
@@ -546,7 +427,6 @@ class ApiController extends Controller
             ->where("beds_num", ">=", $bedsNumber)
             ->orderby("distance", "asc");
 
-
         // Se è vuoto non controllare service
         if (!empty($services)) {
 
@@ -555,13 +435,11 @@ class ApiController extends Controller
 
             $apartmentsSponsored->join("apartment_service", "apartments.id", "=", "apartment_service.apartment_id")
                 ->whereIn("apartment_service.service_id", $services);
-
         }
 
         // Get dati query
         $apartments = $apartments->get();
         $apartmentsSponsored = $apartmentsSponsored->get();
-
 
         return response()->json([
             "success" => true,
@@ -571,27 +449,110 @@ class ApiController extends Controller
         ]);
     }
 
-    public function getApartmentEdit(Request $request, $id)
+    // !!!!!!!!!!!!!!!!!!!!!! NUM. VIEWS !!!!!!!!!!!!!!!!!!!!!!
+
+    public function getNumViews(Request $request)
     {
-        $apartment = Apartment::find($id);
-        $this->authorize('update', $apartment);
-        $apartment["services"] = $apartment->services;
-        $apartment["added_images"] = $apartment->added_images;
-        $apartment["user_id"] = $apartment->user_id;
+        $apartmentId = $request['apartmentsId'];
+        $numViews = array();
 
-        $id = auth()->user()->id;
-        $currentuser = User::find($id);
-
+        foreach ($apartmentId as $apartment) {
+            array_push($numViews, Statistic::select('*')->where('apartment_id', '=', $apartment)->count());
+        }
 
         return response()->json([
             "success" => true,
-            "response" => [
-                $apartment,
-                $currentuser
-            ]
+            "response" => $numViews
+        ]);
+    }
+
+    // !!!!!!!!!!!!!!!!!!!!!! LOGGED / LOGOUT !!!!!!!!!!!!!!!!!!!!!!
+
+    public function getUserLogged()
+    {
+        $user = auth()->user();
+        return response()->json([
+            "success" => true,
+            "response" => $user
+        ]);
+    }
+
+    public function logout()
+    {
+        Session::flush();
+        Auth::logout();
+    }
+
+    // !!!!!!!!!!!!!!!!!!!!!! SPONSOR/ PAYMENT !!!!!!!!!!!!!!!!!!!!!!
+
+    public function getSponsors()
+    {
+        $sponsors = Sponsor::all();
+        return response()->json([
+            "success" => true,
+            "response" => $sponsors
+        ]);
+    }
+
+    public function sponsorApartmentId(Request $request)
+    {
+        $apartmentId = $request["apartmentId"];
+        $apartment = Apartment::find($apartmentId);
+        $this->authorize('update', $apartment);
+        return response()->json([
+            "success" => true,
+            "response" => $apartment
+        ]);
+    }
+
+    public function sponsorPayment(Request $request)
+    {
+        $sponsor = $request["sponsors"];
+        $id = $request["apartmentId"];
+        $apartment = Apartment::find($id);
+
+        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
+            $apartment->sponsors()->attach($sponsor);
+            $date = new DateTime();
+            $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
+
+        } else {
+            $dateTime = $apartment->sponsors()->select('end_date')->where('apartment_id', $id)->first()->end_date;
+            $dateTime = new DateTime($dateTime);
+
+        }
+
+        if ($sponsor == 1) {
+            $exDate = $dateTime->modify('+1 day');
+
+        } else if ($sponsor == 2) {
+            $exDate = $dateTime->modify('+3 day');
+
+        } else {
+            $exDate = $dateTime->modify('+6 day');
+        }
+
+        $apartment->sponsors()->sync([
+            $sponsor => ['end_date' => $exDate->format('Y-m-d H:i:s')]
         ]);
 
+        return response()->json([
+            "success" => true,
+            "response" => $exDate,
+        ]);
     }
+
+    public function getApartmentsSponsor()
+    {
+        $apartments = Apartment::whereHas('sponsors')->get();
+
+        return response()->json([
+            "success" => true,
+            "response" => $apartments
+        ]);
+    }
+
+    // !!!!!!!!!!!!!!!!!!!!!! MESSAGE !!!!!!!!!!!!!!!!!!!!!!
 
     public function sendMessage(Request $request, Apartment $apartment)
     {
@@ -611,6 +572,7 @@ class ApiController extends Controller
             "response" => $m,
         ]);
     }
+
     public function getMessages(Request $request)
     {
         $apartmentId = $request["apartmentId"];
@@ -624,6 +586,8 @@ class ApiController extends Controller
             "response" => $messages,
         ]);
     }
+
+    // !!!!!!!!!!! VISIBILITY !!!!!!!!!!!
 
     public function changeVisibility(Request $request)
     {
