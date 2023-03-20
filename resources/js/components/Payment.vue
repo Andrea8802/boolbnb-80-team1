@@ -37,10 +37,10 @@
 
         </form>
         <div v-if="payed"
-            class="green">Payment Successful, You will be redirect to your apartments page...
+            class="green">Payment Successful, You will be redirect to your apartments page... <br>
         </div>
         <div v-if="error"
-            class="red">Invalid Card Number, Try Again
+            class="red">Invalid Card Number, Try Again <br>
         </div>
         <input type="submit"
             value="Pay"
