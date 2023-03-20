@@ -209,14 +209,13 @@ class ApiController extends Controller
             $apartment->statistics()->save($statistic);
         }
 
+        !auth()->user() ? $visitator = false : $visitator = auth()->user();
+
         return response()->json([
             "success" => true,
-            "response" => [
-                $apartment,
-                $user,
-                $ipUtente,
-                $date,
-            ]
+            "apartment" => $apartment,
+            "user" => $user,
+            "visitator" => $visitator
         ]);
 
     }

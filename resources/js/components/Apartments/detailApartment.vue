@@ -2,8 +2,15 @@
     <div class="container pt-4">
         <div class="lg-w-50 md-w-80 mx-auto ps-2">
             <h4 class="ms_title">{{ apartment.title }}</h4>
-            <span class="ms_address_ap">{{ apartment.address }}</span>
+            <span class="ms_address_ap me-2">{{ apartment.address }}</span>
+            <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }" v-if="owner">
+                <button class="link-dark btn btn-warning me-2 my-2">
+                    <font-awesome-icon icon="fa-solid fa-pen-to-square" /> <!-- GRAFICA BTN TEMPORANEA -->
+                    Edit
+                </button>
+            </router-link>
         </div>
+
         <div class="row d-flex mt-3">
             <div class="col-lg-6 col-md-12">
 
@@ -144,9 +151,9 @@ export default {
 
         return {
 
-            apartment: "",
+            apartment: [],
 
-            user: "",
+            user: [],
 
             /* variabili carousel */
             activeItem: 0,
@@ -180,7 +187,7 @@ export default {
             rooms: false,
             highprice: 0,
             carousel_var: true,
-            ip_user: '',
+            owner: false
         }
     },
     methods: {
@@ -212,14 +219,18 @@ export default {
             axios.get("/api/getApartmentDetail/" + this.$route.params.id)
                 .then(res => {
                     console.log(res.data.response);
-                    this.apartment = res.data.response[0];
-                    this.user = res.data.response[1];
-                    this.ip_user = res.data.response[2];
+                    this.apartment = res.data.apartment;
+                    this.user = res.data.user;
+                    this.visitator = res.data.visitator;
 
+                    if (this.visitator) {
+                        if (this.apartment.user_id === this.visitator.id) {
+                            this.owner = true;
+                        }
+                    }
 
-                    /* console.log(this.apartment);
-                    console.log(this.user);
-                    console.log(this.ip_user); */
+                    console.log("si", this.apartment.user_id);
+                    console.log("si", this.user.id)
                     console.log(this.apartment);
                     this.getMap();
                     console.log(this.apartment.added_images);
