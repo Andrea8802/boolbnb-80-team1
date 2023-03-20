@@ -28,12 +28,17 @@
 
 .ms_msg_present {
 
-
     .ms_font_icon {
         color: $principalColor;
     }
 
+}
 
+.ms_slot_img {
+    img {
+        object-fit: cover;
+        height: 250px;
+    }
 }
 
 // =====================
@@ -76,7 +81,7 @@
                         <h4>{{ apartment.title }}</h4>
                     </div>
                     <div class="card-body row row-cols-1 row-cols-lg-3">
-                        <div class="col">
+                        <div class="col ms_slot_img">
                             <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
                                 class="w-100 rounded-5">
                         </div>
