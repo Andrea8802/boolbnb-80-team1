@@ -1,8 +1,8 @@
 <template>
     <div class="container text-center">
         <!-- titolo della pagina -->
-        <h1 id="msTitlePage"
-            class="ms_home_title my-3 text-black">Hi! Where do you want to go today?</h1>
+        <h1 id="msTitlePage marg-home"
+            class="ms_home_title  text-black">Hi! Where do you want to go today?</h1>
 
         <!-- sottotitolo della pagina -->
         <h4 class="ms_home_subtitle mb-3 text-capitalize">your destination awaits: discover new and amazing experiences</h4>
@@ -267,8 +267,11 @@ export default {
 @use '/resources/sass/variables' as *;
 
 .ms_home_title {
+    padding-top: 35px !important;
     color: $principalColor;
 }
+
+
 
 .ms_home_subtitle {
     font-size: 1rem;

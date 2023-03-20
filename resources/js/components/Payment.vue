@@ -3,6 +3,7 @@
 
         <header>
             <h1 class="mb-2"
+                id="title-check"
                 @click="log">Checkout</h1>
         </header>
 
@@ -40,11 +41,12 @@
             class="green">Payment Successful, You will be redirect to your apartments page... <br>
         </div>
         <div v-if="error"
-            class="red">Invalid Card Number, Try Again <br>
+            class="red">Invalid Card Number, Try Again <br> <br>
         </div>
         <input type="submit"
             value="Pay"
-            class="btn btn-outline-danger btn-lg" />
+            class="btn btn-outline-danger btn-lg"
+            id="btn-pay" />
 
 
     </div>
@@ -183,6 +185,9 @@ export default {
                                     formData.append("sponsors", this.$route.params.sponsor);
                                     formData.append("apartmentId", this.$route.params.id);
                                     axios.post('/api/sponsorPayment', formData).then(() => {
+                                        document.getElementById("title-check").style.display = "none"
+                                        document.getElementById("my-sample-form").style.display = "none"
+                                        document.getElementById("btn-pay").style.display = "none"
                                         this.error = false;
                                         this.payed = true;
                                         setTimeout(() => this.$router.push({ name: "userApartments" }), 2000);
@@ -213,12 +218,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .green {
-    font-size: 18px;
+    font-size: 25px;
     color: green;
 }
 
 .red {
-    font-size: 18px;
+    font-size: 25px;
     color: red;
 }
 
