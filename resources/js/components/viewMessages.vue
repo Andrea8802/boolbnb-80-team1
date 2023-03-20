@@ -176,8 +176,7 @@ body {
 </style>
 
 <template>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-        rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- componente diplay grandi -->
     <div class="container mt-5 mb-5 d-none d-md-block">
@@ -191,9 +190,7 @@ body {
 
                         <div class="clearfix"></div>
                     </div><!-- /.panel-heading -->
-                    <div class="panel-body no-padding "
-                        @click="selectChat(message.id)"
-                        v-for="message in messages"
+                    <div class="panel-body no-padding " @click="selectChat(message.id)" v-for="message in messages"
                         :key="message.id">
                         <div class="list-group no-margin list-message">
                             <a href="#"
@@ -202,7 +199,7 @@ body {
                                 <p class="list-group-item-text">
                                     <strong>You have a new message </strong>
                                 </p>
-                                <span class="label label-success pull-right">NEW</span>
+                                <span class="label label-success pull-right">{{ message.created_at }}</span>
                                 <div class="clearfix"></div>
                             </a>
 
@@ -215,14 +212,11 @@ body {
                     <div class="panel-heading">
                         <div class="media">
 
-                            <a class="pull-left"
-                                href="#"></a>
+                            <a class="pull-left" href="#"></a>
 
-                            <div :class="activeChat === message.id ? 'active' : 'none'"
-                                v-for="message in messages">
+                            <div :class="activeChat === message.id ? 'active' : 'none'" v-for="message in messages">
                                 <div class="d-flex ">
-                                    <img src="/storage/avatar5.png"
-                                        class="img-circle avatar rounded-circle me-3">
+                                    <img src="/storage/avatar5.png" class="img-circle avatar rounded-circle me-3">
                                     <div>
                                         <h4 class="media-heading"> {{ message.name }} </h4>
                                         <p class="lead">
@@ -248,30 +242,21 @@ body {
 
     <!-- responsive components -->
     <div class="container mt-5 mb-5 d-block d-md-none">
-        <div class="accordion accordion-flush"
-            id="accordionFlushExample">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
             <h1>NEW MESSAGES</h1>
-            <div class="accordion-item"
-                v-for="(message, index) in messages">
-                <h2 class="accordion-header"
-                    :id="'flush-heading-' + index">
-                    <button class="accordion-button collapsed"
-                        type="button"
-                        :data-bs-toggle="'collapse'"
-                        :data-bs-target="'#flush-collapse-' + index"
-                        aria-expanded="false"
+            <div class="accordion-item" v-for="(message, index) in messages">
+                <h2 class="accordion-header" :id="'flush-heading-' + index">
+                    <button class="accordion-button collapsed" type="button" :data-bs-toggle="'collapse'"
+                        :data-bs-target="'#flush-collapse-' + index" aria-expanded="false"
                         :aria-controls="'flush-collapse-' + index">
                         <strong>{{ message.name }} </strong> <i style="margin-left: 12px;"> (You have a new message)</i>
                     </button>
                 </h2>
-                <div :id="'flush-collapse-' + index"
-                    class="accordion-collapse collapse"
-                    :aria-labelledby="'flush-heading-' + index"
-                    data-bs-parent="accordionFlushExample">
+                <div :id="'flush-collapse-' + index" class="accordion-collapse collapse"
+                    :aria-labelledby="'flush-heading-' + index" data-bs-parent="accordionFlushExample">
                     <div class="accordion-body">
                         <div class="d-flex ">
-                            <img src="/storage/img-user-prifle.jpeg"
-                                class="img-circle avatar rounded-circle me-3">
+                            <img src="/storage/img-user-prifle.jpeg" class="img-circle avatar rounded-circle me-3">
                             <div>
                                 <h4 class="media-heading"> {{ message.name }} </h4>
                                 <p class="lead">
@@ -303,6 +288,8 @@ export default {
             users: [],
             apartment: [],
             activeChat: 0,
+
+            messagesAuthors: [],
         }
     },
     methods: {
@@ -316,7 +303,23 @@ export default {
 
             axios.post("/api/getMessages", formData)
                 .then(res => {
-                    this.messages = res.data.response
+                    this.messages = res.data.response;
+
+                    /* prendere data in formato corretto */
+                    for (let i = 0; i < this.messages.length; i++) {
+                        let messageDate = new Date(this.messages[i].created_at);
+                        let newMessageDate = messageDate.toLocaleDateString() + " " + messageDate.toLocaleTimeString();
+                        this.messages[i].created_at = newMessageDate;
+                    };
+
+                    /* creare array autori */
+                    for (let i = 0; i < this.messages.length; i++) {
+                        if (!this.messagesAuthors.includes(this.messages[i].name)) {
+                            this.messagesAuthors.push(this.messages[i].name);
+                        }
+                    };
+
+                    console.log(this.messagesAuthors);
                     console.log(this.messages);
 
                 }).catch((errors) => {
