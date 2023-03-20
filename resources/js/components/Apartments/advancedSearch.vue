@@ -4,7 +4,7 @@
         <div class="container mt-2 text-center">
             <h1 id="msTitlePage" class="ms_home_title mb-3">Select search filters</h1>
             <div class="ms_ctn_form">
-                <form action="" method="post">
+                <form>
 
                     <input type="text" v-model="apartmentSearch" placeholder="Enter your destination..."
                         class="ms_search_bar form-control mb-3">
@@ -38,6 +38,7 @@
                             </div>
                         </div>
                     </div>
+                    <button @click="deleteText" class="ms_btn_delete me-3 principal ms_btn_search">Reset</button>
                     <button @click="getCoordinates" class="ms_btn_search">Search</button>
                 </form>
                 <div class="container text-center">
@@ -47,8 +48,8 @@
         </div>
 
         <!-- container delle card -->
-        <div
-            class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 align-items-stretch g-2 g-lg-3 mt-5 ms_ctn_card_home">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 align-items-stretch g-2 g-lg-3 mt-5 ms_ctn_card_home"
+            v-if="onSearch">
             <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
                 <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
                     <div class="card rounded ms_card_efct border-0">
@@ -114,12 +115,14 @@ export default {
             apartments: [],
             apartmentsSponsored: [],
             services: [],
-            modelServices: []
+            modelServices: [],
+            onSearch: false
         }
     },
     methods: {
         getCoordinates(e) {
             e.preventDefault();
+            this.onSearch = false;
             if (!this.apartmentSearch) return;
 
             var theUrl = `https://api.tomtom.com/search/2/geocode/${this.apartmentSearch}.json?key=7WvQPGS4KEheGe1NqjeIiLoLFdGWHmbO`;
@@ -149,6 +152,7 @@ export default {
                     console.log(res);
                     this.apartments = res.data.apartments;
                     this.apartmentsSponsored = res.data.apartmentsSponsored;
+                    this.onSearch = true;
                     console.log(res);
                     console.log("norm", this.apartments);
                     console.log("spons", this.apartmentsSponsored);
@@ -185,6 +189,16 @@ export default {
                     console.log(errors);
                 });
         },
+        deleteText(e) {
+            e.preventDefault();
+            this.apartmentSearch = "";
+            this.onSearch = false;
+            this.error = null;
+            this.roomsNum = 0;
+            this.bedsNum = 0;
+            this.radius = 1;
+            this.modelServices = [];
+        }
 
 
     },
