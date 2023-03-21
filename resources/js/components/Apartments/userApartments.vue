@@ -161,7 +161,7 @@
 
                             <div class="ms_msg ms_active_hide text-center"
                                 :id="index">
-                                You have {{ this.messages_count[index] }} messages for this apartment
+                                You have {{ this.messages_count[index] }} messages for this apartment <br>
                                 <router-link v-if="this.messages_count[index] > 0"
                                     :to="{ name: 'viewMessages', params: { id: apartment.id } }"
                                     class="btn btn-primary btn-sm">
