@@ -200,7 +200,16 @@ class ApiController extends Controller
 
         $dateCheck = $apartment->statistics()->where('apartment_id', '=', $id)->where('ip_address', 'like', $ipUtente)->where('ip_date', '=', $date)->orderBy('ip_date', 'desc')->first();
 
-        if ($dateCheck === null) {
+        if (auth()->check()) {
+            if ($dateCheck === null && $user->id !== auth()->user()->id) {
+                $statistic = new Statistic([
+                    'ip_address' => $ipUtente,
+                    'ip_date' => $date
+                ]);
+
+                $apartment->statistics()->save($statistic);
+            }
+        } else if ($dateCheck === null) {
             $statistic = new Statistic([
                 'ip_address' => $ipUtente,
                 'ip_date' => $date
@@ -209,7 +218,7 @@ class ApiController extends Controller
             $apartment->statistics()->save($statistic);
         }
 
-        !auth()->user() ? $visitator = false : $visitator = auth()->user();
+        !auth()->check() ? $visitator = false : $visitator = auth()->user();
 
         return response()->json([
             "success" => true,

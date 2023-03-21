@@ -155,16 +155,10 @@ export default {
     data() {
 
         return {
-
             apartment: [],
-
             user: [],
-
-            /* variabili carousel */
             activeItem: 0,
             meter: '',
-
-            /* variabili dettagli aps */
             icons: {
                 'Pool': "fa-solid fa-person-swimming",
                 'Kitchen': "fa-solid fa-utensils",
@@ -200,7 +194,6 @@ export default {
         getData() {
             axios.get("/api/getData")
                 .then(res => {
-
                     this.services = res.data.response.services;
                     this.sponsors = res.data.response.sponsors;
 
@@ -221,7 +214,6 @@ export default {
 
             axios.get("/api/getApartmentDetail/" + this.$route.params.id)
                 .then(res => {
-
                     this.apartment = res.data.apartment;
                     this.user = res.data.user;
                     this.visitator = res.data.visitator;
