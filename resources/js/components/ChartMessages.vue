@@ -25,6 +25,12 @@ export default {
                 },
                 options: {
 
+                    legend: {
+                        labels: {
+                            fontSize: 18,
+                        }
+                    },
+
                     responsive: true,
                     lineTension: 1,
                     scales: {
@@ -33,13 +39,19 @@ export default {
                                 ticks: {
                                     beginAtZero: true,
                                     padding: 25,
-                                    font: {
-                                        fontSize: 45
-                                    }
+                                    fontSize: 18,
+                                }
+                            }
+                        ],
+                        xAxes: [
+                            {
+                                ticks: {
+                                    padding: 10,
+                                    fontSize: 16,
                                 }
                             }
                         ]
-                    }
+                    },
                 }
             },
 
@@ -97,10 +109,14 @@ export default {
 </script>
 
 <template>
-    <div class="ms_cont-title container-fluid container-lg mt-5">
+    <h2 v-show="this.display" class="mt-3 text-center">People who wrote you:</h2>
+    <div v-show="this.display" class="ms_cont-title container-fluid container-lg mt-5">
         <canvas id="statistic-chart2" class="graph">
 
         </canvas>
+    </div>
+    <div v-show="!this.display" class="mt-5">
+        <h5 class="text-center">You haven't yet received any messages for this apartment</h5>
     </div>
 </template>
 

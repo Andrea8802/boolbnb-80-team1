@@ -31,6 +31,12 @@ export default {
                 },
                 options: {
 
+                    legend: {
+                        labels: {
+                            fontSize: 18,
+                        }
+                    },
+
                     responsive: true,
                     lineTension: 1,
                     scales: {
@@ -39,9 +45,15 @@ export default {
                                 ticks: {
                                     beginAtZero: true,
                                     padding: 25,
-                                    font: {
-                                        fontSize: 45
-                                    }
+                                    fontSize: 18,
+                                }
+                            }
+                        ],
+                        xAxes: [
+                            {
+                                ticks: {
+                                    padding: 10,
+                                    fontSize: 16,
                                 }
                             }
                         ]
@@ -100,14 +112,13 @@ export default {
             <div class="">No statistics available for this apartment</div>
         </div>
         <div v-show="display">
-
+            <h2 class="mt-3 text-center">How you are performing in views:</h2>
             <div class="ms_cont-title-one container-fluid container-lg mt-5">
                 <canvas id="statistic-chart" class="graph ">
 
                 </canvas>
 
             </div>
-
             <ChartMessages />
 
 
