@@ -96,46 +96,48 @@ export default {
 
 <template>
     <div v-show="page">
-        <div v-show="!display"
-            class="cont-title"> <span>No statistics available for this apartment</span> </div>
+        <div v-show="!display" class="ms_cont-title container">
+            <div class="">No statistics available for this apartment</div>
+        </div>
         <div v-show="display">
-            <div class="cont-title">
-                <canvas id="statistic-chart"
-                    class="graph ">
+
+            <div class="ms_cont-title-one container-fluid container-lg mt-5">
+                <canvas id="statistic-chart" class="graph ">
 
                 </canvas>
 
             </div>
+
             <ChartMessages />
+
+
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.cont-title {
-    width: 100%;
-    height: 100%;
+.ms_cont-title {
+    height: calc(100vh - 120px);
     display: flex;
     justify-content: center;
     align-items: center;
 
-    span {
+    div {
         font-size: 30px;
     }
 }
 
-.cont-title {
-    width: 100%;
-    height: 100%;
+.ms_cont-title-one {
+
     display: flex;
     justify-content: center;
     align-items: center;
 
 
-    .graph {
+    /* .graph {
         width: 90% !important;
         height: 90% !important;
-    }
+    } */
 
 }
 </style>

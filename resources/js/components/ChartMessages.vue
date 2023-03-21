@@ -97,18 +97,15 @@ export default {
 </script>
 
 <template>
-    <div class="cont-title">
-        <canvas id="statistic-chart2"
-            class="graph ">
+    <div class="ms_cont-title container-fluid container-lg mt-5">
+        <canvas id="statistic-chart2" class="graph">
 
         </canvas>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.cont-title {
-    width: 100%;
-    height: 100%;
+.ms_cont-title {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,18 +115,16 @@ export default {
     }
 }
 
-.cont-title {
-    width: 100%;
-    height: 100%;
+.ms_cont-title {
     display: flex;
     justify-content: center;
     align-items: center;
 
 
-    .graph {
+    /* .graph {
         width: 90% !important;
         height: 90% !important;
-    }
+    } */
 
 }
 </style>
