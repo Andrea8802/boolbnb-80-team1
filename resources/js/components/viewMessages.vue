@@ -304,6 +304,7 @@ export default {
             axios.post("/api/getMessages", formData)
                 .then(res => {
                     this.messages = res.data.response;
+                    this.messages.sort((a, z) => a.name.localeCompare(z.name));
 
                     /* prendere data in formato corretto */
                     for (let i = 0; i < this.messages.length; i++) {

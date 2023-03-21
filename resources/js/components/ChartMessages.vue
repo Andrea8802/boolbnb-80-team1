@@ -1,14 +1,9 @@
 <script>
 import Chart from 'chart.js';
 import axios from 'axios';
-import ChartMessages from './ChartMessages.vue';
 
 export default {
-    components: {
-        ChartMessages
-    },
     data() {
-
         return {
             display: false,
             apartmentName: [],
@@ -18,7 +13,7 @@ export default {
                     labels: [0],
                     datasets: [
                         {
-                            label: "Number of Views",
+                            label: "Number of Messages",
                             data: [0],
                             backgroundColor: "rgba(54,73,93,.2)",
                             borderColor: "#36495d",
@@ -52,22 +47,30 @@ export default {
         }
     },
     methods: {
-        getStatistics() {
+        getFormattedDate(date) {
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var year = date.getFullYear();
+            var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+            return day + "." + month + "." + year + ", " + time;
+        },
+        getMessagesStat() {
 
 
             let formData = new FormData();
             formData.append("apartmentId", this.$route.params.id);
-            axios.post('/api/getStatistics/' + this.$route.params.id, formData)
+            axios.post('/api/getMessagesStat/' + this.$route.params.id, formData)
                 .then(res => {
 
 
                     // this.apartmentsName = res.data.apartmentStatistic[0];
-                    this.apartmentName = res.data.apartmentStatistic;
+                    this.apartmentName = res.data.apartmentMessage;
                     if (this.apartmentName.length !== 0) {
                         this.display = true;
                     }
                     for (let i = 0; i < this.apartmentName.length; i++) {
-                        this.ChartStatistic.data.labels.push(this.apartmentName[i].ip_date);
+                        this.ChartStatistic.data.labels.push((this.getFormattedDate(new Date(this.apartmentName[i].created_at))));
+                        console.log(this.apartmentName[i].created_at);
 
                         if (this.apartmentName[i]) {
                             this.ChartStatistic.data.datasets[0].data.push(i + 1);
@@ -79,14 +82,14 @@ export default {
 
 
                     console.log(this.apartmentName);
-                    const chart = document.getElementById('statistic-chart');
+                    const chart = document.getElementById('statistic-chart2');
                     new Chart(chart, this.ChartStatistic);
 
                 })
         }
     },
     mounted() {
-        this.getStatistics();
+        this.getMessagesStat();
 
 
     }
@@ -94,17 +97,15 @@ export default {
 </script>
 
 <template>
-    <div v-show="!display"
-        class="cont-title"> <span>No statistics available for this apartment</span> </div>
-    <div v-show="display"
-        class="cont-title">
-        <canvas id="statistic-chart"
+    <div class="cont-title"
+        v-show="!display"> <span>No statistics available for this apartment</span> </div>
+    <div class="cont-title"
+        v-show="display">
+        <canvas id="statistic-chart2"
             class="graph ">
 
         </canvas>
-
     </div>
-    <ChartMessages />
 </template>
 
 <style lang="scss" scoped>

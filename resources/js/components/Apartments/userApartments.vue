@@ -133,6 +133,12 @@
                                     Sponsor
                                 </button>
                             </router-link>
+                            <router-link :to="{ name: 'chartStatistics', params: { id: apartment.id } }">
+                                <button class="link-light btn btn-success me-2 my-2">
+                                    <font-awesome-icon icon="fa-solid fa-certificate" />
+                                    Statistics
+                                </button>
+                            </router-link>
 
                             <!-- bottone messaggi ricevuti -->
                             <div v-if="this.messages_count[index] > 0">

@@ -606,4 +606,61 @@ class ApiController extends Controller
             "response" => $apartment
         ]);
     }
+
+
+    /* Statistiche per chart */
+    public function getStatistics(Request $request)
+    {
+        $apartmentId = $request["apartmentId"];
+        $apartment = Apartment::find($apartmentId);
+        // $apartments = Apartment::select('*')->where('user_id', '=', auth()->user()->id)->get();
+
+        // $apartmentStatistic = array();
+        // $numViews = array();
+        // $apartmentsName = array();
+
+        // foreach ($apartments as $apartment) {
+        $apartmentStatistic = Statistic::select('*')->where('apartment_id', '=', $apartment->id)->orderBy("ip_date", "ASC")->get();
+        // array_push($apartmentsName, $apartment->title);
+        // array_push($numViews, Statistic::select('*')->where('apartment_id', '=', $apartment->id)->count());
+        // }
+
+
+        return response()->json([
+            "success" => true,
+            "apartmentStatistic" => $apartmentStatistic,
+            // "apartmentsName" => $apartmentsName,
+            // "numViews" => $numViews,
+        ]);
+    }
+
+    public function getMessagesStat(Request $request)
+    {
+        $apartmentId = $request["apartmentId"];
+        $apartment = Apartment::find($apartmentId);
+        // $apartments = Apartment::select('*')->where('user_id', '=', auth()->user()->id)->get();
+
+        // $apartmentStatistic = array();
+        // $numViews = array();
+        // $apartmentsName = array();
+
+        // foreach ($apartments as $apartment) {
+        $apartmentMessage = Message::select('*')->where('apartment_id', '=', $apartment->id)->orderBy("created_at", "ASC")->get();
+
+
+
+        // array_push($apartmentsName, $apartment->title);
+        // array_push($numViews, Statistic::select('*')->where('apartment_id', '=', $apartment->id)->count());
+        // }
+
+
+        return response()->json([
+            "success" => true,
+            "apartmentMessage" => $apartmentMessage,
+            // "apartmentsName" => $apartmentsName,
+            // "numViews" => $numViews,
+        ]);
+    }
+
+
 }
