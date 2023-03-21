@@ -151,9 +151,6 @@ export default {
         }
     },
     methods: {
-        logsp() {
-            console.log(this.apartmentsSponsor);
-        },
         getCoordinates() {
             this.onSearch = false;
             if (!this.apartmentSearch) return;
@@ -163,7 +160,6 @@ export default {
             xmlHttp.open("GET", theUrl, false);
             xmlHttp.send(null);
             var json = JSON.parse(xmlHttp.responseText);
-            console.log("json", json);
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
             this.getApartment();
@@ -178,12 +174,12 @@ export default {
 
             axios.post("/api/searchApartment", formData)
                 .then(res => {
-                    console.log("apSear", res);
+
                     this.onSearch = true;
                     this.searching = false;
                     this.apartmentsGeo = res.data.apartments;
                     this.apartmentsGeoSponsored = res.data.apartmentsSponsored;
-                    console.log(this.apartmentsGeo);
+
                     if (this.apartmentsGeo.length == 0 && this.apartmentsGeoSponsored == 0) {
                         this.error = "we didn't find any apartments";
                     }
@@ -219,7 +215,7 @@ export default {
 
 
                 }).catch((errors) => {
-                    console.log(errors);
+
                 });
         },
         checkSearchBar() {

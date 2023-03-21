@@ -195,13 +195,11 @@ export default {
         getData() {
             axios.get("/api/getData")
                 .then(res => {
-                    console.log(res);
+
                     this.services = res.data.response.services;
                     this.sponsors = res.data.response.sponsors;
-                    /* console.log(this.services); */
-                }).catch((errors) => {
-                    console.log(errors);
-                });
+
+                })
         },
         getMap() {
             let center = [parseFloat(this.apartment.long), parseFloat(this.apartment.lat)];
@@ -211,14 +209,14 @@ export default {
                 center: center,
                 zoom: 15,
             });
-            console.log(this.apartment.long);
+
             new tt.Marker({ color: "#ff385c", height: "40px", width: "30px" }).setLngLat(center).addTo(map);
         },
         getApartment() {
 
             axios.get("/api/getApartmentDetail/" + this.$route.params.id)
                 .then(res => {
-                    console.log(res.data.response);
+
                     this.apartment = res.data.apartment;
                     this.user = res.data.user;
                     this.visitator = res.data.visitator;
@@ -228,43 +226,18 @@ export default {
                             this.owner = true;
                         }
                     }
-
-                    console.log("si", this.apartment.user_id);
-                    console.log("si", this.user.id)
-                    console.log(this.apartment);
                     this.getMap();
-                    console.log(this.apartment.added_images);
-
-
                     this.meter = this.apartment.added_images.length;
                     this.highprice = parseInt((this.apartment.price) * 1.5);
-
-
-
                     const img_image = this.apartment.added_images[0].image;
                     const controller = img_image.substring(0, 5);
-
-
-                    console.log(controller);
-
 
                     if (controller == 'https') {
                         this.carousel_var = true;
                     } else {
                         this.carousel_var = false;
                     }
-
-                    console.log(this.highprice);
-                    console.log(this.apartment.long);
-                    console.log(this.apartment);
-                    console.log(this.apartment.added_images)
-                    console.log(this.meter)
-
-
-                }).catch((errors) => {
-                    console.log(errors);
-                });
-
+                })
         },
         nextImg() {
             this.activeItem++;

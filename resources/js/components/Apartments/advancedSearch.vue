@@ -135,7 +135,6 @@ export default {
             xmlHttp.open("GET", theUrl, false);
             xmlHttp.send(null);
             var json = JSON.parse(xmlHttp.responseText);
-            console.log("json", json);
             this.modelLat = parseFloat(json.results[0].position.lat);
             this.modelLong = parseFloat(json.results[0].position.lon);
             this.getApartment();
@@ -149,17 +148,12 @@ export default {
             formData.append("radius", this.radius);
             formData.append("rooms_num", this.roomsNum);
             formData.append("beds_num", this.bedsNum);
-            console.log(this.modelServices);
             this.modelServices.forEach((value) => formData.append("services[]", value))
 
             axios.post("/api/advancedSearch", formData)
                 .then(res => {
-                    console.log(res);
                     this.apartments = res.data.apartments;
                     this.apartmentsSponsored = res.data.apartmentsSponsored;
-                    console.log(res);
-                    console.log("norm", this.apartments);
-                    console.log("spons", this.apartmentsSponsored);
                     this.searching = false;
 
                     if (this.apartments.length == 0) {
@@ -187,16 +181,11 @@ export default {
             }
         },
         getData() {
-            console.log("prova");
             axios.get("/api/getData")
                 .then(res => {
                     this.services = res.data.response.services;
-                    console.log(this.services);
 
-
-                }).catch((errors) => {
-                    console.log(errors);
-                });
+                })
         },
         deleteText(e) {
             e.preventDefault();

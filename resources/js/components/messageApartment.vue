@@ -75,12 +75,10 @@
         <h1 class="ms_title_page_message mb-3">Create a message</h1>
 
         <!-- messaggio di conferma d'invio -->
-        <h3 class="mb-3 ms_message_sent"
-            v-if="messageConfirm">Message sent, you will be redirect to the Homepage...</h3>
+        <h3 class="mb-3 ms_message_sent" v-if="messageConfirm">Message sent, you will be redirect to the Homepage...</h3>
 
         <!-- messaggi di errore per l'utente -->
-        <div class="text-danger ms_ctn_errors"
-            v-if="errors.length">
+        <div class="text-danger ms_ctn_errors" v-if="errors.length">
             <b>Please correct the following error(s):</b>
             <ul>
                 <li v-for="error in errors">{{ error }};</li>
@@ -89,78 +87,46 @@
 
         <!-- container del form per creare un appartemento -->
         <div class="mb-3">
-            <form action=""
-                enctype="multipart/form-data"
-                @submit.prevent="sendMessage"
-                method="post">
+            <form action="" enctype="multipart/form-data" @submit.prevent="sendMessage" method="post">
 
                 <!-- input nome -->
-                <label for="name"
-                    class="ms_label_smartphone d-block d-md-none">Name:</label>
+                <label for="name" class="ms_label_smartphone d-block d-md-none">Name:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="name">Name :
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="name">Name :
                     </label>
-                    <input type="text"
-                        name="name"
-                        v-model="modelName"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a name..."
-                        aria-describedby="basic-addon1">
+                    <input type="text" name="name" v-model="modelName" class="form-control ms_input_focus_color"
+                        placeholder="Enter a name..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input Cognome -->
-                <label for="surname"
-                    class="ms_label_smartphone d-block d-md-none">Surname:</label>
+                <label for="surname" class="ms_label_smartphone d-block d-md-none">Surname:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="surname">Surname :
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="surname">Surname :
                     </label>
-                    <input type="text"
-                        name="surname"
-                        v-model="modelSurname"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a surname..."
-                        aria-describedby="basic-addon1">
+                    <input type="text" name="surname" v-model="modelSurname" class="form-control ms_input_focus_color"
+                        placeholder="Enter a surname..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input email -->
-                <label for="surname"
-                    class="ms_label_smartphone d-block d-md-none">Email:</label>
+                <label for="surname" class="ms_label_smartphone d-block d-md-none">Email:</label>
                 <!-- label che compare nei piccoli schermi -->
                 <div class="ms_ctn_input input-group mb-3">
-                    <label class="ms_label_bg input-group-text d-none d-md-block"
-                        id="basic-addon1"
-                        for="email">Email :
+                    <label class="ms_label_bg input-group-text d-none d-md-block" id="basic-addon1" for="email">Email :
                     </label>
-                    <input type="email"
-                        name="email"
-                        v-model="modelEmail"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Enter a email..."
-                        aria-describedby="basic-addon1">
+                    <input type="email" name="email" v-model="modelEmail" class="form-control ms_input_focus_color"
+                        placeholder="Enter a email..." aria-describedby="basic-addon1">
                 </div>
 
                 <!-- input per inserire il messaggio del testo -->
                 <div class="ms_ctn_input form-floating mb-3">
-                    <textarea type="text"
-                        class="form-control ms_input_focus_color"
-                        placeholder="Leave a comment here"
-                        id="floatingTextarea2"
-                        style="height: 150px"
-                        name="text"
-                        v-model="modelText"></textarea>
-                    <label for="floatingTextarea2 text"
-                        class="ms_label_text_area">Enter your message...</label>
+                    <textarea type="text" class="form-control ms_input_focus_color" placeholder="Leave a comment here"
+                        id="floatingTextarea2" style="height: 150px" name="text" v-model="modelText"></textarea>
+                    <label for="floatingTextarea2 text" class="ms_label_text_area">Enter your message...</label>
                 </div>
 
-                <input type="submit"
-                    value="Send"
-                    class="ms_input_submit">
+                <input type="submit" value="Send" class="ms_input_submit">
             </form>
         </div>
     </div>
@@ -185,9 +151,7 @@ export default {
         getUserLogged() {
             axios.get('/api/message/' + this.$route.params.id,)
                 .then(res => {
-                    // const success = res.data.success;
                     this.user = res.data.response
-                    console.log(this.user);
 
                     if (this.user = res.data.response) {
                         this.logged = true;
@@ -198,16 +162,10 @@ export default {
 
                     }
 
-                    console.log(this.logged);
-
-                }).catch((errors) => {
-                    console.log(errors);
-                });
-
+                })
         },
 
-        // creata la funzione send message che riceve tramite axios l'id dell'appartamento a cui andrà associato il messaggio
-        // e acquisisce i dati inseriti nel form dall'utente e li manda al database
+
         sendMessage() {
             const config = {
                 headers: {
@@ -219,22 +177,13 @@ export default {
             formData.append("name", this.modelName);
             formData.append("surname", this.modelSurname);
             formData.append("email", this.modelEmail);
-            // if (this.logged == false) {
-            //     formData.append("email", this.modelEmail);
-            // } else if (this.logged == true){
-            //     formData.set("email", this.user.email);
-
-            // }
             formData.append("text", this.modelText);
 
             axios.post("/api/sendMessage/" + this.$route.params.id, formData, config)
                 .then(res => {
                     this.messageConfirm = true;
-                    const success = res.data.success;
                     setTimeout(() => this.$router.push({ name: "Home" }), 1000);
 
-                    console.log(res);
-                    console.log(formData);
                     this.clearMessage();
                     this.errors = [];
 
@@ -252,11 +201,10 @@ export default {
                     if (!this.modelText) {
                         this.errors.push("Text message required")
                     }
-                    console.log(errors);
+
                 });
         },
 
-        // creata la funzione per pulire il form dopo l'invio di un messaggio e in più fa apparire un messaggio di conferma di invio
         clearMessage() {
             this.modelName = '';
             this.modelSurname = '';
@@ -267,7 +215,7 @@ export default {
     },
     mounted() {
         this.getUserLogged();
-        console.log(this.user.email);
+
     }
 }
 </script>

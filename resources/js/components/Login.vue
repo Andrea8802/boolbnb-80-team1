@@ -70,7 +70,7 @@ export default {
 
 
             }).catch((errors) => {
-                console.log(errors);
+
                 this.error = 'Invalid Email or Password! Try Again';
             });
         }

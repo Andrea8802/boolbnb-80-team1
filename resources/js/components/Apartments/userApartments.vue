@@ -242,19 +242,11 @@ export default {
                     this.apartments = res.data.response;
                     this.getNumViews();
 
-                    console.log(this.idApartments);
-
-
-                    console.log(this.apartments);
-                    console.log(this.apartments.length);
-
-
                     /* variabili count per show */
                     for (let i = 0; i < this.apartments.length; i++) {
 
                         /* messaggi */
                         const count_msg = this.apartments[i].messages.length;
-                        console.log(count_msg);
                         this.messages_count.push(count_msg);
 
                         /* sponsor */
@@ -263,13 +255,10 @@ export default {
 
 
                         /* end date */
-
                         this.sponsors_end.push(this.apartments[i].end_date);
-                        console.log(this.sponsors_end);
+
                     };
-                }).catch((errors) => {
-                    console.log(errors);
-                });
+                })
         },
 
         getNumViews() {
@@ -279,7 +268,7 @@ export default {
 
             axios.post('/api/getNumViews', formData)
                 .then(res => {
-                    console.log(res);
+
                     this.numViews = res.data.response
                 })
         },
@@ -290,10 +279,10 @@ export default {
                 .then(res => {
                     this.getUserApartments();
                     const success = res.data.success
-                    console.log(success);
+
 
                 }).catch((errors) => {
-                    console.log(errors);
+
                 });
         },
         toggleShow(x) {
@@ -318,7 +307,7 @@ export default {
             formData.append("apartment_id", apartment.id);
             axios.post('/api/changeVisibility', formData)
                 .then(res => {
-                    console.log(res);
+
                     this.getUserApartments();
                 })
         }
