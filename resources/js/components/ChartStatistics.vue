@@ -102,13 +102,16 @@ export default {
 
 <template>
     <div v-show="page">
-        <div v-show="!display" class="ms_cont-title container">
+        <div v-show="!display"
+            class="ms_cont-title container">
             <div class="">No statistics available for this apartment</div>
         </div>
+        <br>
         <div v-show="display">
             <h2 class="mt-3 text-center">How you are performing in views:</h2>
             <div class="ms_cont-title-one container-fluid container-lg mt-5">
-                <canvas id="statistic-chart" class="graph ">
+                <canvas id="statistic-chart"
+                    class="graph ">
 
                 </canvas>
 

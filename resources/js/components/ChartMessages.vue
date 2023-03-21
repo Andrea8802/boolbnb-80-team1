@@ -63,8 +63,8 @@ export default {
             var month = date.getMonth() + 1;
             var day = date.getDate();
             var year = date.getFullYear();
-            var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-            return day + "." + month + "." + year + ", " + time;
+            // var time = date.getHours() + ":" + date.getMinutes();
+            return year + "-" + month + "-" + day;
         },
         getMessagesStat() {
 
@@ -106,13 +106,18 @@ export default {
 </script>
 
 <template>
-    <h2 v-show="this.display" class="mt-3 text-center">People who wrote you:</h2>
-    <div v-show="this.display" class="ms_cont-title container-fluid container-lg mt-5">
-        <canvas id="statistic-chart2" class="graph">
+    <br>
+    <h2 v-show="this.display"
+        class="mt-3 text-center">People who wrote you:</h2>
+    <div v-show="this.display"
+        class="ms_cont-title container-fluid container-lg mt-5">
+        <canvas id="statistic-chart2"
+            class="graph">
 
         </canvas>
     </div>
-    <div v-show="!this.display" class="mt-5">
+    <div v-show="!this.display"
+        class="mt-5">
         <h5 class="text-center">You haven't yet received any messages for this apartment</h5>
     </div>
 </template>
