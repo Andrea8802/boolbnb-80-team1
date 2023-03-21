@@ -59,8 +59,8 @@ class ApiController extends Controller
     public function createApartment(Request $request)
     {
         $data = $request->validate([
-            "title" => ["string", "required", "min:10", "max:64"],
-            "description" => ["string", "required", "min:20", "max:255"],
+            "title" => ["string", "required", "min:10", "max:100"],
+            "description" => ["string", "required", "min:20", "max:350"],
             "price" => ["decimal:0,5", "required"],
             "rooms_num" => ["integer", "required", "max:100"],
             "beds_num" => ["integer", "required", "max:200"],
@@ -233,8 +233,8 @@ class ApiController extends Controller
     {
         $this->authorize('update', $apartment);
         $data = $request->validate([
-            "title" => ["string", "required", "min:10", "max:64"],
-            "description" => ["string", "required", "min:20", "max:255"],
+            "title" => ["string", "required", "min:10", "max:100"],
+            "description" => ["string", "required", "min:20", "max:350"],
             "price" => ["decimal:0,5", "required"],
             "rooms_num" => ["required", "integer", "max:100"],
             "beds_num" => ["required", "integer", "max:200"],

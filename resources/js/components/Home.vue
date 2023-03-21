@@ -1,7 +1,8 @@
 <template>
     <div class="container text-center">
         <!-- titolo della pagina -->
-        <h1 id="msTitlePage marg-home" class="ms_home_title  text-black">Hi! Where do you want to go today?</h1>
+        <h1 id="msTitlePage marg-home"
+            class="ms_home_title  text-black">Hi! Where do you want to go today?</h1>
 
         <!-- sottotitolo della pagina -->
         <h4 class="ms_home_subtitle mb-3 text-capitalize">your destination awaits: discover new and amazing experiences</h4>
@@ -10,15 +11,21 @@
     <!-- container della barra di ricerca e pulsante ricerca avanzata -->
     <div class="container text-center">
         <div class="ms_ctn_search input-group">
-            <input type="text" name="apartmentSearch" v-model="apartmentSearch" @keydown.enter="getCoordinates"
-                @keyup.delete="checkSearchBar" placeholder="Enter your destination..."
+            <input type="text"
+                name="apartmentSearch"
+                v-model="apartmentSearch"
+                @keydown.enter="getCoordinates"
+                @keyup.delete="checkSearchBar"
+                placeholder="Enter your destination..."
                 class="ms_search_bar form-control border-end-0">
-            <button @click="getCoordinates" class="input-group-text ms_btn_search border-start-0">
+            <button @click="getCoordinates"
+                class="input-group-text ms_btn_search border-start-0">
                 <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
             </button>
         </div>
         <div class="my-3">
-            <button @click="deleteText" class="ms_btn_delete me-3 principal">Reset</button>
+            <button @click="deleteText"
+                class="ms_btn_delete me-3 principal">Reset</button>
             <router-link :to="{ name: 'advancedSearch' }">
                 <button class="ms_btn_advanced principal">
                     Advanced Search
@@ -29,15 +36,19 @@
     <!-- =============================================================== -->
 
     <!-- container principale di tutte le card degli appartamenti -->
-    <div class="container-fluid mt-5 ms_ctn_card_home" v-if="!searching">
+    <div class="container-fluid mt-5 ms_ctn_card_home"
+        v-if="!searching">
         <div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 align-items-stretch g-2 g-lg-3"
                 v-if="!onSearch">
-                <div class="col ms_slot_card" v-for="apartment in apartmentsSponsored">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                <div class="col ms_slot_card"
+                    v-for="apartment in apartmentsSponsored">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
                         <div class="card rounded ms_card_efct border-0">
                             <div class="ms_slot_card_img">
-                                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                <img :src="'/storage/' + apartment.imageApartment"
+                                    :alt="apartment.title"
                                     class="rounded-5 fluid card-img-top">
                             </div>
                             <div class="ms_card_sponsored">Sponsored</div>
@@ -50,11 +61,14 @@
                     </router-link>
                 </div>
 
-                <div class="col ms_slot_card" v-for="apartment in apartments">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                <div class="col ms_slot_card"
+                    v-for="apartment in apartments">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
                         <div class="card rounded ms_card_efct border-0">
                             <div class="ms_slot_card_img">
-                                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                <img :src="'/storage/' + apartment.imageApartment"
+                                    :alt="apartment.title"
                                     class="rounded-5 fluid card-img-top">
                             </div>
                             <div class="card-body h-35 text-start ps-2">
@@ -69,11 +83,14 @@
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-6 align-items-stretch g-2 g-lg-3"
                 v-else>
-                <div class="col ms_slot_card" v-for="apartment in apartmentsGeoSponsored">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                <div class="col ms_slot_card"
+                    v-for="apartment in apartmentsGeoSponsored">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
                         <div class="card rounded ms_card_efct border-0 text-start">
                             <div class="ms_slot_card_img">
-                                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                <img :src="'/storage/' + apartment.imageApartment"
+                                    :alt="apartment.title"
                                     class="rounded-5 fluid card-img-top">
                                 <div class="ms_card_sponsored">Sponsored</div>
                             </div>
@@ -86,11 +103,14 @@
                     </router-link>
                 </div>
 
-                <div class="col ms_slot_card" v-for="apartment in apartmentsGeo">
-                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }" class="router">
+                <div class="col ms_slot_card"
+                    v-for="apartment in apartmentsGeo">
+                    <router-link :to="{ name: 'detailApartment', params: { id: apartment.id } }"
+                        class="router">
                         <div class="card rounded ms_card_efct border-0">
                             <div class="ms_slot_card_img">
-                                <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                                <img :src="'/storage/' + apartment.imageApartment"
+                                    :alt="apartment.title"
                                     class="rounded-5 fluid card-img-top">
                             </div>
                             <div class="card-body h-35 text-start ps-2">
@@ -197,18 +217,18 @@ export default {
                 })
         },
 
-        reloadPage() {
-            var currentDocumentTimestamp = new Date(performance.timing.domsearching).getTime();
-            // Current Time //
-            var now = Date.now();
-            // Total Process Lenght as Minutes //
-            var tenSec = 10 * 1000;
-            // End Time of Process //
-            var plusTenSec = currentDocumentTimestamp + tenSec;
-            if (now > plusTenSec) {
-                location.reload();
-            }
-        },
+        // reloadPage() {
+        //     var currentDocumentTimestamp = new Date(performance.timing.domsearching).getTime();
+        //     // Current Time //
+        //     var now = Date.now();
+        //     // Total Process Lenght as Minutes //
+        //     var tenSec = 10 * 1000;
+        //     // End Time of Process //
+        //     var plusTenSec = currentDocumentTimestamp + tenSec;
+        //     if (now > plusTenSec) {
+        //         location.reload();
+        //     }
+        // },
         allApartments() {
             axios.get("/api/allApartments")
                 .then(res => {
@@ -236,9 +256,11 @@ export default {
     },
 
     mounted() {
-        this.reloadPage();
+        // this.reloadPage();
         this.allApartments()
-        // this.apartmentsSponsored()
+        if (window.location.href.substr(-2) !== "?r") {
+            window.location = window.location.href + "?r";
+        }
 
     }
 }

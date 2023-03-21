@@ -80,13 +80,15 @@
             <!-- container delle card degli appartamenti -->
             <div class="ms_ctn_card_ap_us my-3">
                 <!-- card dell'apartamento -->
-                <div class="card text-center mb-3" v-for="(apartment, index) in this.apartments">
+                <div class="card text-center mb-3"
+                    v-for="(apartment, index) in this.apartments">
                     <div class="card-header">
                         <h4>{{ apartment.title }}</h4>
                     </div>
                     <div class="card-body row row-cols-1 row-cols-lg-3">
                         <div class="col ms_slot_img">
-                            <img :src="'/storage/' + apartment.imageApartment" :alt="apartment.title"
+                            <img :src="'/storage/' + apartment.imageApartment"
+                                :alt="apartment.title"
                                 class="w-100 rounded-5">
                         </div>
                         <div class="col">
@@ -102,7 +104,7 @@
 
                             <span class="ms_description_ap">Price:</span>
                             <p class="card-text">
-                                {{ apartment.price }} €
+                                {{ apartment.price }} € / night
                             </p>
                         </div>
 
@@ -110,7 +112,8 @@
                         <div class="col d-flex flex-row flex-lg-column flex-wrap flex-lg-nowrap justify-content-center">
                             <!-- bottone per cancellare l'appartamento -->
                             <div>
-                                <button class="btn btn-danger me-2 my-2" @click="deleteApartment(apartment.id)">
+                                <button class="btn btn-danger me-2 my-2"
+                                    @click="deleteApartment(apartment.id)">
                                     Delete
                                 </button>
                             </div>
@@ -133,7 +136,8 @@
 
                             <!-- bottone messaggi ricevuti -->
                             <div v-if="this.messages_count[index] > 0">
-                                <button class="btn btn-light me-2 my-2 border-dark" @click="this.toggleShow(index)"
+                                <button class="btn btn-light me-2 my-2 border-dark"
+                                    @click="this.toggleShow(index)"
                                     :class="this.messages_count[index] > 0 ? 'ms_msg_present' : ''">
                                     <font-awesome-icon icon="fa-regular fa-envelope"
                                         :class="this.messages_count[index] > 0 ? 'ms_font_icon' : ''" />
@@ -142,13 +146,15 @@
 
                             <!-- bottone per andare alla pagina messagi -->
                             <div v-else>
-                                <button class="btn btn-light me-2 my-2 border-dark" @click="this.toggleShow(index)">
+                                <button class="btn btn-light me-2 my-2 border-dark"
+                                    @click="this.toggleShow(index)">
                                     <font-awesome-icon icon="fa-solid fa-comment-slash" />
                                     Messages
                                 </button>
                             </div>
 
-                            <div class="ms_msg ms_active_hide text-center" :id="index">
+                            <div class="ms_msg ms_active_hide text-center"
+                                :id="index">
                                 You have {{ this.messages_count[index] }} messages for this apartment
                                 <router-link v-if="this.messages_count[index] > 0"
                                     :to="{ name: 'viewMessages', params: { id: apartment.id } }"
@@ -160,14 +166,16 @@
 
                             <!-- bottini per la visibilità dell'apartamento -->
                             <div v-if="apartment.visibility">
-                                <button class="btn btn-light me-2 my-2 border-dark" @click="changeVisibility(apartment)">
+                                <button class="btn btn-light me-2 my-2 border-dark"
+                                    @click="changeVisibility(apartment)">
                                     <font-awesome-icon icon="fa-solid fa-eye-slash" />
                                     Set Private
                                 </button>
                             </div>
 
                             <div v-else>
-                                <button class="btn btn-light me-2 my-2 border-dark" @click="changeVisibility(apartment)">
+                                <button class="btn btn-light me-2 my-2 border-dark"
+                                    @click="changeVisibility(apartment)">
                                     <font-awesome-icon icon="fa-solid fa-eye" />
                                     Set Public
                                 </button>
@@ -177,9 +185,11 @@
                     </div>
                     <div class="card-footer text-muted">
                         <!-- sponsorizzazione appartamento -->
-                        <div class="ms_aps_sponsor" v-show="this.sponsors_count[index] > 0">
+                        <div class="ms_aps_sponsor"
+                            v-show="this.sponsors_count[index] > 0">
                             <div class="btn disabled btn-sm btn-danger mx-auto my-2 text-capitalize">
-                                <font-awesome-icon icon="fa-solid fa-certificate" class="ms_sponsor_icon" />
+                                <font-awesome-icon icon="fa-solid fa-certificate"
+                                    class="ms_sponsor_icon" />
                                 sponsored
                             </div>
                             <div v-if="apartment.end_date && apartment.end_date[index]">
@@ -223,18 +233,18 @@ export default {
         }
     },
     methods: {
-        reloadPage() {
-            var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
-            // Current Time //
-            var now = Date.now();
-            // Total Process Lenght as Minutes //
-            var tenSec = 10 * 1000;
-            // End Time of Process //
-            var plusTenSec = currentDocumentTimestamp + tenSec;
-            if (now > plusTenSec) {
-                location.reload();
-            }
-        },
+        // reloadPage() {
+        //     var currentDocumentTimestamp = new Date(performance.timing.domLoading).getTime();
+        //     // Current Time //
+        //     var now = Date.now();
+        //     // Total Process Lenght as Minutes //
+        //     var tenSec = 10 * 1000;
+        //     // End Time of Process //
+        //     var plusTenSec = currentDocumentTimestamp + tenSec;
+        //     if (now > plusTenSec) {
+        //         location.reload();
+        //     }
+        // },
 
         getUserApartments() {
             axios.get("/api/userApartments")
@@ -326,8 +336,11 @@ export default {
     },
 
     mounted() {
-        this.reloadPage();
+        // this.reloadPage();
         this.getUserApartments();
+        if (window.location.href.substr(-2) !== "?r") {
+            window.location = window.location.href + "?r";
+        }
     }
 }
 </script>

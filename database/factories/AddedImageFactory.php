@@ -16,9 +16,19 @@ class AddedImageFactory extends Factory
      */
     public function definition()
     {
+        $images = [
+            "cucina1.jpeg",
+            "letto1.jpg",
+            "bagno1.jpg",
+            "salotto1.jpg"
+
+        ];
         return [
             /* "name" => fake()->word(), */
-            "image" => 'https://picsum.photos/800/600?random=' . fake()->randomNumber(5, true),
+            // "image" => 'https://picsum.photos/800/600?random=' . fake()->randomNumber(5, true),
+
+
+            "image" => $images[array_rand($images)]
         ];
     }
 }
