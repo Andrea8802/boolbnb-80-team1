@@ -97,10 +97,7 @@ export default {
 </script>
 
 <template>
-    <div class="cont-title"
-        v-show="!display"> <span>No statistics available for this apartment</span> </div>
-    <div class="cont-title"
-        v-show="display">
+    <div class="cont-title">
         <canvas id="statistic-chart2"
             class="graph ">
 

@@ -10,6 +10,7 @@ export default {
     data() {
 
         return {
+            page: false,
             display: false,
             apartmentName: [],
             ChartStatistic: {
@@ -60,7 +61,7 @@ export default {
             axios.post('/api/getStatistics/' + this.$route.params.id, formData)
                 .then(res => {
 
-
+                    this.page = true;
                     // this.apartmentsName = res.data.apartmentStatistic[0];
                     this.apartmentName = res.data.apartmentStatistic;
                     if (this.apartmentName.length !== 0) {
@@ -94,17 +95,20 @@ export default {
 </script>
 
 <template>
-    <div v-show="!display"
-        class="cont-title"> <span>No statistics available for this apartment</span> </div>
-    <div v-show="display"
-        class="cont-title">
-        <canvas id="statistic-chart"
-            class="graph ">
+    <div v-show="page">
+        <div v-show="!display"
+            class="cont-title"> <span>No statistics available for this apartment</span> </div>
+        <div v-show="display">
+            <div class="cont-title">
+                <canvas id="statistic-chart"
+                    class="graph ">
 
-        </canvas>
+                </canvas>
 
+            </div>
+            <ChartMessages />
+        </div>
     </div>
-    <ChartMessages />
 </template>
 
 <style lang="scss" scoped>
