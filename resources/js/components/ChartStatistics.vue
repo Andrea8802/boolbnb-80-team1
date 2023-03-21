@@ -49,7 +49,6 @@ export default {
                 }
             },
 
-
         }
     },
     methods: {
@@ -74,12 +73,8 @@ export default {
                             this.ChartStatistic.data.datasets[0].data.push(i + 1);
 
                         }
-
-
                     }
 
-
-                    console.log(this.apartmentName);
                     const chart = document.getElementById('statistic-chart');
                     new Chart(chart, this.ChartStatistic);
 
@@ -89,19 +84,16 @@ export default {
     mounted() {
         this.getStatistics();
 
-
     }
 }
 </script>
 
 <template>
     <div v-show="page">
-        <div v-show="!display"
-            class="cont-title"> <span>No statistics available for this apartment</span> </div>
+        <div v-show="!display" class="cont-title"> <span>No statistics available for this apartment</span> </div>
         <div v-show="display">
             <div class="cont-title">
-                <canvas id="statistic-chart"
-                    class="graph ">
+                <canvas id="statistic-chart" class="graph ">
 
                 </canvas>
 

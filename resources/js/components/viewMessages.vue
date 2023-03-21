@@ -289,7 +289,6 @@ export default {
             users: [],
             apartment: [],
             activeChat: 0,
-
             messagesAuthors: [],
         }
     },
@@ -320,9 +319,6 @@ export default {
                             this.messagesAuthors.push(this.messages[i].name);
                         }
                     };
-
-                    console.log(this.messagesAuthors);
-                    console.log(this.messages);
 
                 }).catch((errors) => {
                     if (errors.response.status = 403) {
