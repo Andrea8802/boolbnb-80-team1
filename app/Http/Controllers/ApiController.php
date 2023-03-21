@@ -209,7 +209,7 @@ class ApiController extends Controller
             $apartment->statistics()->save($statistic);
         }
 
-        !auth()->user() ? $visitator = false : $visitator = auth()->user();
+        ! auth()->user() ? $visitator = false : $visitator = auth()->user();
 
         return response()->json([
             "success" => true,
@@ -428,7 +428,7 @@ class ApiController extends Controller
             ->orderby("distance", "asc");
 
         // Se è vuoto non controllare service
-        if (!empty($services)) {
+        if (! empty($services)) {
 
             $apartments->join("apartment_service", "apartments.id", "=", "apartment_service.apartment_id")
                 ->whereIn("apartment_service.service_id", $services);
@@ -511,7 +511,7 @@ class ApiController extends Controller
         $id = $request["apartmentId"];
         $apartment = Apartment::find($id);
 
-        if (!$apartment->sponsors()->where('apartment_id', $id)->exists()) {
+        if (! $apartment->sponsors()->where('apartment_id', $id)->exists()) {
             $apartment->sponsors()->attach($sponsor);
             $date = new DateTime();
             $dateTime = $date->setTimeZone(new DateTimeZone('CET'));
@@ -596,7 +596,7 @@ class ApiController extends Controller
         $apartment = Apartment::select('*')
             ->where('id', '=', $apartmentId)->first();
 
-        $apartment->visibility = !$apartment->visibility;
+        $apartment->visibility = ! $apartment->visibility;
 
         $apartment->save();
 
@@ -606,4 +606,32 @@ class ApiController extends Controller
             "response" => $apartment
         ]);
     }
+
+
+    /* Statistiche per chart */
+    public function getStatistics(Request $request)
+    {
+
+        $apartments = Apartment::select('*')->where('user_id', '=', auth()->user()->id)->get();
+
+        $apartmentStatistic = array();
+        $numViews = array();
+        $apartmentsName = array();
+
+        foreach ($apartments as $apartment) {
+            array_push($apartmentStatistic, Statistic::select('*')->where('apartment_id', '=', $apartment->id)->get());
+            array_push($apartmentsName, $apartment->title);
+            array_push($numViews, Statistic::select('*')->where('apartment_id', '=', $apartment->id)->count());
+        }
+        ;
+
+        return response()->json([
+            "success" => true,
+            "apartmentStatistic" => $apartmentStatistic,
+            "apartmentsName" => $apartmentsName,
+            "numViews" => $numViews,
+        ]);
+    }
+
+
 }

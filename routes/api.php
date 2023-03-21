@@ -58,3 +58,4 @@ Route::post('sponsorApartmentId', [ApiController::class, 'sponsorApartmentId']);
 Route::post('Apartment/{apartment}/added-images', [ApiController::class, 'createAddedImages']);
 
 Route::post('changeVisibility', [ApiController::class, 'changeVisibility']);
+Route::get('getStatistics', [ApiController::class, 'getStatistics']);
