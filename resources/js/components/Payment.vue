@@ -2,51 +2,35 @@
     <div class="form-container py-5">
 
         <header>
-            <h1 class="mb-2"
-                id="title-check"
-                @click="log">Checkout</h1>
+            <h1 class="mb-2" id="title-check" @click="log">Checkout</h1>
         </header>
 
-        <form id="my-sample-form"
-            method="post"
-            class="scale-down"
-            autocomplete="off">
+        <form id="my-sample-form" method="post" class="scale-down" autocomplete="off">
 
             <div class="cardinfo-card-number">
-                <label class="cardinfo-label"
-                    for="card-number">Card Number</label>
-                <div class='input-wrapper'
-                    id="card-number"></div>
+                <label class="cardinfo-label" for="card-number">Card Number</label>
+                <div class='input-wrapper' id="card-number"></div>
                 <div id="card-image"></div>
             </div>
 
             <div class="cardinfo-wrapper">
                 <div class="cardinfo-exp-date">
-                    <label class="cardinfo-label"
-                        for="expiration-date">Valid Thru</label>
-                    <div class='input-wrapper'
-                        id="expiration-date"></div>
+                    <label class="cardinfo-label" for="expiration-date">Valid Thru</label>
+                    <div class='input-wrapper' id="expiration-date"></div>
                 </div>
 
                 <div class="cardinfo-cvv">
-                    <label class="cardinfo-label"
-                        for="cvv">CVV</label>
-                    <div class='input-wrapper'
-                        id="cvv"></div>
+                    <label class="cardinfo-label" for="cvv">CVV</label>
+                    <div class='input-wrapper' id="cvv"></div>
                 </div>
             </div>
 
         </form>
-        <div v-if="payed"
-            class="green">Payment Successful, You will be redirect to your apartments page... <br>
+        <div v-if="payed" class="green">Payment Successful, You will be redirect to your apartments page... <br>
         </div>
-        <div v-if="error"
-            class="red">Invalid Card Number, Try Again <br> <br>
+        <div v-if="error" class="red">Invalid Card Number, Try Again <br> <br>
         </div>
-        <input type="submit"
-            value="Pay"
-            class="btn btn-outline-danger btn-lg"
-            id="btn-pay" />
+        <input type="submit" value="Pay" class="btn btn-outline-danger btn-lg" id="btn-pay" />
 
 
     </div>
@@ -62,11 +46,6 @@ export default {
             payed: false
         };
     },
-    methods: {
-        log() {
-            console.log(this.$route.params.sponsor);
-        }
-    },
     mounted() {
         var submit = document.querySelector('input[type="submit"]');
         var form = document.querySelector('#my-sample-form');
@@ -74,10 +53,6 @@ export default {
             {
                 authorization: "sandbox_csdswdwm_4vzxvdhwmxsz2ggq",
             }, (clientErr, clientInstance) => {
-                if (clientErr) {
-                    console.error(clientErr);
-                    return;
-                }
                 // Create input fields and add text styles
                 braintree.hostedFields.create(
                     {
@@ -129,11 +104,6 @@ export default {
                             }
                         }
                     }, (hostedFieldsErr, hostedFieldsInstance) => {
-                        if (hostedFieldsErr) {
-
-                            console.error(hostedFieldsErr);
-                            return;
-                        }
                         hostedFieldsInstance.on('validityChange', (event) => {
                             // Check if all fields are valid, then show submit button
                             var formValid = Object.keys(event.fields).every(function (key) {
@@ -177,7 +147,6 @@ export default {
                             hostedFieldsInstance.tokenize((tokenizeErr) => {
                                 if (tokenizeErr) {
                                     this.error = true;
-                                    console.error(tokenizeErr);
                                     return;
                                 }
                                 else {
@@ -194,20 +163,8 @@ export default {
 
 
 
-                                    }).catch((errors) => {
-
-                                        console.log(errors);
-
-                                    });
+                                    })
                                 }
-                                // router.post(
-                                //     route("dashboard.transaction"),
-                                //     {
-                                //         payload: payload,
-                                //         target: store.target,
-                                //     }
-                                // );
-                                // store.isProcessing = true;
                             });
                         }, false);
                     }

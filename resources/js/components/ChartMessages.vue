@@ -70,7 +70,6 @@ export default {
                     }
                     for (let i = 0; i < this.apartmentName.length; i++) {
                         this.ChartStatistic.data.labels.push((this.getFormattedDate(new Date(this.apartmentName[i].created_at))));
-                        console.log(this.apartmentName[i].created_at);
 
                         if (this.apartmentName[i]) {
                             this.ChartStatistic.data.datasets[0].data.push(i + 1);
@@ -80,8 +79,6 @@ export default {
 
                     }
 
-
-                    console.log(this.apartmentName);
                     const chart = document.getElementById('statistic-chart2');
                     new Chart(chart, this.ChartStatistic);
 
@@ -98,8 +95,7 @@ export default {
 
 <template>
     <div class="cont-title">
-        <canvas id="statistic-chart2"
-            class="graph ">
+        <canvas id="statistic-chart2" class="graph ">
 
         </canvas>
     </div>

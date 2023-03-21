@@ -9,14 +9,8 @@ export default {
         getApartments() {
             axios.get('getApartments')
                 .then(res => {
-
                     this.apartments = res.data.response;
-
-                    console.log(this.apartments)
-
-                }).catch((errors) => {
-                    console.log(errors);
-                });
+                })
         }
     },
     mounted() {
