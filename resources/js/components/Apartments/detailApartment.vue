@@ -1,14 +1,19 @@
 <template>
     <div class="container pt-4">
-        <div class="lg-w-50 md-w-80 mx-auto ps-2">
-            <h4 class="ms_title">{{ apartment.title }}</h4>
-            <span class="ms_address_ap me-2">{{ apartment.address }}</span>
-            <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }" v-if="owner">
-                <button class="link-dark btn btn-warning me-2 my-2">
-                    <font-awesome-icon icon="fa-solid fa-pen-to-square" /> <!-- GRAFICA BTN TEMPORANEA -->
-                    Edit
-                </button>
-            </router-link>
+        <div class="row justify-content-between ">
+            <div class="col-12 col-lg-10 lg-w-50 md-w-80 mx-auto">
+                <h4 class="ms_title">{{ apartment.title }}</h4>
+                <span class="ms_address_ap me-2">{{ apartment.address }}</span>
+            </div>
+
+            <div class="col-12 col-lg-2 text-start text-lg-end">
+                <router-link :to="{ name: 'editApartment', params: { id: apartment.id } }" v-if="owner">
+                    <button class="ms_btn_message mt-3">
+                        <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+                        Edit
+                    </button>
+                </router-link>
+            </div>
         </div>
 
         <div class="row d-flex mt-3">
