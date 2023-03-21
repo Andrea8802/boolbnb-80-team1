@@ -24,39 +24,40 @@ Route::middleware('auth:sanctum')->get('athenticated', function () {
     return true;
 });
 
+// Auth User
 Route::post('register', 'App\Http\Controllers\Auth\RegisterController@register');
-
 Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
+Route::get('logout', [ApiController::class, 'logout'])->name("logout");
+Route::get('getUserLogged', [ApiController::class, 'getUserLogged']);
+
+// Apartment
 Route::get('userApartments', [ApiController::class, 'userApartments']);
-Route::get('Apartment/{apartment}', [ApiController::class, 'getApartment']); //
+Route::get('Apartment/{apartment}', [ApiController::class, 'getApartment']);
 Route::post('apartments', [ApiController::class, 'createApartment']);
 Route::get('delete/{apartment}', [ApiController::class, 'deleteApartment']);
 Route::get('getData', [ApiController::class, 'getData']);
 Route::get('getInfo', [ApiController::class, 'getInfo']);
-Route::get('getUserLogged', [ApiController::class, 'getUserLogged']);
 Route::get('allApartments', [ApiController::class, 'allApartments']);
 Route::post('updateApartment/{apartment}', [ApiController::class, 'updateApartment']);
-// Route::post('login', 'App\Http\Controllers\Auth\LoginController@login');
-Route::get('logout', [ApiController::class, 'logout'])->name("logout");
 Route::post('searchApartment', [ApiController::class, 'searchApartment']);
+Route::post('advancedSearch', [ApiController::class, 'advancedSearch']);
+Route::get('getApartmentDetail/{apartment}', [ApiController::class, 'getApartmentDetail']);
+Route::get('apartment-edit/{apartment}', [ApiController::class, 'getApartmentEdit']);
+Route::post('Apartment/{apartment}/added-images', [ApiController::class, 'createAddedImages']);
+Route::post('changeVisibility', [ApiController::class, 'changeVisibility']);
+
+// Sponsor
 Route::get('sponsors', [ApiController::class, 'getSponsors']);
 Route::post('sponsorPayment', [ApiController::class, 'sponsorPayment']);
 Route::get('apartmentsSponsor', [ApiController::class, 'getApartmentsSponsor']);
-Route::get('getApartmentDetail/{apartment}', [ApiController::class, 'getApartmentDetail']);
-
-Route::post('advancedSearch', [ApiController::class, 'advancedSearch']);
-Route::post('getNumViews', [ApiController::class, 'getNumViews']);
-
-
-/* Route::get('getUser', [ApiController::class, 'getUser']); */
-
-Route::get('apartment-edit/{apartment}', [ApiController::class, 'getApartmentEdit']);
-Route::post('getMessages', [ApiController::class, 'getMessages']);
-Route::get('message/{user}', [ApiController::class, 'getUserLogged']);
-Route::post('sendMessage/{apartment}', [ApiController::class, 'sendMessage']);
 Route::post('sponsorApartmentId', [ApiController::class, 'sponsorApartmentId']);
-Route::post('Apartment/{apartment}/added-images', [ApiController::class, 'createAddedImages']);
 
-Route::post('changeVisibility', [ApiController::class, 'changeVisibility']);
-Route::post('getStatistics/{apartment}', [ApiController::class, 'getStatistics']);
+// Messages
+Route::post('getMessages', [ApiController::class, 'getMessages']);
+Route::post('sendMessage/{apartment}', [ApiController::class, 'sendMessage']);
+Route::get('message/{user}', [ApiController::class, 'getUserLogged']);
 Route::post('getMessagesStat/{apartment}', [ApiController::class, 'getMessagesStat']);
+
+// Statistics
+Route::post('getStatistics/{apartment}', [ApiController::class, 'getStatistics']);
+Route::post('getNumViews', [ApiController::class, 'getNumViews']);

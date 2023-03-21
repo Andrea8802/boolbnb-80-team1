@@ -192,7 +192,6 @@ export default {
     methods: {
         onImageChange(e) {
             this.imageBool = true
-            console.log(e)
             this.avatar = e.target.files[0];
 
         },
@@ -239,14 +238,6 @@ export default {
                 if (!this.modelPasswordConf) {
                     this.errors.push("Password confirmed required")
                 }
-                // if (!this.modelName) {
-                //     this.errors.push("Name required")
-                // }
-                // if (!this.modelDate) {
-                //     this.errors.push("Date of birth required")
-                // }
-
-                console.log(errors);
             });
         }
     }

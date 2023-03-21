@@ -177,6 +177,7 @@ body {
 
 <template>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- componente diplay grandi -->
     <div class="container mt-5 mb-5 d-none d-md-block">
@@ -328,7 +329,6 @@ export default {
                         this.$router.push({ name: "Login" });
                     }
 
-                    console.log(errors);
                 });
         },
         geteditApartment() {
@@ -336,26 +336,17 @@ export default {
             axios.get("/api/Apartment/" + this.$route.params.id)
                 .then(res => {
                     this.getApartment = res.data.response;
-                    console.log(this.getApartment);
-
-
-                }).catch((errors) => {
-
-                    console.log(errors);
-                });
+                })
         },
         getInfo() {
             axios.get("/api/getInfo")
                 .then(res => {
                     this.users = res.data.user;
                     this.apartment = res.data.apartment;
-                    console.log(this.users);
-                }).catch((errors) => {
-                    console.log(errors);
-                });
+
+                })
         },
     },
-
 
     mounted() {
         this.geteditApartment()

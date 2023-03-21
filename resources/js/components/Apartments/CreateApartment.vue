@@ -282,11 +282,8 @@ export default {
             view: false,
             arrayAp: ['jpg', 'png', 'jpeg', 'gif', 'svg'],
             waitTime: true,
-
-            /* variabili added images */
             addedImages: [],
             addImgBool: false,
-
 
         }
     },
@@ -294,14 +291,14 @@ export default {
         address(addressObj) {
             this.modelAddressSearch = addressObj.address.freeformAddress
             this.modelLat = parseFloat(addressObj.position.lat)
-            console.log(this.modelLat);
+
             this.modelLong = parseFloat(addressObj.position.lon)
-            console.log(this.modelAddress);
+
         },
 
         onImageChange(e) {
             this.imageBool = true
-            console.log(e)
+
             this.imageApartment = e.target.files[0];
 
         },
@@ -310,9 +307,9 @@ export default {
                 .then(res => {
                     this.services = res.data.response.services;
                     this.sponsors = res.data.response.sponsors;
-                    console.log(this.services,);
+
                 }).catch((errors) => {
-                    console.log(errors);
+
                 });
         },
         createApartment() {
@@ -337,20 +334,14 @@ export default {
             formData.append("long", this.modelLong);
             this.modelServices.forEach((value) => formData.append("services[]", value));
             this.addedImages.forEach((value) => formData.append("added_images[]", value));
-            console.log(this.modelServices);
-            console.log(this.addedImages);
 
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);
             }
-            console.log(this.modelServices);
 
             axios.post("/api/apartments", formData, config)
                 .then(res => {
                     const success = res.data.success;
-                    console.log(res.data.apartment);
-                    console.log(formData);
-                    console.log(res.data.added_images);
                     this.$router.push({ name: "userApartments" })
                 }).catch((errors) => {
                     if (!this.modelTitle) {
@@ -386,14 +377,6 @@ export default {
                     if (!this.imageApartment) {
                         this.errors.push("Apartment image required")
                     }
-                    // if (!this.getApartment.imageApartment) {
-                    //     this.errors.push("Apartment image required")
-                    // } else if (!['jpg', 'png', 'jpeg', 'gif', 'svg'].some(ext => this.getApartment.imageApartment.toLowerCase().endsWith(ext))) {
-                    //     this.errors.push("Apartment image must be jpg, png, jpeg, gif, or svg")
-                    // }
-                    // if (!['jpg', 'png', 'jpeg', 'gif', 'svg'].some(ext => this.imageApartment.toLowerCase().endsWith(ext))) {
-                    //     this.errors.push("Apartment image must be jpg, png, jpeg, gif, or svg")
-                    // }
                     if (this.addedImages.length === 0) {
                         this.errors.push("You need to insert at least one image")
                     }
@@ -402,7 +385,7 @@ export default {
                         this.errors.push("Insert at least 1 service")
                     }
 
-                    console.log(errors);
+
                 });
         },
         getCoordinates() {
@@ -424,14 +407,14 @@ export default {
             this.arrayApartments = json.results
             this.view = true;
 
-            console.log(this.arrayApartments);
+
             // }
 
             // this.createApartment();
         },
         onAddedImagesChange(e) {
             this.addImgBool = true;
-            console.log(e);
+
             let selectedImages = e.target.files;
             if (!selectedImages.length) {
                 return false;
@@ -442,7 +425,7 @@ export default {
             }
 
 
-            console.log(this.addedImages);
+
         }
 
 

@@ -315,11 +315,9 @@ export default {
     },
     methods: {
         address(addressObj) {
-            this.getApartment.address = addressObj.address.freeformAddress
-            this.getApartment.lat = parseFloat(addressObj.position.lat)
-            console.log(this.getApartment.lat);
-            this.getApartment.long = parseFloat(addressObj.position.lon)
-            console.log(this.getApartment.long);
+            this.getApartment.address = addressObj.address.freeformAddress;
+            this.getApartment.lat = parseFloat(addressObj.position.lat);
+            this.getApartment.long = parseFloat(addressObj.position.lon);
         },
         apServices(service) {
             for (let index = 0; index < this.getApartment.services.length; index++) {
@@ -340,7 +338,6 @@ export default {
                 for (let index = 0; index < this.getApartment.services.length; index++) {
                     const el = this.getApartment.tags[index];
                     if (el.id !== element.value && element.checked) {
-                        console.log(this.getApartment.tags);
                         this.selectedCheck.push(element.value);
 
                     }
@@ -348,12 +345,11 @@ export default {
 
 
             }
-            console.log(this.selectedCheck);
+
             return this.selectedCheck;
         },
         onImageChange(e) {
             this.imageBool = true
-            console.log(e)
             this.imageApartment = e.target.files[0];
 
         },
@@ -362,9 +358,9 @@ export default {
                 .then(res => {
                     this.services = res.data.response.services;
                     this.sponsors = res.data.response.sponsors;
-                    console.log(this.services);
+
                 }).catch((errors) => {
-                    console.log(errors);
+
                 });
         },
         updateApartment() {
@@ -394,18 +390,16 @@ export default {
                     const el = this.getApartment.services[index];
                     if (el.id !== element.value && element.checked) {
                         this.selectedCheck.push(element.value);
-
                     }
                 }
 
-
             }
             this.selectedCheck.forEach(function (value) {
-                console.log(value);
+
                 formData.append("services[]", value)
             })
             this.addedImages.forEach((value) => formData.append("added_images[]", value));
-            console.log(this.selectedCheck);
+
             if (this.imageBool) {
                 formData.append('imageApartment', this.imageApartment);
             }
@@ -413,7 +407,7 @@ export default {
             axios.post("/api/updateApartment/" + this.$route.params.id, formData, config)
                 .then(res => {
                     const success = res.data.success;
-                    console.log(res);
+
                     this.$router.push({ name: 'userApartments' })
                 }).catch((errors) => {
                     if (!this.getApartment.title) {
@@ -455,10 +449,8 @@ export default {
                     if (this.selectedCheck.length === 0) {
                         this.errors.push("Insert at least 1 service")
                     }
-                    console.log(errors);
+
                 });
-
-
 
         },
         getEditApartment() {
@@ -466,12 +458,9 @@ export default {
                 .then(res => {
                     this.getApartment = res.data.response[0];
                     this.user = res.data.response[1]
-                    console.log(this.getApartment);
-                    console.log(this.user);
-
 
                 }).catch((errors) => {
-                    console.log(errors);
+
                     if (errors.response.status = 403) {
                         this.$router.push({ name: "Login" });
                     }
@@ -480,7 +469,7 @@ export default {
 
         },
         getCoordinates() {
-            console.log("sni");
+
             if (!this.waitTime) return;
             this.waitTime = false;
 
@@ -492,16 +481,13 @@ export default {
             xmlHttp.open("GET", theUrl, false);
             xmlHttp.send(null);
             var json = JSON.parse(xmlHttp.responseText);
-            console.log(this.json);
-
             this.arrayApartments = json.results
             this.view = true;
-
 
         },
         onAddedImagesChange(e) {
             this.addImgBool = true;
-            console.log(e);
+
             let selectedImages = e.target.files;
             if (!selectedImages.length) {
                 return false;
@@ -511,8 +497,6 @@ export default {
                 this.addedImages.push(e.target.files[i]);
             }
 
-
-            console.log(this.addedImages);
         },
 
     },
