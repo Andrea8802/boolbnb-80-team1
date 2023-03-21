@@ -45,6 +45,7 @@ export default {
                         ],
                         xAxes: [
                             {
+
                                 ticks: {
                                     padding: 10,
                                     fontSize: 16,

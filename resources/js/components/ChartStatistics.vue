@@ -51,9 +51,14 @@ export default {
                         ],
                         xAxes: [
                             {
+                                callback: function (val, index) {
+                                    // Hide every 2nd tick label
+                                    return index % 2 === 0 ? this.getLabelForValue(val) : '';
+                                },
                                 ticks: {
                                     padding: 10,
                                     fontSize: 16,
+                                    autoSkipPadding: 15
                                 }
                             }
                         ]
