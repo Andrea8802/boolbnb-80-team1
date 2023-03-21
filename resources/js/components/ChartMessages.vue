@@ -15,8 +15,8 @@ export default {
                         {
                             label: "Number of Messages",
                             data: [0],
-                            backgroundColor: "rgba(20,132,143,.2)",
-                            borderColor: "#14848f",
+                            backgroundColor: "rgba(66,133,264,.2)",
+                            borderColor: "#4285f4",
                             borderWidth: 3,
                             textStrokeWidth: "42"
                         },
